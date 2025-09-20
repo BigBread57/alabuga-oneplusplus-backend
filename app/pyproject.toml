@@ -1,0 +1,100 @@
+[tool.poetry]
+authors = ["ONEPLUSPLUS <tech@oneplusplus.ru>"]
+description = "This is backend project for oneplusplus"
+name = "alabuga_oneplusplus_backend"
+version = "0.0.0"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4"
+celery = ">=5.2.3,<6"  # https://github.com/celery/celery
+redis = "^4.4"  # https://github.com/redis/redis-py
+django = "^5"  # https://www.djangoproject.com/
+django-allauth = "^65.11.2"  # https://github.com/pennersr/django-allauth
+django-celery-beat = "^2.8.1"  # https://github.com/celery/django-celery-beat
+django-filter = "^25.1"  # https://github.com/carltongibson/django-filter/tree/main
+django-health-check = "^3.20"  # https://github.com/KristianOellegaard/django-health-check
+django-phonenumber-field = "^8.1.0"  # https://github.com/stefanfoulis/django-phonenumber-field
+django-redis = "^6"  # https://github.com/niwinz/django-redis
+django-split-settings = "^1.3.2"  # https://github.com/sobolevn/django-split-settings
+python-decouple = "^3.8"  # https://github.com/henriquebastos/python-decouple
+django-cors-headers = "^4.9.0"  # https://github.com/adamchainz/django-cors-headers/releases
+django-csp = "^4"  # https://github.com/mozilla/django-csp
+structlog = "^25.4" # https://github.com/hynek/structlog
+djangorestframework = "^3"  # https://github.com/encode/django-rest-framework
+gunicorn = "^23"  # https://pypi.org/project/gunicorn/
+psycopg2-binary = "*" # https://github.com/psycopg/psycopg2
+sentry-sdk = "^2.38"  # https://github.com/getsentry/sentry-python
+pytest-factoryboy = "^2.8"  # https://pypi.org/project/pytest-factoryboy/
+djangorestframework-simplejwt = "^5.5"  # https://github.com/jazzband/djangorestframework-simplejwt
+drf-spectacular = "0.28.0"  # https://pypi.org/project/requests-cache/
+locust = "^2.40"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24"  # https://github.com/psf/black
+ruff = "^0.6"  # https://github.com/astral-sh/ruff
+pytest-mock = "^3.15"
+django-debug-toolbar = "^6"  # https://github.com/jazzband/django-debug-toolbar
+django-querycount = "^0.7"  # https://pypi.org/project/django-querycount/
+nplusone = "^1.0"  # https://github.com/jmcarp/nplusone
+
+
+[build-system]
+build-backend = "poetry.masonry.api"
+requires = ["poetry>=0.12"]
+
+[tool.black]
+line-length = 120
+
+[tool.ruff]
+target-version = "py311"
+
+# Включение авто исправления по умолчанию
+fix = true
+
+# Ограничение длины строки
+line-length = 120
+
+# Исключения
+exclude = [
+    "eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".tox",
+    ".venv",
+    ".pyc",
+    ".pyi",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "migrations",
+]
+
+[tool.ruff.lint]
+# Включенные плагины
+select = [
+    "F",   # pyflakes
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "UP",  # pyupgrade
+    "C90", # mccabe
+    "N",   # pep8-naming
+    "DJ",  # flake8-django
+    "C4",  # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "BLE", # flake8-blind-except
+    "T20", # flake8-print
+    "Q",   # flake8-quotes
+    "I",   # isort
+]
+
+ignore = [
+    "DJ001",
+    "BLE001",
+]
+
+[tool.ruff.lint.mccabe]
+# Настройка максимальной сложности
+max-complexity = 10

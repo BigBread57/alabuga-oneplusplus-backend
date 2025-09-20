@@ -1,0 +1,37 @@
+from typing import Optional, TypeVar
+
+from django.db.models import QuerySet
+from django_filters import FilterSet
+
+T = TypeVar("T")
+
+
+class BaseSelector:
+    """
+    Класс, который позволяет формировать корректный селектор.
+    """
+
+    queryset: QuerySet[T]
+    filter_class: Optional[type[FilterSet]] = None
+
+    def get_queryset(self, **kwargs) -> QuerySet[T]:
+        """
+        Получить queryset.
+        """
+        assert self.queryset is not None, "Attribute queryset is required."
+        return self.queryset
+
+    def get_filter_class(self) -> type[FilterSet]:
+        """
+        Получить класс, который отвечает за фильтры queryset.
+        """
+        return self.filter_class
+
+    def get_filtered(self, queryset: QuerySet[T], filters: Optional[dict] = None) -> QuerySet[T]:
+        """
+        Получить отфильтрованный queryset.
+        """
+        if self.filter_class:
+            return self.get_filter_class()(filters, queryset=queryset).qs
+
+        return self.get_queryset()

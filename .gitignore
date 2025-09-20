@@ -1,0 +1,27 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Misc
+__pycache__
+.idea
+
+# Configuration file with private data:
+.env
+
+# Distribution / packaging
+dist/
+
+# Git
+.git
+
+# Project.
+.ruff_cache/
+*.pid
+.coverage
+artifacts/
+.pytest_cache/
+local-vars.env
+static/
+media/
+
+*.sql
+*.sql.gz
