@@ -46,5 +46,257 @@
       "icon": null,
       "color": ""
     }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Футболка 'Кодер'",
+      "description": "Стильная хлопковая футболка с принтом кода на спине",
+      "category": 1,
+      "price": "1500.00",
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "quantity": "100.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Билет на концерт Imagine Dragons",
+      "description": "Билет на концерт в Лужниках, сектор A, ряд 5",
+      "category": 2,
+      "price": "5000.00",
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "quantity": "50.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Скидка 20% в М.Видео",
+      "description": "Скидка на всю бытовую технику в магазинах М.Видео",
+      "category": 3,
+      "price": "3000.00",
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "quantity": "0.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Курс Python для начинающих",
+      "description": "Базовый курс по программированию на Python",
+      "category": 4,
+      "price": "10000.00",
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "quantity": "0.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Младший разработчик (Уровень 1)",
+      "description": "Начальный уровень разработчика с базовыми навыками",
+      "category": 4,
+      "price": "15000.00",
+      "parent": null,
+      "rank": 1,
+      "competency": 1,
+      "quantity": "0.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Разработчик (Уровень 2)",
+      "description": "Продвинутый уровень разработчика с углубленными знаниями",
+      "category": 4,
+      "price": "25000.00",
+      "parent": 5,
+      "rank": 2,
+      "competency": 2,
+      "quantity": "0.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Старший разработчик (Уровень 3)",
+      "description": "Экспертный уровень с лидерскими качествами",
+      "category": 4,
+      "price": "40000.00",
+      "parent": 6,
+      "rank": 3,
+      "competency": 3,
+      "quantity": "0.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Тимлид (Уровень 4)",
+      "description": "Уровень управления командой разработки",
+      "category": 4,
+      "price": "60000.00",
+      "parent": 7,
+      "rank": 4,
+      "competency": 4,
+      "quantity": "0.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Базовые алгоритмы",
+      "description": "Основные алгоритмы и структуры данных",
+      "category": 4,
+      "price": "8000.00",
+      "parent": null,
+      "rank": 1,
+      "competency": 5,
+      "quantity": "0.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Продвинутые алгоритмы",
+      "description": "Сложные алгоритмы и оптимизация",
+      "category": 4,
+      "price": "15000.00",
+      "parent": 9,
+      "rank": 2,
+      "competency": 6,
+      "quantity": "0.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Кепка 'Программист'",
+      "description": "Стильная кепка с логотипом языка программирования",
+      "category": 1,
+      "price": "800.00",
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "quantity": "75.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Билет на IT-конференцию",
+      "description": "Билет на годовую IT-конференцию с участием топ-спикеров",
+      "category": 2,
+      "price": "7000.00",
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "quantity": "30.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 13,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Скидка 15% на технику Apple",
+      "description": "Скидка на всю технику Apple в М.Видео",
+      "category": 3,
+      "price": "5000.00",
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "quantity": "0.00",
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 14,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Архитектор систем (Уровень 5)",
+      "description": "Уровень проектирования сложных систем",
+      "category": 4,
+      "price": "80000.00",
+      "parent": 8,
+      "rank": 5,
+      "competency": 7,
+      "quantity": "0.00",
+      "image": null,
+      "is_active": true
+    }
   }
 ]
