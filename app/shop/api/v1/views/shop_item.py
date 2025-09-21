@@ -5,6 +5,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from app.common.permissions import UserHRPermission
+from app.common.serializers import ResponseDetailSerializer
 from app.common.views import QuerySelectorMixin
 from app.shop.api.v1.selectors import ShopItemListSelector, ShopItemListFilterSerializer, ShopItemDetailSelector
 from app.shop.api.v1.serializers import (
@@ -12,6 +13,8 @@ from app.shop.api.v1.serializers import (
     ShopItemCreateOrUpdateSerializer,
     ShopItemDetailSerializer,
 )
+from django.utils.translation import gettext_lazy as _
+
 from app.shop.models import ShopItem
 
 
@@ -137,4 +140,30 @@ class ShopItemUpdateAPIView(GenericAPIView):
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,
+        )
+
+class ShopItemDeleteAPIView(GenericAPIView):
+    """
+    Товар в магазине. Удаление.
+    """
+
+    queryset = ShopItem.objects.all()
+    permission_classes = (UserHRPermission,)
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: ResponseDetailSerializer,
+        },
+        tags=["shop:shop_item"],
+    )
+    def delete(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Удаление объекта.
+        """
+        placement_metering_device = self.get_object()
+        placement_metering_device.delete()
+
+        return Response(
+            data=ResponseDetailSerializer({"detail": _("Объект успешно удален")}).data,
+            status=status.HTTP_204_NO_CONTENT,
         )

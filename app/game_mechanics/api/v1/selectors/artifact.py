@@ -3,12 +3,12 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from app.common.selectors import BaseSelector
-from app.shop.models import ShopItemCategory
+from app.game_mechanics.models import Artifact
 
 
-class ShopItemCategoryListFilterSerializer(serializers.Serializer):
+class ArtifactListFilterSerializer(serializers.Serializer):
     """
-    Категория товара в магазине. Список. Сериализатор для фильтра.
+    Artifact. Список. Сериализатор для фильтра.
     """
 
     name = serializers.CharField(
@@ -16,27 +16,31 @@ class ShopItemCategoryListFilterSerializer(serializers.Serializer):
         help_text=_("Название категории"),
         required=False,
     )
-
-
-class ShopItemCategoryListFilter(django_filters.FilterSet):
-    """
-    Категория товара в магазине. Список. Фильтр.
-    """
-
-    name = django_filters.CharFilter(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
+    modifier = serializers.ChoiceField(
+        label=_("Модификатор"),
+        help_text=_("Модификатор"),
+        source=Artifact.Modifiers.choices,
+        required=False,
     )
 
+
+class ArtifactListFilter(django_filters.FilterSet):
+    """
+    Artifact. Список. Фильтр.
+    """
+
     class Meta:
-        model = ShopItemCategory
-        fields = ("name",)
+        model = Artifact
+        fields = (
+            "name",
+            "modifier",
+        )
 
 
-class ShopItemCategoryListSelector(BaseSelector):
+class ArtifactListSelector(BaseSelector):
     """
-    Категория товара в магазине. Список. Селектор.
+    Артефакт. Список. Селектор.
     """
 
-    queryset = ShopItemCategory.objects.all()
-    filter_class = ShopItemCategoryListFilter
+    queryset = Artifact.objects.all()
+    filter_class = ArtifactListFilter

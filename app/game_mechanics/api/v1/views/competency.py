@@ -7,32 +7,29 @@ from rest_framework.response import Response
 from app.common.permissions import UserHRPermission
 from app.common.serializers import ResponseDetailSerializer
 from app.common.views import QuerySelectorMixin
-from app.shop.api.v1.selectors import ShopItemCategoryListSelector, ShopItemCategoryListFilterSerializer
-from app.shop.api.v1.serializers import (
-    ShopItemCategoryListSerializer,
-    ShopItemCategoryCreateOrUpdateSerializer,
-    ShopItemCategoryDetailSerializer,
-)
-from app.shop.models import ShopItemCategory
+from app.game_mechanics.api.v1.selectors import CompetencyListSelector, CompetencyListFilterSerializer
+from app.game_mechanics.api.v1.serializers import CompetencyListSerializer, CompetencyCreateOrUpdateSerializer
+from app.game_mechanics.models import Competency
+from app.game_mechanics.serializers import CompetencyDetailSerializer
 from django.utils.translation import gettext_lazy as _
 
 
-class ShopItemCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
+class CompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
     """
-    Категория товара в магазине. Список.
+    Компетенция. Список.
     """
 
-    selector = ShopItemCategoryListSelector()
-    serializer_class = ShopItemCategoryListSerializer
-    filter_params_serializer_class = ShopItemCategoryListFilterSerializer
+    selector = CompetencyListSelector()
+    serializer_class = CompetencyListSerializer
+    filter_params_serializer_class = CompetencyListFilterSerializer
     search_fields = ("name",)
 
     @extend_schema(
-        parameters=[ShopItemCategoryListFilterSerializer],
+        parameters=[CompetencyListFilterSerializer],
         responses={
-            status.HTTP_200_OK: ShopItemCategoryListSerializer(many=True),
+            status.HTTP_200_OK: CompetencyListSerializer(many=True),
         },
-        tags=["shop:shop_item_category"],
+        tags=["game_mechanics:competency"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -45,20 +42,20 @@ class ShopItemCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-class ShopItemCategoryCreateAPIView(GenericAPIView):
+class CompetencyCreateAPIView(GenericAPIView):
     """
-    Категория товара в магазине. Создание.
+    Компетенция. Создание.
     """
 
-    serializer_class = ShopItemCategoryCreateOrUpdateSerializer
+    serializer_class = CompetencyCreateOrUpdateSerializer
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
-        request=ShopItemCategoryCreateOrUpdateSerializer,
+        request=CompetencyCreateOrUpdateSerializer,
         responses={
-            status.HTTP_201_CREATED: ShopItemCategoryDetailSerializer,
+            status.HTTP_201_CREATED: CompetencyDetailSerializer,
         },
-        tags=["shop:shop_item_category"],
+        tags=["game_mechanics:competency"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -69,7 +66,7 @@ class ShopItemCategoryCreateAPIView(GenericAPIView):
         shop_item_category = serializer.save()
 
         return Response(
-            data=ShopItemCategoryDetailSerializer(
+            data=CompetencyDetailSerializer(
                 instance=shop_item_category,
                 context=self.get_serializer_context(),
             ).data,
@@ -77,64 +74,65 @@ class ShopItemCategoryCreateAPIView(GenericAPIView):
         )
 
 
-class ShopItemCategoryUpdateAPIView(GenericAPIView):
+class CompetencyUpdateAPIView(GenericAPIView):
     """
-    Категория товара в магазине. Изменение.
+    Компетенция. Изменение.
     """
 
-    queryset = ShopItemCategory.objects.all()
-    serializer_class = ShopItemCategoryCreateOrUpdateSerializer
+    queryset = Competency.objects.all()
+    serializer_class = CompetencyCreateOrUpdateSerializer
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
-        request=ShopItemCategoryCreateOrUpdateSerializer,
+        request=CompetencyCreateOrUpdateSerializer,
         responses={
-            status.HTTP_200_OK: ShopItemCategoryDetailSerializer,
+            status.HTTP_200_OK: CompetencyDetailSerializer,
         },
-        tags=["shop:shop_item_category"],
+        tags=["game_mechanics:competency"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
         Изменение объекта.
         """
-        placement_metering_device = self.get_object()
+        competency = self.get_object()
         serializer = self.get_serializer(
-            instance=placement_metering_device,
+            instance=competency,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        shop_item_category = serializer.save()
-        if getattr(shop_item_category, "_prefetched_objects_cache", None):
-            shop_item_category._prefetched_objects_cache = {}
+        competency = serializer.save()
+        if getattr(competency, "_prefetched_objects_cache", None):
+            competency._prefetched_objects_cache = {}
 
         return Response(
-            data=ShopItemCategoryDetailSerializer(
-                instance=placement_metering_device,
+            data=CompetencyDetailSerializer(
+                instance=competency,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,
         )
 
-class ShopItemCategoryDeleteAPIView(GenericAPIView):
+
+class CompetencyDeleteAPIView(GenericAPIView):
     """
-    Категория товара в магазине. Удаление.
+    Компетенция. Удаление.
     """
 
-    queryset = ShopItemCategory.objects.all()
+    queryset = Competency.objects.all()
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
-        tags=["shop:shop_item_category"],
+        tags=["game_mechanics:competency"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:
         """
         Удаление объекта.
         """
-        shop_item_category = self.get_object()
-        shop_item_category.delete()
+        competency = self.get_object()
+        competency.delete()
 
         return Response(
             data=ResponseDetailSerializer({"detail": _("Объект успешно удален")}).data,

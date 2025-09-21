@@ -172,13 +172,9 @@ class UserPurchaseToWorkAPIView(GenericAPIView):
         Взять в работу.
         """
         user_purchase = self.get_object()
-        user_purchase = user_purchase_service.to_work(
+        user_purchase_service.to_work(
             user_purchase=user_purchase,
             manager=request.user,
         )
-
-        if getattr(user_purchase, "_prefetched_objects_cache", None):
-            user_purchase._prefetched_objects_cache = {}
-
         return Response(status=status.HTTP_200_OK)
 

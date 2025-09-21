@@ -29,10 +29,6 @@ class ShopItemListFilter(django_filters.FilterSet):
     Товар в магазине. Список. Фильтр.
     """
 
-    name = django_filters.CharFilter(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
-    )
     category = django_filters.ModelMultipleChoiceFilter(
         label=_("Название категории"),
         help_text=_("Название категории"),

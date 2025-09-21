@@ -23,11 +23,6 @@ class ShopItemCategoryListFilter(django_filters.FilterSet):
     Категория товара в магазине. Список. Фильтр.
     """
 
-    name = django_filters.CharFilter(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
-    )
-
     class Meta:
         model = ShopItemCategory
         fields = ("name",)

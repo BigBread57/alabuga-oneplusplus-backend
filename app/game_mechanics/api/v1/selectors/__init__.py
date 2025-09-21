@@ -1,27 +1,13 @@
-from app.shop.api.v1.selectors.shop_item_category import (
-    ShopItemCategoryListSelector,
-    ShopItemCategoryListFilterSerializer,
-)
-from app.shop.api.v1.selectors.shop_item import (
-    ShopItemListSelector,
-    ShopItemListFilterSerializer,
-    ShopItemDetailSelector,
-)
-from app.shop.api.v1.selectors.user_purchase import (
-    UserPurchaseListSelector,
-    UserPurchaseListFilterSerializer, UserPurchaseDetailSelector,
-)
+from app.game_mechanics.api.v1.selectors.artifact import ArtifactListSelector, ArtifactListFilterSerializer
+from app.game_mechanics.api.v1.selectors.competency import CompetencyListFilterSerializer, CompetencyListSelector
+
 
 __all__ = (
-    # ShopItemCategory
-    "ShopItemCategoryListSelector",
-    "ShopItemCategoryListFilterSerializer",
-    # ShopItem
-    "ShopItemListSelector",
-    "ShopItemDetailSelector",
-    "ShopItemListFilterSerializer",
-    # UserPurchase
-    "UserPurchaseListSelector",
-    "UserPurchaseListFilterSerializer",
-    "UserPurchaseDetailSelector",
+    # Artifact
+    "ArtifactListSelector",
+    "ArtifactListFilterSerializer",
+    # Competency
+    "CompetencyListFilterSerializer",
+    "CompetencyListSelector",
 )
+

@@ -1,36 +1,35 @@
 from drf_spectacular.utils import extend_schema
-from rest_framework import status, generics
+from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
 from app.common.permissions import UserHRPermission
+from app.common.serializers import ResponseDetailSerializer
 from app.common.views import QuerySelectorMixin
-from app.shop.api.v1.selectors import ShopItemCategoryListSelector, ShopItemCategoryListFilterSerializer
-from app.shop.api.v1.serializers import (
-    ShopItemCategoryListSerializer,
-    ShopItemCategoryCreateOrUpdateSerializer,
-    ShopItemCategoryDetailSerializer,
-)
-from app.shop.models import ShopItemCategory
+from app.game_mechanics.api.v1.selectors import ArtifactListSelector, ArtifactListFilterSerializer
+from app.game_mechanics.api.v1.serializers import ArtifactListSerializer, ArtifactCreateOrUpdateSerializer
+from app.game_mechanics.models import Artifact
+from app.game_mechanics.serializers import ArtifactDetailSerializer
+from django.utils.translation import gettext_lazy as _
 
 
-class ShopItemCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
+class ArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
     """
-    Категория товара в магазине. Список.
+    Артефакт. Список.
     """
 
-    selector = ShopItemCategoryListSelector()
-    serializer_class = ShopItemCategoryListSerializer
-    filter_params_serializer_class = ShopItemCategoryListFilterSerializer
+    selector = ArtifactListSelector()
+    serializer_class = ArtifactListSerializer
+    filter_params_serializer_class = ArtifactListFilterSerializer
     search_fields = ("name",)
 
     @extend_schema(
-        parameters=[ShopItemCategoryListFilterSerializer],
+        parameters=[ArtifactListFilterSerializer],
         responses={
-            status.HTTP_200_OK: ShopItemCategoryListSerializer(many=True),
+            status.HTTP_200_OK: ArtifactListSerializer(many=True),
         },
-        tags=["shop:shop_item_category"],
+        tags=["game_mechanics:artifact"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -43,20 +42,20 @@ class ShopItemCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-class ShopItemCategoryCreateAPIView(GenericAPIView):
+class ArtifactCreateAPIView(GenericAPIView):
     """
-    Категория товара в магазине. Создание.
+    Артефакт. Создание.
     """
 
-    serializer_class = ShopItemCategoryCreateOrUpdateSerializer
+    serializer_class = ArtifactCreateOrUpdateSerializer
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
-        request=ShopItemCategoryCreateOrUpdateSerializer,
+        request=ArtifactCreateOrUpdateSerializer,
         responses={
-            status.HTTP_201_CREATED: ShopItemCategoryDetailSerializer,
+            status.HTTP_201_CREATED: ArtifactDetailSerializer,
         },
-        tags=["shop:shop_item_category"],
+        tags=["game_mechanics:artifact"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -67,7 +66,7 @@ class ShopItemCategoryCreateAPIView(GenericAPIView):
         shop_item_category = serializer.save()
 
         return Response(
-            data=ShopItemCategoryDetailSerializer(
+            data=ArtifactDetailSerializer(
                 instance=shop_item_category,
                 context=self.get_serializer_context(),
             ).data,
@@ -75,40 +74,67 @@ class ShopItemCategoryCreateAPIView(GenericAPIView):
         )
 
 
-class ShopItemCategoryUpdateAPIView(GenericAPIView):
+class ArtifactUpdateAPIView(GenericAPIView):
     """
-    Категория товара в магазине. Изменение.
+    Артефакт. Изменение.
     """
 
-    queryset = ShopItemCategory.objects.all()
-    serializer_class = ShopItemCategoryCreateOrUpdateSerializer
+    queryset = Artifact.objects.all()
+    serializer_class = ArtifactCreateOrUpdateSerializer
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
-        request=ShopItemCategoryCreateOrUpdateSerializer,
+        request=ArtifactCreateOrUpdateSerializer,
         responses={
-            status.HTTP_200_OK: ShopItemCategoryDetailSerializer,
+            status.HTTP_200_OK: ArtifactDetailSerializer,
         },
-        tags=["shop:shop_item_category"],
+        tags=["game_mechanics:artifact"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
         Изменение объекта.
         """
-        placement_metering_device = self.get_object()
+        artifact = self.get_object()
         serializer = self.get_serializer(
-            instance=placement_metering_device,
+            instance=artifact,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        shop_item_category = serializer.save()
-        if getattr(shop_item_category, "_prefetched_objects_cache", None):
-            shop_item_category._prefetched_objects_cache = {}
+        artifact = serializer.save()
+        if getattr(artifact, "_prefetched_objects_cache", None):
+            artifact._prefetched_objects_cache = {}
 
         return Response(
-            data=ShopItemCategoryDetailSerializer(
-                instance=placement_metering_device,
+            data=ArtifactDetailSerializer(
+                instance=artifact,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,
+        )
+
+
+class ArtifactDeleteAPIView(GenericAPIView):
+    """
+    Артефакт. Удаление.
+    """
+
+    queryset = Artifact.objects.all()
+    permission_classes = (UserHRPermission,)
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: ResponseDetailSerializer,
+        },
+        tags=["game_mechanics:artifact"],
+    )
+    def delete(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Удаление объекта.
+        """
+        artifact = self.get_object()
+        artifact.delete()
+
+        return Response(
+            data=ResponseDetailSerializer({"detail": _("Объект успешно удален")}).data,
+            status=status.HTTP_204_NO_CONTENT,
         )
