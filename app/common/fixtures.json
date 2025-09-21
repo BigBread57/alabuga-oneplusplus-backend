@@ -1,0 +1,50 @@
+[
+  {
+    "model": "shop.ShopItemCategory",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "name": "Мерч",
+      "description": "Фирменный мерч",
+      "icon": null,
+      "color": ""
+    }
+  },
+  {
+    "model": "shop.ShopItemCategory",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "name": "Билет",
+      "description": "Билет на концерт",
+      "icon": null,
+      "color": ""
+    }
+  },
+  {
+    "model": "shop.ShopItemCategory",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "name": "Бонус",
+      "description": "Бонус на покупку бытовой техники в М.Видео",
+      "icon": null,
+      "color": ""
+    }
+  },
+  {
+    "model": "shop.ShopItemCategory",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "name": "Крусы",
+      "description": "Любой курс в ИТ",
+      "icon": null,
+      "color": ""
+    }
+  }
+]

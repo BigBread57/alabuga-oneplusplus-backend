@@ -1,67 +1,80 @@
+import django_filters
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-from .models import ShopItem, ShopItemCategory
+
+from app.common.selectors import BaseSelector
+from app.shop.models import ShopItem, ShopItemCategory
 
 
-class ShopItemSerializer(serializers.ModelSerializer):
-    category_name = serializers.CharField(source='category.name', read_only=True)
-    parent_name = serializers.CharField(source='parent.name', read_only=True, allow_null=True)
-    rank_name = serializers.CharField(source='rank.name', read_only=True, allow_null=True)
-    competency_name = serializers.CharField(source='competency.name', read_only=True, allow_null=True)
-    image_url = serializers.SerializerMethodField()
+class ShopItemListFilterSerializer(serializers.Serializer):
+    """
+    Товар в магазине. Список. Сериализатор для фильтра.
+    """
+
+    name = serializers.CharField(
+        label=_("Название категории"),
+        help_text=_("Название категории"),
+        required=False,
+    )
+    category = serializers.PrimaryKeyRelatedField(
+        label=_("Название категории"),
+        help_text=_("Название категории"),
+        queryset=ShopItemCategory.objects.all(),
+        required=False,
+    )
+
+
+class ShopItemListFilter(django_filters.FilterSet):
+    """
+    Товар в магазине. Список. Фильтр.
+    """
+
+    name = django_filters.CharFilter(
+        label=_("Название категории"),
+        help_text=_("Название категории"),
+    )
+    category = django_filters.ModelMultipleChoiceFilter(
+        label=_("Название категории"),
+        help_text=_("Название категории"),
+        queryset=ShopItemCategory.objects.all(),
+    )
 
     class Meta:
         model = ShopItem
-        fields = [
-            'id',
-            'name',
-            'description',
-            'category',
-            'category_name',
-            'price',
-            'parent',
-            'parent_name',
-            'rank',
-            'rank_name',
-            'competency',
-            'competency_name',
-            'quantity',
-            'image',
-            'image_url',
-            'is_active',
-            'created_at',
-            'updated_at'
-        ]
-        read_only_fields = ('id', 'created_at', 'updated_at')
-
-    def get_image_url(self, obj):
-        if obj.image and hasattr(obj.image, 'url'):
-            return obj.image.url
-        return None
-
-    def validate(self, data):
-        # Проверка, что либо parent, либо rank/competency заполнены
-        parent = data.get('parent')
-        rank = data.get('rank')
-        competency = data.get('competency')
-
-        if parent and (rank or competency):
-            raise serializers.ValidationError(
-                "Товар не может одновременно иметь родителя и ранг/компетенцию"
-            )
-
-        return data
+        fields = (
+            "name",
+            "category",
+        )
 
 
-class ShopItemListSerializer(ShopItemSerializer):
-    class Meta:
-        model = ShopItem
-        fields = [
-            'id',
-            'name',
-            'category_name',
-            'price',
-            'quantity',
-            'image_url',
-            'is_active',
-            'created_at'
-        ]
+class ShopItemListSelector(BaseSelector):
+    """
+    Товар в магазине. Список. Селектор.
+    """
+
+    queryset = ShopItem.objects.select_related(
+        "category",
+    ).filter(
+        is_active=True,
+        parent__isnull=True,
+    )
+    filter_class = ShopItemListFilter
+
+
+class ShopItemDetailSelector(BaseSelector):
+    """
+    Товар в магазине. Детальная информация. Селектор.
+    """
+
+    queryset = ShopItem.objects.select_related(
+        "category",
+        "parent",
+        "rank",
+        "competency",
+    ).prefetch_related(
+       "children",
+    ).filter(
+        is_active=True,
+        parent__isnull=True,
+    )
+    filter_class = ShopItemListFilter

@@ -7,7 +7,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 class User(AbstractUser):  # type: ignore
     """Основной класс для пользователя."""
 
-
     middle_name = models.CharField(
         verbose_name=_("Отчество"),
         max_length=50,  # noqa: WPS432

@@ -16,7 +16,7 @@ class ShopItemCategoryListFilterSerializer(serializers.Serializer):
         help_text=_("Название категории"),
         required=False,
     )
-    
+
 
 class ShopItemCategoryListFilter(django_filters.FilterSet):
     """
@@ -24,16 +24,13 @@ class ShopItemCategoryListFilter(django_filters.FilterSet):
     """
 
     name = django_filters.CharFilter(
-        label=_("Название прибора учета"),
-        help_text=_("Название прибора учета"),
+        label=_("Название категории"),
+        help_text=_("Название категории"),
     )
-
 
     class Meta:
         model = ShopItemCategory
-        fields = (
-            "name",
-        )
+        fields = ("name",)
 
 
 class ShopItemCategoryListSelector(BaseSelector):
@@ -43,4 +40,3 @@ class ShopItemCategoryListSelector(BaseSelector):
 
     queryset = ShopItemCategory.objects.all()
     filter_class = ShopItemCategoryListFilter
-

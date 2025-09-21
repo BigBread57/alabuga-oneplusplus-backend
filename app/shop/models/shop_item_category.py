@@ -9,11 +9,6 @@ class ShopItemCategory(AbstractBaseModel):
     Категория товара в магазине.
     """
 
-    # MERCH = 'MERCH', _('Мерч')
-    # TICKET = 'TICKET', _('Билет')
-    # BONUS = 'BONUS', _('Бонус')
-    # OTHER = 'OTHER', _('Другое')
-
     name = models.CharField(
         verbose_name=_("Название категории"),
         max_length=256,

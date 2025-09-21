@@ -9,6 +9,7 @@ class UserRoles(models.TextChoices):
 
     CANDIDATE = "CANDIDATE", _("Кандидат")
     EMPLOYEE = "EMPLOYEE", _("Сотрудник")
+    MANAGER = "MANAGER", _("Менеджер")
     HR = "HR", _("HR")
     ORGANIZER = "ORGANIZER", _("Организатор")
     ADMIN = "ADMIN", _("Администратор")
