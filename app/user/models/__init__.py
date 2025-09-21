@@ -1,5 +1,3 @@
 from profile import Profile
 
-__all__ = (
-    "Profile",
-)
+__all__ = ("Profile",)

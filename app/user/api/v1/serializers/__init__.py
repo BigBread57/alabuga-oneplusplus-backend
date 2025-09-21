@@ -2,10 +2,10 @@ from .auth import TokenObtainPairSerializer, TokenRefreshSerializer, UserRegistr
 from .user import UserDetailSerializer, UserListSerializer, UserUpdateSerializer
 
 __all__ = [
-    'TokenObtainPairSerializer',
-    'TokenRefreshSerializer',
-    'UserRegistrationSerializer',
-    'UserDetailSerializer',
-    'UserListSerializer',
-    'UserUpdateSerializer',
+    "TokenObtainPairSerializer",
+    "TokenRefreshSerializer",
+    "UserRegistrationSerializer",
+    "UserDetailSerializer",
+    "UserListSerializer",
+    "UserUpdateSerializer",
 ]

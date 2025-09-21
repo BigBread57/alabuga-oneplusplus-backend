@@ -2,10 +2,10 @@ from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
-class ProfileConfig(AppConfig):
+class UserConfig(AppConfig):
     """
-    Профиль.
+    Пользователь.
     """
 
-    name = 'profile'
-    verbose_name = _("Профиль")
+    name = "user"
+    verbose_name = _("Пользователь")
