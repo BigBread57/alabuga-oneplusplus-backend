@@ -2,7 +2,7 @@ from .mission import MissionCreateSerializer, MissionDetailSerializer, MissionLi
 from .mission_branch import MissionBranchDetailSerializer, MissionBranchListSerializer
 from .user_mission import UserMissionSerializer, UserMissionSubmitSerializer
 
-__all__ = [
+__all__ = (
     "MissionListSerializer",
     "MissionDetailSerializer",
     "MissionCreateSerializer",
@@ -11,4 +11,4 @@ __all__ = [
     "MissionBranchDetailSerializer",
     "UserMissionSerializer",
     "UserMissionSubmitSerializer",
-]
+)

@@ -15,7 +15,7 @@ from app.shop.api.v1.serializers.user_purchase import (
     UserPurchaseUpdateSerializer,
 )
 
-__all__ = [
+__all__ = (
     # ShopItemCategory
     "ShopItemCategoryListSerializer",
     "ShopItemCategoryDetailSerializer",
@@ -29,4 +29,4 @@ __all__ = [
     "UserPurchaseDetailSerializer",
     "UserPurchaseCreateSerializer",
     "UserPurchaseUpdateSerializer",
-]
+)

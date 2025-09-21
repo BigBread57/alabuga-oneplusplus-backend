@@ -24,10 +24,10 @@ class Rank(AbstractBaseModel):
         verbose_name=_("Описание"),
         blank=True,
     )
-    required_experience = models.IntegerField(
+    required_experience = models.PositiveIntegerField(
         verbose_name=_("Требуемый опыт"),
     )
-    order = models.IntegerField(
+    order = models.PositiveIntegerField(
         verbose_name=_("Порядок ранга"),
         default=1,
         unique=True,
@@ -36,7 +36,6 @@ class Rank(AbstractBaseModel):
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Ранг")
         verbose_name_plural = _("Ранги")
-        ordering = ("-id",)
 
     def __str__(self):
         return self.name

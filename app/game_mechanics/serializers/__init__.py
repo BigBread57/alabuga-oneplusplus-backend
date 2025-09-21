@@ -3,7 +3,7 @@ from .competency import CompetencyListSerializer, UserCompetencySerializer
 from .onboarding import BoardingStepSerializer, UserBoardingProgressSerializer
 from .rank import RankDetailSerializer, RankListSerializer
 
-__all__ = [
+__all__ = (
     "ArtifactListSerializer",
     "ArtifactDetailSerializer",
     "CompetencyListSerializer",
@@ -12,4 +12,4 @@ __all__ = [
     "RankDetailSerializer",
     "BoardingStepSerializer",
     "UserBoardingProgressSerializer",
-]
+)
