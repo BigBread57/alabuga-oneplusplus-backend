@@ -12,13 +12,13 @@ class ShopItemListFilterSerializer(serializers.Serializer):
     """
 
     name = serializers.CharField(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
+        label=_("Название"),
+        help_text=_("Название"),
         required=False,
     )
     category = serializers.PrimaryKeyRelatedField(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
+        label=_("Категория"),
+        help_text=_("Категория"),
         queryset=ShopItemCategory.objects.all(),
         required=False,
     )
@@ -30,8 +30,8 @@ class ShopItemListFilter(django_filters.FilterSet):
     """
 
     category = django_filters.ModelMultipleChoiceFilter(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
+        label=_("Название"),
+        help_text=_("Название"),
         queryset=ShopItemCategory.objects.all(),
     )
 
@@ -62,15 +62,19 @@ class ShopItemDetailSelector(BaseSelector):
     Товар в магазине. Детальная информация. Селектор.
     """
 
-    queryset = ShopItem.objects.select_related(
-        "category",
-        "parent",
-        "rank",
-        "competency",
-    ).prefetch_related(
-       "children",
-    ).filter(
-        is_active=True,
-        parent__isnull=True,
+    queryset = (
+        ShopItem.objects.select_related(
+            "category",
+            "parent",
+            "rank",
+            "competency",
+        )
+        .prefetch_related(
+            "children",
+        )
+        .filter(
+            is_active=True,
+            parent__isnull=True,
+        )
     )
     filter_class = ShopItemListFilter

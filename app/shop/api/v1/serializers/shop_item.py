@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+from app.game_mechanics.api.v1.serializers.nested import RankNestedSerializer, CompetencyNestedSerializer
 from app.shop.api.v1.serializers.nested import ShopItemCategoryNestedSerializer, ShopItemNestedSerializer
 from app.shop.models import ShopItem
 from django.utils.translation import gettext_lazy as _
@@ -15,7 +16,6 @@ class ShopItemListSerializer(serializers.ModelSerializer):
         label=_("Категория"),
         help_text=_("Категория"),
     )
-
 
     class Meta:
         model = ShopItem
@@ -97,8 +97,6 @@ class ShopItemCreateOrUpdateSerializer(serializers.ModelSerializer):
         competency = attrs.get("competency", None)
         if (rank or competency) and not parent:
             raise ValidationError(
-                _(
-                    "Вы можете установить ранг или компетенцию только при заполнении родительского предмета"
-                )
+                _("Вы можете установить ранг или компетенцию только при заполнении родительского предмета")
             )
         return attrs

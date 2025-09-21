@@ -6,7 +6,7 @@ from .models import (
     BoardingStep,
     Competency,
     Rank,
-    RankCompetencyRequirement,
+    RequiredRankCompetency,
     UserArtifact,
     UserBoardingProgress,
     UserCompetency,
@@ -14,10 +14,10 @@ from .models import (
 )
 
 
-class RankCompetencyRequirementInline(admin.TabularInline):
+class RequiredRankCompetencyInline(admin.TabularInline):
     """Инлайн для требований к компетенциям."""
 
-    model = RankCompetencyRequirement
+    model = RequiredRankCompetency
     extra = 1
 
 
@@ -29,7 +29,7 @@ class RankAdmin(admin.ModelAdmin):
     list_filter = ("created_at",)
     search_fields = ("name", "description")
     ordering = ("order",)
-    inlines = [RankCompetencyRequirementInline]
+    inlines = [RequiredRankCompetencyInline]
 
 
 @admin.register(Competency)

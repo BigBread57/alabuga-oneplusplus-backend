@@ -8,6 +8,7 @@ class ArtifactListSerializer(serializers.ModelSerializer):
     """
     Артефакт. Список.
     """
+
     modifier_display_name = serializers.SerializerMethodField(
         label=_("Название статуса"),
         help_text=_("Название статуса"),
@@ -32,10 +33,11 @@ class ArtifactListSerializer(serializers.ModelSerializer):
         return artifact.get_modifier_display()
 
 
-class ArtifactListSerializer(serializers.ModelSerializer):
+class ArtifactDetailSerializer(serializers.ModelSerializer):
     """
     Артефакт. Детальная информация.
     """
+
     modifier_display_name = serializers.SerializerMethodField(
         label=_("Название статуса"),
         help_text=_("Название статуса"),
@@ -58,7 +60,6 @@ class ArtifactListSerializer(serializers.ModelSerializer):
         Название статуса.
         """
         return artifact.get_modifier_display()
-
 
 
 class ArtifactCreateOrUpdateSerializer(serializers.ModelSerializer):

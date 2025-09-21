@@ -8,9 +8,12 @@ from app.common.permissions import UserHRPermission
 from app.common.serializers import ResponseDetailSerializer
 from app.common.views import QuerySelectorMixin
 from app.game_mechanics.api.v1.selectors import CompetencyListSelector, CompetencyListFilterSerializer
-from app.game_mechanics.api.v1.serializers import CompetencyListSerializer, CompetencyCreateOrUpdateSerializer
+from app.game_mechanics.api.v1.serializers import (
+    CompetencyListSerializer,
+    CompetencyCreateOrUpdateSerializer,
+    CompetencyDetailSerializer,
+)
 from app.game_mechanics.models import Competency
-from app.game_mechanics.serializers import CompetencyDetailSerializer
 from django.utils.translation import gettext_lazy as _
 
 
@@ -63,11 +66,11 @@ class CompetencyCreateAPIView(GenericAPIView):
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        shop_item_category = serializer.save()
+        competency = serializer.save()
 
         return Response(
             data=CompetencyDetailSerializer(
-                instance=shop_item_category,
+                instance=competency,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_201_CREATED,

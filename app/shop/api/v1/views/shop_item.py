@@ -46,7 +46,6 @@ class ShopItemListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-
 class ShopItemDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Товар в магазине. Детальная информация.
@@ -141,6 +140,7 @@ class ShopItemUpdateAPIView(GenericAPIView):
             ).data,
             status=status.HTTP_200_OK,
         )
+
 
 class ShopItemDeleteAPIView(GenericAPIView):
     """

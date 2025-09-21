@@ -9,7 +9,8 @@ from app.shop.api.v1.selectors.shop_item import (
 )
 from app.shop.api.v1.selectors.user_purchase import (
     UserPurchaseListSelector,
-    UserPurchaseListFilterSerializer, UserPurchaseDetailSelector,
+    UserPurchaseListFilterSerializer,
+    UserPurchaseDetailSelector,
 )
 
 __all__ = (

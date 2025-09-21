@@ -28,7 +28,6 @@ class UserPurchaseListSerializer(serializers.ModelSerializer):
         )
 
 
-
 class UserPurchaseDetailSerializer(serializers.ModelSerializer):
     """
     Покупки пользователя. Детальная информация.

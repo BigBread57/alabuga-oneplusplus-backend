@@ -7,32 +7,28 @@ from rest_framework.response import Response
 from app.common.permissions import UserHRPermission
 from app.common.serializers import ResponseDetailSerializer
 from app.common.views import QuerySelectorMixin
-from app.game_mechanics.api.v1.selectors import ArtifactListSelector, ArtifactListFilterSerializer
-from app.game_mechanics.api.v1.serializers import (
-    ArtifactListSerializer,
-    ArtifactCreateOrUpdateSerializer,
-    ArtifactDetailSerializer,
-)
-from app.game_mechanics.models import Artifact
+from app.game_mechanics.api.v1.selectors import RankListSelector, RankListFilterSerializer
+from app.game_mechanics.api.v1.serializers import RankListSerializer, RankCreateOrUpdateSerializer, RankDetailSerializer
+from app.game_mechanics.models import Rank
 from django.utils.translation import gettext_lazy as _
 
 
-class ArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
+class RankListAPIView(QuerySelectorMixin, GenericAPIView):
     """
-    Артефакт. Список.
+    Ранг. Список.
     """
 
-    selector = ArtifactListSelector()
-    serializer_class = ArtifactListSerializer
-    filter_params_serializer_class = ArtifactListFilterSerializer
+    selector = RankListSelector()
+    serializer_class = RankListSerializer
+    filter_params_serializer_class = RankListFilterSerializer
     search_fields = ("name",)
 
     @extend_schema(
-        parameters=[ArtifactListFilterSerializer],
+        parameters=[RankListFilterSerializer],
         responses={
-            status.HTTP_200_OK: ArtifactListSerializer(many=True),
+            status.HTTP_200_OK: RankListSerializer(many=True),
         },
-        tags=["game_mechanics:artifact"],
+        tags=["game_mechanics:rank"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -45,20 +41,20 @@ class ArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-class ArtifactCreateAPIView(GenericAPIView):
+class RankCreateAPIView(GenericAPIView):
     """
-    Артефакт. Создание.
+    Ранг. Создание.
     """
 
-    serializer_class = ArtifactCreateOrUpdateSerializer
+    serializer_class = RankCreateOrUpdateSerializer
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
-        request=ArtifactCreateOrUpdateSerializer,
+        request=RankCreateOrUpdateSerializer,
         responses={
-            status.HTTP_201_CREATED: ArtifactDetailSerializer,
+            status.HTTP_201_CREATED: RankDetailSerializer,
         },
-        tags=["game_mechanics:artifact"],
+        tags=["game_mechanics:rank"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -66,76 +62,76 @@ class ArtifactCreateAPIView(GenericAPIView):
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        artifact = serializer.save()
+        rank = serializer.save()
 
         return Response(
-            data=ArtifactDetailSerializer(
-                instance=artifact,
+            data=RankDetailSerializer(
+                instance=rank,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_201_CREATED,
         )
 
 
-class ArtifactUpdateAPIView(GenericAPIView):
+class RankUpdateAPIView(GenericAPIView):
     """
-    Артефакт. Изменение.
+    Ранг. Изменение.
     """
 
-    queryset = Artifact.objects.all()
-    serializer_class = ArtifactCreateOrUpdateSerializer
+    queryset = Rank.objects.all()
+    serializer_class = RankCreateOrUpdateSerializer
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
-        request=ArtifactCreateOrUpdateSerializer,
+        request=RankCreateOrUpdateSerializer,
         responses={
-            status.HTTP_200_OK: ArtifactDetailSerializer,
+            status.HTTP_200_OK: RankDetailSerializer,
         },
-        tags=["game_mechanics:artifact"],
+        tags=["game_mechanics:rank"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
         Изменение объекта.
         """
-        artifact = self.get_object()
+        rank = self.get_object()
         serializer = self.get_serializer(
-            instance=artifact,
+            instance=rank,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        artifact = serializer.save()
-        if getattr(artifact, "_prefetched_objects_cache", None):
-            artifact._prefetched_objects_cache = {}
+        rank = serializer.save()
+        if getattr(rank, "_prefetched_objects_cache", None):
+            rank._prefetched_objects_cache = {}
 
         return Response(
-            data=ArtifactDetailSerializer(
-                instance=artifact,
+            data=RankDetailSerializer(
+                instance=rank,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,
         )
 
 
-class ArtifactDeleteAPIView(GenericAPIView):
+class RankDeleteAPIView(GenericAPIView):
     """
-    Артефакт. Удаление.
+    Ранг. Удаление.
     """
 
-    queryset = Artifact.objects.all()
+    queryset = Rank.objects.all()
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
-        tags=["game_mechanics:artifact"],
+        tags=["game_mechanics:rank"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:
         """
         Удаление объекта.
         """
-        artifact = self.get_object()
-        artifact.delete()
+        rank = self.get_object()
+        rank.delete()
 
         return Response(
             data=ResponseDetailSerializer({"detail": _("Объект успешно удален")}).data,

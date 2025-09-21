@@ -10,7 +10,6 @@ from app.shop.tasks import send_mail_about_new_user_purchase
 User = get_user_model()
 
 
-
 class UserPurchaseService(BaseService):
     """
     Покупки пользователя. Сервис.
@@ -28,7 +27,7 @@ class UserPurchaseService(BaseService):
         """
         user_purchase = UserPurchase.objects.create(
             buyer=buyer,
-            total_sum = validated_data["price"] * validated_data["number"],
+            total_sum=validated_data["price"] * validated_data["number"],
             **validated_data,
         )
         transaction.on_commit(
@@ -68,8 +67,9 @@ class UserPurchaseService(BaseService):
         UserPurchase.objects.filter(
             id=user_purchase.id,
         ).update(
-             manager=manager,
+            manager=manager,
         )
         return None
+
 
 user_purchase_service = UserPurchaseService()

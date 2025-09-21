@@ -37,7 +37,6 @@ class UserPurchaseListDetailSerializer(serializers.Serializer):
     )
 
 
-
 class UserPurchaseListFilter(django_filters.FilterSet):
     """
     Покупки пользователя. Список. Фильтр.

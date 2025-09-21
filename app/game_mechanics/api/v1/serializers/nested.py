@@ -1,37 +1,34 @@
 from rest_framework import serializers
 
-from app.shop.models import ShopItemCategory, ShopItem
+from app.game_mechanics.models import Competency, Rank
 
 
-class ShopItemCategoryNestedSerializer(serializers.ModelSerializer):
+class RankNestedSerializer(serializers.ModelSerializer):
     """
-    Категория товара в магазине. Создание.
+    Категория товара в магазине. Вложенный сериалайзер.
     """
 
     class Meta:
-        model = ShopItemCategory
+        model = Rank
         fields = (
             "id",
             "name",
+            "description",
+            "order",
+        )
+
+
+class CompetencyNestedSerializer(serializers.ModelSerializer):
+    """
+    Компетенция. Вложенный сериалайзер.
+    """
+
+    class Meta:
+        model = Competency
+        fields = (
+            "id",
+            "name",
+            "description",
+            "icon",
             "color",
         )
-
-
-
-class ShopItemNestedSerializer(serializers.ModelSerializer):
-    """
-    Категория товара в магазине. Создание.
-    """
-
-    class Meta:
-        model = ShopItem
-        fields = (
-            "id",
-            "name",
-            "price",
-            "rank",
-            "competency",
-            "number",
-            "image",
-        )
-

@@ -115,6 +115,7 @@ class ShopItemCategoryUpdateAPIView(GenericAPIView):
             status=status.HTTP_200_OK,
         )
 
+
 class ShopItemCategoryDeleteAPIView(GenericAPIView):
     """
     Категория товара в магазине. Удаление.

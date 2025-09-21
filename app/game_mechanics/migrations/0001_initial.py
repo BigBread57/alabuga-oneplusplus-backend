@@ -249,7 +249,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name="RankCompetencyRequirement",
+            name="RequiredRankCompetency",
             fields=[
                 ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
                 ("created_at", models.DateTimeField(auto_now_add=True, verbose_name="Создан")),
@@ -259,7 +259,7 @@ class Migration(migrations.Migration):
                     "competency",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="rank_requirements",
+                        related_name="rank_requireds",
                         to="gamification.competency",
                         verbose_name="Компетенция",
                     ),
@@ -268,7 +268,7 @@ class Migration(migrations.Migration):
                     "rank",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="competency_requirements",
+                        related_name="competency_requireds",
                         to="gamification.rank",
                         verbose_name="Ранг",
                     ),

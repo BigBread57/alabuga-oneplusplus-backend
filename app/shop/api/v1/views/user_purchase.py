@@ -6,12 +6,16 @@ from rest_framework.response import Response
 
 from app.common.permissions import UserHRPermission, UserManagerPermission, UserManagerForObjectPermission
 from app.common.views import QuerySelectorMixin
-from app.shop.api.v1.selectors import UserPurchaseListSelector, UserPurchaseListFilterSerializer, \
-    UserPurchaseDetailSelector
+from app.shop.api.v1.selectors import (
+    UserPurchaseListSelector,
+    UserPurchaseListFilterSerializer,
+    UserPurchaseDetailSelector,
+)
 from app.shop.api.v1.serializers import (
     UserPurchaseListSerializer,
     UserPurchaseDetailSerializer,
-    UserPurchaseCreateSerializer, UserPurchaseUpdateSerializer,
+    UserPurchaseCreateSerializer,
+    UserPurchaseUpdateSerializer,
 )
 from app.shop.api.v1.services import user_purchase_service
 from app.shop.models import UserPurchase
@@ -43,7 +47,6 @@ class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):
         serializer = self.get_serializer(page, many=True)
 
         return self.get_paginated_response(data=serializer.data)
-
 
 
 class UserPurchaseDetailAPIView(QuerySelectorMixin, GenericAPIView):
@@ -177,4 +180,3 @@ class UserPurchaseToWorkAPIView(GenericAPIView):
             manager=request.user,
         )
         return Response(status=status.HTTP_200_OK)
-

@@ -5,7 +5,7 @@ from app.shop.models import ShopItemCategory, ShopItem
 
 class ShopItemCategoryNestedSerializer(serializers.ModelSerializer):
     """
-    Категория товара в магазине. Создание.
+    Категория товара в магазине. Вложенный сериалайзер.
     """
 
     class Meta:
@@ -17,10 +17,9 @@ class ShopItemCategoryNestedSerializer(serializers.ModelSerializer):
         )
 
 
-
 class ShopItemNestedSerializer(serializers.ModelSerializer):
     """
-    Категория товара в магазине. Создание.
+    Категория товара в магазине. Вложенный сериалайзер.
     """
 
     class Meta:
@@ -34,4 +33,3 @@ class ShopItemNestedSerializer(serializers.ModelSerializer):
             "number",
             "image",
         )
-

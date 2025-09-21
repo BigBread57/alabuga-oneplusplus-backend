@@ -29,7 +29,6 @@ class UserManagerForObjectPermission(UserManagerPermission):
     Пользователь с ролью MANAGER для определенного объекта.
     """
 
-
     def has_object_permission(self, request, view, obj):
         """
         Проверка того, что пользователь является менеджером для объекта.

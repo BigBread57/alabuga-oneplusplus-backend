@@ -12,8 +12,8 @@ class ShopItemCategoryListFilterSerializer(serializers.Serializer):
     """
 
     name = serializers.CharField(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
+        label=_("Название"),
+        help_text=_("Название"),
         required=False,
     )
 

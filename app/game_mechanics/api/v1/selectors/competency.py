@@ -12,10 +12,11 @@ class CompetencyListFilterSerializer(serializers.Serializer):
     """
 
     name = serializers.CharField(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
+        label=_("Название"),
+        help_text=_("Название"),
         required=False,
     )
+
 
 class CompetencyListFilter(django_filters.FilterSet):
     """
@@ -24,9 +25,7 @@ class CompetencyListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Competency
-        fields = (
-            "name",
-        )
+        fields = ("name",)
 
 
 class CompetencyListSelector(BaseSelector):

@@ -9,12 +9,6 @@ class Rank(AbstractBaseModel):
     Ранг пользователя.
     """
 
-    icon = models.ImageField(
-        verbose_name=_("Иконка"),
-        upload_to="ranks",
-        null=True,
-        blank=True,
-    )
     name = models.CharField(
         verbose_name=_("Название"),
         max_length=256,
@@ -22,6 +16,12 @@ class Rank(AbstractBaseModel):
     )
     description = models.TextField(
         verbose_name=_("Описание"),
+        blank=True,
+    )
+    icon = models.ImageField(
+        verbose_name=_("Иконка"),
+        upload_to="ranks",
+        null=True,
         blank=True,
     )
     required_experience = models.PositiveIntegerField(
