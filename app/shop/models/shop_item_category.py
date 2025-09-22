@@ -28,6 +28,11 @@ class ShopItemCategory(AbstractBaseModel):
         max_length=256,
         blank=True,
     )
+    purchase_restriction = models.PositiveIntegerField(
+        verbose_name=_("Ограничение на покупку, количество"),
+        null=True,
+        blank=True,
+    )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Категория товара в магазине")

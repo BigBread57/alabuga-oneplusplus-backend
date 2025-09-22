@@ -1,7 +1,6 @@
+from apps.accounts.models import UserRole
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-
-from apps.accounts.models import UserRole
 
 User = get_user_model()
 
@@ -21,7 +20,7 @@ class UserListSerializer(serializers.ModelSerializer):
             "last_name",
             "role",
             "experience",
-            "mana",
+            "currency",
             "created_at",
         )
 
@@ -44,7 +43,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
             "last_name",
             "role",
             "experience",
-            "mana",
+            "currency",
             "avatar",
             "current_rank",
             "competencies",

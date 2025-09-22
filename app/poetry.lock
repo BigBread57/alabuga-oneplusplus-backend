@@ -568,7 +568,7 @@ click = ">=7"
 [[package]]
 name = "click-plugins"
 version = "1.1.1.2"
-description = "An extension module for click to enable registering CLI commands via setuptools entry-points."
+description = "An extension module for click to enable registering CLI commands via setuptools entry-experience."
 optional = false
 python-versions = "*"
 groups = ["main"]

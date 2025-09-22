@@ -27,10 +27,19 @@ class Rank(AbstractBaseModel):
     required_experience = models.PositiveIntegerField(
         verbose_name=_("Требуемый опыт"),
     )
-    order = models.PositiveIntegerField(
-        verbose_name=_("Порядок ранга"),
-        default=1,
-        unique=True,
+    parent = models.ForeignKey(
+        to="self",
+        on_delete=models.CASCADE,
+        verbose_name=_("Родительский ранг"),
+        related_name="children",
+        db_index=True,
+        null=True,
+    )
+    game_world = models.ForeignKey(
+        to="game_world.GameWorld",
+        on_delete=models.CASCADE,
+        verbose_name=_("Игровой мир"),
+        related_name="ranks",
     )
 
     class Meta(AbstractBaseModel.Meta):

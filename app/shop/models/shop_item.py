@@ -1,4 +1,3 @@
-from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -17,18 +16,12 @@ class ShopItem(AbstractBaseModel):
     description = models.TextField(
         verbose_name=_("Описание"),
     )
-    price = models.DecimalField(
-        verbose_name=_("Цена в мане"),
-        max_digits=10,
-        decimal_places=2,
-        validators=[MinValueValidator(0)],
+    price = models.PositiveIntegerField(
+        verbose_name=_("Цена в валюте"),
     )
-    number = models.DecimalField(
+    number = models.PositiveIntegerField(
         verbose_name=_("Количество"),
-        max_digits=10,
-        decimal_places=2,
         help_text=_("Доступное количество товара. 0 - бесконечное количество"),
-        validators=[MinValueValidator(0)],
     )
     image = models.ImageField(
         verbose_name=_("Изображение"),
@@ -39,6 +32,16 @@ class ShopItem(AbstractBaseModel):
     is_active = models.BooleanField(
         verbose_name=_("Активен"),
         default=True,
+    )
+    start_datetime = models.DateTimeField(
+        verbose_name=_("Дата и время старта продаж"),
+        null=True,
+        blank=True,
+    )
+    time_to_buy = models.PositiveIntegerField(
+        verbose_name=_("Время на покупку, в днях"),
+        null=True,
+        blank=True,
     )
     category = models.ForeignKey(
         to="shop.ShopItemCategory",

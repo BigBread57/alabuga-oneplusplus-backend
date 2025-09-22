@@ -1,7 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from app.common.models import AbstractBaseModel
+
+User = get_user_model()
 
 
 class UserMission(AbstractBaseModel):
@@ -9,7 +12,7 @@ class UserMission(AbstractBaseModel):
     Прогресс пользователя по миссиям.
     """
 
-    class Status(models.TextChoices):
+    class Statuses(models.TextChoices):
         """
         Статус выполнения миссии.
         """
@@ -18,15 +21,16 @@ class UserMission(AbstractBaseModel):
         IN_PROGRESS = "IN_PROGRESS", _("В процессе")
         COMPLETED = "COMPLETED", _("Выполнена")
         PENDING_REVIEW = "PENDING_REVIEW", _("На проверке")
+        FAILED = "FAILED", _("Провалена")
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        to=User,
         verbose_name=_("Пользователь"),
         on_delete=models.CASCADE,
         related_name="missions",
     )
     mission = models.ForeignKey(
-        Mission,
+        to="game_mechanics.Mission",
         verbose_name=_("Миссия"),
         on_delete=models.CASCADE,
         related_name="users",
@@ -34,8 +38,8 @@ class UserMission(AbstractBaseModel):
     status = models.CharField(
         verbose_name=_("Статус"),
         max_length=20,
-        choices=Status.choices,
-        default=Status.AVAILABLE,
+        choices=Statuses.choices,
+        default=Statuses.AVAILABLE,
     )
     started_at = models.DateTimeField(
         verbose_name=_("Начата"),
@@ -50,17 +54,17 @@ class UserMission(AbstractBaseModel):
     result = models.TextField(
         verbose_name=_("Результат"),
         blank=True,
-        help_text=_("Результат выполнения миссии (ссылки, файлы и т.д.)"),
+        help_text=_("Результат выполнения миссии"),
     )
-    reviewed_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        verbose_name=_("Проверил"),
+    inspector = models.ForeignKey(
+        to=User,
+        verbose_name=_("Проверяющий"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="reviewed_missions",
+        related_name="mission_inspectors",
     )
-    review_comment = models.TextField(
+    inspector_comment = models.TextField(
         verbose_name=_("Комментарий проверяющего"),
         blank=True,
     )

@@ -126,7 +126,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.PROTECT,
                         related_name="users",
-                        to="gamification.rank",
+                        to="game_mechanics.rank",
                         verbose_name="Ранг",
                     ),
                 ),
@@ -159,7 +159,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="user_levels",
-                        to="gamification.competency",
+                        to="game_mechanics.competency",
                         verbose_name="Компетенция",
                     ),
                 ),
@@ -193,7 +193,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="user_progress",
-                        to="gamification.boardingstep",
+                        to="game_mechanics.boardingstep",
                         verbose_name="Шаг",
                     ),
                 ),
@@ -226,7 +226,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="owners",
-                        to="gamification.artifact",
+                        to="game_mechanics.artifact",
                         verbose_name="Артефакт",
                     ),
                 ),
@@ -254,13 +254,13 @@ class Migration(migrations.Migration):
                 ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
                 ("created_at", models.DateTimeField(auto_now_add=True, verbose_name="Создан")),
                 ("updated_at", models.DateTimeField(auto_now=True, verbose_name="Изменен")),
-                ("level_required", models.IntegerField(default=1, verbose_name="Требуемый уровень")),
+                ("required_level", models.IntegerField(default=1, verbose_name="Требуемый уровень")),
                 (
                     "competency",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="rank_requireds",
-                        to="gamification.competency",
+                        to="game_mechanics.competency",
                         verbose_name="Компетенция",
                     ),
                 ),
@@ -269,7 +269,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="competency_requireds",
-                        to="gamification.rank",
+                        to="game_mechanics.rank",
                         verbose_name="Ранг",
                     ),
                 ),

@@ -1,10 +1,12 @@
+from datetime import datetime, timedelta
+
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from app.game_mechanics.api.v1.serializers.nested import RankNestedSerializer, CompetencyNestedSerializer
+from app.game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer, RankNestedSerializer
 from app.shop.api.v1.serializers.nested import ShopItemCategoryNestedSerializer, ShopItemNestedSerializer
 from app.shop.models import ShopItem
-from django.utils.translation import gettext_lazy as _
 
 
 class ShopItemListSerializer(serializers.ModelSerializer):
@@ -15,6 +17,14 @@ class ShopItemListSerializer(serializers.ModelSerializer):
     category = ShopItemCategoryNestedSerializer(
         label=_("Категория"),
         help_text=_("Категория"),
+    )
+    end_datetime = serializers.SerializerMethodField(
+        label=_("Дата и время окончания продаж"),
+        help_text=_("Дата и время окончания продаж"),
+    )
+    available_for_purchase = serializers.IntegerField(
+        label=_("Доступно для покупки"),
+        help_text=_("Доступно для покупки"),
     )
 
     class Meta:
@@ -28,7 +38,18 @@ class ShopItemListSerializer(serializers.ModelSerializer):
             "number",
             "image",
             "is_active",
+            "start_datetime",
+            "end_datetime",
+            "available_for_purchase",
         )
+
+    def get_end_datetime(self, shop_item: ShopItem) -> datetime | None:
+        """
+        Дата и время окончания продаж.
+        """
+        if shop_item.start_datetime and shop_item.time_to_buy:
+            return shop_item.start_datetime + timedelta(hours=shop_item.time_to_buy)
+        return None
 
 
 class ShopItemDetailSerializer(serializers.ModelSerializer):
@@ -53,6 +74,14 @@ class ShopItemDetailSerializer(serializers.ModelSerializer):
         help_text=_("Дочерние элементы"),
         many=True,
     )
+    end_datetime = serializers.SerializerMethodField(
+        label=_("Дата и время окончания продаж"),
+        help_text=_("Дата и время окончания продаж"),
+    )
+    available_for_purchase = serializers.IntegerField(
+        label=_("Доступно для покупки"),
+        help_text=_("Доступно для покупки"),
+    )
 
     class Meta:
         model = ShopItem
@@ -68,7 +97,16 @@ class ShopItemDetailSerializer(serializers.ModelSerializer):
             "number",
             "image",
             "is_active",
+            "end_datetime",
         )
+
+    def get_end_datetime(self, shop_item: ShopItem) -> datetime | None:
+        """
+        Дата и время окончания продаж.
+        """
+        if shop_item.start_datetime and shop_item.time_to_buy:
+            return shop_item.start_datetime + timedelta(hours=shop_item.time_to_buy)
+        return None
 
 
 class ShopItemCreateOrUpdateSerializer(serializers.ModelSerializer):

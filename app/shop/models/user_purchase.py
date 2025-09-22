@@ -22,20 +22,14 @@ class UserPurchase(AbstractBaseModel):
         DELIVERED = "DELIVERED", _("Доставлена")
         CANCELLED = "CANCELLED", _("Отменена")
 
-    price = models.DecimalField(
-        verbose_name=_("Цена на момент покупки в мане"),
-        max_digits=10,
-        decimal_places=2,
+    price = models.PositiveIntegerField(
+        verbose_name=_("Цена на момент покупки в валюте"),
     )
-    number = models.DecimalField(
+    number = models.PositiveIntegerField(
         verbose_name=_("Количество"),
-        max_digits=10,
-        decimal_places=2,
     )
-    total_sum = models.DecimalField(
+    total_sum = models.PositiveIntegerField(
         verbose_name=_("Общая сумма"),
-        max_digits=10,
-        decimal_places=2,
     )
     status = models.CharField(
         verbose_name=_("Статус"),

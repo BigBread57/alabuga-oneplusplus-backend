@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
@@ -7,10 +8,9 @@ from rest_framework.response import Response
 from app.common.permissions import UserHRPermission
 from app.common.serializers import ResponseDetailSerializer
 from app.common.views import QuerySelectorMixin
-from app.game_mechanics.api.v1.selectors import RankListSelector, RankListFilterSerializer
-from app.game_mechanics.api.v1.serializers import RankListSerializer, RankCreateOrUpdateSerializer, RankDetailSerializer
+from app.game_mechanics.api.v1.selectors import RankListFilterSerializer, RankListSelector
+from app.game_mechanics.api.v1.serializers import RankCreateOrUpdateSerializer, RankDetailSerializer, RankListSerializer
 from app.game_mechanics.models import Rank
-from django.utils.translation import gettext_lazy as _
 
 
 class RankListAPIView(QuerySelectorMixin, GenericAPIView):

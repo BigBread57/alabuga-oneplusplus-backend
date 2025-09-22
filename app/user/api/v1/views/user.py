@@ -1,12 +1,11 @@
+from apps.accounts.serializers import UserDetailSerializer, UserListSerializer, UserUpdateSerializer
+from apps.common.mixins import QuerySelectorMixin
 from django.contrib.auth import get_user_model
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
-from apps.accounts.serializers import UserDetailSerializer, UserListSerializer, UserUpdateSerializer
-from apps.common.mixins import QuerySelectorMixin
 
 User = get_user_model()
 

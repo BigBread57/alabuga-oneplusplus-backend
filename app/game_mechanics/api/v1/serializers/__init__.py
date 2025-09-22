@@ -1,30 +1,20 @@
-from app.game_mechanics.api.v1.serializers.artifact import (
-    ArtifactListSerializer,
-    ArtifactCreateOrUpdateSerializer,
-    ArtifactDetailSerializer,
-)
 from app.game_mechanics.api.v1.serializers.competency import (
-    CompetencyListSerializer,
-    CompetencyDetailSerializer,
     CompetencyCreateOrUpdateSerializer,
+    CompetencyDetailSerializer,
+    CompetencyListSerializer,
 )
 from app.game_mechanics.api.v1.serializers.rank import (
-    RankListSerializer,
-    RankDetailSerializer,
     RankCreateOrUpdateSerializer,
+    RankDetailSerializer,
+    RankListSerializer,
 )
 from app.game_mechanics.api.v1.serializers.required_rank_competency import (
-    RequiredRankCompetencyListSerializer,
-    RequiredRankCompetencyDetailSerializer,
     RequiredRankCompetencyCreateOrUpdateSerializer,
+    RequiredRankCompetencyDetailSerializer,
+    RequiredRankCompetencyListSerializer,
 )
 
-
 __all__ = (
-    # Artifact
-    "ArtifactListSerializer",
-    "ArtifactDetailSerializer",
-    "ArtifactCreateOrUpdateSerializer",
     # Competency
     "CompetencyListSerializer",
     "CompetencyDetailSerializer",

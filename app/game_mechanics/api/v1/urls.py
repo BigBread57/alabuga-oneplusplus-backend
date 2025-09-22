@@ -1,49 +1,22 @@
 from django.urls import path
 
 from app.game_mechanics.api.v1.views import (
-    ArtifactListAPIView,
-    ArtifactCreateAPIView,
-    ArtifactUpdateAPIView,
-    ArtifactDeleteAPIView,
-    CompetencyListAPIView,
     CompetencyCreateAPIView,
-    CompetencyUpdateAPIView,
     CompetencyDeleteAPIView,
-    RequiredRankCompetencyListAPIView,
+    CompetencyListAPIView,
+    CompetencyUpdateAPIView,
     RankCreateAPIView,
-    RankUpdateAPIView,
     RankDeleteAPIView,
-    RequiredRankCompetencyCreateAPIView,
-    RequiredRankCompetencyUpdateAPIView,
-    RequiredRankCompetencyDeleteAPIView,
     RankListAPIView,
+    RankUpdateAPIView,
+    RequiredRankCompetencyCreateAPIView,
+    RequiredRankCompetencyDeleteAPIView,
+    RequiredRankCompetencyListAPIView,
+    RequiredRankCompetencyUpdateAPIView,
 )
 
 app_name = "v1"
 
-
-artifact_urls = [
-    path(
-        route="artifacts/list/",
-        view=ArtifactListAPIView.as_view(),
-        name="artifacts-list",
-    ),
-    path(
-        route="artifacts/create/",
-        view=ArtifactCreateAPIView.as_view(),
-        name="artifacts-create",
-    ),
-    path(
-        route="artifacts/<int:pk>/update/",
-        view=ArtifactUpdateAPIView.as_view(),
-        name="artifacts-update",
-    ),
-    path(
-        route="artifacts/<int:pk>/delete/",
-        view=ArtifactDeleteAPIView.as_view(),
-        name="artifacts-delete",
-    ),
-]
 
 competency_urls = [
     path(

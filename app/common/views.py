@@ -1,11 +1,10 @@
 from types import FunctionType
-from typing import Any, Optional, TypeVar
+from typing import Any, TypeVar
 
+from apps.common.selectors import BaseSelector
 from rest_framework.fields import MultipleChoiceField
 from rest_framework.relations import ManyRelatedField
 from rest_framework.serializers import ListSerializer, Serializer
-
-from apps.common.selectors import BaseSelector
 
 T = TypeVar("T")
 
@@ -14,7 +13,7 @@ class QuerySelectorMixin:
     """Класс позволяет получить queryset в представлениях из селектора."""
 
     selector: BaseSelector
-    filter_params_serializer_class: Optional[type[Serializer]] = None
+    filter_params_serializer_class: type[Serializer] | None = None
 
     def get_queryset(self, **kwargs) -> T:
         """Получить queryset из селектора."""

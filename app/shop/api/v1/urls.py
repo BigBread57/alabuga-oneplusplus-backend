@@ -1,23 +1,19 @@
 from django.urls import path
 
 from app.shop.api.v1.views import (
-    ShopItemCategoryListAPIView,
     ShopItemCategoryCreateAPIView,
-    ShopItemCategoryUpdateAPIView,
     ShopItemCategoryDeleteAPIView,
-    ShopItemDeleteAPIView,
-)
-from app.shop.api.v1.views import (
-    ShopItemListAPIView,
+    ShopItemCategoryListAPIView,
+    ShopItemCategoryUpdateAPIView,
     ShopItemCreateAPIView,
+    ShopItemDeleteAPIView,
+    ShopItemListAPIView,
     ShopItemUpdateAPIView,
-)
-from app.shop.api.v1.views import (
-    UserPurchaseListAPIView,
     UserPurchaseCreateAPIView,
-    UserPurchaseUpdateAPIView,
-    UserPurchaseToWorkAPIView,
     UserPurchaseDetailAPIView,
+    UserPurchaseListAPIView,
+    UserPurchaseToWorkAPIView,
+    UserPurchaseUpdateAPIView,
 )
 
 app_name = "v1"
@@ -45,6 +41,7 @@ shop_item_category_urls = [
         name="item-categories-delete",
     ),
 ]
+
 shop_item_urls = [
     path(
         route="items/list/",

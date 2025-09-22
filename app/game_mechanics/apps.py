@@ -1,7 +1,10 @@
 from django.apps import AppConfig
 
 
-class GamificationConfig(AppConfig):
-    default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.gamification"
-    verbose_name = "Геймификация"
+class GameMechanicsConfig(AppConfig):
+    """
+    Конфиг.
+    """
+
+    name = "game_mechanics"
+    verbose_name = "Игровая механика"

@@ -64,7 +64,7 @@ class UserPurchaseListSelector(BaseSelector):
 
     queryset = UserPurchase.objects.select_related(
         "shop_item",
-    ).all()
+    )
     filter_class = UserPurchaseListFilter
 
 
@@ -77,5 +77,5 @@ class UserPurchaseDetailSelector(BaseSelector):
         "shop_item",
         "buyer",
         "manager",
-    ).all()
+    )
     filter_class = UserPurchaseDetailFilter

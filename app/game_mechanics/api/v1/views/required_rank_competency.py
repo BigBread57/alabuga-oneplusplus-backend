@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
@@ -8,16 +9,15 @@ from app.common.permissions import UserHRPermission
 from app.common.serializers import ResponseDetailSerializer
 from app.common.views import QuerySelectorMixin
 from app.game_mechanics.api.v1.selectors import (
-    RequiredRankCompetencyListSelector,
     RequiredRankCompetencyListFilterSerializer,
+    RequiredRankCompetencyListSelector,
 )
 from app.game_mechanics.api.v1.serializers import (
-    RequiredRankCompetencyListSerializer,
     RequiredRankCompetencyCreateOrUpdateSerializer,
     RequiredRankCompetencyDetailSerializer,
+    RequiredRankCompetencyListSerializer,
 )
 from app.game_mechanics.models import RequiredRankCompetency
-from django.utils.translation import gettext_lazy as _
 
 
 class RequiredRankCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):

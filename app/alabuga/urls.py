@@ -4,7 +4,6 @@ from django.contrib.admindocs import urls as admindocs_urls
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
-
 urlpatterns = [
     # Admin.
     path("admin/doc/", include(admindocs_urls)),

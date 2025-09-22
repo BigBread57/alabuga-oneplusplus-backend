@@ -1,4 +1,5 @@
 import django_filters
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
@@ -48,11 +49,17 @@ class ShopItemListSelector(BaseSelector):
     Товар в магазине. Список. Селектор.
     """
 
-    queryset = ShopItem.objects.select_related(
-        "category",
-    ).filter(
-        is_active=True,
-        parent__isnull=True,
+    queryset = (
+        ShopItem.objects.select_related(
+            "category",
+        )
+        .filter(
+            is_active=True,
+            parent__isnull=True,
+        )
+        .annotate(
+            available_for_purchase=models.F("category__available_for_purchase"),
+        )
     )
     filter_class = ShopItemListFilter
 
@@ -75,6 +82,9 @@ class ShopItemDetailSelector(BaseSelector):
         .filter(
             is_active=True,
             parent__isnull=True,
+        )
+        .annotate(
+            available_for_purchase=models.F("category__available_for_purchase"),
         )
     )
     filter_class = ShopItemListFilter

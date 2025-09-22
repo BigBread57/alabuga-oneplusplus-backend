@@ -28,6 +28,12 @@ class Competency(AbstractBaseModel):
         verbose_name=_("Цвет"),
         max_length=256,
     )
+    game_world = models.ForeignKey(
+        to="game_world.GameWorld",
+        on_delete=models.CASCADE,
+        verbose_name=_("Игровой мир"),
+        related_name="competencies",
+    )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Компетенция")

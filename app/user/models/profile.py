@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -36,8 +35,8 @@ class Profile(AbstractBaseModel):
         default=0,
         help_text=_("Очки прогресса для повышения ранга"),
     )
-    mana = models.IntegerField(
-        verbose_name=_("Мана"),
+    currency = models.IntegerField(
+        verbose_name=_("Валюта"),
         default=0,
         help_text=_("Игровая валюта для покупок"),
     )

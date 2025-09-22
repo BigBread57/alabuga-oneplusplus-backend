@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 from app.common.selectors import BaseSelector
 from app.game_mechanics.models import Rank
+from app.game_world.models import GameWorld
 
 
 class RankListFilterSerializer(serializers.Serializer):
@@ -16,9 +17,16 @@ class RankListFilterSerializer(serializers.Serializer):
         help_text=_("Название"),
         required=False,
     )
-    order = serializers.IntegerField(
-        label=_("Порядок ранга"),
-        help_text=_("Порядок ранга"),
+    parent = serializers.PrimaryKeyRelatedField(
+        label=_("Родительский ранг"),
+        help_text=_("Родительский ранг"),
+        queryset=Rank.objects.all(),
+        required=False,
+    )
+    game_world = serializers.PrimaryKeyRelatedField(
+        label=_("Игровой мир"),
+        help_text=_("Игровой мир"),
+        queryset=GameWorld.objects.all(),
         required=False,
     )
 
@@ -32,7 +40,8 @@ class RankListFilter(django_filters.FilterSet):
         model = Rank
         fields = (
             "name",
-            "order",
+            "parent",
+            "game_world",
         )
 
 
@@ -41,5 +50,5 @@ class RankListSelector(BaseSelector):
     Ранг. Список. Селектор.
     """
 
-    queryset = Rank.objects.all()
+    queryset = Rank.objects.select_related("rank")
     filter_class = RankListFilter

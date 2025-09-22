@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from app.game_mechanics.models import Rank
-from django.utils.translation import gettext_lazy as _
 
 
 class RankListSerializer(serializers.ModelSerializer):
@@ -17,7 +16,7 @@ class RankListSerializer(serializers.ModelSerializer):
             "description",
             "icon",
             "required_experience",
-            "order",
+            "parent",
         )
 
 
@@ -34,7 +33,7 @@ class RankDetailSerializer(serializers.ModelSerializer):
             "description",
             "icon",
             "required_experience",
-            "order",
+            "parent",
         )
 
 
@@ -50,5 +49,5 @@ class RankCreateOrUpdateSerializer(serializers.ModelSerializer):
             "description",
             "icon",
             "required_experience",
-            "order",
+            "parent",
         )
