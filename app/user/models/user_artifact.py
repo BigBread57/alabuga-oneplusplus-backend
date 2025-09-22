@@ -1,7 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from app.common.models import AbstractBaseModel
+
+User = get_user_model()
 
 
 class UserArtifact(AbstractBaseModel):
@@ -10,13 +13,13 @@ class UserArtifact(AbstractBaseModel):
     """
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        to=User,
         verbose_name=_("Пользователь"),
         on_delete=models.CASCADE,
         related_name="artifacts",
     )
     artifact = models.ForeignKey(
-        Artifact,
+        to="game_mechanics.Artifact",
         verbose_name=_("Артефакт"),
         on_delete=models.CASCADE,
         related_name="owners",

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from app.common.constants import UserRoles
 
 
-class DefaultUserManager(UserManager):  # type: ignore
+class DefaultUserManager(UserManager):
     """Менеджер для пользователей с логином email."""
 
     use_in_migrations = True
@@ -45,11 +45,12 @@ class DefaultUserManager(UserManager):  # type: ignore
             **extra_fields,
         )
 
+
 class User(AbstractUser):  # type: ignore
     """Основной класс для пользователя."""
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
 
     middle_name = models.CharField(
         verbose_name=_("Отчество"),

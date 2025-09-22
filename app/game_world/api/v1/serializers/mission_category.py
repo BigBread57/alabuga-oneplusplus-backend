@@ -1,6 +1,3 @@
-from datetime import datetime, timedelta
-
-from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from app.game_world.models import MissionCategory

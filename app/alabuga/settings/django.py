@@ -1,13 +1,11 @@
 import os
-import sys
 
 from django.utils.translation import gettext_lazy as _
 
 from app.alabuga.settings import BASE_DIR, config
 
-
-SECRET_KEY = config('DJANGO_SECRET_KEY')
-DEBUG = config('DJANGO_DEBUG', cast=bool, default=False)
+SECRET_KEY = config("DJANGO_SECRET_KEY")
+DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 SITE_ID = 1
 
 BASE_INSTALLED_APPS: list[str] = [
@@ -21,10 +19,10 @@ BASE_INSTALLED_APPS: list[str] = [
     "django.contrib.admindocs",
 ]
 OTHER_INSTALLED_APPS: list[str] = [
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.oauth2',
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.oauth2",
     "rest_framework",
     "rest_framework.authtoken",
     "rest_framework_simplejwt",
@@ -129,7 +127,7 @@ TEMPLATES = [
     }
 ]
 
-AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = "user.User"
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "files", "static")
@@ -143,11 +141,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "files", "media")
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 PASSWORD_HASHERS: list[str] = [
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",

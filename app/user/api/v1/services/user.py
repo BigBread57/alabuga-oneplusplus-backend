@@ -6,22 +6,21 @@ from allauth.account.forms import default_token_generator
 from allauth.account.internal.userkit import user_username
 from allauth.account.utils import url_str_to_user_pk, user_pk_to_url_str
 from allauth.utils import build_absolute_uri
-from django.contrib.auth import get_user_model, authenticate, login
+from django.contrib.auth import authenticate, get_user_model, login
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import BadRequest
 from django.core.mail import send_mail
-from django.db import transaction
 from django.template.loader import get_template
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
 from requests import Request
 from rest_framework import status
-from rest_framework.exceptions import NotFound, ValidationError, APIException
+from rest_framework.exceptions import APIException, NotFound, ValidationError
 from rest_framework.reverse import reverse
 
 from app.common.services import BaseService
-from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
+
 
 class SendEmailError(APIException):
     """Ошибка при отправке письма с подтверждением регистрации."""
@@ -41,15 +40,15 @@ class UserService(BaseService):
 
         try:
             reset_user = User.objects.get(pk=pk)
-        except (ValueError, User.DoesNotExist):
-            raise NotFound(_('Пользователь не найден'))
+        except (ValueError, User.DoesNotExist) as exc:
+            raise NotFound(_("Пользователь не найден")) from exc
 
         invalid_token = not default_token_generator.check_token(
             reset_user,
             key,
         )
         if reset_user is None or invalid_token:
-            raise ValidationError(_('Токен сброса пароля не действителен'))
+            raise ValidationError(_("Токен сброса пароля не действителен"))
         return reset_user
 
     def send_confirm_email(
@@ -60,35 +59,32 @@ class UserService(BaseService):
         """Отправка письма со ссылкой для подтверждения регистрации."""
         temp_key = default_token_generator.make_token(user)
         path = reverse(
-            viewname='api:v1:user:users-confirm-email-process',
-            kwargs={'extra_path': f'{user.email}/{temp_key}'},
+            viewname="api:v1:user:users-confirm-email-process",
+            kwargs={"extra_path": f"{user.email}/{temp_key}"},
         )
         url = build_absolute_uri(request, path)
-        url_without_api = url.replace('api/user/users/', '')
+        url_without_api = url.replace("api/user/users/", "")
 
         context = {
-            'user': user,
-            'activate_url': url_without_api,
-            'year': now().year,
-            'company': 'ALABUGA',
+            "user": user,
+            "activate_url": url_without_api,
+            "year": now().year,
+            "company": "ALABUGA",
         }
-        name_template = 'email/confirm_email.html'
+        name_template = "email/confirm_email.html"
         template = get_template(name_template).render(context)
         try:
             send_mail(
-                subject=str(_('Регистрация в ALABUGA!')),
+                subject=str(_("Регистрация в ALABUGA!")),
                 message="",
                 recipient_list=list(user.email),
                 fail_silently=False,
                 html_message=template,
             )
-        except Exception:
+        except Exception as exc:
             raise SendEmailError(
-                detail=_(
-                    'Письмо с подтверждением регистрации не отправлено. ' +
-                    'Обратитесь в поддержку системы.',
-                ),
-            )
+                detail=_("Письмо с подтверждением регистрации не отправлено. Обратитесь в поддержку системы."),
+            ) from exc
 
     def send_email_with_reset_password(
         self,
@@ -99,27 +95,27 @@ class UserService(BaseService):
         path = reverse(
             viewname="api:v1:user:users-reset-password-process",
             kwargs={
-                'extra_path':
-                    f'{user_pk_to_url_str(user)}-' +
-                    str(default_token_generator.make_token(user)),
+                "extra_path": f"{user_pk_to_url_str(user)}-" + str(default_token_generator.make_token(user)),
             },
         )
         url = build_absolute_uri(request, path)
-        url_without_api = url.replace('api/user/users', '')
+        url_without_api = url.replace("api/user/users", "")
 
         context = {
-            'current_site': get_current_site(request),
-            'user': user,
-            'password_reset_url': url_without_api,
-            'request': request,
-            'year': now().year,
+            "current_site": get_current_site(request),
+            "user": user,
+            "password_reset_url": url_without_api,
+            "request": request,
+            "year": now().year,
         }
 
         method = account.app_settings.AUTHENTICATION_METHOD
         if method != account.app_settings.AuthenticationMethod.EMAIL:
-            context['username'] = user_username(user)
+            context["username"] = user_username(user)
         account.adapter.get_adapter(request).send_mail(
-            'password_reset_key', user.email, context,
+            "password_reset_key",
+            user.email,
+            context,
         )
 
     def login(
@@ -140,23 +136,21 @@ class UserService(BaseService):
                 request=request,
                 user=user,
             )
-        except Exception:
-            raise NotFound(
-                _('Пользователь с указанными данными не найден'),
-            )
+        except Exception as exc:
+            raise NotFound(_("Пользователь с указанными данными не найден")) from exc
         return user
 
     def get_user_reset_password_process(self, extra_path: str) -> User:
         """
         Проверка валидности токена сброса пароля.
         """
-        match = re.compile('(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)').match(extra_path)
+        match = re.compile("(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)").match(extra_path)
         if match:
             uidb36, key = match.groups()
             return self.get_user_by_token(uidb36, key)
 
         raise ValidationError(
-            _('Не удалось извлечь id пользователя и ключ сброса пароля'),
+            _("Не удалось извлечь id пользователя и ключ сброса пароля"),
         )
 
     def set_new_password(self, extra_path: str, password: str) -> None:
@@ -168,33 +162,32 @@ class UserService(BaseService):
         if not user.is_active:
             user.is_active = True
 
-        user.save(update_fields=['password', 'is_active'])
+        user.save(update_fields=["password", "is_active"])
         return None
 
     def change_password(self, user: User, validated_data: dict[str, Any]) -> None:
         """
         Смена пароля.
         """
-        user.set_password(validated_data.get('new_password1'))
-        user.save(update_fields=['password'])
+        user.set_password(validated_data.get("new_password1"))
+        user.save(update_fields=["password"])
         return None
-
 
     def register_user(self, request: Request, validated_data: dict[str, Any]) -> User:
         """
         Регистрация пользователя.
         """
         user = User.objects.create(
-            username=validated_data['email'].split('@')[0],
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            middle_name=validated_data['middle_name'],
-            phone=validated_data['phone'],
+            username=validated_data["email"].split("@")[0],
+            email=validated_data["email"],
+            first_name=validated_data["first_name"],
+            last_name=validated_data["last_name"],
+            middle_name=validated_data["middle_name"],
+            phone=validated_data["phone"],
         )
 
         # Устанавливаем пароль.
-        user.set_password(validated_data.get('password1'))
+        user.set_password(validated_data.get("password1"))
         user.save()
         user.refresh_from_db()
 
@@ -204,5 +197,6 @@ class UserService(BaseService):
             user=user,
         )
         return user
+
 
 user_service = UserService()

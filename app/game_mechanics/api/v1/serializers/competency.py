@@ -26,11 +26,11 @@ class CompetencyListSerializer(serializers.ModelSerializer):
             "modifier_value",
         )
 
-    def get_modifier_display_name(self, Competency: Competency) -> str:
+    def get_modifier_display_name(self, competency: Competency) -> str:
         """
         Название статуса.
         """
-        return Competency.get_modifier_display()
+        return competency.get_modifier_display()
 
 
 class CompetencyDetailSerializer(serializers.ModelSerializer):
@@ -55,11 +55,11 @@ class CompetencyDetailSerializer(serializers.ModelSerializer):
             "modifier_value",
         )
 
-    def get_modifier_display_name(self, Competency: Competency) -> str:
+    def get_modifier_display_name(self, competency: Competency) -> str:
         """
         Название статуса.
         """
-        return Competency.get_modifier_display()
+        return competency.get_modifier_display()
 
 
 class CompetencyCreateOrUpdateSerializer(serializers.ModelSerializer):

@@ -13,13 +13,13 @@ class UserCompetency(AbstractBaseModel):
     """
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        to=User,
         verbose_name=_("Пользователь"),
         on_delete=models.CASCADE,
         related_name="competencies",
     )
     competency = models.ForeignKey(
-        Competency,
+        to="experience.Competency",
         verbose_name=_("Компетенция"),
         on_delete=models.CASCADE,
         related_name="user_levels",

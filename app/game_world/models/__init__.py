@@ -21,4 +21,3 @@ __all__ = (
     "MissionCompetency",
     "GameWorld",
 )
-

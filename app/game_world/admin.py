@@ -1,11 +1,16 @@
 from django.contrib import admin
 
 from .models import (
+    Artifact,
+    Event,
+    EventCompetency,
+    GameWorld,
     Mission,
     MissionArtifact,
     MissionBranch,
+    MissionCategory,
     MissionCompetency,
-    Artifact, Event, EventCompetency, GameWorld, MissionCategory, MissionLevel,
+    MissionLevel,
 )
 
 
@@ -22,7 +27,7 @@ class ArtifactAdmin(admin.ModelAdmin):
         "modifier_value",
         "game_world",
     )
-    list_filter = ("modifier", 'game_world')
+    list_filter = ("modifier", "game_world")
     search_fields = (
         "name",
         "description",
@@ -45,14 +50,22 @@ class EventAdmin(admin.ModelAdmin):
         "category",
         "game_world",
     )
-    list_filter = ("is_active", 'category', "game_world")
+    list_filter = ("is_active", "category", "game_world")
     search_fields = (
         "name",
         "description",
     )
     ordering = ("-id",)
-    autocomplete_fields = ("game_world", "is_active", 'category',)
-    list_select_related = ("game_world", "is_active", 'category',)
+    autocomplete_fields = (
+        "game_world",
+        "is_active",
+        "category",
+    )
+    list_select_related = (
+        "game_world",
+        "is_active",
+        "category",
+    )
 
 
 @admin.register(EventCompetency)
@@ -69,8 +82,14 @@ class EventCompetencyAdmin(admin.ModelAdmin):
     )
     list_filter = ("competency",)
     ordering = ("-id",)
-    autocomplete_fields = ("event", "competency",)
-    list_select_related = ("event", "competency",)
+    autocomplete_fields = (
+        "event",
+        "competency",
+    )
+    list_select_related = (
+        "event",
+        "competency",
+    )
 
 
 @admin.register(GameWorld)
@@ -128,7 +147,12 @@ class MissionBranchAdmin(admin.ModelAdmin):
     Ветка миссий.
     """
 
-    list_display = ("id", "name", "category", "order",)
+    list_display = (
+        "id",
+        "name",
+        "category",
+        "order",
+    )
     list_filter = ("category",)
     search_fields = ("name", "description")
     ordering = ("-id",)
@@ -153,20 +177,23 @@ class MissionCompetencyAdmin(admin.ModelAdmin):
     )
 
 
-
 @admin.register(MissionCategory)
 class MissionCategoryAdmin(admin.ModelAdmin):
     """
     Категория миссии.
     """
 
-    list_display = ("id", "name", "color",)
+    list_display = (
+        "id",
+        "name",
+        "color",
+    )
     search_fields = ("name",)
     ordering = ("-id",)
 
 
 @admin.register(MissionLevel)
-class MissionCategoryAdmin(admin.ModelAdmin):
+class MissionLevelAdmin(admin.ModelAdmin):
     """
     Уровень миссии.
     """
@@ -174,4 +201,3 @@ class MissionCategoryAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "color", "multiplier_experience", "multiplier_currency")
     search_fields = ("name",)
     ordering = ("-id",)
-

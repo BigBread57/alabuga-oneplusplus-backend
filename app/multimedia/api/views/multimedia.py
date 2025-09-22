@@ -8,8 +8,8 @@ from rest_framework.authentication import (
 )
 from rest_framework.decorators import action
 from server.apps.alabuga_file.api.serialziers import (
-    MultimediaSerializer,
     CreateMultimediaSerializer,
+    MultimediaSerializer,
 )
 from server.apps.alabuga_file.models import Multimedia
 from server.apps.alabuga_file.services.check_signature import check_signature

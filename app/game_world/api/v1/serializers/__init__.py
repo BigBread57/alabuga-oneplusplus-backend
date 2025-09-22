@@ -9,18 +9,18 @@ from app.game_world.api.v1.serializers.event import (
     EventListSerializer,
 )
 from app.game_world.api.v1.serializers.game_world import (
+    GameWorldCreateOrUpdateSerializer,
     GameWorldDetailSerializer,
-    GameWorldListCreateOrUpdateSerializer,
     GameWorldListSerializer,
 )
 from app.game_world.api.v1.serializers.mission import (
+    MissionCreateOrUpdateSerializer,
     MissionDetailSerializer,
-    MissionListCreateOrUpdateSerializer,
     MissionListSerializer,
 )
 from app.game_world.api.v1.serializers.mission_branch import (
+    MissionBranchCreateOrUpdateSerializer,
     MissionBranchDetailSerializer,
-    MissionBranchListCreateOrUpdateSerializer,
     MissionBranchListSerializer,
 )
 from app.game_world.api.v1.serializers.mission_category import (
@@ -45,11 +45,11 @@ __all__ = (
     # Mission
     "MissionListSerializer",
     "MissionDetailSerializer",
-    "MissionListCreateOrUpdateSerializer",
+    "MissionCreateOrUpdateSerializer",
     # MissionBranch
     "MissionBranchListSerializer",
     "MissionBranchDetailSerializer",
-    "MissionBranchListCreateOrUpdateSerializer",
+    "MissionBranchCreateOrUpdateSerializer",
     # MissionCategory
     "MissionCategoryListSerializer",
     "MissionCategoryDetailSerializer",

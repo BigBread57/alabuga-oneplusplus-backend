@@ -11,9 +11,9 @@ from app.alabuga.settings import config
 
 # Sentry
 # ------------------------------------------------------------------------------
-SENTRY_DSN = config('SENTRY_DSN', cast=str, default='')
+SENTRY_DSN = config("SENTRY_DSN", cast=str, default="")
 SENTRY_LOG_LEVEL = config(
-    'DJANGO_SENTRY_LOG_LEVEL',
+    "DJANGO_SENTRY_LOG_LEVEL",
     cast=int,
     default=logging.INFO,
 )
@@ -21,29 +21,28 @@ SENTRY_LOG_LEVEL = config(
 
 if SENTRY_DSN:  # noqa: C901
     extra_params = {
-        'environment': config(
-            'SENTRY_ENVIRONMENT',
+        "environment": config(
+            "SENTRY_ENVIRONMENT",
             cast=str,
-            default='unknown',
+            default="unknown",
         ),
     }
 
-    if deployment := config('SENTRY_DEPLOYMENT', cast=str, default=''):
-        sentry_sdk.set_tag('deployment', deployment)
+    if deployment := config("SENTRY_DEPLOYMENT", cast=str, default=""):
+        sentry_sdk.set_tag("deployment", deployment)
     else:
         raise NotConfigured(
-            'Если указан SENTRY_DSN, необходимо указать ' +
-            'название развёртывания(SENTRY_DEPLOYMENT)',
+            "Если указан SENTRY_DSN, необходимо указать " + "название развёртывания(SENTRY_DEPLOYMENT)",
         )
 
     # Настройка мониторинга производительности через Sentry
     traces_sample_rate = config(
-        'SENTRY_TRACES_SAMPLE_RATE',
+        "SENTRY_TRACES_SAMPLE_RATE",
         cast=float,
         default=0,
     )
     if traces_sample_rate:
-        extra_params['traces_sample_rate'] = traces_sample_rate
+        extra_params["traces_sample_rate"] = traces_sample_rate
 
     sentry_logging = LoggingIntegration(
         level=SENTRY_LOG_LEVEL,  # Capture info and above as breadcrumbs

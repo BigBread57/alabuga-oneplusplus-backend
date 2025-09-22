@@ -1,28 +1,25 @@
-from idlelib.rpc import request_queue
-
-import django_filters
-from allauth.account.forms import default_token_generator
-from django.conf import settings
-from django.contrib.auth import login, logout, get_user_model, authenticate
-from django.http import HttpResponseRedirect
+from django.contrib.auth import get_user_model, logout
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
-from rest_framework.decorators import action
-from rest_framework.exceptions import NotFound, ParseError
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
 from app.common.serializers import ResponseDetailSerializer
-from app.common.views import QuerySelectorMixin
-from app.user.api.v1.serializers import UserConfirmEmailRequestSerializer, UserLoginSerializer, \
-    UserResetPasswordConfirmSerializer, UserResetPasswordRequestSerializer, UserChangePasswordSerializer, UserRegisterSerializer, UserInfoSerializer
+from app.user.api.v1.serializers import (
+    UserChangePasswordSerializer,
+    UserConfirmEmailRequestSerializer,
+    UserInfoSerializer,
+    UserLoginSerializer,
+    UserRegisterSerializer,
+    UserResetPasswordConfirmSerializer,
+    UserResetPasswordRequestSerializer,
+)
 from app.user.api.v1.services import user_service
 
 User = get_user_model()
-
 
 
 class UserConfirmEmailRequestAPIView(GenericAPIView):
@@ -55,10 +52,8 @@ class UserConfirmEmailRequestAPIView(GenericAPIView):
         return Response(
             data=ResponseDetailSerializer(
                 {
-                    'detail': _(
-                        'На указанный адрес электронной почты ' +
-                        'отправлено письмо с подтверждением ' +
-                        'регистрации',
+                    "detail": _(
+                        "На указанный адрес электронной почты " + "отправлено письмо с подтверждением " + "регистрации",
                     ),
                 },
             ),
@@ -98,8 +93,9 @@ class UserLoginAPIView(GenericAPIView):
                 instance=user,
                 context=self.get_serializer_context(),
             ).data,
-            status=status.HTTP_200_OK
+            status=status.HTTP_200_OK,
         )
+
 
 class UserResetPasswordRequestAPIView(GenericAPIView):
     """
@@ -129,9 +125,9 @@ class UserResetPasswordRequestAPIView(GenericAPIView):
         return Response(
             data=ResponseDetailSerializer(
                 {
-                    'detail':_(
-                        'На указанный адрес электронной почты отправлено ' +
-                        'письмо с инструкцией по восстановлению пароля',
+                    "detail": _(
+                        "На указанный адрес электронной почты отправлено "
+                        + "письмо с инструкцией по восстановлению пароля",
                     ),
                 },
             ),
@@ -183,13 +179,14 @@ class UserResetPasswordConfirmAPIView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user_service.set_new_password(
             extra_path=kwargs.get("extra_path"),
-            password=serializer.validated_data['password1'],
+            password=serializer.validated_data["password1"],
         )
 
         return Response(
-            data=ResponseDetailSerializer({'detail': _('Новый пароль успешно установлен')}),
+            data=ResponseDetailSerializer({"detail": _("Новый пароль успешно установлен")}),
             status=status.HTTP_200_OK,
         )
+
 
 class UserChangePasswordAPIView(GenericAPIView):
     """
@@ -221,9 +218,10 @@ class UserChangePasswordAPIView(GenericAPIView):
         )
 
         return Response(
-            data={'detail': _('Пароль успешно изменен')},
+            data={"detail": _("Пароль успешно изменен")},
             status=status.HTTP_200_OK,
         )
+
 
 class UserRegisterAPIView(GenericAPIView):
     """
@@ -253,8 +251,9 @@ class UserRegisterAPIView(GenericAPIView):
                 instance=user,
                 context=self.get_serializer_context(),
             ).data,
-            status=status.HTTP_200_OK
+            status=status.HTTP_200_OK,
         )
+
 
 class UserLogoutAPIView(GenericAPIView):
     """
@@ -276,9 +275,10 @@ class UserLogoutAPIView(GenericAPIView):
         logout(request=request)
 
         return Response(
-            data=ResponseDetailSerializer({'detail': _('Пользователь успешно вышел из системы')}),
+            data=ResponseDetailSerializer({"detail": _("Пользователь успешно вышел из системы")}),
             status=status.HTTP_200_OK,
         )
+
 
 class UserInfoAPIView(GenericAPIView):
     """

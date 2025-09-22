@@ -1,6 +1,6 @@
 from server.apps.alabuga_file.api.serialziers.alabuga_file import (
-    MultimediaSerializer,
     CreateMultimediaSerializer,
+    MultimediaSerializer,
 )
 
 __all__ = [

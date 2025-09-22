@@ -89,7 +89,6 @@ required_rank_competency_urls = [
 
 
 urlpatterns = [
-    *artifact_urls,
     *competency_urls,
     *rank_urls,
     *required_rank_competency_urls,

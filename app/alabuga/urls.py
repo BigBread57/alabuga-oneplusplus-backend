@@ -1,10 +1,10 @@
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.admindocs import urls as admindocs_urls
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-from django.conf import settings
 
-from app.user.providers.keycloak import oauth2_login, oauth2_callback
+from app.user.providers.keycloak import oauth2_callback, oauth2_login
 
 urlpatterns = [
     # Admin.
@@ -28,9 +28,9 @@ urlpatterns = [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),
-    path('accounts/', include('allauth.urls')),  # тут будет login/logout/signup
-    path('accounts/keycloak/login/', oauth2_login, name='keycloak_login'),
-    path('accounts/keycloak/login/callback/', oauth2_callback, name='keycloak_callback'),
+    path("accounts/", include("allauth.urls")),  # тут будет login/logout/signup
+    path("accounts/keycloak/login/", oauth2_login, name="keycloak_login"),
+    path("accounts/keycloak/login/callback/", oauth2_callback, name="keycloak_callback"),
 ]
 
 
