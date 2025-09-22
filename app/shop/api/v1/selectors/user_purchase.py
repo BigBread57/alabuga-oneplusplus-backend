@@ -25,7 +25,7 @@ class UserPurchaseListFilterSerializer(serializers.Serializer):
     )
 
 
-class UserPurchaseListDetailSerializer(serializers.Serializer):
+class UserPurchaseDetailSerializer(serializers.Serializer):
     """
     Покупки пользователя. Детальная информация. Сериализатор для фильтра.
     """

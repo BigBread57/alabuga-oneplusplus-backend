@@ -129,7 +129,7 @@ class ShopItemCreateOrUpdateSerializer(serializers.ModelSerializer):
             "is_active",
         )
 
-    def validate(self, attrs):
+    def validate(self, attrs: dict[str, Any]):
         parent = attrs.get("parent", None)
         rank = attrs.get("rank", None)
         competency = attrs.get("competency", None)

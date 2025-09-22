@@ -38,9 +38,9 @@ class UserAdmin(BaseUserAdmin):
                 ),
             },
         ),
-        (_("Важные даты"), {"fields": ("last_login", "date_joined")}),
+        (_("Важные даты"), {"fields": ("last_login", "date_joined",),},),
     )
-    list_display = ("username", "email", "first_name", "last_name", "middle_name", "role", "phone", "is_staff")
-    list_filter = ("role", "is_staff", "is_superuser", "is_active", "date_joined")
-    search_fields = ("username", "first_name", "last_name", "middle_name", "phone", "email")
+    list_display = ("username", "email", "first_name", "last_name", "middle_name", "role", "phone", "is_staff",)
+    list_filter = ("role", "is_staff", "is_superuser", "is_active", "date_joined",)
+    search_fields = ("username", "first_name", "last_name", "middle_name", "phone", "email",)
     ordering = ("-id",)

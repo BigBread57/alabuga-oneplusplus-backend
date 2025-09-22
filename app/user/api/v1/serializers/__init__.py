@@ -1,11 +1,14 @@
-from .auth import TokenObtainPairSerializer, TokenRefreshSerializer, UserRegistrationSerializer
-from .user import UserDetailSerializer, UserListSerializer, UserUpdateSerializer
+from app.user.api.v1.serializers.user import UserConfirmEmailRequestSerializer, UserLoginSerializer, \
+    UserResetPasswordConfirmSerializer, UserResetPasswordRequestSerializer, UserChangePasswordSerializer, \
+    UserRegisterSerializer, UserInfoSerializer
 
 __all__ = [
-    "TokenObtainPairSerializer",
-    "TokenRefreshSerializer",
-    "UserRegistrationSerializer",
-    "UserDetailSerializer",
-    "UserListSerializer",
-    "UserUpdateSerializer",
+    "UserConfirmEmailRequestSerializer",
+    "UserLoginSerializer",
+    "UserResetPasswordConfirmSerializer",
+    "UserResetPasswordRequestSerializer",
+    "UserChangePasswordSerializer",
+    "UserRegisterSerializer",
+    "UserInfoSerializer",
 ]
+

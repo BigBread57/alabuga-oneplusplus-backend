@@ -107,7 +107,7 @@ class UserPurchaseCreateSerializer(serializers.ModelSerializer):
             "shop_item",
         )
 
-    def validate(self, attrs):
+    def validate(self, attrs: dict[str, Any]):
         """
         Проверить количество.
         """

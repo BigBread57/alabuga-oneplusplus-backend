@@ -22,6 +22,7 @@ artifacts/
 local-vars.env
 static/
 media/
+data/
 
 *.sql
 *.sql.gz

@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:17
+    image: "postgres:17"
     ports:
       - ${DB_PORT:-5435}:5432
     volumes:
@@ -32,6 +32,14 @@ services:
     image: "redis:alpine"
     ports:
       - ${REDIS_PORT:-6379}:6379
+
+  keycloak:
+    image: "jboss/keycloak"
+    environment:
+      KEYCLOAK_USER: admin_key
+      KEYCLOAK_PASSWORD: admin_key
+    ports:
+      - "8080:8080"
 
 #  celery:
 #    build:
