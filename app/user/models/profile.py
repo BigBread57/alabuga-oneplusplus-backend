@@ -24,17 +24,6 @@ class Profile(AbstractBaseModel):
         on_delete=models.CASCADE,
         related_name="profile",
     )
-    rank = models.ForeignKey(
-        Rank,
-        verbose_name=_("Ранг"),
-        on_delete=models.PROTECT,
-        related_name="users",
-    )
-    experience = models.IntegerField(
-        verbose_name=_("Опыт"),
-        default=0,
-        help_text=_("Очки прогресса для повышения ранга"),
-    )
     currency = models.IntegerField(
         verbose_name=_("Валюта"),
         default=0,

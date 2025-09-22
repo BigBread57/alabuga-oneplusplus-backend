@@ -1,12 +1,12 @@
-from server.apps.alabuga_file.models import AlabugaFile
+from server.apps.alabuga_file.models import Multimedia
 from server.apps.services.serializers import ModelSerializerWithPermission
 
 
-class AlabugaFileSerializer(ModelSerializerWithPermission):
+class MultimediaSerializer(ModelSerializerWithPermission):
     """Сериалайзер файлов."""
 
     class Meta:
-        model = AlabugaFile
+        model = Multimedia
         fields = (
             "id",
             "alabuga_file",
@@ -18,11 +18,11 @@ class AlabugaFileSerializer(ModelSerializerWithPermission):
         )
 
 
-class CreateAlabugaFileSerializer(ModelSerializerWithPermission):
+class CreateMultimediaSerializer(ModelSerializerWithPermission):
     """Создание файлов."""
 
     class Meta:
-        model = AlabugaFile
+        model = Multimedia
         fields = (
             "id",
             "alabuga_file",

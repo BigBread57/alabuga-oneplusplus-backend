@@ -8,23 +8,23 @@ from rest_framework.authentication import (
 )
 from rest_framework.decorators import action
 from server.apps.alabuga_file.api.serialziers import (
-    AlabugaFileSerializer,
-    CreateAlabugaFileSerializer,
+    MultimediaSerializer,
+    CreateMultimediaSerializer,
 )
-from server.apps.alabuga_file.models import AlabugaFile
+from server.apps.alabuga_file.models import Multimedia
 from server.apps.alabuga_file.services.check_signature import check_signature
 from server.apps.services.filters_mixins import CreatedUpdatedDateFilterMixin
 from server.apps.services.views import BaseModelViewSet
 
 
-class AlabugaFileFilter(
+class MultimediaFilter(
     CreatedUpdatedDateFilterMixin,
     django_filters.FilterSet,
 ):
     """Фильтр файлов."""
 
     class Meta:
-        model = AlabugaFile
+        model = Multimedia
         fields = (
             "id",
             "object_id",
@@ -38,7 +38,7 @@ class AlabugaFileFilter(
         )
 
 
-class AlabugaFileViewSet(BaseModelViewSet):
+class MultimediaViewSet(BaseModelViewSet):
     """Файл. Просмотр, добавление, изменение, удаление.
 
     Описание: стандартный набор действий для взаимодействия с объектом.
@@ -46,11 +46,11 @@ class AlabugaFileViewSet(BaseModelViewSet):
     Доступно: в рамках ролевой модели.
     """
 
-    serializer_class = AlabugaFileSerializer
-    create_serializer_class = CreateAlabugaFileSerializer
-    queryset = AlabugaFile.objects.select_related("creator", "content_type")
+    serializer_class = MultimediaSerializer
+    create_serializer_class = CreateMultimediaSerializer
+    queryset = Multimedia.objects.select_related("creator", "content_type")
     ordering_fields = "__all__"
-    filterset_class = AlabugaFileFilter
+    filterset_class = MultimediaFilter
     permission_type_map = {
         **BaseModelViewSet.permission_type_map,  # type: ignore
         "check_permission": None,

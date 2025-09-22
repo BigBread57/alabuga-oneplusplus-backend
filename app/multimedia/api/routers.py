@@ -1,9 +1,9 @@
 from rest_framework.routers import APIRootView
-from server.apps.alabuga_file.api.views import AlabugaFileViewSet
+from server.apps.alabuga_file.api.views import MultimediaViewSet
 from server.apps.services.drf_nova_router.api_router import ApiRouter
 
 
-class AlabugaFileAPIRootView(APIRootView):
+class MultimediaAPIRootView(APIRootView):
     """Корневой view для апи."""
 
     __doc__ = "Файлы пользователей"
@@ -11,6 +11,6 @@ class AlabugaFileAPIRootView(APIRootView):
 
 
 router = ApiRouter()
-router.APIRootView = AlabugaFileAPIRootView
+router.APIRootView = MultimediaAPIRootView
 
-router.register("cicada-files", AlabugaFileViewSet, "cicada-files")
+router.register("cicada-files", MultimediaViewSet, "cicada-files")

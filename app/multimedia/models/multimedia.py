@@ -9,7 +9,7 @@ from app.common.models import AbstractBaseModel
 User = get_user_model()
 
 
-class AlabugaFile(AbstractBaseModel):
+class Multimedia(AbstractBaseModel):
     """
     Файл.
     """

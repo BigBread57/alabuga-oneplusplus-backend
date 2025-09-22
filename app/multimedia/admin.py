@@ -1,10 +1,10 @@
 from django.contrib import admin
-from server.apps.alabuga_file.models import AlabugaFile
+from server.apps.alabuga_file.models import Multimedia
 from server.apps.services.admin_mixin import AddCreatorForObjectMixin
 
 
-@admin.register(AlabugaFile)
-class AlabugaFileAdmin(AddCreatorForObjectMixin, admin.ModelAdmin[AlabugaFile]):
+@admin.register(Multimedia)
+class MultimediaAdmin(AddCreatorForObjectMixin, admin.ModelAdmin[Multimedia]):
     """Админка для файлов."""
 
     list_display = (
