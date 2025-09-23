@@ -13,13 +13,13 @@ class EventCompetency(AbstractBaseModel):
         to="game_world.Event",
         verbose_name=_("Миссия"),
         on_delete=models.CASCADE,
-        related_name="competencies",
+        related_name="event_competencies",
     )
     competency = models.ForeignKey(
         to="game_mechanics.Competency",
         verbose_name=_("Компетенция"),
         on_delete=models.CASCADE,
-        related_name="events",
+        related_name="event_competencies",
     )
     experience = models.IntegerField(
         verbose_name=_("Очки прокачки"),

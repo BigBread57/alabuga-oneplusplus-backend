@@ -8,7 +8,7 @@ from .models import (
     Mission,
     MissionArtifact,
     MissionBranch,
-    MissionCategory,
+    ActivityCategory,
     MissionCompetency,
     MissionLevel,
 )
@@ -58,12 +58,10 @@ class EventAdmin(admin.ModelAdmin):
     ordering = ("-id",)
     autocomplete_fields = (
         "game_world",
-        "is_active",
         "category",
     )
     list_select_related = (
         "game_world",
-        "is_active",
         "category",
     )
 
@@ -106,6 +104,9 @@ class GameWorldAdmin(admin.ModelAdmin):
         "standard_experience",
         "currency_name",
     )
+    search_fields = (
+        "name",
+    )
     ordering = ("-id",)
 
 
@@ -133,11 +134,10 @@ class MissionAdmin(admin.ModelAdmin):
     Миссия.
     """
 
-    list_display = ("id", "name", "branch", "experience_reward", "mana_reward", "is_key_mission")
+    list_display = ("id", "name", "branch", "experience", "currency", "is_key_mission")
     list_filter = ("branch", "is_key_mission", "is_active")
     search_fields = ("name", "description")
     ordering = ("-id",)
-    filter_horizontal = ("required_missions", "artifacts")
     inlines = [MissionCompetencyInline, MissionArtifactInline]
 
 
@@ -151,7 +151,6 @@ class MissionBranchAdmin(admin.ModelAdmin):
         "id",
         "name",
         "category",
-        "order",
     )
     list_filter = ("category",)
     search_fields = ("name", "description")
@@ -177,8 +176,8 @@ class MissionCompetencyAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(MissionCategory)
-class MissionCategoryAdmin(admin.ModelAdmin):
+@admin.register(ActivityCategory)
+class ActivityCategoryAdmin(admin.ModelAdmin):
     """
     Категория миссии.
     """

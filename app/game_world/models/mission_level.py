@@ -11,7 +11,7 @@ class MissionLevel(AbstractBaseModel):
 
     icon = models.ImageField(
         verbose_name=_("Иконка"),
-        upload_to="events",
+        upload_to="mission_levels",
         null=True,
         blank=True,
     )

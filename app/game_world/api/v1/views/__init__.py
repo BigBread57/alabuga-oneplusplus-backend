@@ -32,12 +32,12 @@ from game_world.api.v1.views.mission_branch import (
     MissionBranchListAPIView,
     MissionBranchUpdateAPIView,
 )
-from game_world.api.v1.views.mission_category import (
-    MissionCategoryCreateAPIView,
-    MissionCategoryDeleteAPIView,
-    MissionCategoryDetailAPIView,
-    MissionCategoryListAPIView,
-    MissionCategoryUpdateAPIView,
+from game_world.api.v1.views.activity_category import (
+    ActivityCategoryCreateAPIView,
+    ActivityCategoryDeleteAPIView,
+    ActivityCategoryDetailAPIView,
+    ActivityCategoryListAPIView,
+    ActivityCategoryUpdateAPIView,
 )
 
 __all__ = (
@@ -70,10 +70,10 @@ __all__ = (
     "MissionBranchCreateAPIView",
     "MissionBranchUpdateAPIView",
     "MissionBranchDeleteAPIView",
-    # MissionCategory
-    "MissionCategoryListAPIView",
-    "MissionCategoryDetailAPIView",
-    "MissionCategoryCreateAPIView",
-    "MissionCategoryUpdateAPIView",
-    "MissionCategoryDeleteAPIView",
+    # ActivityCategory
+    "ActivityCategoryListAPIView",
+    "ActivityCategoryDetailAPIView",
+    "ActivityCategoryCreateAPIView",
+    "ActivityCategoryUpdateAPIView",
+    "ActivityCategoryDeleteAPIView",
 )

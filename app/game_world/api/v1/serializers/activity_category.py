@@ -1,15 +1,15 @@
 from rest_framework import serializers
 
-from game_world.models import MissionCategory
+from game_world.models import ActivityCategory
 
 
-class MissionCategoryListSerializer(serializers.ModelSerializer):
+class ActivityCategoryListSerializer(serializers.ModelSerializer):
     """
     Категория миссии. Список.
     """
 
     class Meta:
-        model = MissionCategory
+        model = ActivityCategory
         fields = (
             "id",
             "icon",
@@ -19,13 +19,13 @@ class MissionCategoryListSerializer(serializers.ModelSerializer):
         )
 
 
-class MissionCategoryDetailSerializer(serializers.ModelSerializer):
+class ActivityCategoryDetailSerializer(serializers.ModelSerializer):
     """
     Категория миссии. Детальная информация.
     """
 
     class Meta:
-        model = MissionCategory
+        model = ActivityCategory
         fields = (
             "id",
             "icon",
@@ -35,13 +35,13 @@ class MissionCategoryDetailSerializer(serializers.ModelSerializer):
         )
 
 
-class MissionCategoryCreateOrUpdateSerializer(serializers.ModelSerializer):
+class ActivityCategoryCreateOrUpdateSerializer(serializers.ModelSerializer):
     """
     Категория миссии. Создание.
     """
 
     class Meta:
-        model = MissionCategory
+        model = ActivityCategory
         fields = (
             "icon",
             "name",

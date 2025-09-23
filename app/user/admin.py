@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
+from user.models import Character, CharacterMission, CharacterEvent, CharacterCompetency, CharacterArtifact
 from user.models.user import User
 
 
@@ -74,3 +75,190 @@ class UserAdmin(BaseUserAdmin):
         "email",
     )
     ordering = ("-id",)
+
+
+class CharacterArtifactInline(admin.TabularInline):
+    """
+    Артефакты персонажа.
+    """
+
+    model = CharacterArtifact
+    extra = 1
+
+
+class CharacterCompetencyInline(admin.TabularInline):
+    """
+    Уровень компетенции персонажа.
+    """
+
+    model = CharacterCompetency
+    extra = 1
+
+
+class CharacterEventInline(admin.TabularInline):
+    """
+    Прогресс персонажа по событиям.
+    """
+
+    model = CharacterEvent
+    extra = 1
+
+
+class CharacterMissionInline(admin.TabularInline):
+    """
+    Прогресс персонажа по миссиям.
+    """
+
+    model = CharacterMission
+    extra = 1
+
+
+@admin.register(Character)
+class CharacterAdmin(admin.ModelAdmin):
+    """
+    Персонаж пользователя.
+    """
+
+    list_display = (
+        "id",
+        "experience",
+        "currency",
+        "is_active",
+        "user",
+        "game_world",
+        "rank",
+    )
+    list_filter = (
+        "rank",
+        "is_active",
+    )
+    autocomplete_fields = (
+        "user",
+        "game_world",
+        "rank",
+    )
+    list_select_related = (
+        "user",
+        "game_world",
+        "rank",
+    )
+    ordering = ("-id",)
+    inlines = (
+        CharacterArtifactInline,
+        CharacterCompetencyInline,
+        CharacterEventInline,
+        CharacterMissionInline,
+    )
+
+#
+# @admin.register(CharacterArtifact)
+# class CharacterArtifactAdmin(admin.ModelAdmin):
+#     """
+#     Артефакты персонажа.
+#     """
+#
+#     list_display = (
+#         "id",
+#         "character",
+#         "artifact",
+#     )
+#     list_filter = (
+#         "artifact__name",
+#     )
+#     autocomplete_fields = (
+#         "character",
+#         "artifact",
+#     )
+#     list_select_related = (
+#         "character",
+#         "artifact",
+#     )
+#     ordering = ("-id",)
+#
+#
+# @admin.register(CharacterCompetency)
+# class CharacterCompetencyAdmin(admin.ModelAdmin):
+#     """
+#     Уровень компетенции персонажа.
+#     """
+#
+#     list_display = (
+#         "id",
+#         "character",
+#         "competency",
+#         "level",
+#     )
+#     list_filter = (
+#         "competency__name",
+#     )
+#     autocomplete_fields = (
+#         "character",
+#         "competency",
+#     )
+#     list_select_related = (
+#         "character",
+#         "competency",
+#     )
+#     ordering = ("-id",)
+#
+#
+# @admin.register(CharacterEvent)
+# class CharacterEventAdmin(admin.ModelAdmin):
+#     """
+#     Прогресс персонажа по событиям.
+#     """
+#
+#     list_display = (
+#         "id",
+#         "status",
+#         "start_datetime",
+#         "end_datetime",
+#         "character",
+#         "event",
+#         "inspector",
+#     )
+#     list_filter = (
+#         "status",
+#     )
+#     autocomplete_fields = (
+#         "character",
+#         "event",
+#         "inspector",
+#     )
+#     list_select_related = (
+#         "character",
+#         "event",
+#         "inspector",
+#     )
+#     ordering = ("-id",)
+#
+#
+# @admin.register(CharacterMission)
+# class CharacterMissionAdmin(admin.ModelAdmin):
+#     """
+#     Прогресс персонажа по миссиям.
+#     """
+#
+#     list_display = (
+#         "id",
+#         "status",
+#         "start_datetime",
+#         "end_datetime",
+#         "character",
+#         "mission",
+#         "inspector",
+#     )
+#     list_filter = (
+#         "status",
+#     )
+#     autocomplete_fields = (
+#         "character",
+#         "mission",
+#         "inspector",
+#     )
+#     list_select_related = (
+#         "character",
+#         "mission",
+#         "inspector",
+#     )
+#     ordering = ("-id",)

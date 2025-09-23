@@ -15,10 +15,10 @@ from game_world.api.v1.selectors.mission_branch import (
     MissionBranchListFilterSerializer,
     MissionBranchListSelector,
 )
-from game_world.api.v1.selectors.mission_category import (
-    MissionCategoryDetailSelector,
-    MissionCategoryListFilterSerializer,
-    MissionCategoryListSelector,
+from game_world.api.v1.selectors.activity_category import (
+    ActivityCategoryDetailSelector,
+    ActivityCategoryListFilterSerializer,
+    ActivityCategoryListSelector,
 )
 from game_world.api.v1.selectors.mission_level import (
     MissionLevelDetailSelector,
@@ -46,10 +46,10 @@ __all__ = (
     "MissionBranchListSelector",
     "MissionBranchDetailSelector",
     "MissionBranchListFilterSerializer",
-    # MissionCategory
-    "MissionCategoryListSelector",
-    "MissionCategoryDetailSelector",
-    "MissionCategoryListFilterSerializer",
+    # ActivityCategory
+    "ActivityCategoryListSelector",
+    "ActivityCategoryDetailSelector",
+    "ActivityCategoryListFilterSerializer",
     # MissionLevel
     "MissionLevelListSelector",
     "MissionLevelDetailSelector",

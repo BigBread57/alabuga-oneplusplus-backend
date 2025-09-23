@@ -46,10 +46,10 @@ class Event(AbstractBaseModel):
         verbose_name=_("Время на выполнение в днях"),
     )
     category = models.ForeignKey(
-        to="missions.MissionCategory",
+        to="game_world.ActivityCategory",
         verbose_name=_("Категория"),
         on_delete=models.CASCADE,
-        related_name="branches",
+        related_name="events",
     )
     rank = models.ForeignKey(
         to="game_mechanics.Rank",
@@ -59,14 +59,14 @@ class Event(AbstractBaseModel):
     )
     artifacts = models.ManyToManyField(
         to="game_world.Artifact",
-        verbose_name=_("Награды-артефакты"),
-        through="MissionArtifact",
-        related_name="missions",
+        verbose_name=_("Артефакты"),
+        through="game_world.EventArtifact",
+        related_name="events",
         blank=True,
     )
     competencies = models.ManyToManyField(
         to="game_mechanics.Competency",
-        verbose_name=_("Компетенции события"),
+        verbose_name=_("Компетенции"),
         through="EventCompetency",
         related_name="events",
         blank=True,

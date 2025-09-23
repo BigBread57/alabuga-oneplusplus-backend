@@ -30,7 +30,7 @@ OTHER_INSTALLED_APPS: list[str] = [
     "rest_framework_simplejwt.token_blacklist",
     "django_filters",
     "drf_standardized_errors",
-    "django_celery_beat",
+    # "django_celery_beat",
     "phonenumber_field",
     "debug_toolbar",
 ]
@@ -38,8 +38,8 @@ OTHER_INSTALLED_APPS: list[str] = [
 LOCAL_INSTALLED_APPS: list[str] = [
     "user",
     "game_mechanics",
-    # "game_world",
-    # "shop",
+    "game_world",
+    "shop",
     # "communication",
     # "multimedia",
 ]
@@ -150,3 +150,5 @@ if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
+AUTH_USER_MODEL = "user.User"

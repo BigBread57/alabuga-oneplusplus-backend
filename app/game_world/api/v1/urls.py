@@ -20,11 +20,11 @@ from game_world.api.v1.views import (
     MissionBranchDetailAPIView,
     MissionBranchListAPIView,
     MissionBranchUpdateAPIView,
-    MissionCategoryCreateAPIView,
-    MissionCategoryDeleteAPIView,
-    MissionCategoryDetailAPIView,
-    MissionCategoryListAPIView,
-    MissionCategoryUpdateAPIView,
+    ActivityCategoryCreateAPIView,
+    ActivityCategoryDeleteAPIView,
+    ActivityCategoryDetailAPIView,
+    ActivityCategoryListAPIView,
+    ActivityCategoryUpdateAPIView,
     MissionCreateAPIView,
     MissionDeleteAPIView,
     MissionDetailAPIView,
@@ -169,30 +169,30 @@ mission_branch_urls = [
         name="mission-branches-delete",
     ),
 ]
-mission_category_urls = [
+activity_category_urls = [
     path(
         route="mission-categories/list/",
-        view=MissionCategoryListAPIView.as_view(),
+        view=ActivityCategoryListAPIView.as_view(),
         name="mission-categories-list",
     ),
     path(
         route="mission-categories/<int:pk>/detail/",
-        view=MissionCategoryDetailAPIView.as_view(),
+        view=ActivityCategoryDetailAPIView.as_view(),
         name="mission-categories/<int:pk>/detail/",
     ),
     path(
         route="mission-categories/create/",
-        view=MissionCategoryCreateAPIView.as_view(),
+        view=ActivityCategoryCreateAPIView.as_view(),
         name="mission-categories-create",
     ),
     path(
         route="mission-categories/<int:pk>/update/",
-        view=MissionCategoryUpdateAPIView.as_view(),
+        view=ActivityCategoryUpdateAPIView.as_view(),
         name="mission-categories-update",
     ),
     path(
         route="mission-categories/<int:pk>/delete/",
-        view=MissionCategoryDeleteAPIView.as_view(),
+        view=ActivityCategoryDeleteAPIView.as_view(),
         name="mission-categories-delete",
     ),
 ]
@@ -203,5 +203,5 @@ urlpatterns = [
     *game_world_urls,
     *mission_urls,
     *mission_branch_urls,
-    *mission_category_urls,
+    *activity_category_urls,
 ]

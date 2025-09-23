@@ -26,7 +26,7 @@ class RankAdmin(admin.ModelAdmin):
         "id",
         "name",
         "parent",
-        "experience_required",
+        "required_experience",
     )
     search_fields = (
         "name",

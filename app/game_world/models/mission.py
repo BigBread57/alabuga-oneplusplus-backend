@@ -22,12 +22,6 @@ class Mission(AbstractBaseModel):
     description = models.TextField(
         verbose_name=_("Описание миссии"),
     )
-    branch = models.ForeignKey(
-        to="mission.MissionBranch",
-        verbose_name=_("Ветка"),
-        on_delete=models.CASCADE,
-        related_name="missions",
-    )
     experience = models.PositiveIntegerField(
         verbose_name=_("Награда в опыте"),
         default=0,
@@ -54,6 +48,12 @@ class Mission(AbstractBaseModel):
         null=True,
         blank=True,
     )
+    branch = models.ForeignKey(
+        to="game_world.MissionBranch",
+        verbose_name=_("Ветка"),
+        on_delete=models.CASCADE,
+        related_name="missions",
+    )
     level = models.ForeignKey(
         to="game_world.MissionLevel",
         on_delete=models.CASCADE,
@@ -71,14 +71,14 @@ class Mission(AbstractBaseModel):
     artifacts = models.ManyToManyField(
         to="game_world.Artifact",
         verbose_name=_("Награды-артефакты"),
-        through="MissionArtifact",
+        through="game_world.MissionArtifact",
         related_name="missions",
         blank=True,
     )
     competencies = models.ManyToManyField(
         to="game_mechanics.Competency",
         verbose_name=_("Компетенции миссии"),
-        through="MissionCompetency",
+        through="game_world.MissionCompetency",
         related_name="missions",
         blank=True,
     )

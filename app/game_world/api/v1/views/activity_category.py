@@ -8,35 +8,35 @@ from rest_framework.response import Response
 from common.permissions import UserHRPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
-from mission_category.api.v1.selectors import (
-    MissionCategoryDetailSelector,
-    MissionCategoryListFilterSerializer,
-    MissionCategoryListSelector,
+from activity_category.api.v1.selectors import (
+    ActivityCategoryDetailSelector,
+    ActivityCategoryListFilterSerializer,
+    ActivityCategoryListSelector,
 )
-from mission_category.api.v1.serializers import (
-    MissionCategoryCreateOrUpdateSerializer,
-    MissionCategoryDetailSerializer,
-    MissionCategoryListSerializer,
+from activity_category.api.v1.serializers import (
+    ActivityCategoryCreateOrUpdateSerializer,
+    ActivityCategoryDetailSerializer,
+    ActivityCategoryListSerializer,
 )
-from mission_category.models import MissionCategory
+from activity_category.models import ActivityCategory
 
 
-class MissionCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
+class ActivityCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Категория миссии. Список.
     """
 
-    selector = MissionCategoryListSelector()
-    serializer_class = MissionCategoryListSerializer
-    filter_params_serializer_class = MissionCategoryListFilterSerializer
+    selector = ActivityCategoryListSelector()
+    serializer_class = ActivityCategoryListSerializer
+    filter_params_serializer_class = ActivityCategoryListFilterSerializer
     search_fields = ("name",)
 
     @extend_schema(
-        parameters=[MissionCategoryListFilterSerializer],
+        parameters=[ActivityCategoryListFilterSerializer],
         responses={
-            status.HTTP_200_OK: MissionCategoryListSerializer(many=True),
+            status.HTTP_200_OK: ActivityCategoryListSerializer(many=True),
         },
-        tags=["mission_category:mission_category"],
+        tags=["activity_category:activity_category"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -49,19 +49,19 @@ class MissionCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-class MissionCategoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
+class ActivityCategoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Категория миссии. Детальная информация.
     """
 
-    selector = MissionCategoryDetailSelector()
-    serializer_class = MissionCategoryDetailSerializer
+    selector = ActivityCategoryDetailSelector()
+    serializer_class = ActivityCategoryDetailSerializer
 
     @extend_schema(
         responses={
-            status.HTTP_200_OK: MissionCategoryDetailSerializer,
+            status.HTTP_200_OK: ActivityCategoryDetailSerializer,
         },
-        tags=["mission_category:user_purchase"],
+        tags=["activity_category:user_purchase"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -76,20 +76,20 @@ class MissionCategoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
         )
 
 
-class MissionCategoryCreateAPIView(GenericAPIView):
+class ActivityCategoryCreateAPIView(GenericAPIView):
     """
     Категория миссии. Создание.
     """
 
-    serializer_class = MissionCategoryCreateOrUpdateSerializer
+    serializer_class = ActivityCategoryCreateOrUpdateSerializer
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
-        request=MissionCategoryCreateOrUpdateSerializer,
+        request=ActivityCategoryCreateOrUpdateSerializer,
         responses={
-            status.HTTP_201_CREATED: MissionCategoryDetailSerializer,
+            status.HTTP_201_CREATED: ActivityCategoryDetailSerializer,
         },
-        tags=["mission_category:mission_category"],
+        tags=["activity_category:activity_category"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -97,32 +97,32 @@ class MissionCategoryCreateAPIView(GenericAPIView):
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        mission_category = serializer.save()
+        activity_category = serializer.save()
 
         return Response(
-            data=MissionCategoryDetailSerializer(
-                instance=mission_category,
+            data=ActivityCategoryDetailSerializer(
+                instance=activity_category,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_201_CREATED,
         )
 
 
-class MissionCategoryUpdateAPIView(GenericAPIView):
+class ActivityCategoryUpdateAPIView(GenericAPIView):
     """
     Категория миссии. Изменение.
     """
 
-    queryset = MissionCategory.objects.all()
-    serializer_class = MissionCategoryCreateOrUpdateSerializer
+    queryset = ActivityCategory.objects.all()
+    serializer_class = ActivityCategoryCreateOrUpdateSerializer
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
-        request=MissionCategoryCreateOrUpdateSerializer,
+        request=ActivityCategoryCreateOrUpdateSerializer,
         responses={
-            status.HTTP_200_OK: MissionCategoryDetailSerializer,
+            status.HTTP_200_OK: ActivityCategoryDetailSerializer,
         },
-        tags=["mission_category:mission_category"],
+        tags=["activity_category:activity_category"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -134,12 +134,12 @@ class MissionCategoryUpdateAPIView(GenericAPIView):
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        mission_category = serializer.save()
-        if getattr(mission_category, "_prefetched_objects_cache", None):
-            mission_category._prefetched_objects_cache = {}
+        activity_category = serializer.save()
+        if getattr(activity_category, "_prefetched_objects_cache", None):
+            activity_category._prefetched_objects_cache = {}
 
         return Response(
-            data=MissionCategoryDetailSerializer(
+            data=ActivityCategoryDetailSerializer(
                 instance=placement_metering_device,
                 context=self.get_serializer_context(),
             ).data,
@@ -147,26 +147,26 @@ class MissionCategoryUpdateAPIView(GenericAPIView):
         )
 
 
-class MissionCategoryDeleteAPIView(GenericAPIView):
+class ActivityCategoryDeleteAPIView(GenericAPIView):
     """
     Категория миссии. Удаление.
     """
 
-    queryset = MissionCategory.objects.all()
+    queryset = ActivityCategory.objects.all()
     permission_classes = (UserHRPermission,)
 
     @extend_schema(
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
-        tags=["mission_category:mission_category"],
+        tags=["activity_category:activity_category"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:
         """
         Удаление объекта.
         """
-        mission_category = self.get_object()
-        mission_category.delete()
+        activity_category = self.get_object()
+        activity_category.delete()
 
         return Response(
             data=ResponseDetailSerializer({"detail": _("Объект успешно удален")}).data,

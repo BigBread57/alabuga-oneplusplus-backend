@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from common.models import AbstractBaseModel
 
 
-class MissionCategory(AbstractBaseModel):
+class ActivityCategory(AbstractBaseModel):
     """
     Категория миссии.
     """
@@ -23,7 +23,7 @@ class MissionCategory(AbstractBaseModel):
     )
     icon = models.ImageField(
         verbose_name=_("Иконка"),
-        upload_to="competencies",
+        upload_to="mission_categories",
         null=True,
         blank=True,
     )

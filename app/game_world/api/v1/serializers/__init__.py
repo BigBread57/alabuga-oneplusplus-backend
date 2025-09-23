@@ -23,10 +23,10 @@ from game_world.api.v1.serializers.mission_branch import (
     MissionBranchDetailSerializer,
     MissionBranchListSerializer,
 )
-from game_world.api.v1.serializers.mission_category import (
-    MissionCategoryCreateOrUpdateSerializer,
-    MissionCategoryDetailSerializer,
-    MissionCategoryListSerializer,
+from game_world.api.v1.serializers.activity_category import (
+    ActivityCategoryCreateOrUpdateSerializer,
+    ActivityCategoryDetailSerializer,
+    ActivityCategoryListSerializer,
 )
 
 __all__ = (
@@ -50,8 +50,8 @@ __all__ = (
     "MissionBranchListSerializer",
     "MissionBranchDetailSerializer",
     "MissionBranchCreateOrUpdateSerializer",
-    # MissionCategory
-    "MissionCategoryListSerializer",
-    "MissionCategoryDetailSerializer",
-    "MissionCategoryCreateOrUpdateSerializer",
+    # ActivityCategory
+    "ActivityCategoryListSerializer",
+    "ActivityCategoryDetailSerializer",
+    "ActivityCategoryCreateOrUpdateSerializer",
 )

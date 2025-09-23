@@ -13,13 +13,13 @@ class MissionCompetency(AbstractBaseModel):
         to="game_world.Mission",
         verbose_name=_("Миссия"),
         on_delete=models.CASCADE,
-        related_name="competencies",
+        related_name="mission_competencies",
     )
     competency = models.ForeignKey(
         to="game_mechanics.Competency",
         verbose_name=_("Компетенция"),
         on_delete=models.CASCADE,
-        related_name="missions",
+        related_name="mission_competencies",
     )
     experience = models.IntegerField(
         verbose_name=_("Очки прокачки"),

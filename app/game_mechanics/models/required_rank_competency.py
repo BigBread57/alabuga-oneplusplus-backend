@@ -13,13 +13,13 @@ class RequiredRankCompetency(AbstractBaseModel):
         to="game_mechanics.Rank",
         verbose_name=_("Ранг"),
         on_delete=models.CASCADE,
-        related_name="required_competencies",
+        related_name="required_rank_competencies",
     )
     competency = models.ForeignKey(
         to="game_mechanics.Competency",
         verbose_name=_("Компетенция"),
         on_delete=models.CASCADE,
-        related_name="required_ranks",
+        related_name="required_rank_competencies",
     )
     required_level = models.PositiveIntegerField(
         verbose_name=_("Требуемый уровень"),

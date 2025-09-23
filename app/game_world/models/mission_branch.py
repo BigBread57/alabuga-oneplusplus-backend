@@ -48,16 +48,16 @@ class MissionBranch(AbstractBaseModel):
         related_name="mission_branches",
     )
     category = models.ForeignKey(
-        to="missions.MissionCategory",
+        to="game_world.ActivityCategory",
         verbose_name=_("Категория"),
         on_delete=models.CASCADE,
-        related_name="branches",
+        related_name="mission_branches",
     )
     mentor = models.ForeignKey(
         to="user.User",
         verbose_name=_("Ментор"),
         on_delete=models.CASCADE,
-        related_name="mission_categories",
+        related_name="mission_branches",
     )
     game_world = models.ForeignKey(
         to="game_world.GameWorld",

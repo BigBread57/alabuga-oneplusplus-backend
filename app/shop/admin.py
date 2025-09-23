@@ -35,7 +35,6 @@ class ShopItemAdmin(admin.ModelAdmin):
         "rank",
         "competency",
         "is_active",
-        "repetition",
         "start_datetime",
         "image_preview",
     )
@@ -45,7 +44,6 @@ class ShopItemAdmin(admin.ModelAdmin):
         "created_at",
         "rank",
         "competency",
-        "repetition",
     )
     search_fields = (
         "name",

@@ -1,0 +1,74 @@
+from django.contrib.auth import get_user_model
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+from common.models import AbstractBaseModel
+
+
+class CharacterMission(AbstractBaseModel):
+    """
+    Прогресс персонажа по миссиям.
+    """
+
+    class Statuses(models.TextChoices):
+        """
+        Статус выполнения миссии.
+        """
+
+        AVAILABLE = "AVAILABLE", _("Доступна")
+        IN_PROGRESS = "IN_PROGRESS", _("В процессе")
+        COMPLETED = "COMPLETED", _("Выполнена")
+        PENDING_REVIEW = "PENDING_REVIEW", _("На проверке")
+        FAILED = "FAILED", _("Провалена")
+
+    status = models.CharField(
+        verbose_name=_("Статус"),
+        max_length=20,
+        choices=Statuses.choices,
+        default=Statuses.AVAILABLE,
+    )
+    start_datetime = models.DateTimeField(
+        verbose_name=_("Начата"),
+        null=True,
+        blank=True,
+    )
+    end_datetime = models.DateTimeField(
+        verbose_name=_("Завершена"),
+        null=True,
+        blank=True,
+    )
+    result = models.TextField(
+        verbose_name=_("Результат выполнения миссии"),
+        blank=True,
+    )
+    character = models.ForeignKey(
+        to="user.Character",
+        verbose_name=_("Персонаж"),
+        on_delete=models.CASCADE,
+        related_name="character_missions",
+    )
+    mission = models.ForeignKey(
+        to="game_world.Mission",
+        verbose_name=_("Миссия"),
+        on_delete=models.CASCADE,
+        related_name="character_missions",
+    )
+    inspector = models.ForeignKey(
+        to="user.User",
+        verbose_name=_("Проверяющий"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="character_missions",
+    )
+    inspector_comment = models.TextField(
+        verbose_name=_("Комментарий проверяющего"),
+        blank=True,
+    )
+
+    class Meta(AbstractBaseModel.Meta):
+        verbose_name = _("Миссия персонажа")
+        verbose_name_plural = _("Миссии персонажей")
+
+    def __str__(self):
+        return f"{self.character} - {self.mission.name} ({self.get_status_display()})"
