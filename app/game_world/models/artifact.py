@@ -2,7 +2,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.common.models import AbstractBaseModel
+from common.models import AbstractBaseModel
 
 
 class Artifact(AbstractBaseModel):

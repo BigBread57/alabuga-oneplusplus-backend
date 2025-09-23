@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from rest_framework.utils.serializer_helpers import ReturnDict
-from server.apps.service_interaction.api.serializers.base_data import (
+from app.communication.api.serializers.base_data import (
     BasePostSerializer,
 )
-from server.apps.service_interaction.models import Topic
+from app.communication.models import Topic
 from server.apps.services.serializers import ModelSerializerWithPermission
 
 
@@ -20,7 +20,6 @@ class ListTopicSerializer(ModelSerializerWithPermission):
             "name",
             "shot_description",
             "description",
-            "permission_rules",
             "post_count",
             "last_post",
             "created_at",
@@ -56,7 +55,6 @@ class DetailTopicSerializer(ModelSerializerWithPermission):
             "description",
             "posts",
             "content_type_id",
-            "permission_rules",
             "created_at",
             "updated_at",
         )

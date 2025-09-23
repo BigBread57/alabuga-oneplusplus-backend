@@ -3,8 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from app.common.selectors import BaseSelector
-from app.shop.models import ShopItem, ShopItemCategory
+from common.selectors import BaseSelector
+from shop.models import ShopItem, ShopItemCategory
 
 
 class ShopItemListFilterSerializer(serializers.Serializer):
@@ -58,7 +58,7 @@ class ShopItemListSelector(BaseSelector):
             parent__isnull=True,
         )
         .annotate(
-            available_for_purchase=models.F("category__available_for_purchase"),
+            purchase_restriction=models.F("category__purchase_restriction"),
         )
     )
     filter_class = ShopItemListFilter
@@ -84,7 +84,7 @@ class ShopItemDetailSelector(BaseSelector):
             parent__isnull=True,
         )
         .annotate(
-            available_for_purchase=models.F("category__available_for_purchase"),
+            purchase_restriction=models.F("category__purchase_restriction"),
         )
     )
     filter_class = ShopItemListFilter

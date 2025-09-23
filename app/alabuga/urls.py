@@ -4,14 +4,14 @@ from django.contrib.admindocs import urls as admindocs_urls
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
-from app.user.providers.keycloak import oauth2_callback, oauth2_login
+from user.providers.keycloak import oauth2_callback, oauth2_login
 
 urlpatterns = [
     # Admin.
     path("admin/doc/", include(admindocs_urls)),
     path("admin/", admin.site.urls),
     # API.
-    path("api/", include("shop.api.urls")),
+    # path("api/", include("shop.api.urls")),
     # Docs.
     path(
         "api/schema/",

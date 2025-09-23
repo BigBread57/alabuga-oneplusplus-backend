@@ -7,7 +7,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 
-from app.alabuga.settings import config
+from alabuga.settings import config
 
 # Sentry
 # ------------------------------------------------------------------------------

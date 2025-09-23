@@ -2,8 +2,8 @@ import django_filters
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from app.common.selectors import BaseSelector
-from app.shop.models import ShopItemCategory
+from common.selectors import BaseSelector
+from shop.models import ShopItemCategory
 
 
 class ShopItemCategoryListFilterSerializer(serializers.Serializer):

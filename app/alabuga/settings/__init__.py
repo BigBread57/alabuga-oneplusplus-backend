@@ -8,14 +8,14 @@ BASE_DIR = Path(__file__).parent.parent
 config = AutoConfig(search_path=BASE_DIR.joinpath("settings"))
 
 include(
-    "auth.py",
-    "aws.py",
-    "celery.py",
     "django.py",
-    "debug_tools.py",
-    "drf.py",
-    "kafka.py",
+    "caches.py",
+    "celery.py",
+    "cors.py",
+    "email.py",
+    "keycloak.py",
+    "llm.py",
     "logging.py",
-    "sacceptance.py",
     "sentry.py",
+    "drf.py",
 )

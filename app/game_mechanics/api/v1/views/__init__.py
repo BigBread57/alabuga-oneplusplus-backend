@@ -1,16 +1,16 @@
-from app.game_mechanics.api.v1.views.competency import (
+from game_mechanics.api.v1.views.competency import (
     CompetencyCreateAPIView,
     CompetencyDeleteAPIView,
     CompetencyListAPIView,
     CompetencyUpdateAPIView,
 )
-from app.game_mechanics.api.v1.views.rank import (
+from game_mechanics.api.v1.views.rank import (
     RankCreateAPIView,
     RankDeleteAPIView,
     RankListAPIView,
     RankUpdateAPIView,
 )
-from app.game_mechanics.api.v1.views.required_rank_competency import (
+from game_mechanics.api.v1.views.required_rank_competency import (
     RequiredRankCompetencyCreateAPIView,
     RequiredRankCompetencyDeleteAPIView,
     RequiredRankCompetencyListAPIView,

@@ -1,9 +1,6 @@
-from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated
 
-from app.common.constants import UserRoles
-
-User = get_user_model()
+from common.constants import UserRoles
 
 
 class UserHRPermission(IsAuthenticated):

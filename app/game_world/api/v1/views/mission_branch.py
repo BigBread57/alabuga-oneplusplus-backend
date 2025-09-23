@@ -5,20 +5,20 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from app.common.permissions import UserHRPermission
-from app.common.serializers import ResponseDetailSerializer
-from app.common.views import QuerySelectorMixin
-from app.mission_branch.api.v1.selectors import (
+from common.permissions import UserHRPermission
+from common.serializers import ResponseDetailSerializer
+from common.views import QuerySelectorMixin
+from mission_branch.api.v1.selectors import (
     MissionBranchDetailSelector,
     MissionBranchListFilterSerializer,
     MissionBranchListSelector,
 )
-from app.mission_branch.api.v1.serializers import (
+from mission_branch.api.v1.serializers import (
     MissionBranchCreateOrUpdateSerializer,
     MissionBranchDetailSerializer,
     MissionBranchListSerializer,
 )
-from app.mission_branch.models import MissionBranch
+from mission_branch.models import MissionBranch
 
 
 class MissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):

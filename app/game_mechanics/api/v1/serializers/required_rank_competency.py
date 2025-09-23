@@ -1,8 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from app.game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer, RankNestedSerializer
-from app.game_mechanics.models import RequiredRankCompetency
+from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer, RankNestedSerializer
+from game_mechanics.models import RequiredRankCompetency
 
 
 class RequiredRankCompetencyListSerializer(serializers.ModelSerializer):

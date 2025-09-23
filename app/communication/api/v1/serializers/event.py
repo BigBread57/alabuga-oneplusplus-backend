@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from server.apps.service_interaction.models import Event
+from app.communication.models import Event
 from server.apps.services.serializers import ModelSerializerWithPermission
 
 
@@ -19,7 +19,6 @@ class ListEventSerializer(ModelSerializerWithPermission):
             "description",
             "event_type",
             "event_type_label",
-            "permission_rules",
             "created_at",
             "updated_at",
         )
@@ -46,7 +45,6 @@ class DetailEventSerializer(ModelSerializerWithPermission):
             "description",
             "event_type",
             "content_type_id",
-            "permission_rules",
             "created_at",
             "updated_at",
         )

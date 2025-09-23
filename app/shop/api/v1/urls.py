@@ -1,6 +1,6 @@
 from django.urls import path
 
-from app.shop.api.v1.views import (
+from shop.api.v1.views import (
     ShopItemCategoryCreateAPIView,
     ShopItemCategoryDeleteAPIView,
     ShopItemCategoryListAPIView,

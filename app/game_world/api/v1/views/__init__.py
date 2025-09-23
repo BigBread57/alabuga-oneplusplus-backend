@@ -1,38 +1,38 @@
-from app.game_world.api.v1.views.artifact import (
+from game_world.api.v1.views.artifact import (
     ArtifactCreateAPIView,
     ArtifactDeleteAPIView,
     ArtifactListAPIView,
     ArtifactUpdateAPIView,
 )
-from app.game_world.api.v1.views.event import (
+from game_world.api.v1.views.event import (
     EventCreateAPIView,
     EventDeleteAPIView,
     EventDetailAPIView,
     EventListAPIView,
     EventUpdateAPIView,
 )
-from app.game_world.api.v1.views.game_world import (
+from game_world.api.v1.views.game_world import (
     GameWorldCreateAPIView,
     GameWorldDeleteAPIView,
     GameWorldDetailAPIView,
     GameWorldListAPIView,
     GameWorldUpdateAPIView,
 )
-from app.game_world.api.v1.views.mission import (
+from game_world.api.v1.views.mission import (
     MissionCreateAPIView,
     MissionDeleteAPIView,
     MissionDetailAPIView,
     MissionListAPIView,
     MissionUpdateAPIView,
 )
-from app.game_world.api.v1.views.mission_branch import (
+from game_world.api.v1.views.mission_branch import (
     MissionBranchCreateAPIView,
     MissionBranchDeleteAPIView,
     MissionBranchDetailAPIView,
     MissionBranchListAPIView,
     MissionBranchUpdateAPIView,
 )
-from app.game_world.api.v1.views.mission_category import (
+from game_world.api.v1.views.mission_category import (
     MissionCategoryCreateAPIView,
     MissionCategoryDeleteAPIView,
     MissionCategoryDetailAPIView,

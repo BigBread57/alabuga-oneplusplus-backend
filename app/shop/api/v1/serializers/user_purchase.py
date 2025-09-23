@@ -3,8 +3,8 @@ from typing import Any
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from app.shop.api.v1.serializers.nested import ShopItemNestedSerializer
-from app.shop.models import ShopItem, UserPurchase
+from shop.api.v1.serializers.nested import ShopItemNestedSerializer
+from shop.models import ShopItem, UserPurchase
 
 
 class UserPurchaseListSerializer(serializers.ModelSerializer):

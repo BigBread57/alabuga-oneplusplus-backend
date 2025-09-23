@@ -1,5 +1,5 @@
-from server.apps.alabuga_file.models.alabuga_file import Multimedia
+from app.multimedia.models.multimedia import Multimedia
 
-__all__ = [
+__all__ = (
     "Multimedia",
-]
+)

@@ -1,22 +1,22 @@
 from django.contrib import admin
-from server.apps.alabuga_file.models import Multimedia
-from server.apps.services.admin_mixin import AddCreatorForObjectMixin
+
+from multimedia.models import Multimedia
 
 
 @admin.register(Multimedia)
-class MultimediaAdmin(AddCreatorForObjectMixin, admin.ModelAdmin[Multimedia]):
+class MultimediaAdmin(admin.ModelAdmin):
     """Админка для файлов."""
 
     list_display = (
         "id",
-        "alabuga_file",
+        "multimedia",
         "content_type",
         "object_id",
     )
     list_filter = ("content_type",)
     ordering = (
         "id",
-        "alabuga_file",
+        "multimedia",
         "content_type",
         "object_id",
     )

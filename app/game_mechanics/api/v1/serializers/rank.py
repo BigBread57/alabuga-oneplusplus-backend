@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.game_mechanics.models import Rank
+from game_mechanics.models import Rank
 
 
 class RankListSerializer(serializers.ModelSerializer):

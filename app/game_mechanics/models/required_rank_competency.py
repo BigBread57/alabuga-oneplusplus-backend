@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.common.models import AbstractBaseModel
+from common.models import AbstractBaseModel
 
 
 class RequiredRankCompetency(AbstractBaseModel):
@@ -10,13 +10,13 @@ class RequiredRankCompetency(AbstractBaseModel):
     """
 
     rank = models.ForeignKey(
-        to="experience.Rank",
+        to="game_mechanics.Rank",
         verbose_name=_("Ранг"),
         on_delete=models.CASCADE,
         related_name="required_competencies",
     )
     competency = models.ForeignKey(
-        to="experience.Competency",
+        to="game_mechanics.Competency",
         verbose_name=_("Компетенция"),
         on_delete=models.CASCADE,
         related_name="required_ranks",

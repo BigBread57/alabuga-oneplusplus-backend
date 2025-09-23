@@ -1,4 +1,4 @@
-from app.alabuga.settings import config
+from alabuga.settings import config
 
 # EMAIL
 EMAIL_BACKEND = config(

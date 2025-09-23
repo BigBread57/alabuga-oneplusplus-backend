@@ -5,9 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from app.game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer, RankNestedSerializer
-from app.shop.api.v1.serializers.nested import ShopItemCategoryNestedSerializer, ShopItemNestedSerializer
-from app.shop.models import ShopItem
+from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer, RankNestedSerializer
+from shop.api.v1.serializers.nested import ShopItemCategoryNestedSerializer, ShopItemNestedSerializer
+from shop.models import ShopItem
 
 
 class ShopItemListSerializer(serializers.ModelSerializer):
@@ -23,7 +23,7 @@ class ShopItemListSerializer(serializers.ModelSerializer):
         label=_("Дата и время окончания продаж"),
         help_text=_("Дата и время окончания продаж"),
     )
-    available_for_purchase = serializers.IntegerField(
+    purchase_restriction = serializers.IntegerField(
         label=_("Доступно для покупки"),
         help_text=_("Доступно для покупки"),
     )
@@ -41,7 +41,7 @@ class ShopItemListSerializer(serializers.ModelSerializer):
             "is_active",
             "start_datetime",
             "end_datetime",
-            "available_for_purchase",
+            "purchase_restriction",
         )
 
     def get_end_datetime(self, shop_item: ShopItem) -> datetime | None:
@@ -79,7 +79,7 @@ class ShopItemDetailSerializer(serializers.ModelSerializer):
         label=_("Дата и время окончания продаж"),
         help_text=_("Дата и время окончания продаж"),
     )
-    available_for_purchase = serializers.IntegerField(
+    purchase_restriction = serializers.IntegerField(
         label=_("Доступно для покупки"),
         help_text=_("Доступно для покупки"),
     )

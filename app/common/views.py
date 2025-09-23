@@ -1,10 +1,11 @@
 from types import FunctionType
 from typing import Any, TypeVar
 
-from apps.common.selectors import BaseSelector
 from rest_framework.fields import MultipleChoiceField
 from rest_framework.relations import ManyRelatedField
 from rest_framework.serializers import ListSerializer, Serializer
+
+from common.selectors import BaseSelector
 
 T = TypeVar("T")
 

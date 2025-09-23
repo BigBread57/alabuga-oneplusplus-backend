@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model, logout
+from django.contrib.auth import logout
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
@@ -7,8 +7,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from app.common.serializers import ResponseDetailSerializer
-from app.user.api.v1.serializers import (
+from common.serializers import ResponseDetailSerializer
+from user.api.v1.serializers import (
     UserChangePasswordSerializer,
     UserConfirmEmailRequestSerializer,
     UserInfoSerializer,
@@ -17,9 +17,7 @@ from app.user.api.v1.serializers import (
     UserResetPasswordConfirmSerializer,
     UserResetPasswordRequestSerializer,
 )
-from app.user.api.v1.services import user_service
-
-User = get_user_model()
+from user.api.v1.services import user_service
 
 
 class UserConfirmEmailRequestAPIView(GenericAPIView):

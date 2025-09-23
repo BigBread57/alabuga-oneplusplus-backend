@@ -3,10 +3,9 @@ from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.utils.translation import gettext_lazy as _
 
-from app.common.constants import UserRoles
-from app.shop.models import UserPurchase
-
-User = get_user_model()
+from common.constants import UserRoles
+from shop.models import UserPurchase
+from user.models import User
 
 
 @shared_task

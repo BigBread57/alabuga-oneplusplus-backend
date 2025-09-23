@@ -1,4 +1,4 @@
-from server.apps.alabuga_file.api.serialziers.alabuga_file import (
+from app.multimedia.api.serializers.multimedia import (
     CreateMultimediaSerializer,
     MultimediaSerializer,
 )

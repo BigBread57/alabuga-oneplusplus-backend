@@ -1,23 +1,7 @@
 from django.contrib import admin
-from server.apps.service_interaction.models import Comment
-from server.apps.service_interaction.models.event import Event
-from server.apps.service_interaction.models.post import Post
-from server.apps.service_interaction.models.topic import Topic
-
-
-@admin.register(Event)
-class EventAdmin(admin.ModelAdmin[Event]):
-    """Событие."""
-
-    list_display = (
-        "id",
-        "name",
-        "event_datetime",
-        "event_type",
-    )
-    list_filter = ("event_type",)
-    search_fields = ("name",)
-    ordering = ("-id",)
+from app.communication.models import Comment
+from app.communication.models.post import Post
+from app.communication.models.topic import Topic
 
 
 @admin.register(Comment)

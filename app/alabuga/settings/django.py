@@ -2,7 +2,7 @@ import os
 
 from django.utils.translation import gettext_lazy as _
 
-from app.alabuga.settings import BASE_DIR, config
+from alabuga.settings import BASE_DIR, config
 
 SECRET_KEY = config("DJANGO_SECRET_KEY")
 DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
@@ -19,6 +19,7 @@ BASE_INSTALLED_APPS: list[str] = [
     "django.contrib.admindocs",
 ]
 OTHER_INSTALLED_APPS: list[str] = [
+    'corsheaders',
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -28,28 +29,19 @@ OTHER_INSTALLED_APPS: list[str] = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "django_filters",
-    "rules",
-    "drf_spectacular",
     "drf_standardized_errors",
-    "django_kafka",
-    "django_producer",
     "django_celery_beat",
-    "s3_uploads",
-    "catalog",
-    "dynamic",
-    "admin_auto_filters",
-    "more_admin_filters",
-    "safedelete",
+    "phonenumber_field",
+    "debug_toolbar",
 ]
 
 LOCAL_INSTALLED_APPS: list[str] = [
-    "core",
-    "crm",
-    "schedule",
-    "individual_metering_device",
-    "placement_status",
-    "reference_book",
-    "defect",
+    "user",
+    "game_mechanics",
+    # "game_world",
+    # "shop",
+    # "communication",
+    # "multimedia",
 ]
 
 
@@ -63,12 +55,14 @@ MIDDLEWARE: list[str] = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "alabuga.urls"
@@ -126,8 +120,6 @@ TEMPLATES = [
         },
     }
 ]
-
-AUTH_USER_MODEL = "user.User"
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "files", "static")

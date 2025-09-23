@@ -1,6 +1,6 @@
 from django.urls import path
 
-from app.game_mechanics.api.v1.views import (
+from game_mechanics.api.v1.views import (
     CompetencyCreateAPIView,
     CompetencyDeleteAPIView,
     CompetencyListAPIView,

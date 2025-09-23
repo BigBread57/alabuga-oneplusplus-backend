@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
-from app.common.constants import UserRoles
+from common.constants import UserRoles
 
 
 class DefaultUserManager(UserManager):

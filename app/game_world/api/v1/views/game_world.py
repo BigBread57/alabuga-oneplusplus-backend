@@ -5,20 +5,20 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from app.common.permissions import UserHRPermission
-from app.common.serializers import ResponseDetailSerializer
-from app.common.views import QuerySelectorMixin
-from app.game_world.api.v1.selectors import (
+from common.permissions import UserHRPermission
+from common.serializers import ResponseDetailSerializer
+from common.views import QuerySelectorMixin
+from game_world.api.v1.selectors import (
     GameWorldDetailSelector,
     GameWorldListFilterSerializer,
     GameWorldListSelector,
 )
-from app.game_world.api.v1.serializers import (
+from game_world.api.v1.serializers import (
     GameWorldCreateOrUpdateSerializer,
     GameWorldDetailSerializer,
     GameWorldListSerializer,
 )
-from app.game_world.models import GameWorld
+from game_world.models import GameWorld
 
 
 class GameWorldListAPIView(QuerySelectorMixin, GenericAPIView):

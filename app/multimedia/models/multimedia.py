@@ -1,12 +1,8 @@
-from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.common.models import AbstractBaseModel
-
-User = get_user_model()
+from common.models import AbstractBaseModel
 
 
 class Multimedia(AbstractBaseModel):
@@ -14,12 +10,12 @@ class Multimedia(AbstractBaseModel):
     Файл.
     """
 
-    alabuga_file = models.FileField(
+    multimedia = models.FileField(
         verbose_name=_("Файл"),
         upload_to="private-media",
     )
     creator = models.ForeignKey(
-        to=User,
+        to="user.User",
         on_delete=models.CASCADE,
         verbose_name=_("Пользователь - создатель объекта"),
         related_name="%(class)s_created_objects",  # noqa: WPS323
@@ -27,7 +23,7 @@ class Multimedia(AbstractBaseModel):
         null=True,
     )
     content_type = models.ForeignKey(
-        ContentType,
+        to="contenttypes.ContentType",
         verbose_name=_("Тип содержимого"),
         on_delete=models.CASCADE,
         db_index=True,

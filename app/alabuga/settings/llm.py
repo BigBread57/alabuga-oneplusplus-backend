@@ -1,4 +1,4 @@
-from app.alabuga.settings import config
+from alabuga.settings import config
 
 LLM_PROVIDER = config("LLM_PROVIDER", default="server.apps.llm.providers.GPTProvider")
 OPENAI_ASSISTANT_ID = config("OPENAI_ASSISTANT_ID", "")

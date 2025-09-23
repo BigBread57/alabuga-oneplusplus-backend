@@ -1,13 +1,11 @@
 from typing import Any
 
-from django.contrib.auth import get_user_model
 from django.db import transaction
 
-from app.common.services import BaseService
-from app.shop.models import UserPurchase
-from app.shop.tasks import send_mail_about_new_user_purchase
-
-User = get_user_model()
+from common.services import BaseService
+from shop.models import UserPurchase
+from shop.tasks import send_mail_about_new_user_purchase
+from user.models import User
 
 
 class UserPurchaseService(BaseService):

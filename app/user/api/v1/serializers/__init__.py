@@ -1,4 +1,4 @@
-from app.user.api.v1.serializers.user import (
+from user.api.v1.serializers.user import (
     UserChangePasswordSerializer,
     UserConfirmEmailRequestSerializer,
     UserInfoSerializer,

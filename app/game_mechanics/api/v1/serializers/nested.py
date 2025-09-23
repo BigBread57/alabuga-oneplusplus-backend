@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.game_mechanics.models import Competency, Rank
+from game_mechanics.models import Competency, Rank
 
 
 class RankNestedSerializer(serializers.ModelSerializer):

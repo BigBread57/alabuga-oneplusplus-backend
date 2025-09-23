@@ -1,4 +1,4 @@
-from server.apps.alabuga_file.models import Multimedia
+from app.multimedia.models import Multimedia
 from server.apps.services.serializers import ModelSerializerWithPermission
 
 
@@ -9,12 +9,11 @@ class MultimediaSerializer(ModelSerializerWithPermission):
         model = Multimedia
         fields = (
             "id",
-            "alabuga_file",
+            "multimedia",
             "created_at",
             "updated_at",
             "content_type",
             "object_id",
-            "permission_rules",
         )
 
 
@@ -25,7 +24,7 @@ class CreateMultimediaSerializer(ModelSerializerWithPermission):
         model = Multimedia
         fields = (
             "id",
-            "alabuga_file",
+            "multimedia",
             "content_type",
             "object_id",
         )

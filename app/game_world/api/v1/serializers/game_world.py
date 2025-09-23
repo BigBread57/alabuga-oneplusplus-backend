@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.game_world.models import GameWorld
+from game_world.models import GameWorld
 
 
 class GameWorldListSerializer(serializers.ModelSerializer):

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.common.models import AbstractBaseModel
+from common.models import AbstractBaseModel
 
 
 class ShopItem(AbstractBaseModel):
@@ -59,7 +59,7 @@ class ShopItem(AbstractBaseModel):
         help_text=_("Заполняется только при наличии rank и/или competency"),
     )
     rank = models.ForeignKey(
-        to="experience.Rank",
+        to="game_mechanics.Rank",
         verbose_name=_("Ранг"),
         on_delete=models.SET_NULL,
         related_name="shop_items",
@@ -67,7 +67,7 @@ class ShopItem(AbstractBaseModel):
         null=True,
     )
     competency = models.ForeignKey(
-        to="experience.Competency",
+        to="game_mechanics.Competency",
         verbose_name=_("Компетенция"),
         on_delete=models.SET_NULL,
         related_name="shop_items",

@@ -1,10 +1,7 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.common.models import AbstractBaseModel
-
-User = get_user_model()
+from common.models import AbstractBaseModel
 
 
 class MissionBranch(AbstractBaseModel):
@@ -57,7 +54,7 @@ class MissionBranch(AbstractBaseModel):
         related_name="branches",
     )
     mentor = models.ForeignKey(
-        to=User,
+        to="user.User",
         verbose_name=_("Ментор"),
         on_delete=models.CASCADE,
         related_name="mission_categories",

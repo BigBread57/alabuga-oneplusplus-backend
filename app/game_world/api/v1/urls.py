@@ -1,6 +1,6 @@
 from django.urls import path
 
-from app.game_world.api.v1.views import (
+from game_world.api.v1.views import (
     ArtifactCreateAPIView,
     ArtifactDeleteAPIView,
     ArtifactListAPIView,

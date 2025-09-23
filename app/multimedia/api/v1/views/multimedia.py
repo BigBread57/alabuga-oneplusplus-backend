@@ -7,12 +7,12 @@ from rest_framework.authentication import (
     TokenAuthentication,
 )
 from rest_framework.decorators import action
-from server.apps.alabuga_file.api.serialziers import (
+from app.multimedia.api.serialziers import (
     CreateMultimediaSerializer,
     MultimediaSerializer,
 )
-from server.apps.alabuga_file.models import Multimedia
-from server.apps.alabuga_file.services.check_signature import check_signature
+from app.multimedia.models import Multimedia
+from app.multimedia.services.check_signature import check_signature
 from server.apps.services.filters_mixins import CreatedUpdatedDateFilterMixin
 from server.apps.services.views import BaseModelViewSet
 

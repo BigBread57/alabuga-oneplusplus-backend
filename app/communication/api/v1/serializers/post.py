@@ -1,36 +1,36 @@
-from rest_framework import serializers
-from server.apps.service_interaction.models import Comment
+from app.communication.api.serializers import BaseTopicSerializer
+from app.communication.models import Post
 from server.apps.services.serializers import ModelSerializerWithPermission
 from server.apps.user.api.serializers import BaseUserSerializer
 
 
-class CommentSerializer(ModelSerializerWithPermission):
+class PostSerializer(ModelSerializerWithPermission):
     """Сериалайзер отзывов."""
 
     user = BaseUserSerializer()
+    topic = BaseTopicSerializer()
 
     class Meta:
-        model = Comment
+        model = Post
         fields = (
             "id",
             "user",
+            "topic",
             "text",
-            "content_type",
-            "object_id",
-            "permission_rules",
+            "parent",
             "created_at",
             "updated_at",
         )
 
 
-class CreateCommentSerializer(serializers.ModelSerializer):
+class CreatePostSerializer(ModelSerializerWithPermission):
     """Сериалайзер создания отзывов."""
 
     class Meta:
-        model = Comment
+        model = Post
         fields = (
             "id",
+            "topic",
             "text",
-            "content_type",
-            "object_id",
+            "parent",
         )

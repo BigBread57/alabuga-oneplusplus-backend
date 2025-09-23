@@ -2,8 +2,8 @@ import django_filters
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from app.common.selectors import BaseSelector
-from app.game_world.models import GameWorld
+from common.selectors import BaseSelector
+from game_world.models import GameWorld
 
 
 class GameWorldListFilterSerializer(serializers.Serializer):

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from app.game_mechanics.models import (
+from game_mechanics.models import (
     Competency,
     Rank,
     RequiredRankCompetency,

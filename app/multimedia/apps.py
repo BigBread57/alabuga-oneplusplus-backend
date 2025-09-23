@@ -7,5 +7,5 @@ class MultimediaConfig(AppConfig):
     Конфиг.
     """
 
-    name = "alabuga_file"
+    name = "multimedia"
     verbose_name = _("Файлы")

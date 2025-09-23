@@ -5,16 +5,16 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from app.common.permissions import UserHRPermission
-from app.common.serializers import ResponseDetailSerializer
-from app.common.views import QuerySelectorMixin
-from app.game_world.api.v1.selectors import ArtifactListFilterSerializer, ArtifactListSelector
-from app.game_world.api.v1.serializers import (
+from common.permissions import UserHRPermission
+from common.serializers import ResponseDetailSerializer
+from common.views import QuerySelectorMixin
+from game_world.api.v1.selectors import ArtifactListFilterSerializer, ArtifactListSelector
+from game_world.api.v1.serializers import (
     ArtifactCreateOrUpdateSerializer,
     ArtifactDetailSerializer,
     ArtifactListSerializer,
 )
-from app.game_world.models import Artifact
+from game_world.models import Artifact
 
 
 class ArtifactListAPIView(QuerySelectorMixin, GenericAPIView):

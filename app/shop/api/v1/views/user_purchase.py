@@ -4,21 +4,21 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from app.common.permissions import UserHRPermission, UserManagerForObjectPermission, UserManagerPermission
-from app.common.views import QuerySelectorMixin
-from app.shop.api.v1.selectors import (
+from common.permissions import UserHRPermission, UserManagerForObjectPermission, UserManagerPermission
+from common.views import QuerySelectorMixin
+from shop.api.v1.selectors import (
     UserPurchaseDetailSelector,
     UserPurchaseListFilterSerializer,
     UserPurchaseListSelector,
 )
-from app.shop.api.v1.serializers import (
+from shop.api.v1.serializers import (
     UserPurchaseCreateSerializer,
     UserPurchaseDetailSerializer,
     UserPurchaseListSerializer,
     UserPurchaseUpdateSerializer,
 )
-from app.shop.api.v1.services import user_purchase_service
-from app.shop.models import UserPurchase
+from shop.api.v1.services import user_purchase_service
+from shop.models import UserPurchase
 
 
 class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):

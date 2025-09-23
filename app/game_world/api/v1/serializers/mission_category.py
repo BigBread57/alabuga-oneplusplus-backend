@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.game_world.models import MissionCategory
+from game_world.models import MissionCategory
 
 
 class MissionCategoryListSerializer(serializers.ModelSerializer):

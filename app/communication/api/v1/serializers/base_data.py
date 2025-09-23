@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from server.apps.service_interaction.models import Comment, Post, Topic
+from app.communication.models import Comment, Post, Topic
 from server.apps.user.api.serializers import BaseUserSerializer
 
 

@@ -1,4 +1,4 @@
-from app.alabuga.settings import config
+from alabuga.settings import config
 
 CLIENT_ID = config(
     "CLIENT_ID",

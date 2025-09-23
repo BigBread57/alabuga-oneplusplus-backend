@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from server.apps.services.base_model import AbstractBaseModel
+
+from common.models import AbstractBaseModel
 
 
 class Post(AbstractBaseModel):

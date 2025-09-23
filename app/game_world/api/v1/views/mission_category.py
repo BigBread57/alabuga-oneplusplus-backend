@@ -5,20 +5,20 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from app.common.permissions import UserHRPermission
-from app.common.serializers import ResponseDetailSerializer
-from app.common.views import QuerySelectorMixin
-from app.mission_category.api.v1.selectors import (
+from common.permissions import UserHRPermission
+from common.serializers import ResponseDetailSerializer
+from common.views import QuerySelectorMixin
+from mission_category.api.v1.selectors import (
     MissionCategoryDetailSelector,
     MissionCategoryListFilterSerializer,
     MissionCategoryListSelector,
 )
-from app.mission_category.api.v1.serializers import (
+from mission_category.api.v1.serializers import (
     MissionCategoryCreateOrUpdateSerializer,
     MissionCategoryDetailSerializer,
     MissionCategoryListSerializer,
 )
-from app.mission_category.models import MissionCategory
+from mission_category.models import MissionCategory
 
 
 class MissionCategoryListAPIView(QuerySelectorMixin, GenericAPIView):

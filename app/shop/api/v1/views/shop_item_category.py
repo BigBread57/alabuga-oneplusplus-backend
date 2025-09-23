@@ -5,16 +5,16 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from app.common.permissions import UserHRPermission
-from app.common.serializers import ResponseDetailSerializer
-from app.common.views import QuerySelectorMixin
-from app.shop.api.v1.selectors import ShopItemCategoryListFilterSerializer, ShopItemCategoryListSelector
-from app.shop.api.v1.serializers import (
+from common.permissions import UserHRPermission
+from common.serializers import ResponseDetailSerializer
+from common.views import QuerySelectorMixin
+from shop.api.v1.selectors import ShopItemCategoryListFilterSerializer, ShopItemCategoryListSelector
+from shop.api.v1.serializers import (
     ShopItemCategoryCreateOrUpdateSerializer,
     ShopItemCategoryDetailSerializer,
     ShopItemCategoryListSerializer,
 )
-from app.shop.models import ShopItemCategory
+from shop.models import ShopItemCategory
 
 
 class ShopItemCategoryListAPIView(QuerySelectorMixin, GenericAPIView):

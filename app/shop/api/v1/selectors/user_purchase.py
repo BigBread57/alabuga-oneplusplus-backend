@@ -3,8 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
-from app.common.selectors import BaseSelector
-from app.shop.models import UserPurchase
+from common.selectors import BaseSelector
+from shop.models import UserPurchase
 
 
 class UserPurchaseListFilterSerializer(serializers.Serializer):

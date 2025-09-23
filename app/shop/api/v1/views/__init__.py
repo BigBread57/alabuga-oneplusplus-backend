@@ -1,16 +1,16 @@
-from app.shop.api.v1.views.shop_item import (
+from shop.api.v1.views.shop_item import (
     ShopItemCreateAPIView,
     ShopItemDeleteAPIView,
     ShopItemListAPIView,
     ShopItemUpdateAPIView,
 )
-from app.shop.api.v1.views.shop_item_category import (
+from shop.api.v1.views.shop_item_category import (
     ShopItemCategoryCreateAPIView,
     ShopItemCategoryDeleteAPIView,
     ShopItemCategoryListAPIView,
     ShopItemCategoryUpdateAPIView,
 )
-from app.shop.api.v1.views.user_purchase import (
+from shop.api.v1.views.user_purchase import (
     UserPurchaseCreateAPIView,
     UserPurchaseDetailAPIView,
     UserPurchaseListAPIView,

@@ -2,9 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.common.models import AbstractBaseModel
-
-User = get_user_model()
+from common.models import AbstractBaseModel
+from user.models.user import User
 
 
 class Profile(AbstractBaseModel):
@@ -19,7 +18,7 @@ class Profile(AbstractBaseModel):
         blank=True,
     )
     user = models.OneToOneField(
-        to=User,
+        User,
         verbose_name=_("Пользователь"),
         on_delete=models.CASCADE,
         related_name="profile",
