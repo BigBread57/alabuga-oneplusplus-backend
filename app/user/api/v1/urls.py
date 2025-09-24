@@ -1,9 +1,17 @@
 from django.urls import path
 
-
-from user.api.v1.views import UseResendEmailConfirmationAPIView, UserLoginAPIView, UserRequestResetPasswordAPIView, \
-    UserConfirmResetPasswordAPIView, UserUpdatePasswordAPIView, UserRegisterAPIView, UserLogoutAPIView, UserInfoAPIView, \
-    UserConfirmEmailAPIView, CharacterActualForUserAPIView
+from user.api.v1.views import (
+    CharacterActualForUserAPIView,
+    UserConfirmEmailAPIView,
+    UserConfirmResetPasswordAPIView,
+    UseResendEmailConfirmationAPIView,
+    UserInfoAPIView,
+    UserLoginAPIView,
+    UserLogoutAPIView,
+    UserRegisterAPIView,
+    UserRequestResetPasswordAPIView,
+    UserUpdatePasswordAPIView,
+)
 
 app_name = "v1"
 

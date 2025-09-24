@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from app.communication.models import Comment
 from user.api.v1.serializers.user import BaseUserSerializer
 
@@ -6,9 +7,7 @@ from user.api.v1.serializers.user import BaseUserSerializer
 class CommentSerializer(serializers.ModelSerializer):
     """Сериалайзер отзывов."""
 
-    user = BaseUserSerializer(
-
-    )
+    user = BaseUserSerializer()
 
     class Meta:
         model = Comment

@@ -1,11 +1,16 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from game_mechanics.api.v1.serializers.nested import RankNestedSerializer
 from game_world.api.v1.serializers.nested import GameWorldNestedSerializer
-from user.api.v1.serializers.nested import UserNestedSerializer, CharacterArtifactNestedSerializer, \
-    CharacterCompetencyNestedSerializer, CharacterMissionNestedSerializer, CharacterEventNestedSerializer
+from user.api.v1.serializers.nested import (
+    CharacterArtifactNestedSerializer,
+    CharacterCompetencyNestedSerializer,
+    CharacterEventNestedSerializer,
+    CharacterMissionNestedSerializer,
+    UserNestedSerializer,
+)
 from user.models import Character
-from django.utils.translation import gettext_lazy as _
 
 
 class CharacterActualForUserSerializer(serializers.ModelSerializer):

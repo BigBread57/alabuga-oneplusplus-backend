@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from game_world.models import GameWorld, Artifact, Mission
+from game_world.models import Artifact, GameWorld, Mission
 
 
 class GameWorldNestedSerializer(serializers.ModelSerializer):
@@ -18,6 +18,7 @@ class GameWorldNestedSerializer(serializers.ModelSerializer):
             "currency_name",
         )
 
+
 class ArtifactNestedSerializer(serializers.ModelSerializer):
     """
     Артефакт. Вложенный сериалайзер.
@@ -34,6 +35,7 @@ class ArtifactNestedSerializer(serializers.ModelSerializer):
             "modifier",
             "modifier_value",
         )
+
 
 class MissionNestedSerializer(serializers.ModelSerializer):
     """

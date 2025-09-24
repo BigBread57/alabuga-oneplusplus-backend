@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from app.communication.models import Comment, Post, Topic
 from server.apps.user.api.serializers import BaseUserSerializer
+
+from app.communication.models import Comment, Post, Topic
 
 
 class BasePostSerializer(serializers.ModelSerializer):

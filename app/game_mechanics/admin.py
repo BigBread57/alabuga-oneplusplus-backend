@@ -52,15 +52,9 @@ class CompetencyAdmin(admin.ModelAdmin):
         "name",
         "description",
     )
-    list_filter = (
-        "game_world",
-    )
-    autocomplete_fields = (
-        "game_world",
-    )
-    list_select_related = (
-        "game_world",
-    )
+    list_filter = ("game_world",)
+    autocomplete_fields = ("game_world",)
+    list_select_related = ("game_world",)
     ordering = ("-id",)
 
 

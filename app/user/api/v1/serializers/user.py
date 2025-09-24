@@ -1,6 +1,5 @@
 from typing import Any
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
@@ -227,6 +226,7 @@ class UserRegisterSerializer(serializers.Serializer):
         except DjangoValidationError as exc:
             raise ValidationError(exc.messages) from exc
         return attrs
+
 
 class UserInfoSerializer(serializers.ModelSerializer):
     """

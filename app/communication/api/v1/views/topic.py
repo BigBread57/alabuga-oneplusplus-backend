@@ -1,11 +1,12 @@
 import django_filters
+from server.apps.services.filters_mixins import CreatedUpdatedDateFilterMixin
+from server.apps.services.views import RetrieveListViewSet
+
 from app.communication.api.serializers import (
     DetailTopicSerializer,
     ListTopicSerializer,
 )
 from app.communication.models import Topic
-from server.apps.services.filters_mixins import CreatedUpdatedDateFilterMixin
-from server.apps.services.views import RetrieveListViewSet
 
 
 class TopicFilter(

@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from app.communication.models import Comment
 from app.communication.models.post import Post
 from app.communication.models.topic import Topic

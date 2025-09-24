@@ -1,3 +1,8 @@
+from game_world.api.v1.selectors.activity_category import (
+    ActivityCategoryDetailSelector,
+    ActivityCategoryListFilterSerializer,
+    ActivityCategoryListSelector,
+)
 from game_world.api.v1.selectors.artifact import ArtifactListFilterSerializer, ArtifactListSelector
 from game_world.api.v1.selectors.event import EventDetailSelector, EventListFilterSerializer, EventListSelector
 from game_world.api.v1.selectors.game_world import (
@@ -14,11 +19,6 @@ from game_world.api.v1.selectors.mission_branch import (
     MissionBranchDetailSelector,
     MissionBranchListFilterSerializer,
     MissionBranchListSelector,
-)
-from game_world.api.v1.selectors.activity_category import (
-    ActivityCategoryDetailSelector,
-    ActivityCategoryListFilterSerializer,
-    ActivityCategoryListSelector,
 )
 from game_world.api.v1.selectors.mission_level import (
     MissionLevelDetailSelector,

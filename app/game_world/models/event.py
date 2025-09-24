@@ -37,7 +37,7 @@ class Event(AbstractBaseModel):
     )
     required_number = models.PositiveIntegerField(
         verbose_name=_("Обязательное количество выполненных миссий для всех игроков"),
-        help_text=_("Сколько пользователй должны посетить или закрыть это событие для общего успеха")
+        help_text=_("Сколько пользователй должны посетить или закрыть это событие для общего успеха"),
     )
     is_active = models.BooleanField(
         verbose_name=_("Активна"),

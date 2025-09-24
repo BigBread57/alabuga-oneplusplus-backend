@@ -1,11 +1,10 @@
 import django_filters
-from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
 from common.selectors import BaseSelector
-from shop.models import ShopItem, ShopItemCategory
+from shop.models import ShopItem
 from user.models import Character
 
 
@@ -29,6 +28,7 @@ class UserPurchaseDetailFilter(django_filters.FilterSet):
     class Meta:
         model = Character
         fields = ("user",)
+
 
 class CharacterActualForUserSelector(BaseSelector):
     """

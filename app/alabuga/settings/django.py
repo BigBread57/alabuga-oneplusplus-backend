@@ -19,7 +19,7 @@ BASE_INSTALLED_APPS: list[str] = [
     "django.contrib.admindocs",
 ]
 OTHER_INSTALLED_APPS: list[str] = [
-    'corsheaders',
+    "corsheaders",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -33,7 +33,7 @@ OTHER_INSTALLED_APPS: list[str] = [
     # "django_celery_beat",
     "phonenumber_field",
     "debug_toolbar",
-    'drf_spectacular',
+    "drf_spectacular",
 ]
 
 LOCAL_INSTALLED_APPS: list[str] = [
@@ -114,9 +114,9 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.i18n",
-                'django.template.context_processors.media',
-                'django.template.context_processors.static',
-                'django.template.context_processors.tz',
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
             ],

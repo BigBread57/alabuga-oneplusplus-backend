@@ -1,13 +1,3 @@
-from django.utils.translation import gettext_lazy as _
-from drf_spectacular.utils import extend_schema
-from rest_framework import status
-from rest_framework.generics import GenericAPIView
-from rest_framework.request import Request
-from rest_framework.response import Response
-
-from common.permissions import UserHRPermission
-from common.serializers import ResponseDetailSerializer
-from common.views import QuerySelectorMixin
 from activity_category.api.v1.selectors import (
     ActivityCategoryDetailSelector,
     ActivityCategoryListFilterSerializer,
@@ -19,6 +9,16 @@ from activity_category.api.v1.serializers import (
     ActivityCategoryListSerializer,
 )
 from activity_category.models import ActivityCategory
+from django.utils.translation import gettext_lazy as _
+from drf_spectacular.utils import extend_schema
+from rest_framework import status
+from rest_framework.generics import GenericAPIView
+from rest_framework.request import Request
+from rest_framework.response import Response
+
+from common.permissions import UserHRPermission
+from common.serializers import ResponseDetailSerializer
+from common.views import QuerySelectorMixin
 
 
 class ActivityCategoryListAPIView(QuerySelectorMixin, GenericAPIView):

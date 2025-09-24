@@ -1,6 +1,5 @@
 from allauth.account.forms import default_token_generator
 from django.contrib.auth import logout
-from django.http import HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
@@ -9,19 +8,18 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.reverse import reverse
 
 from common.serializers import ResponseDetailSerializer
 from game_mechanics.models import Rank
 from game_world.models import GameWorld
 from user.api.v1.serializers import (
-    UserUpdatePasswordSerializer,
+    UserConfirmResetPasswordSerializer,
     UseResendEmailConfirmationSerializer,
     UserInfoSerializer,
     UserLoginSerializer,
     UserRegisterSerializer,
-    UserConfirmResetPasswordSerializer,
     UserRequestResetPasswordSerializer,
+    UserUpdatePasswordSerializer,
 )
 from user.api.v1.services import user_service
 from user.models import Character
@@ -308,6 +306,7 @@ class UserInfoAPIView(GenericAPIView):
             status=status.HTTP_200_OK,
         )
 
+
 class UserConfirmEmailAPIView(GenericAPIView):
     """
     Подтверждение регистрации.
@@ -327,14 +326,14 @@ class UserConfirmEmailAPIView(GenericAPIView):
 
         if not default_token_generator.check_token(user, key):
             raise ParseError(
-                _('Некорректный ключ подтверждения активации'),
+                _("Некорректный ключ подтверждения активации"),
             )
 
         if user.is_active:
             return Response(
-            data=ResponseDetailSerializer({"detail": _("Ваша почта уже подтверждена")}).data,
-            status=status.HTTP_200_OK,
-        )
+                data=ResponseDetailSerializer({"detail": _("Ваша почта уже подтверждена")}).data,
+                status=status.HTTP_200_OK,
+            )
 
         user.is_active = True
         user.save()

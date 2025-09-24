@@ -1,5 +1,5 @@
 import re
-from typing import Any, Tuple
+from typing import Any
 
 from allauth import account
 from allauth.account.forms import default_token_generator
@@ -15,7 +15,7 @@ from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from requests import Request
 from rest_framework import status
-from rest_framework.exceptions import APIException, NotFound, ValidationError, ParseError
+from rest_framework.exceptions import APIException, NotFound, ParseError, ValidationError
 from rest_framework.reverse import reverse
 
 from common.services import BaseService
@@ -203,28 +203,28 @@ class UserService(BaseService):
     @staticmethod
     def check_extra_path(
         extra_path: str,
-    ) -> Tuple[str, ...]:
+    ) -> tuple[str, ...]:
         """Проверка корректности extra_path, при подтверждении почты."""
-        match = re.compile('(?P<email>.+)/(?P<key>.+)').match(extra_path)
+        match = re.compile("(?P<email>.+)/(?P<key>.+)").match(extra_path)
         if match:
             return match.groups()
 
         raise ParseError(
             _(
-                'Не удалось извлечь email пользователя и ключ для ' +
-                'подтверждения email',
+                "Не удалось извлечь email пользователя и ключ для " + "подтверждения email",
             ),
         )
+
     @staticmethod
     def get_user_by_email_and_check_token(email: str, key: str):
         """Получаем пользователя по e-mail и проверяем токен."""
         try:
             user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            raise NotFound(_('Пользователь не найден'))
+        except User.DoesNotExist as exc:
+            raise NotFound(_("Пользователь не найден")) from exc
 
         if not default_token_generator.check_token(user, key):
-            raise ValidationError(_('Токен подтверждения регистрации не действителен'))
+            raise ValidationError(_("Токен подтверждения регистрации не действителен"))
 
         return user
 

@@ -30,8 +30,8 @@ urlpatterns = [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("accounts/", include("allauth.urls")),  # тут будет login/logout/signup
     path("accounts/keycloak/login/", oauth2_login, name="keycloak_login"),
     path("accounts/keycloak/login/callback/", oauth2_callback, name="keycloak_callback"),

@@ -1,7 +1,8 @@
-from app.communication.api.serializers import BaseTopicSerializer
-from app.communication.models import Post
 from server.apps.services.serializers import ModelSerializerWithPermission
 from server.apps.user.api.serializers import BaseUserSerializer
+
+from app.communication.api.serializers import BaseTopicSerializer
+from app.communication.models import Post
 
 
 class PostSerializer(ModelSerializerWithPermission):

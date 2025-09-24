@@ -1,14 +1,15 @@
 import django_filters
-from app.communication.api.serializers import (
-    CreatePostSerializer,
-    PostSerializer,
-)
-from app.communication.models import Post
 from server.apps.services.filters_mixins import (
     CreatedUpdatedDateFilterMixin,
     UserFilterMixin,
 )
 from server.apps.services.views import RetrieveListCreateViewSet
+
+from app.communication.api.serializers import (
+    CreatePostSerializer,
+    PostSerializer,
+)
+from app.communication.models import Post
 
 
 class PostFilter(

@@ -1,6 +1,3 @@
-from user.api.v1.selectors.character import CharacterActualForUserSelector, CharacterActualForUserFilterSerializer
+from user.api.v1.selectors.character import CharacterActualForUserSelector
 
-__all__ = (
-    "CharacterActualForUserSelector",
-)
-
+__all__ = ("CharacterActualForUserSelector",)

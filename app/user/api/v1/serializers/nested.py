@@ -1,9 +1,9 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer
 from game_world.api.v1.serializers.nested import ArtifactNestedSerializer, MissionNestedSerializer
-from user.models import User, CharacterArtifact, CharacterCompetency, CharacterMission, CharacterEvent
-from django.utils.translation import gettext_lazy as _
+from user.models import CharacterArtifact, CharacterCompetency, CharacterEvent, CharacterMission, User
 
 
 class UserNestedSerializer(serializers.ModelSerializer):
@@ -21,6 +21,7 @@ class UserNestedSerializer(serializers.ModelSerializer):
             "middle_name",
             "full_name",
         )
+
 
 class CharacterArtifactNestedSerializer(serializers.ModelSerializer):
     """
@@ -40,9 +41,10 @@ class CharacterArtifactNestedSerializer(serializers.ModelSerializer):
             "created_at",
         )
 
+
 class CharacterCompetencyNestedSerializer(serializers.ModelSerializer):
     """
-   Уровень компетенции персонажа. Вложенный сериалайзер.
+    Уровень компетенции персонажа. Вложенный сериалайзер.
     """
 
     competency = CompetencyNestedSerializer(
@@ -57,6 +59,7 @@ class CharacterCompetencyNestedSerializer(serializers.ModelSerializer):
             "competency",
             "experience",
         )
+
 
 class CharacterMissionNestedSerializer(serializers.ModelSerializer):
     """

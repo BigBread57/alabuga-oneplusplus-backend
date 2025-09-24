@@ -1,9 +1,7 @@
-import sys
 
 from django.conf import settings
 
 from alabuga.settings import config
-
 
 CELERY = {
     "broker_url": config(

@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import (
+    ActivityCategory,
     Artifact,
     Event,
     EventCompetency,
@@ -8,7 +9,6 @@ from .models import (
     Mission,
     MissionArtifact,
     MissionBranch,
-    ActivityCategory,
     MissionCompetency,
     MissionLevel,
 )
@@ -104,9 +104,7 @@ class GameWorldAdmin(admin.ModelAdmin):
         "standard_experience",
         "currency_name",
     )
-    search_fields = (
-        "name",
-    )
+    search_fields = ("name",)
     ordering = ("-id",)
 
 

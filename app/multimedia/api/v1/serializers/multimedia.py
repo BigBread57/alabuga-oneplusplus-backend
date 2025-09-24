@@ -1,5 +1,6 @@
-from app.multimedia.models import Multimedia
 from server.apps.services.serializers import ModelSerializerWithPermission
+
+from app.multimedia.models import Multimedia
 
 
 class MultimediaSerializer(ModelSerializerWithPermission):

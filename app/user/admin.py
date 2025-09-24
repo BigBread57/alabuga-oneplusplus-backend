@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from user.models import Character, CharacterMission, CharacterEvent, CharacterCompetency, CharacterArtifact
+from user.models import Character, CharacterArtifact, CharacterCompetency, CharacterEvent, CharacterMission
 from user.models.user import User
 
 
@@ -149,6 +149,7 @@ class CharacterAdmin(admin.ModelAdmin):
         CharacterEventInline,
         CharacterMissionInline,
     )
+
 
 #
 # @admin.register(CharacterArtifact)

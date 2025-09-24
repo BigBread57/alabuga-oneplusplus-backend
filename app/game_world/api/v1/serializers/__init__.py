@@ -1,3 +1,8 @@
+from game_world.api.v1.serializers.activity_category import (
+    ActivityCategoryCreateOrUpdateSerializer,
+    ActivityCategoryDetailSerializer,
+    ActivityCategoryListSerializer,
+)
 from game_world.api.v1.serializers.artifact import (
     ArtifactCreateOrUpdateSerializer,
     ArtifactDetailSerializer,
@@ -22,11 +27,6 @@ from game_world.api.v1.serializers.mission_branch import (
     MissionBranchCreateOrUpdateSerializer,
     MissionBranchDetailSerializer,
     MissionBranchListSerializer,
-)
-from game_world.api.v1.serializers.activity_category import (
-    ActivityCategoryCreateOrUpdateSerializer,
-    ActivityCategoryDetailSerializer,
-    ActivityCategoryListSerializer,
 )
 
 __all__ = (

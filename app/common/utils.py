@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 
 def add_timestamps_to_fixture_file(input_file, output_file=None):
@@ -10,10 +10,10 @@ def add_timestamps_to_fixture_file(input_file, output_file=None):
         output_file = input_file
 
     # Читаем исходную фикстуру
-    with open(input_file, 'r', encoding='utf-8') as f:
+    with open(input_file, encoding="utf-8") as f:
         fixture_data = json.load(f)
 
-    current_time = datetime.now(timezone.utc).isoformat()
+    current_time = datetime.now(UTC).isoformat()
 
     for item in fixture_data:
         fields = item.get("fields", {})
@@ -27,7 +27,7 @@ def add_timestamps_to_fixture_file(input_file, output_file=None):
         item["fields"] = fields
 
     # Сохраняем обновленную фикстуру
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         json.dump(fixture_data, f, ensure_ascii=False, indent=2, default=str)
 
     print(f"Фикстура успешно обновлена и сохранена в {output_file}")
@@ -35,4 +35,4 @@ def add_timestamps_to_fixture_file(input_file, output_file=None):
 
 # Использование
 if __name__ == "__main__":
-    add_timestamps_to_fixture_file('fixtures.json', 'new_fixtures.json')
+    add_timestamps_to_fixture_file("fixtures.json", "new_fixtures.json")

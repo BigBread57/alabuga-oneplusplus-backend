@@ -1,6 +1,11 @@
 from django.urls import path
 
 from game_world.api.v1.views import (
+    ActivityCategoryCreateAPIView,
+    ActivityCategoryDeleteAPIView,
+    ActivityCategoryDetailAPIView,
+    ActivityCategoryListAPIView,
+    ActivityCategoryUpdateAPIView,
     ArtifactCreateAPIView,
     ArtifactDeleteAPIView,
     ArtifactListAPIView,
@@ -20,11 +25,6 @@ from game_world.api.v1.views import (
     MissionBranchDetailAPIView,
     MissionBranchListAPIView,
     MissionBranchUpdateAPIView,
-    ActivityCategoryCreateAPIView,
-    ActivityCategoryDeleteAPIView,
-    ActivityCategoryDetailAPIView,
-    ActivityCategoryListAPIView,
-    ActivityCategoryUpdateAPIView,
     MissionCreateAPIView,
     MissionDeleteAPIView,
     MissionDetailAPIView,

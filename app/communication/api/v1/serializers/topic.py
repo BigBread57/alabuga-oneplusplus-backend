@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from rest_framework.utils.serializer_helpers import ReturnDict
+from server.apps.services.serializers import ModelSerializerWithPermission
+
 from app.communication.api.serializers.base_data import (
     BasePostSerializer,
 )
 from app.communication.models import Topic
-from server.apps.services.serializers import ModelSerializerWithPermission
 
 
 class ListTopicSerializer(ModelSerializerWithPermission):

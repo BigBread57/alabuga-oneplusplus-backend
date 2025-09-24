@@ -3,7 +3,6 @@ from rest_framework import serializers
 
 from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer
 from game_mechanics.models import Competency
-from game_world.api.v1.serializers.nested import GameWorldNestedSerializer
 
 
 class CompetencyListSerializer(serializers.ModelSerializer):
