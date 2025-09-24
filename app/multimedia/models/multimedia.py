@@ -28,8 +28,13 @@ class Multimedia(AbstractBaseModel):
         on_delete=models.CASCADE,
         db_index=True,
     )
-    object_id = models.PositiveIntegerField(_("Id объекта"))
-    content_object = GenericForeignKey("content_type", "object_id")
+    object_id = models.PositiveIntegerField(
+        verbose_name=_("Id объекта"),
+    )
+    content_object = GenericForeignKey(
+        ct_field="content_type",
+        fk_field="object_id",
+    )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Файл")

@@ -5,18 +5,25 @@ from django.utils.translation import gettext_lazy as _
 from common.models import AbstractBaseModel
 
 
-class Comment(AbstractBaseModel):
-    """Комментарий."""
+class GameWorldStory(AbstractBaseModel):
+    """
+    История игрового мира.
+    """
 
-    user = models.ForeignKey(
-        to="user.User",
-        on_delete=models.CASCADE,
-        verbose_name=_("Пользователь"),
-        related_name="comments",
-        db_index=True,
+    image = models.ImageField(
+        verbose_name=_("Изображение"),
+        upload_to="history_game_worlds",
+        null=True,
+        blank=True,
     )
     text = models.TextField(
         verbose_name=_("Текст"),
+    )
+    game_world = models.ForeignKey(
+        to="game_world.GameWorld",
+        on_delete=models.CASCADE,
+        verbose_name=_("Игровой мир"),
+        related_name="competencies",
     )
     content_type = models.ForeignKey(
         to="contenttypes.ContentType",
@@ -33,5 +40,5 @@ class Comment(AbstractBaseModel):
     )
 
     class Meta(AbstractBaseModel.Meta):
-        verbose_name = _("Комментарий")
-        verbose_name_plural = _("Комментарии")
+        verbose_name = _("История игрового мира")
+        verbose_name_plural = _("История игрового мира")

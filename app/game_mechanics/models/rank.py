@@ -47,6 +47,7 @@ class Rank(AbstractBaseModel):
         verbose_name=_("Игровой мир"),
         related_name="ranks",
     )
+    game_world_stories = GenericRelation(to="game_world.GameWorldStory")
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Ранг")

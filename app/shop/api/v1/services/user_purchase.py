@@ -11,8 +11,6 @@ from user.models import User
 class UserPurchaseService(BaseService):
     """
     Покупки пользователя. Сервис.
-
-    Сервис позволяет создавать/изменять/удалять покупки пользователя.
     """
 
     def create(
@@ -51,6 +49,7 @@ class UserPurchaseService(BaseService):
         transaction.on_commit(
             lambda: send_mail_about_new_user_purchase.delay(user_purchase_id=user_purchase.id),
         )
+        user_purchase.refresh_from_db()
 
         return user_purchase
 

@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -56,6 +57,7 @@ class Artifact(AbstractBaseModel):
         verbose_name=_("Игровой мир"),
         related_name="artifacts",
     )
+    game_world_stories = GenericRelation(to="game_world.GameWorldStory")
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Артефакт")

@@ -1,14 +1,12 @@
 import re
+from datetime import timedelta
 from typing import Any
 
-from allauth import account
 from allauth.account.forms import default_token_generator
-from allauth.account.internal.userkit import user_username
 from allauth.account.utils import url_str_to_user_pk, user_pk_to_url_str
 from allauth.utils import build_absolute_uri
 from django.conf import settings
 from django.contrib.auth import authenticate, login
-from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.template.loader import get_template
 from django.utils.timezone import now
@@ -19,9 +17,10 @@ from rest_framework.request import Request
 from rest_framework.reverse import reverse
 
 from common.services import BaseService
-from game_mechanics.models import Rank, Competency
-from game_world.models import GameWorld, Mission, Event
-from user.models import User, Character, CharacterMission, CharacterEvent, CharacterCompetency
+from game_mechanics.models import Competency, Rank
+from game_world.models import Event, GameWorld, Mission
+from user.models import Character, CharacterCompetency, CharacterEvent, CharacterMission, User
+from user.models.character_rank import CharacterRank
 
 
 class SendEmailError(APIException):
@@ -36,7 +35,10 @@ class UserService(BaseService):
     """
 
     @staticmethod
-    def get_user_by_token(pk_str: str, key: str) -> User:
+    def get_user_by_token(
+        pk_str: str,
+        key: str,
+    ) -> User:
         """Получение пользователя по ключу и id пользователя."""
         pk = url_str_to_user_pk(pk_str)
 
@@ -69,7 +71,10 @@ class UserService(BaseService):
         )
 
     @staticmethod
-    def get_user_by_email_and_check_token(email: str, key: str):
+    def get_user_by_email_and_check_token(
+        email: str,
+        key: str,
+    ):
         """Получаем пользователя по e-mail и проверяем токен."""
         try:
             user = User.objects.get(email=email)
@@ -83,7 +88,6 @@ class UserService(BaseService):
 
     @staticmethod
     def send_email_with_confirm(
-        self,
         user: User,
         request: Request,
     ) -> None:
@@ -120,8 +124,8 @@ class UserService(BaseService):
                 detail=_("Письмо с подтверждением регистрации не отправлено. Обратитесь в поддержку системы."),
             ) from exc
 
+    @staticmethod
     def send_email_with_request_reset_password(
-        self,
         user: User,
         request: Request,
     ) -> None:
@@ -155,8 +159,20 @@ class UserService(BaseService):
             html_message=template,
         )
 
+    @staticmethod
+    def update_password(
+        user: User,
+        validated_data: dict[str, Any],
+    ) -> None:
+        """
+        Смена пароля.
+        """
+        user.set_password(validated_data.get("new_password1"))
+        user.save()
+        return None
+
+    @staticmethod
     def login(
-        self,
         request: Request,
         validated_data: dict[str, Any],
     ) -> User:
@@ -177,7 +193,23 @@ class UserService(BaseService):
             raise NotFound(_("Пользователь с указанными данными не найден")) from exc
         return user
 
-    def get_user_reset_password_process(self, extra_path: str) -> User:
+    @staticmethod
+    def set_new_password(
+        user: User,
+        password: str,
+    ) -> None:
+        """Установка нового пароля для пользователя."""
+        user.set_password(password)
+        if not user.is_active:
+            user.is_active = True
+
+        user.save()
+        return None
+
+    def get_user_reset_password_process(
+        self,
+        extra_path: str,
+    ) -> User:
         """
         Проверка валидности токена сброса пароля.
         """
@@ -190,24 +222,11 @@ class UserService(BaseService):
             _("Не удалось извлечь id пользователя и ключ сброса пароля"),
         )
 
-    def set_new_password(self, user: User, password: str) -> None:
-        """Установка нового пароля для пользователя."""
-        user.set_password(password)
-        if not user.is_active:
-            user.is_active = True
-
-        user.save()
-        return None
-
-    def update_password(self, user: User, validated_data: dict[str, Any]) -> None:
-        """
-        Смена пароля.
-        """
-        user.set_password(validated_data.get("new_password1"))
-        user.save()
-        return None
-
-    def register_user(self, request: Request, validated_data: dict[str, Any]) -> User:
+    def register_user(
+        self,
+        request: Request,
+        validated_data: dict[str, Any],
+    ) -> User:
         """
         Регистрация пользователя.
         """
@@ -227,13 +246,16 @@ class UserService(BaseService):
         user.refresh_from_db()
 
         # Отправляем письмо активации пользователя
-        self.resend_email_with_confirm(
+        self.send_email_with_confirm(
             request=request,
             user=user,
         )
         return user
 
-    def confirm_register(self, extra_path: str) -> dict[str, Any]:
+    def confirm_register(
+        self,
+        extra_path: str,
+    ) -> dict[str, Any]:
         """
         Подтверждение регистрации пользователя.
         """
@@ -249,14 +271,18 @@ class UserService(BaseService):
         user.save()
         game_world = GameWorld.objects.first()
         rank = Rank.objects.filter(game_world=game_world, parent__isnull=True)
-        character = Character.objects.create(
-            user=user,
+        character = Character.objects.create(user=user)
+        CharacterRank.objects.create(
+            character=character,
             rank=rank,
         )
+        now_datetime = now()
         character_missions = [
             CharacterMission(
                 character=character,
                 mission=mission,
+                start_datetime=now_datetime,
+                end_datetime=now_datetime + timedelta(days=mission.time_to_complete),
             )
             for mission in Mission.objects.filter(is_active=True, branch__rank=rank, game_world=game_world)
         ]
@@ -264,6 +290,8 @@ class UserService(BaseService):
             CharacterEvent(
                 character=character,
                 event=event,
+                start_datetime=now_datetime,
+                end_datetime=now_datetime + timedelta(days=event.time_to_complete),
             )
             for event in Event.objects.filter(is_active=True, rank=rank, game_world=game_world)
         ]

@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -16,10 +17,6 @@ class Event(AbstractBaseModel):
     description = models.TextField(
         verbose_name=_("Описание события"),
     )
-    experience = models.PositiveIntegerField(
-        verbose_name=_("Награда в опыте"),
-        default=0,
-    )
     icon = models.ImageField(
         verbose_name=_("Иконка"),
         upload_to="events",
@@ -31,6 +28,10 @@ class Event(AbstractBaseModel):
         max_length=256,
         blank=True,
     )
+    experience = models.PositiveIntegerField(
+        verbose_name=_("Награда в опыте"),
+        default=0,
+    )
     currency = models.PositiveIntegerField(
         verbose_name=_("Награда в валюте"),
         default=0,
@@ -40,7 +41,7 @@ class Event(AbstractBaseModel):
         help_text=_("Сколько пользователй должны посетить или закрыть это событие для общего успеха"),
     )
     is_active = models.BooleanField(
-        verbose_name=_("Активна"),
+        verbose_name=_("Активно событие или нет"),
         default=True,
     )
     start_datetime = models.DateTimeField(
@@ -63,6 +64,12 @@ class Event(AbstractBaseModel):
         on_delete=models.PROTECT,
         related_name="events",
     )
+    game_world = models.ForeignKey(
+        to="game_world.GameWorld",
+        on_delete=models.CASCADE,
+        verbose_name=_("Игровой мир"),
+        related_name="events",
+    )
     artifacts = models.ManyToManyField(
         to="game_world.Artifact",
         verbose_name=_("Артефакты"),
@@ -77,12 +84,7 @@ class Event(AbstractBaseModel):
         related_name="events",
         blank=True,
     )
-    game_world = models.ForeignKey(
-        to="game_world.GameWorld",
-        on_delete=models.CASCADE,
-        verbose_name=_("Игровой мир"),
-        related_name="events",
-    )
+    game_world_stories = GenericRelation(to="game_world.GameWorldStory")
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Миссия")

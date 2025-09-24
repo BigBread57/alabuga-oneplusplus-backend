@@ -2,6 +2,10 @@ from django.urls import path
 
 from user.api.v1.views import (
     CharacterActualForUserAPIView,
+    CharacterEventUpdateFromCharacterAPIView,
+    CharacterEventUpdateFromInspectorAPIView,
+    CharacterMissionUpdateFromCharacterAPIView,
+    CharacterMissionUpdateFromInspectorAPIView,
     UserConfirmRegisterAPIView,
     UserConfirmResetPasswordAPIView,
     UseResendEmailConfirmationAPIView,
@@ -72,8 +76,35 @@ character_urls = [
     ),
 ]
 
+character_event_urls = [
+    path(
+        route="character-events/<int:pk>/update-for-character/",
+        view=CharacterEventUpdateFromCharacterAPIView.as_view(),
+        name="character-events-update-for-character",
+    ),
+    path(
+        route="character-events/<int:pk>/update-for-inspector/",
+        view=CharacterEventUpdateFromInspectorAPIView.as_view(),
+        name="character-events-update-for-inspector",
+    ),
+]
+
+character_mission_urls = [
+    path(
+        route="character-missions/<int:pk>/update-for-character/",
+        view=CharacterMissionUpdateFromCharacterAPIView.as_view(),
+        name="character-missions-update-for-character",
+    ),
+    path(
+        route="character-missions/<int:pk>/update-for-inspector/",
+        view=CharacterMissionUpdateFromInspectorAPIView.as_view(),
+        name="character-missions-update-for-inspector",
+    ),
+]
 
 urlpatterns = [
     *user_urls,
     *character_urls,
+    *character_event_urls,
+    *character_mission_urls,
 ]

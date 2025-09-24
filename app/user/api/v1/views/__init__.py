@@ -1,4 +1,12 @@
 from user.api.v1.views.character import CharacterActualForUserAPIView
+from user.api.v1.views.character_event import (
+    CharacterEventUpdateFromCharacterAPIView,
+    CharacterEventUpdateFromInspectorAPIView,
+)
+from user.api.v1.views.character_mission import (
+    CharacterMissionUpdateFromCharacterAPIView,
+    CharacterMissionUpdateFromInspectorAPIView,
+)
 from user.api.v1.views.user import (
     UserConfirmRegisterAPIView,
     UserConfirmResetPasswordAPIView,
@@ -12,6 +20,7 @@ from user.api.v1.views.user import (
 )
 
 __all__ = (
+    # User
     "UseResendEmailConfirmationAPIView",
     "UserLoginAPIView",
     "UserRequestResetPasswordAPIView",
@@ -21,5 +30,12 @@ __all__ = (
     "UserLogoutAPIView",
     "UserInfoAPIView",
     "UserConfirmRegisterAPIView",
+    # Character
     "CharacterActualForUserAPIView",
+    # CharacterEvent
+    "CharacterEventUpdateFromCharacterAPIView",
+    "CharacterEventUpdateFromInspectorAPIView",
+    # CharacterMission
+    "CharacterMissionUpdateFromCharacterAPIView",
+    "CharacterMissionUpdateFromInspectorAPIView",
 )

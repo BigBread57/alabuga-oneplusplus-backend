@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -9,12 +10,6 @@ class Mission(AbstractBaseModel):
     Миссия.
     """
 
-    icon = models.ImageField(
-        verbose_name=_("Иконка"),
-        upload_to="events",
-        null=True,
-        blank=True,
-    )
     name = models.CharField(
         verbose_name=_("Название миссии"),
         max_length=256,
@@ -30,17 +25,28 @@ class Mission(AbstractBaseModel):
         verbose_name=_("Награда в валюте"),
         default=0,
     )
+    icon = models.ImageField(
+        verbose_name=_("Иконка"),
+        upload_to="events",
+        null=True,
+        blank=True,
+    )
+    color = models.CharField(
+        verbose_name=_("Цвет"),
+        max_length=256,
+        blank=True,
+    )
     order = models.IntegerField(
         verbose_name=_("Порядок в ветке"),
         default=1,
     )
     is_key_mission = models.BooleanField(
-        verbose_name=_("Ключевая миссия"),
+        verbose_name=_("Ключевая миссия или нет"),
         default=False,
         help_text=_("Обязательная миссия для получения ранга"),
     )
     is_active = models.BooleanField(
-        verbose_name=_("Активна"),
+        verbose_name=_("Активная миссия или нет"),
         default=True,
     )
     time_to_complete = models.PositiveIntegerField(
@@ -58,6 +64,12 @@ class Mission(AbstractBaseModel):
         to="game_world.MissionLevel",
         on_delete=models.CASCADE,
         verbose_name=_("Уровень"),
+        related_name="missions",
+    )
+    game_world = models.ForeignKey(
+        to="game_world.GameWorld",
+        on_delete=models.CASCADE,
+        verbose_name=_("Игровой мир"),
         related_name="missions",
     )
     required_missions = models.ManyToManyField(
@@ -82,12 +94,7 @@ class Mission(AbstractBaseModel):
         related_name="missions",
         blank=True,
     )
-    game_world = models.ForeignKey(
-        to="game_world.GameWorld",
-        on_delete=models.CASCADE,
-        verbose_name=_("Игровой мир"),
-        related_name="missions",
-    )
+    game_world_stories = GenericRelation(to="game_world.GameWorldStory")
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Миссия")

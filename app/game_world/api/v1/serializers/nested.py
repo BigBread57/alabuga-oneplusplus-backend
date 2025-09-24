@@ -1,6 +1,7 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from game_world.models import Artifact, GameWorld, Mission
+from game_world.models import ActivityCategory, Artifact, Event, GameWorld, Mission, MissionBranch
 
 
 class GameWorldNestedSerializer(serializers.ModelSerializer):
@@ -37,24 +38,85 @@ class ArtifactNestedSerializer(serializers.ModelSerializer):
         )
 
 
+class ActivityCategoryNestedSerializer(serializers.ModelSerializer):
+    """
+    Категория активности. Вложенный сериалайзер.
+    """
+
+    class Meta:
+        model = ActivityCategory
+        fields = (
+            "id",
+            "name",
+            "description",
+            "icon",
+            "color",
+        )
+
+
+class MissionBranchNestedSerializer(serializers.ModelSerializer):
+    """
+    Ветка миссий. Вложенный сериалайзер.
+    """
+
+    category = ActivityCategoryNestedSerializer(
+        label=_("Ветка миссий"),
+        help_text=_("Ветка миссий"),
+    )
+
+    class Meta:
+        model = MissionBranch
+        fields = (
+            "id",
+            "name",
+            "description",
+            "icon",
+            "color",
+            "category",
+        )
+
+
 class MissionNestedSerializer(serializers.ModelSerializer):
     """
     Миссия. Вложенный сериалайзер.
     """
 
+    branch = MissionBranchNestedSerializer(
+        label=_("Ветка миссий"),
+        help_text=_("Ветка миссий"),
+    )
+
     class Meta:
         model = Mission
         fields = (
             "id",
-            "icon",
             "name",
             "description",
+            "icon",
+            "color",
+            "order",
             "experience",
             "currency",
-            "order",
             "is_key_mission",
-            "is_active",
-            "time_to_complete",
-            "branch",
             "level",
+            "branch",
+        )
+
+
+class EventNestedSerializer(serializers.ModelSerializer):
+    """
+    Событие. Вложенный сериалайзер.
+    """
+
+    class Meta:
+        model = Event
+        fields = (
+            "id",
+            "name",
+            "description",
+            "icon",
+            "color",
+            "currency",
+            "experience",
+            "category",
         )

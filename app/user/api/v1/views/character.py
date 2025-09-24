@@ -4,8 +4,6 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.views import QuerySelectorMixin
-from user.api.v1.selectors import CharacterActualForUserSelector
 from user.api.v1.serializers import CharacterActualForUserSerializer
 
 

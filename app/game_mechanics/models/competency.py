@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -47,6 +48,7 @@ class Competency(AbstractBaseModel):
         verbose_name=_("Игровой мир"),
         related_name="competencies",
     )
+    game_world_stories = GenericRelation(to="game_world.GameWorldStory")
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Компетенция")

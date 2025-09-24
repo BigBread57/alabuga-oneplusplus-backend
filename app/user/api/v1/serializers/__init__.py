@@ -1,4 +1,16 @@
 from user.api.v1.serializers.character import CharacterActualForUserSerializer
+from user.api.v1.serializers.character_event import (
+    CharacterEventDetailSerializer,
+    CharacterEventListSerializer,
+    CharacterEventUpdateFromCharacterSerializer,
+    CharacterEventUpdateFromInspectorSerializer,
+)
+from user.api.v1.serializers.character_mission import (
+    CharacterMissionDetailSerializer,
+    CharacterMissionListSerializer,
+    CharacterMissionUpdateFromCharacterSerializer,
+    CharacterMissionUpdateFromInspectorSerializer,
+)
 from user.api.v1.serializers.user import (
     UserConfirmResetPasswordSerializer,
     UseResendEmailConfirmationSerializer,
@@ -9,13 +21,25 @@ from user.api.v1.serializers.user import (
     UserUpdatePasswordSerializer,
 )
 
-__all__ = [
-    "UseResendEmailConfirmationSerializer",
+__all__ = (
+    # CharacterEvent
+    "CharacterEventUpdateFromCharacterSerializer",
+    "CharacterEventUpdateFromInspectorSerializer",
+    "CharacterEventDetailSerializer",
+    "CharacterEventListSerializer",
+    # CharacterMission
+    "CharacterMissionUpdateFromCharacterSerializer",
+    "CharacterMissionUpdateFromInspectorSerializer",
+    "CharacterMissionDetailSerializer",
+    "CharacterMissionListSerializer",
+    # User
     "UserLoginSerializer",
     "UserConfirmResetPasswordSerializer",
     "UserRequestResetPasswordSerializer",
     "UserUpdatePasswordSerializer",
     "UserRegisterSerializer",
     "UserInfoSerializer",
+    # Character
     "CharacterActualForUserSerializer",
-]
+    "CharacterActualForUserSerializer",
+)

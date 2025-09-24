@@ -25,6 +25,10 @@ class CharacterCompetency(AbstractBaseModel):
         verbose_name=_("Опыт"),
         default=0,
     )
+    is_received = models.BooleanField(
+        verbose_name=_("Получена компетенция или нет"),
+        default=False,
+    )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Компетенция персонажа")

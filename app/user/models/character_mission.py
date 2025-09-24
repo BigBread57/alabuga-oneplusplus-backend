@@ -14,9 +14,9 @@ class CharacterMission(AbstractBaseModel):
         Статус выполнения миссии.
         """
 
-        AVAILABLE = "AVAILABLE", _("Доступна")
         IN_PROGRESS = "IN_PROGRESS", _("В процессе")
         COMPLETED = "COMPLETED", _("Выполнена")
+        NEED_IMPROVEMENT = "NEED_IMPROVEMENT", _("Требует доработки")
         PENDING_REVIEW = "PENDING_REVIEW", _("На проверке")
         FAILED = "FAILED", _("Провалена")
 

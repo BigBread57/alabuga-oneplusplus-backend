@@ -31,3 +31,15 @@ class UserManagerForObjectPermission(UserManagerPermission):
         Проверка того, что пользователь является менеджером для объекта.
         """
         return obj.manager == request.user
+
+
+class UserInspectorForObjectPermission(UserManagerPermission):
+    """
+    Пользователь является проверяющим для определенного объекта.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        """
+        Проверка того, что пользователь является менеджером для объекта.
+        """
+        return obj.inspector == request.user or request.user.role == UserRoles.HR

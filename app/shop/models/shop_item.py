@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -30,7 +31,7 @@ class ShopItem(AbstractBaseModel):
         blank=True,
     )
     is_active = models.BooleanField(
-        verbose_name=_("Активен"),
+        verbose_name=_("Активный товар в магазине или нет"),
         default=True,
     )
     start_datetime = models.DateTimeField(
@@ -74,6 +75,7 @@ class ShopItem(AbstractBaseModel):
         blank=True,
         null=True,
     )
+    game_world_stories = GenericRelation(to="game_world.GameWorldStory")
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Товар")

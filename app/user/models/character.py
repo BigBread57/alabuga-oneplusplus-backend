@@ -15,16 +15,12 @@ class Character(AbstractBaseModel):
         null=True,
         blank=True,
     )
-    experience = models.PositiveIntegerField(
-        verbose_name=_("Опыт"),
-        default=0,
-    )
     currency = models.PositiveIntegerField(
         verbose_name=_("Валюта"),
         default=0,
     )
     is_active = models.BooleanField(
-        verbose_name=_("Активный персонаж"),
+        verbose_name=_("Активный персонаж или нет"),
         default=True,
     )
     user = models.ForeignKey(
@@ -39,16 +35,17 @@ class Character(AbstractBaseModel):
         verbose_name=_("Игровой мир"),
         related_name="characters",
     )
-    rank = models.ForeignKey(
-        to="game_mechanics.Rank",
-        on_delete=models.CASCADE,
-        verbose_name=_("Ранг"),
-        related_name="characters",
-    )
     artifacts = models.ManyToManyField(
         to="game_world.Artifact",
         verbose_name=_("Артефакты"),
         through="user.CharacterArtifact",
+        related_name="characters",
+        blank=True,
+    )
+    ranks = models.ManyToManyField(
+        to="game_mechanics.Rank",
+        verbose_name=_("Ранг"),
+        through="user.CharacterRank",
         related_name="characters",
         blank=True,
     )

@@ -1,0 +1,180 @@
+from typing import Any
+
+from django.db import transaction
+
+from common.services import BaseService
+from game_mechanics.models import Competency, Rank
+from game_world.models import EventArtifact, EventCompetency
+from user.models import Character, CharacterArtifact, CharacterCompetency, CharacterEvent
+from user.models.character_rank import CharacterRank
+from user.tasks import send_mail_about_character_event_for_character, send_mail_about_character_event_for_inspector
+
+
+class CharacterEventService(BaseService):
+    """
+    Событие персонажа. Сервис.
+    """
+
+    @staticmethod
+    def create_or_update_character_artifacts(
+        character: Character,
+        event_artifacts: list[EventArtifact],
+    ) -> None:
+        """
+        При наличии артефактов добавляем их персонажу
+        """
+        character_artifacts = [
+            CharacterArtifact(
+                character=character,
+                artifact=event_artifact.artifact,
+            )
+            for event_artifact in event_artifacts
+        ]
+        CharacterArtifact.objects.bulk_create(objs=character_artifacts)
+
+    @staticmethod
+    def create_or_update_character_competency(
+        character: Character,
+        event_competencies: list[EventCompetency],
+    ) -> None:
+        """
+        Получаем все компетенции, которые относятся к выполняемому события.
+        Получаем все компетенции пользователя, которые еще не закрыты.
+        Добавляем опыт к существующим, создаем новые и закрываем выполненные (при этом создаем следующие)
+        """
+        character_competencies = {
+            character_competency.competency.id: character_competency
+            for character_competency in CharacterCompetency.objects.select_related("competency").filter(
+                is_received=False
+            )
+        }
+        for event_competency in event_competencies:
+            competency = event_competency.competency
+            character_competency = character_competencies.get(event_competency.competency.id)
+            new_experience_for_character_competency = character_competency.experience + event_competency.experience
+            # Если опыта за компетенцию получено меньше, чем нужно для ее повышения, то просто сохраняем опыт.
+            if new_experience_for_character_competency < competency.required_experience:
+                character_competency.experience = new_experience_for_character_competency
+                character_competency.save()
+            # Если опыта за компетенцию получено больше или равно, чем нужно для ее повышения,
+            # то сохраняем максимальный опыт и формируем следующую компетенцию.
+            else:
+                character_competency.experience = competency.required_experience
+                character_competency.is_received = True
+                character_competency.save()
+                if new_competence := Competency.objects.filter(parent=character_competency).first():
+                    CharacterCompetency.objects.create(
+                        character=character,
+                        competency=new_competence,
+                        experience=new_experience_for_character_competency - competency.required_experience,
+                    )
+
+    @staticmethod
+    def create_or_update_character_rank(
+        character: Character,
+        character_event: CharacterEvent,
+    ) -> None:
+        """
+        Создать новый ранг или обновить информацию о старом.
+        """
+        character_rank = character.character_ranks.filter(is_received=False).first()
+        rank = character_rank.rank
+        new_experience_for_character_rank = character_rank.experience + character_event.event.experience
+        # Если опыта за ранг получено меньше, чем нужно для его повышения, то просто сохраняем опыт.
+        if new_experience_for_character_rank < rank.required_experience:
+            character_rank.experience = new_experience_for_character_rank
+            character_rank.save()
+        # Если опыта за ранг получено больше или равно, чем нужно для его повышения,
+        # то сохраняем максимальный опыт и формируем следующий ранг.
+        else:
+            character_rank.experience = rank.required_experience
+            character_rank.is_received = True
+            character_rank.save()
+            if new_rank := Rank.objects.filter(parent=character_rank).first():
+                CharacterRank.objects.create(
+                    character=character,
+                    rank=new_rank,
+                    experience=new_experience_for_character_rank - rank.required_experience,
+                )
+
+    def update_from_character(
+        self,
+        character_event: CharacterEvent,
+        validated_data: dict[str, Any],
+    ) -> CharacterEvent:
+        """
+        Создание покупки пользователя.
+        """
+        CharacterEvent.objects.filter(
+            id=character_event.id,
+        ).update(
+            status=CharacterEvent.Statuses.PENDING_REVIEW,
+            **validated_data,
+        )
+        transaction.on_commit(
+            lambda: send_mail_about_character_event_for_inspector.delay(
+                character_event=character_event.id,
+            ),
+        )
+        character_event.refresh_from_db()
+
+        return character_event
+
+    def update_from_inspector(
+        self,
+        character_event: CharacterEvent,
+        validated_data: dict[str, Any],
+    ) -> CharacterEvent:
+        """
+        Создание покупки пользователя.
+        """
+        with transaction.atomic():
+            CharacterEvent.objects.filter(
+                id=character_event.id,
+            ).update(
+                **validated_data,
+            )
+            character_event = (
+                CharacterEvent.objects.select_related(
+                    "inspector",
+                    "character__user",
+                    "event",
+                    "character",
+                )
+                .prefetch_related(
+                    "event__artifacts",
+                    "event__event_artifacts",
+                    "event__competencies",
+                    "event__event_competencies",
+                )
+                .get(id=character_event.id)
+            )
+            character = character_event.character
+            if event_artifacts := character_event.event.event_artifacts.all():
+                self.create_or_update_character_artifacts(
+                    character=character,
+                    event_artifacts=list(event_artifacts),
+                )
+            if character_event.status == CharacterEvent.Statuses.COMPLETED:
+                if event_competencies := character_event.event.event_competencies.select_related("competency").all():
+                    self.create_or_update_character_competency(
+                        character=character,
+                        event_competencies=list(event_competencies),
+                    )
+                if character_event.event.experience > 0:
+                    self.create_or_update_character_rank(
+                        character=character,
+                        character_event=character_event,
+                    )
+                character.currency = character.currency + character_event.event.currency
+                character.save()
+
+        transaction.on_commit(
+            lambda: send_mail_about_character_event_for_character.delay(
+                character_event=character_event.id,
+            ),
+        )
+        return character_event
+
+
+character_event_service = CharacterEventService()

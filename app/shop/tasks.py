@@ -19,7 +19,7 @@ def send_mail_about_new_user_purchase(
         "buyer",
         "shop_item",
     ).get(id=user_purchase_id)
-    manager_emails = User.objects.filter(role=UserRoles.MANAGER).values_list("email", flat=True)
+    manager_emails = list(User.objects.filter(role=UserRoles.MANAGER).values_list("email", flat=True))
     url = "ВСТАВИТЬ ССЫЛКУ С ФРОНТА."
     send_mail(
         subject=_(f"Новая покупка №{user_purchase.id}"),
@@ -32,7 +32,7 @@ def send_mail_about_new_user_purchase(
             f"Подробнее: {url}"
         ),
         from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[manager_emails],
+        recipient_list=manager_emails,
     )
     return None
 

@@ -35,12 +35,3 @@ class MissionBranchListSelector(BaseSelector):
 
     queryset = MissionBranch.objects.all()
     filter_class = MissionBranchListFilter
-
-
-class MissionBranchDetailSelector(BaseSelector):
-    """
-    Ветка миссии. Детальная информация. Селектор.
-    """
-
-    queryset = MissionBranch.objects.all()
-    filter_class = MissionBranchListFilter

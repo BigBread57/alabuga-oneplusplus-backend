@@ -28,7 +28,7 @@ class MissionBranch(AbstractBaseModel):
         max_length=256,
     )
     is_active = models.BooleanField(
-        verbose_name=_("Активна"),
+        verbose_name=_("Активная ветка миссий или нет"),
         default=True,
     )
     start_datetime = models.DateTimeField(

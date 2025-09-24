@@ -1,7 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from mission_branch.api.v1.selectors import (
-    MissionBranchDetailSelector,
     MissionBranchListFilterSerializer,
     MissionBranchListSelector,
 )
@@ -49,12 +48,12 @@ class MissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-class MissionBranchDetailAPIView(QuerySelectorMixin, GenericAPIView):
+class MissionBranchDetailAPIView(GenericAPIView):
     """
     Ветка миссии. Детальная информация.
     """
 
-    selector = MissionBranchDetailSelector
+    selector = MissionBranch.objects.all()
     serializer_class = MissionBranchDetailSerializer
 
     @extend_schema(

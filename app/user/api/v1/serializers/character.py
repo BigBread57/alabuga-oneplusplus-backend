@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
@@ -5,7 +7,6 @@ from game_mechanics.api.v1.serializers.nested import RankNestedSerializer
 from game_world.api.v1.serializers.nested import GameWorldNestedSerializer
 from user.api.v1.serializers.nested import (
     CharacterArtifactNestedSerializer,
-    CharacterCompetencyNestedSerializer,
     CharacterEventNestedSerializer,
     CharacterMissionNestedSerializer,
     UserNestedSerializer,
@@ -26,7 +27,7 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         label=_("Игровой мир"),
         help_text=_("Игровой мир"),
     )
-    rank = RankNestedSerializer(
+    rank = serializers.SerializerMethodField(
         label=_("Ранг"),
         help_text=_("Ранг"),
     )
@@ -35,10 +36,9 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         help_text=_("Артефакты пользователя"),
         many=True,
     )
-    character_competencies = CharacterCompetencyNestedSerializer(
+    character_competencies = serializers.SerializerMethodField(
         label=_("Компетенции пользователя"),
         help_text=_("Компетенции пользователя"),
-        many=True,
     )
     character_missions = CharacterMissionNestedSerializer(
         label=_("Миссии пользователя"),
@@ -67,3 +67,20 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
             "character_missions",
             "character_events",
         )
+
+    def get_rank(self, character: Character) -> dict[str, Any]:
+        """
+        Ранг пользователя.
+        """
+        return RankNestedSerializer(
+            instance=character.character_ranks.filter(is_received=False).first(),
+        ).data
+
+    def get_character_competencies(self, character: Character) -> dict[str, Any]:
+        """
+        Ранг пользователя.
+        """
+        return RankNestedSerializer(
+            instance=character.character_competencies.filter(is_received=False),
+            many=True,
+        ).data
