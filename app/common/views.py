@@ -54,6 +54,10 @@ class QuerySelectorMixin:
 
     @classmethod
     def as_view(cls, **kwargs):
+        # assert cls.selector is None or isinstance(
+        #     cls.selector, Callable
+        # ), "Attribute selector must be static function or class instance."
+
         if hasattr(cls, "selector") and isinstance(cls.selector, FunctionType):
             cls.selector = staticmethod(cls.selector)
 

@@ -26,7 +26,7 @@ class GameWorldListAPIView(QuerySelectorMixin, GenericAPIView):
     Игровой мир. Список.
     """
 
-    selector = GameWorldListSelector()
+    selector = GameWorldListSelector
     serializer_class = GameWorldListSerializer
     filter_params_serializer_class = GameWorldListFilterSerializer
     search_fields = ("name",)
@@ -54,7 +54,7 @@ class GameWorldDetailAPIView(QuerySelectorMixin, GenericAPIView):
     Игровой мир. Детальная информация.
     """
 
-    selector = GameWorldDetailSelector()
+    selector = GameWorldDetailSelector
     serializer_class = GameWorldDetailSerializer
 
     @extend_schema(

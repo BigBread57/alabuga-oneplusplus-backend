@@ -99,6 +99,7 @@ class ShopItemDetailSerializer(serializers.ModelSerializer):
             "image",
             "is_active",
             "end_datetime",
+            "purchase_restriction",
         )
 
     def get_end_datetime(self, shop_item: ShopItem) -> datetime | None:

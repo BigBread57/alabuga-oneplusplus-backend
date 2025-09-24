@@ -22,7 +22,7 @@ class EventListAPIView(QuerySelectorMixin, GenericAPIView):
     Событие. Список.
     """
 
-    selector = EventListSelector()
+    selector = EventListSelector
     serializer_class = EventListSerializer
     filter_params_serializer_class = EventListFilterSerializer
     search_fields = ("name",)
@@ -50,7 +50,7 @@ class EventDetailAPIView(QuerySelectorMixin, GenericAPIView):
     Событие. Детальная информация.
     """
 
-    selector = EventDetailSelector()
+    selector = EventDetailSelector
     serializer_class = EventDetailSerializer
 
     @extend_schema(

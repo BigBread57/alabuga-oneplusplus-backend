@@ -25,7 +25,7 @@ class RequiredRankCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
     Требования к компетенциям для получения ранга. Список.
     """
 
-    selector = RequiredRankCompetencyListSelector()
+    selector = RequiredRankCompetencyListSelector
     serializer_class = RequiredRankCompetencyListSerializer
     filter_params_serializer_class = RequiredRankCompetencyListFilterSerializer
 

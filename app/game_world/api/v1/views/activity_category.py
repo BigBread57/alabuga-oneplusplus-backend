@@ -26,7 +26,7 @@ class ActivityCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
     Категория миссии. Список.
     """
 
-    selector = ActivityCategoryListSelector()
+    selector = ActivityCategoryListSelector
     serializer_class = ActivityCategoryListSerializer
     filter_params_serializer_class = ActivityCategoryListFilterSerializer
     search_fields = ("name",)
@@ -54,7 +54,7 @@ class ActivityCategoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
     Категория миссии. Детальная информация.
     """
 
-    selector = ActivityCategoryDetailSelector()
+    selector = ActivityCategoryDetailSelector
     serializer_class = ActivityCategoryDetailSerializer
 
     @extend_schema(

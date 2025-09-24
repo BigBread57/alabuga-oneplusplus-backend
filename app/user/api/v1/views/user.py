@@ -9,27 +9,27 @@ from rest_framework.response import Response
 
 from common.serializers import ResponseDetailSerializer
 from user.api.v1.serializers import (
-    UserChangePasswordSerializer,
-    UserConfirmEmailRequestSerializer,
+    UserUpdatePasswordSerializer,
+    UseResendEmailConfirmationSerializer,
     UserInfoSerializer,
     UserLoginSerializer,
     UserRegisterSerializer,
-    UserResetPasswordConfirmSerializer,
-    UserResetPasswordRequestSerializer,
+    UserConfirmResetPasswordSerializer,
+    UserRequestResetPasswordSerializer,
 )
 from user.api.v1.services import user_service
 
 
-class UserConfirmEmailRequestAPIView(GenericAPIView):
+class UseResendEmailConfirmationAPIView(GenericAPIView):
     """
     Повторная отправка сообщения об активации аккаунта.
     """
 
-    serializer_class = UserConfirmEmailRequestSerializer
+    serializer_class = UseResendEmailConfirmationSerializer
     permission_classes = (AllowAny,)
 
     @extend_schema(
-        request=UserConfirmEmailRequestSerializer,
+        request=UseResendEmailConfirmationSerializer,
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
@@ -95,16 +95,16 @@ class UserLoginAPIView(GenericAPIView):
         )
 
 
-class UserResetPasswordRequestAPIView(GenericAPIView):
+class UserRequestResetPasswordAPIView(GenericAPIView):
     """
     Запрос сброса пароля.
     """
 
-    serializer_class = UserResetPasswordRequestSerializer
+    serializer_class = UserRequestResetPasswordSerializer
     permission_classes = (AllowAny,)
 
     @extend_schema(
-        request=UserResetPasswordRequestSerializer,
+        request=UserRequestResetPasswordSerializer,
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
@@ -133,16 +133,16 @@ class UserResetPasswordRequestAPIView(GenericAPIView):
         )
 
 
-class UserResetPasswordConfirmAPIView(GenericAPIView):
+class UserConfirmResetPasswordAPIView(GenericAPIView):
     """
     Сброс пароля пользователя.
     """
 
-    serializer_class = UserResetPasswordConfirmSerializer
+    serializer_class = UserConfirmResetPasswordSerializer
     permission_classes = (AllowAny,)
 
     @extend_schema(
-        request=UserResetPasswordConfirmSerializer,
+        request=UserConfirmResetPasswordSerializer,
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
@@ -162,7 +162,7 @@ class UserResetPasswordConfirmAPIView(GenericAPIView):
         )
 
     @extend_schema(
-        request=UserResetPasswordConfirmSerializer,
+        request=UserConfirmResetPasswordSerializer,
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
@@ -186,16 +186,16 @@ class UserResetPasswordConfirmAPIView(GenericAPIView):
         )
 
 
-class UserChangePasswordAPIView(GenericAPIView):
+class UserUpdatePasswordAPIView(GenericAPIView):
     """
     Смена пароля.
     """
 
-    serializer_class = UserChangePasswordSerializer
+    serializer_class = UserUpdatePasswordSerializer
     permission_classes = (AllowAny,)
 
     @extend_schema(
-        request=UserChangePasswordSerializer,
+        request=UserUpdatePasswordSerializer,
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },

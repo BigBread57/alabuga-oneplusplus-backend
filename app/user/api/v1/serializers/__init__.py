@@ -1,19 +1,19 @@
 from user.api.v1.serializers.user import (
-    UserChangePasswordSerializer,
-    UserConfirmEmailRequestSerializer,
+    UserUpdatePasswordSerializer,
+    UseResendEmailConfirmationSerializer,
     UserInfoSerializer,
     UserLoginSerializer,
     UserRegisterSerializer,
-    UserResetPasswordConfirmSerializer,
-    UserResetPasswordRequestSerializer,
+    UserConfirmResetPasswordSerializer,
+    UserRequestResetPasswordSerializer,
 )
 
 __all__ = [
-    "UserConfirmEmailRequestSerializer",
+    "UseResendEmailConfirmationSerializer",
     "UserLoginSerializer",
-    "UserResetPasswordConfirmSerializer",
-    "UserResetPasswordRequestSerializer",
-    "UserChangePasswordSerializer",
+    "UserConfirmResetPasswordSerializer",
+    "UserRequestResetPasswordSerializer",
+    "UserUpdatePasswordSerializer",
     "UserRegisterSerializer",
     "UserInfoSerializer",
 ]

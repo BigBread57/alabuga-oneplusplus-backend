@@ -30,7 +30,7 @@ class BaseUserSerializer(serializers.ModelSerializer):
         )
 
 
-class UserConfirmEmailRequestSerializer(serializers.Serializer):
+class UseResendEmailConfirmationSerializer(serializers.Serializer):
     """
     Сериализатор отправки сообщения подтверждения регистрации.
     """
@@ -88,7 +88,7 @@ class UserLoginSerializer(serializers.Serializer):
         return email
 
 
-class UserResetPasswordRequestSerializer(serializers.Serializer):
+class UserRequestResetPasswordSerializer(serializers.Serializer):
     """Восстановление забытого пользователем пароля. Этап №1."""
 
     email = serializers.EmailField(required=True)
@@ -104,7 +104,7 @@ class UserResetPasswordRequestSerializer(serializers.Serializer):
         return email
 
 
-class UserResetPasswordConfirmSerializer(serializers.Serializer):
+class UserConfirmResetPasswordSerializer(serializers.Serializer):
     """Успешное восстановление пароля пользователя. Этап №2."""
 
     password1 = serializers.CharField(required=True)
@@ -129,7 +129,7 @@ class UserResetPasswordConfirmSerializer(serializers.Serializer):
             raise ValidationError(exc.messages) from exc
 
 
-class UserChangePasswordSerializer(serializers.Serializer):
+class UserUpdatePasswordSerializer(serializers.Serializer):
     """Изменение пароля."""
 
     password = serializers.CharField(required=True)
@@ -235,7 +235,6 @@ class UserInfoSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             "id",
-            "avatar",
             "username",
             "email",
             "phone",

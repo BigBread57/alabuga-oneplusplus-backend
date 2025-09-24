@@ -22,7 +22,7 @@ class ShopItemListAPIView(QuerySelectorMixin, GenericAPIView):
     Товар в магазине. Список.
     """
 
-    selector = ShopItemListSelector()
+    selector = ShopItemListSelector
     serializer_class = ShopItemListSerializer
     filter_params_serializer_class = ShopItemListFilterSerializer
     search_fields = ("name", "category__name")
@@ -50,7 +50,7 @@ class ShopItemDetailAPIView(QuerySelectorMixin, GenericAPIView):
     Товар в магазине. Детальная информация.
     """
 
-    selector = ShopItemDetailSelector()
+    selector = ShopItemDetailSelector
     serializer_class = ShopItemDetailSerializer
 
     @extend_schema(

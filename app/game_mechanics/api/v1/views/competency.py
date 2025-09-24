@@ -22,7 +22,7 @@ class CompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
     Компетенция. Список.
     """
 
-    selector = CompetencyListSelector()
+    selector = CompetencyListSelector
     serializer_class = CompetencyListSerializer
     filter_params_serializer_class = CompetencyListFilterSerializer
     search_fields = ("name",)

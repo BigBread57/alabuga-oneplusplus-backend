@@ -22,7 +22,7 @@ class ArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
     Артефакт. Список.
     """
 
-    selector = ArtifactListSelector()
+    selector = ArtifactListSelector
     serializer_class = ArtifactListSerializer
     filter_params_serializer_class = ArtifactListFilterSerializer
     search_fields = ("name",)

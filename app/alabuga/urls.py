@@ -11,7 +11,8 @@ urlpatterns = [
     path("admin/doc/", include(admindocs_urls)),
     path("admin/", admin.site.urls),
     # API.
-    # path("api/", include("shop.api.urls")),
+    path("api/", include("user.api.urls")),
+    path("api/", include("shop.api.urls")),
     # Docs.
     path(
         "api/schema/",

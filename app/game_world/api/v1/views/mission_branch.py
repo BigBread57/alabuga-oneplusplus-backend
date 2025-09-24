@@ -26,7 +26,7 @@ class MissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):
     Ветка миссии. Список.
     """
 
-    selector = MissionBranchListSelector()
+    selector = MissionBranchListSelector
     serializer_class = MissionBranchListSerializer
     filter_params_serializer_class = MissionBranchListFilterSerializer
     search_fields = ("name",)
@@ -54,7 +54,7 @@ class MissionBranchDetailAPIView(QuerySelectorMixin, GenericAPIView):
     Ветка миссии. Детальная информация.
     """
 
-    selector = MissionBranchDetailSelector()
+    selector = MissionBranchDetailSelector
     serializer_class = MissionBranchDetailSerializer
 
     @extend_schema(

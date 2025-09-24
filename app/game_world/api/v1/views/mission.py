@@ -22,7 +22,7 @@ class MissionListAPIView(QuerySelectorMixin, GenericAPIView):
     Миссия. Список.
     """
 
-    selector = MissionListSelector()
+    selector = MissionListSelector
     serializer_class = MissionListSerializer
     filter_params_serializer_class = MissionListFilterSerializer
     search_fields = ("name",)
@@ -50,7 +50,7 @@ class MissionDetailAPIView(QuerySelectorMixin, GenericAPIView):
     Миссия. Детальная информация.
     """
 
-    selector = MissionDetailSelector()
+    selector = MissionDetailSelector
     serializer_class = MissionDetailSerializer
 
     @extend_schema(

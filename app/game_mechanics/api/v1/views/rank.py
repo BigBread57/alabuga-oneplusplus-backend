@@ -18,7 +18,7 @@ class RankListAPIView(QuerySelectorMixin, GenericAPIView):
     Ранг. Список.
     """
 
-    selector = RankListSelector()
+    selector = RankListSelector
     serializer_class = RankListSerializer
     filter_params_serializer_class = RankListFilterSerializer
     search_fields = ("name",)

@@ -22,7 +22,7 @@ class ShopItemCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
     Категория товара в магазине. Список.
     """
 
-    selector = ShopItemCategoryListSelector()
+    selector = ShopItemCategoryListSelector
     serializer_class = ShopItemCategoryListSerializer
     filter_params_serializer_class = ShopItemCategoryListFilterSerializer
     search_fields = ("name",)

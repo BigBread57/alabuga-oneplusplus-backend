@@ -33,6 +33,7 @@ OTHER_INSTALLED_APPS: list[str] = [
     # "django_celery_beat",
     "phonenumber_field",
     "debug_toolbar",
+    'drf_spectacular',
 ]
 
 LOCAL_INSTALLED_APPS: list[str] = [
@@ -113,7 +114,9 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.i18n",
-                "django.template.context_processors.media",
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
             ],
@@ -122,14 +125,14 @@ TEMPLATES = [
 ]
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "files", "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "files", "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",

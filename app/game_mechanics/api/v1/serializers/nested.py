@@ -14,7 +14,6 @@ class RankNestedSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "description",
-            "order",
         )
 
 

@@ -26,7 +26,7 @@ class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):
     Покупки пользователя. Список.
     """
 
-    selector = UserPurchaseListSelector()
+    selector = UserPurchaseListSelector
     serializer_class = UserPurchaseListSerializer
     filter_params_serializer_class = UserPurchaseListFilterSerializer
     search_fields = ("name",)
@@ -54,7 +54,7 @@ class UserPurchaseDetailAPIView(QuerySelectorMixin, GenericAPIView):
     Покупки пользователя. Детальная информация.
     """
 
-    selector = UserPurchaseDetailSelector()
+    selector = UserPurchaseDetailSelector
     serializer_class = UserPurchaseDetailSerializer
 
     @extend_schema(
