@@ -19,7 +19,7 @@ from user.api.v1.serializers import (
     UserLoginSerializer,
     UserRegisterSerializer,
     UserConfirmResetPasswordSerializer,
-    UserRequestResetPasswordSerializer, UserConfirmEmailSerializer,
+    UserRequestResetPasswordSerializer,
 )
 from user.api.v1.services import user_service
 
@@ -310,7 +310,6 @@ class UserConfirmEmailAPIView(GenericAPIView):
     Подтверждение регистрации.
     """
 
-    serializer_class = UserConfirmEmailSerializer
     permission_classes = (AllowAny,)
 
     @extend_schema(
@@ -322,27 +321,6 @@ class UserConfirmEmailAPIView(GenericAPIView):
     def get(self, request: Request, *args, **kwargs) -> Response:
         email, key = user_service.check_extra_path(extra_path=kwargs["extra_path"])
         user = user_service.get_user_by_email_and_check_token(email=email, key=key)
-        return Response(
-            data=UserInfoSerializer(
-                instance=user,
-                context=self.get_serializer_context(),
-            ).data,
-            status=status.HTTP_200_OK,
-        )
-
-    @extend_schema(
-        responses={
-            status.HTTP_200_OK: UserInfoSerializer,
-        },
-        tags=["user:auth"],
-    )
-    def post(self, request: Request, *args, **kwargs) -> HttpResponseRedirect:
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        # Проверка токена.
-        email, key = user_service.check_extra_path(extra_path=kwargs["extra_path"])
-        user = user_service.get_user_by_email_and_check_token(email=email, key=key)
 
         if not default_token_generator.check_token(user, key):
             raise ParseError(
@@ -350,9 +328,15 @@ class UserConfirmEmailAPIView(GenericAPIView):
             )
 
         if user.is_active:
-            return HttpResponseRedirect(reverse(viewname="user:v1:users-info"))
+            return Response(
+            data=ResponseDetailSerializer({"detail": _("Ваша почта уже подтверждена")}).data,
+            status=status.HTTP_200_OK,
+        )
 
         user.is_active = True
         user.save()
 
-        return HttpResponseRedirect(reverse(viewname="user:v1:users-info"))
+        return Response(
+            data=ResponseDetailSerializer({"detail": _("Подтверждение почты прошло успешно")}).data,
+            status=status.HTTP_200_OK,
+        )

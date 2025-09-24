@@ -105,14 +105,6 @@ class UserRequestResetPasswordSerializer(serializers.Serializer):
         return email
 
 
-class UserConfirmEmailSerializer(serializers.Serializer):
-    """
-    Успешное подтверждение регистрации.
-    """
-
-    is_active = serializers.BooleanField(required=True)
-
-
 class UserConfirmResetPasswordSerializer(serializers.Serializer):
     """Успешное восстановление пароля пользователя. Этап №2."""
 
