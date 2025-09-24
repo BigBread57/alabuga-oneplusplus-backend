@@ -1,3 +1,4 @@
+from user.api.v1.serializers.character import CharacterActualForUserSerializer
 from user.api.v1.serializers.user import (
     UserUpdatePasswordSerializer,
     UseResendEmailConfirmationSerializer,
@@ -16,4 +17,5 @@ __all__ = [
     "UserUpdatePasswordSerializer",
     "UserRegisterSerializer",
     "UserInfoSerializer",
+    "CharacterActualForUserSerializer",
 ]

@@ -1,14 +1,5 @@
 import django_filters
-from app.communication.api.serializers import (
-    CommentSerializer,
-    CreateCommentSerializer,
-)
-from app.communication.models import Comment
-from server.apps.services.filters_mixins import (
-    CreatedUpdatedDateFilterMixin,
-    UserFilterMixin,
-)
-from server.apps.services.views import RetrieveListCreateViewSet
+from rest_framework.generics import GenericAPIView
 
 
 class CommentFilter(
@@ -33,8 +24,10 @@ class CommentFilter(
         )
 
 
-class CommentViewSet(RetrieveListCreateViewSet):
-    """Комментарий."""
+class CommentListViewSet(GenericAPIView):
+    """
+    Комментарий. Список.
+    """
 
     serializer_class = CommentSerializer
     create_serializer_class = CreateCommentSerializer

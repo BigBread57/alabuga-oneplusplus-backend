@@ -118,7 +118,7 @@ class ArtifactUpdateAPIView(GenericAPIView):
 
 class ArtifactDeleteAPIView(GenericAPIView):
     """
-    Артефакт. Удаление.
+    Артефакт. Удаление объекта.
     """
 
     queryset = Artifact.objects.all()

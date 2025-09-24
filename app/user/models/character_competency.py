@@ -22,8 +22,8 @@ class CharacterCompetency(AbstractBaseModel):
         on_delete=models.CASCADE,
         related_name="character_competencies",
     )
-    level = models.PositiveIntegerField(
-        verbose_name=_("Уровень"),
+    experience = models.PositiveIntegerField(
+        verbose_name=_("Опыт"),
         default=0,
     )
 
@@ -32,4 +32,4 @@ class CharacterCompetency(AbstractBaseModel):
         verbose_name_plural = _("Компетенции персонажей")
 
     def __str__(self):
-        return f"{self.character} - {self.competency.name}: {self.level}"
+        return f"{self.character} - {self.competency.name}: {self.experience}"

@@ -21,12 +21,12 @@ class Character(AbstractBaseModel):
         verbose_name=_("Опыт"),
         default=0,
     )
-    currency = models.IntegerField(
+    currency = models.PositiveIntegerField(
         verbose_name=_("Валюта"),
         default=0,
     )
     is_active = models.BooleanField(
-        verbose_name=_("Активна"),
+        verbose_name=_("Активный персонаж"),
         default=True,
     )
     user = models.ForeignKey(
@@ -63,14 +63,14 @@ class Character(AbstractBaseModel):
     )
     missions = models.ManyToManyField(
         to="game_world.Mission",
-        verbose_name=_("Миссия"),
+        verbose_name=_("Миссии"),
         through="user.CharacterMission",
         related_name="characters",
         blank=True,
     )
     events = models.ManyToManyField(
         to="game_world.Event",
-        verbose_name=_("Событие"),
+        verbose_name=_("События"),
         through="user.CharacterEvent",
         related_name="characters",
         blank=True,

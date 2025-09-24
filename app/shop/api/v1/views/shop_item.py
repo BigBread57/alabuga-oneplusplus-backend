@@ -143,7 +143,7 @@ class ShopItemUpdateAPIView(GenericAPIView):
 
 class ShopItemDeleteAPIView(GenericAPIView):
     """
-    Товар в магазине. Удаление.
+    Товар в магазине. Удаление объекта.
     """
 
     queryset = ShopItem.objects.all()

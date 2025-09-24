@@ -118,7 +118,7 @@ class CompetencyUpdateAPIView(GenericAPIView):
 
 class CompetencyDeleteAPIView(GenericAPIView):
     """
-    Компетенция. Удаление.
+    Компетенция. Удаление объекта.
     """
 
     queryset = Competency.objects.all()

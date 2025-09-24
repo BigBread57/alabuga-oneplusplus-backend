@@ -1,13 +1,14 @@
 from rest_framework import serializers
 from app.communication.models import Comment
-from server.apps.services.serializers import ModelSerializerWithPermission
-from server.apps.user.api.serializers import BaseUserSerializer
+from user.api.v1.serializers.user import BaseUserSerializer
 
 
-class CommentSerializer(ModelSerializerWithPermission):
+class CommentSerializer(serializers.ModelSerializer):
     """Сериалайзер отзывов."""
 
-    user = BaseUserSerializer()
+    user = BaseUserSerializer(
+
+    )
 
     class Meta:
         model = Comment

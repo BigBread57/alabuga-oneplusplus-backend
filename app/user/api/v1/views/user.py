@@ -12,6 +12,8 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 from common.serializers import ResponseDetailSerializer
+from game_mechanics.models import Rank
+from game_world.models import GameWorld
 from user.api.v1.serializers import (
     UserUpdatePasswordSerializer,
     UseResendEmailConfirmationSerializer,
@@ -22,6 +24,7 @@ from user.api.v1.serializers import (
     UserRequestResetPasswordSerializer,
 )
 from user.api.v1.services import user_service
+from user.models import Character
 
 
 class UseResendEmailConfirmationAPIView(GenericAPIView):
@@ -335,6 +338,12 @@ class UserConfirmEmailAPIView(GenericAPIView):
 
         user.is_active = True
         user.save()
+        game_world = GameWorld.objects.first()
+        rank = Rank.objects.filter(game_world=game_world, parent__isnull=True)
+        Character.objects.create(
+            user=user,
+            rank=rank,
+        )
 
         return Response(
             data=ResponseDetailSerializer({"detail": _("Подтверждение почты прошло успешно")}).data,

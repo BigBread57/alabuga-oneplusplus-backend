@@ -1,7 +1,9 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
+from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer
 from game_mechanics.models import Competency
+from game_world.api.v1.serializers.nested import GameWorldNestedSerializer
 
 
 class CompetencyListSerializer(serializers.ModelSerializer):
@@ -9,9 +11,9 @@ class CompetencyListSerializer(serializers.ModelSerializer):
     Компетенция. Список.
     """
 
-    modifier_display_name = serializers.SerializerMethodField(
-        label=_("Название статуса"),
-        help_text=_("Название статуса"),
+    parent = CompetencyNestedSerializer(
+        label=_("Компетенция"),
+        help_text=_("Компетенция"),
     )
 
     class Meta:
@@ -21,16 +23,9 @@ class CompetencyListSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "icon",
-            "modifier",
-            "modifier_display_name",
-            "modifier_value",
+            "color",
+            "parent",
         )
-
-    def get_modifier_display_name(self, competency: Competency) -> str:
-        """
-        Название статуса.
-        """
-        return competency.get_modifier_display()
 
 
 class CompetencyDetailSerializer(serializers.ModelSerializer):
@@ -38,11 +33,6 @@ class CompetencyDetailSerializer(serializers.ModelSerializer):
     Компетенция. Детальная информация.
     """
 
-    modifier_display_name = serializers.SerializerMethodField(
-        label=_("Название статуса"),
-        help_text=_("Название статуса"),
-    )
-
     class Meta:
         model = Competency
         fields = (
@@ -50,21 +40,15 @@ class CompetencyDetailSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "icon",
-            "modifier",
-            "modifier_display_name",
-            "modifier_value",
+            "color",
+            "parent",
+            "game_world",
         )
-
-    def get_modifier_display_name(self, competency: Competency) -> str:
-        """
-        Название статуса.
-        """
-        return competency.get_modifier_display()
 
 
 class CompetencyCreateOrUpdateSerializer(serializers.ModelSerializer):
     """
-    Компетенция. Создание.
+    Компетенция. Создание/изменение.
     """
 
     class Meta:
@@ -73,6 +57,7 @@ class CompetencyCreateOrUpdateSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "icon",
-            "modifier",
-            "modifier_value",
+            "color",
+            "parent",
+            "game_world",
         )

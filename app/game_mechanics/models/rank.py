@@ -18,14 +18,19 @@ class Rank(AbstractBaseModel):
         verbose_name=_("Описание"),
         blank=True,
     )
+    required_experience = models.PositiveIntegerField(
+        verbose_name=_("Требуемый опыт"),
+    )
     icon = models.ImageField(
         verbose_name=_("Иконка"),
         upload_to="ranks",
         null=True,
         blank=True,
     )
-    required_experience = models.PositiveIntegerField(
-        verbose_name=_("Требуемый опыт"),
+    color = models.CharField(
+        verbose_name=_("Цвет"),
+        max_length=256,
+        blank=True,
     )
     parent = models.ForeignKey(
         to="self",
@@ -34,6 +39,7 @@ class Rank(AbstractBaseModel):
         related_name="children",
         db_index=True,
         null=True,
+        blank=True,
     )
     game_world = models.ForeignKey(
         to="game_world.GameWorld",

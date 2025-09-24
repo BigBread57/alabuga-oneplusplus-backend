@@ -149,7 +149,7 @@ class MissionBranchUpdateAPIView(GenericAPIView):
 
 class MissionBranchDeleteAPIView(GenericAPIView):
     """
-    Ветка миссии. Удаление.
+    Ветка миссии. Удаление объекта.
     """
 
     queryset = MissionBranch.objects.all()

@@ -24,3 +24,6 @@ class Topic(AbstractBaseModel):
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Тема")
         verbose_name_plural = _("Темы")
+
+    def __str__(self):
+        return self.name

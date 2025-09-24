@@ -15,7 +15,7 @@ class Post(AbstractBaseModel):
         db_index=True,
     )
     topic = models.ForeignKey(
-        to="service_interaction.Topic",
+        to="communication.Topic",
         on_delete=models.CASCADE,
         verbose_name=_("Тема"),
         related_name="posts",
@@ -36,3 +36,6 @@ class Post(AbstractBaseModel):
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Пост")
         verbose_name_plural = _("Посты")
+
+    def __str__(self):
+        return self.name

@@ -120,7 +120,7 @@ class RequiredRankCompetencyUpdateAPIView(GenericAPIView):
 
 class RequiredRankCompetencyDeleteAPIView(GenericAPIView):
     """
-    Требования к компетенциям для получения ранга. Удаление.
+    Требования к компетенциям для получения ранга. Удаление объекта.
     """
 
     queryset = RequiredRankCompetency.objects.all()

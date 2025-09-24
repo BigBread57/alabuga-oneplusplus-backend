@@ -118,7 +118,7 @@ class ShopItemCategoryUpdateAPIView(GenericAPIView):
 
 class ShopItemCategoryDeleteAPIView(GenericAPIView):
     """
-    Категория товара в магазине. Удаление.
+    Категория товара в магазине. Удаление объекта.
     """
 
     queryset = ShopItemCategory.objects.all()

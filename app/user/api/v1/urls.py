@@ -3,7 +3,7 @@ from django.urls import path
 
 from user.api.v1.views import UseResendEmailConfirmationAPIView, UserLoginAPIView, UserRequestResetPasswordAPIView, \
     UserConfirmResetPasswordAPIView, UserUpdatePasswordAPIView, UserRegisterAPIView, UserLogoutAPIView, UserInfoAPIView, \
-    UserConfirmEmailAPIView
+    UserConfirmEmailAPIView, CharacterActualForUserAPIView
 
 app_name = "v1"
 
@@ -56,7 +56,16 @@ user_urls = [
     ),
 ]
 
+character_urls = [
+    path(
+        route="characters/actual-for-user/",
+        view=CharacterActualForUserAPIView.as_view(),
+        name="characters-actual-for-user",
+    ),
+]
+
 
 urlpatterns = [
     *user_urls,
+    *character_urls,
 ]

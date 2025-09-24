@@ -149,7 +149,7 @@ class GameWorldUpdateAPIView(GenericAPIView):
 
 class GameWorldDeleteAPIView(GenericAPIView):
     """
-    Игровой мир. Удаление.
+    Игровой мир. Удаление объекта.
     """
 
     queryset = GameWorld.objects.all()

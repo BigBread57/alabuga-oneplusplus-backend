@@ -145,7 +145,7 @@ class MissionUpdateAPIView(GenericAPIView):
 
 class MissionDeleteAPIView(GenericAPIView):
     """
-    Миссия. Удаление.
+    Миссия. Удаление объекта.
     """
 
     queryset = Mission.objects.all()

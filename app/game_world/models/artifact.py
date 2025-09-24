@@ -51,12 +51,6 @@ class Artifact(AbstractBaseModel):
         verbose_name=_("Игровой мир"),
         related_name="artifacts",
     )
-    # TODO: ХЗ что это
-    # rare = models.CharField(
-    #     verbose_name=_("Редкость"),
-    #     max_length=20,
-    #     blank=True,
-    # )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Артефакт")

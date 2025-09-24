@@ -45,10 +45,21 @@ class CompetencyAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "name",
+        "required_experience",
+        "game_world",
     )
     search_fields = (
         "name",
         "description",
+    )
+    list_filter = (
+        "game_world",
+    )
+    autocomplete_fields = (
+        "game_world",
+    )
+    list_select_related = (
+        "game_world",
     )
     ordering = ("-id",)
 
@@ -63,7 +74,7 @@ class RequiredRankCompetencyAdmin(admin.ModelAdmin):
         "id",
         "rank",
         "competency",
-        "required_level",
+        "required_experience",
     )
     ordering = ("-id",)
     autocomplete_fields = (

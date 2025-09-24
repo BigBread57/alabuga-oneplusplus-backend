@@ -114,7 +114,7 @@ class RankUpdateAPIView(GenericAPIView):
 
 class RankDeleteAPIView(GenericAPIView):
     """
-    Ранг. Удаление.
+    Ранг. Удаление объекта.
     """
 
     queryset = Rank.objects.all()

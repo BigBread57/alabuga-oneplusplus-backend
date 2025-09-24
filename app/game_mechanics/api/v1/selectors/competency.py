@@ -45,5 +45,6 @@ class CompetencyListSelector(BaseSelector):
 
     queryset = Competency.objects.select_related(
         "game_world",
+        "parent",
     ).all()
     filter_class = CompetencyListFilter

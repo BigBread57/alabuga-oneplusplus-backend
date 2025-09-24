@@ -149,7 +149,7 @@ class ActivityCategoryUpdateAPIView(GenericAPIView):
 
 class ActivityCategoryDeleteAPIView(GenericAPIView):
     """
-    Категория миссии. Удаление.
+    Категория миссии. Удаление объекта.
     """
 
     queryset = ActivityCategory.objects.all()

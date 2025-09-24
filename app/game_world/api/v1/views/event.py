@@ -145,7 +145,7 @@ class EventUpdateAPIView(GenericAPIView):
 
 class EventDeleteAPIView(GenericAPIView):
     """
-    Событие. Удаление.
+    Событие. Удаление объекта.
     """
 
     queryset = Event.objects.all()

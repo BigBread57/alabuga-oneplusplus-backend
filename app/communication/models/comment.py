@@ -27,7 +27,10 @@ class Comment(AbstractBaseModel):
     object_id = models.PositiveIntegerField(
         verbose_name=_("Id объекта"),
     )
-    content_object = GenericForeignKey("content_type", "object_id")
+    content_object = GenericForeignKey(
+        ct_field="content_type",
+        fk_field="object_id",
+    )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Комментарий")
