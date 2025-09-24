@@ -5,7 +5,7 @@ from user.api.v1.serializers.user import (
     UserLoginSerializer,
     UserRegisterSerializer,
     UserConfirmResetPasswordSerializer,
-    UserRequestResetPasswordSerializer,
+    UserRequestResetPasswordSerializer, UserConfirmEmailSerializer,
 )
 
 __all__ = [
@@ -16,4 +16,5 @@ __all__ = [
     "UserUpdatePasswordSerializer",
     "UserRegisterSerializer",
     "UserInfoSerializer",
+    "UserConfirmEmailSerializer",
 ]

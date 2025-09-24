@@ -1,11 +1,15 @@
+from allauth.account.forms import default_token_generator
 from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
+from rest_framework.exceptions import ParseError
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
 
 from common.serializers import ResponseDetailSerializer
 from user.api.v1.serializers import (
@@ -15,7 +19,7 @@ from user.api.v1.serializers import (
     UserLoginSerializer,
     UserRegisterSerializer,
     UserConfirmResetPasswordSerializer,
-    UserRequestResetPasswordSerializer,
+    UserRequestResetPasswordSerializer, UserConfirmEmailSerializer,
 )
 from user.api.v1.services import user_service
 
@@ -54,7 +58,7 @@ class UseResendEmailConfirmationAPIView(GenericAPIView):
                         "На указанный адрес электронной почты " + "отправлено письмо с подтверждением " + "регистрации",
                     ),
                 },
-            ),
+            ).data,
             status=status.HTTP_200_OK,
         )
 
@@ -116,7 +120,7 @@ class UserRequestResetPasswordAPIView(GenericAPIView):
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user_service.send_email_with_reset_password(
+        user_service.send_email_with_request_reset_password(
             user=serializer.user,
             request=request,
         )
@@ -128,7 +132,7 @@ class UserRequestResetPasswordAPIView(GenericAPIView):
                         + "письмо с инструкцией по восстановлению пароля",
                     ),
                 },
-            ),
+            ).data,
             status=status.HTTP_200_OK,
         )
 
@@ -181,7 +185,7 @@ class UserConfirmResetPasswordAPIView(GenericAPIView):
         )
 
         return Response(
-            data=ResponseDetailSerializer({"detail": _("Новый пароль успешно установлен")}),
+            data=ResponseDetailSerializer({"detail": _("Новый пароль успешно установлен")}).data,
             status=status.HTTP_200_OK,
         )
 
@@ -273,7 +277,7 @@ class UserLogoutAPIView(GenericAPIView):
         logout(request=request)
 
         return Response(
-            data=ResponseDetailSerializer({"detail": _("Пользователь успешно вышел из системы")}),
+            data=ResponseDetailSerializer({"detail": _("Пользователь успешно вышел из системы")}).data,
             status=status.HTTP_200_OK,
         )
 
@@ -300,3 +304,55 @@ class UserInfoAPIView(GenericAPIView):
             data=serializer.data,
             status=status.HTTP_200_OK,
         )
+
+class UserConfirmEmailAPIView(GenericAPIView):
+    """
+    Подтверждение регистрации.
+    """
+
+    serializer_class = UserConfirmEmailSerializer
+    permission_classes = (AllowAny,)
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: UserInfoSerializer,
+        },
+        tags=["user:auth"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        email, key = user_service.check_extra_path(extra_path=kwargs["extra_path"])
+        user = user_service.get_user_by_email_and_check_token(email=email, key=key)
+        return Response(
+            data=UserInfoSerializer(
+                instance=user,
+                context=self.get_serializer_context(),
+            ).data,
+            status=status.HTTP_200_OK,
+        )
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: UserInfoSerializer,
+        },
+        tags=["user:auth"],
+    )
+    def post(self, request: Request, *args, **kwargs) -> HttpResponseRedirect:
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Проверка токена.
+        email, key = user_service.check_extra_path(extra_path=kwargs["extra_path"])
+        user = user_service.get_user_by_email_and_check_token(email=email, key=key)
+
+        if not default_token_generator.check_token(user, key):
+            raise ParseError(
+                _('Некорректный ключ подтверждения активации'),
+            )
+
+        if user.is_active:
+            return HttpResponseRedirect(reverse(viewname="user:v1:users-info"))
+
+        user.is_active = True
+        user.save()
+
+        return HttpResponseRedirect(reverse(viewname="user:v1:users-info"))

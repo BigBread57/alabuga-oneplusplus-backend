@@ -31,8 +31,8 @@ def send_mail_about_new_user_purchase(
             f"Общая сумма: {user_purchase.total_sum}\n"
             f"Подробнее: {url}"
         ),
-        from_email=None,
-        recipient_list=list(manager_emails),
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[manager_emails],
     )
     return None
 
@@ -62,7 +62,7 @@ def send_mail_about_new_info_about_user_purchase(
             f"{additional_info}"
             f"Подробнее: {url}"
         ),
-        from_email=None,
-        recipient_list=list(user_purchase.buyer.email),
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[user_purchase.buyer.email],
     )
     return None

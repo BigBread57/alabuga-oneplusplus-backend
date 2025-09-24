@@ -1,12 +1,13 @@
 import re
-from typing import Any
+from typing import Any, Tuple
 
 from allauth import account
 from allauth.account.forms import default_token_generator
 from allauth.account.internal.userkit import user_username
 from allauth.account.utils import url_str_to_user_pk, user_pk_to_url_str
 from allauth.utils import build_absolute_uri
-from django.contrib.auth import authenticate, get_user_model, login
+from django.conf import settings
+from django.contrib.auth import authenticate, login
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.template.loader import get_template
@@ -14,7 +15,7 @@ from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from requests import Request
 from rest_framework import status
-from rest_framework.exceptions import APIException, NotFound, ValidationError
+from rest_framework.exceptions import APIException, NotFound, ValidationError, ParseError
 from rest_framework.reverse import reverse
 
 from common.services import BaseService
@@ -58,7 +59,7 @@ class UserService(BaseService):
         """Отправка письма со ссылкой для подтверждения регистрации."""
         temp_key = default_token_generator.make_token(user)
         path = reverse(
-            viewname="api:v1:user:users-confirm-email-process",
+            viewname="user:v1:users-confirm-email",
             kwargs={"extra_path": f"{user.email}/{temp_key}"},
         )
         url = build_absolute_uri(request, path)
@@ -76,7 +77,8 @@ class UserService(BaseService):
             send_mail(
                 subject=str(_("Регистрация в ALABUGA!")),
                 message="",
-                recipient_list=list(user.email),
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[user.email],
                 fail_silently=False,
                 html_message=template,
             )
@@ -85,14 +87,14 @@ class UserService(BaseService):
                 detail=_("Письмо с подтверждением регистрации не отправлено. Обратитесь в поддержку системы."),
             ) from exc
 
-    def send_email_with_reset_password(
+    def send_email_with_request_reset_password(
         self,
         user: User,
         request: Request,
     ) -> None:
         """Отправка пользователю письма со сбросом пароля."""
         path = reverse(
-            viewname="api:v1:user:users-reset-password-process",
+            viewname="user:v1:users-request-reset-password",
             kwargs={
                 "extra_path": f"{user_pk_to_url_str(user)}-" + str(default_token_generator.make_token(user)),
             },
@@ -183,6 +185,7 @@ class UserService(BaseService):
             last_name=validated_data["last_name"],
             middle_name=validated_data["middle_name"],
             phone=validated_data["phone"],
+            is_active=False,
         )
 
         # Устанавливаем пароль.
@@ -195,6 +198,34 @@ class UserService(BaseService):
             request=request,
             user=user,
         )
+        return user
+
+    @staticmethod
+    def check_extra_path(
+        extra_path: str,
+    ) -> Tuple[str, ...]:
+        """Проверка корректности extra_path, при подтверждении почты."""
+        match = re.compile('(?P<email>.+)/(?P<key>.+)').match(extra_path)
+        if match:
+            return match.groups()
+
+        raise ParseError(
+            _(
+                'Не удалось извлечь email пользователя и ключ для ' +
+                'подтверждения email',
+            ),
+        )
+    @staticmethod
+    def get_user_by_email_and_check_token(email: str, key: str):
+        """Получаем пользователя по e-mail и проверяем токен."""
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise NotFound(_('Пользователь не найден'))
+
+        if not default_token_generator.check_token(user, key):
+            raise ValidationError(_('Токен подтверждения регистрации не действителен'))
+
         return user
 
 

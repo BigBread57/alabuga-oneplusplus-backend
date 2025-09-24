@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils.translation import gettext_lazy as _
+from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
@@ -104,6 +105,14 @@ class UserRequestResetPasswordSerializer(serializers.Serializer):
         return email
 
 
+class UserConfirmEmailSerializer(serializers.Serializer):
+    """
+    Успешное подтверждение регистрации.
+    """
+
+    is_active = serializers.BooleanField(required=True)
+
+
 class UserConfirmResetPasswordSerializer(serializers.Serializer):
     """Успешное восстановление пароля пользователя. Этап №2."""
 
@@ -173,7 +182,7 @@ class UserRegisterSerializer(serializers.Serializer):
     last_name = serializers.CharField(label=_("Отчество"), help_text=_("Отчество"), required=True)
     middle_name = serializers.CharField(label=_("Фамилия"), help_text=_("Фамилия"), required=True)
     email = serializers.EmailField(label=_("Email"), help_text=_("Email"), required=True)
-    phone = serializers.EmailField(label=_("Телефон"), help_text=_("Телефон"), required=True)
+    phone = PhoneNumberField(label=_("Телефон"), help_text=_("Телефон"), required=True)
     password1 = serializers.CharField(
         label=_("Пароль 1"),
         help_text=_("Пароль 1"),
@@ -199,6 +208,7 @@ class UserRegisterSerializer(serializers.Serializer):
                     ],
                 },
             )
+        return email
 
     def validate(self, attrs: dict[str, Any]):
         """Валидация паролей."""
@@ -224,12 +234,17 @@ class UserRegisterSerializer(serializers.Serializer):
             validate_password(str(password1))
         except DjangoValidationError as exc:
             raise ValidationError(exc.messages) from exc
-
+        return attrs
 
 class UserInfoSerializer(serializers.ModelSerializer):
     """
     Пользователь. Детальная информация об авторизованном пользователе.
     """
+
+    full_name = serializers.CharField(
+        label=_("Полное имя"),
+        help_text=_("Полное имя"),
+    )
 
     class Meta:
         model = User
