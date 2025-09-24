@@ -56,7 +56,6 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "avatar",
-            "experience",
             "currency",
             "is_active",
             "user",
