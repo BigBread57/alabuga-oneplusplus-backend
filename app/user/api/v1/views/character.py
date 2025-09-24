@@ -9,23 +9,22 @@ from user.api.v1.selectors import CharacterActualForUserSelector
 from user.api.v1.serializers import CharacterActualForUserSerializer
 
 
-class CharacterActualForUserAPIView(QuerySelectorMixin, GenericAPIView):
+class CharacterActualForUserAPIView(GenericAPIView):
     """
     Персонаж пользователя. Актуальный.
     """
 
-    selector = CharacterActualForUserSelector
     serializer_class = CharacterActualForUserSerializer
 
     @extend_schema(
         responses={
             status.HTTP_200_OK: CharacterActualForUserSerializer,
         },
-        tags=["mission:user_purchase"],
+        tags=["user:character"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
-        Детальная информация.
+        Персонаж пользователя. Актуальный.
         """
         character = self.filter_queryset(queryset=self.get_queryset()).first()
         serializer = self.get_serializer(instance=character)

@@ -31,23 +31,23 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         help_text=_("Ранг"),
     )
     character_artifacts = CharacterArtifactNestedSerializer(
-        label=_("Артефакты"),
-        help_text=_("Артефакты"),
+        label=_("Артефакты пользователя"),
+        help_text=_("Артефакты пользователя"),
         many=True,
     )
     character_competencies = CharacterCompetencyNestedSerializer(
-        label=_("Компетенции"),
-        help_text=_("Компетенции"),
+        label=_("Компетенции пользователя"),
+        help_text=_("Компетенции пользователя"),
         many=True,
     )
     character_missions = CharacterMissionNestedSerializer(
-        label=_("Миссии"),
-        help_text=_("Миссии"),
+        label=_("Миссии пользователя"),
+        help_text=_("Миссии пользователя"),
         many=True,
     )
     character_events = CharacterEventNestedSerializer(
-        label=_("События"),
-        help_text=_("События"),
+        label=_("События пользователя"),
+        help_text=_("События пользователя"),
         many=True,
     )
 

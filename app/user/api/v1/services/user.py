@@ -19,9 +19,9 @@ from rest_framework.request import Request
 from rest_framework.reverse import reverse
 
 from common.services import BaseService
-from game_mechanics.models import Rank
-from game_world.models import GameWorld
-from user.models import User, Character
+from game_mechanics.models import Rank, Competency
+from game_world.models import GameWorld, Mission, Event
+from user.models import User, Character, CharacterMission, CharacterEvent, CharacterCompetency
 
 
 class SendEmailError(APIException):
@@ -249,10 +249,35 @@ class UserService(BaseService):
         user.save()
         game_world = GameWorld.objects.first()
         rank = Rank.objects.filter(game_world=game_world, parent__isnull=True)
-        Character.objects.create(
+        character = Character.objects.create(
             user=user,
             rank=rank,
         )
+        character_missions = [
+            CharacterMission(
+                character=character,
+                mission=mission,
+            )
+            for mission in Mission.objects.filter(is_active=True, branch__rank=rank, game_world=game_world)
+        ]
+        character_events = [
+            CharacterEvent(
+                character=character,
+                event=event,
+            )
+            for event in Event.objects.filter(is_active=True, rank=rank, game_world=game_world)
+        ]
+        character_competencies = [
+            CharacterCompetency(
+                character=character,
+                competency=competency,
+            )
+            for competency in Competency.objects.filter(game_world=game_world)
+        ]
+
+        CharacterMission.objects.bulk_create(objs=character_missions)
+        CharacterEvent.objects.bulk_create(objs=character_events)
+        CharacterCompetency.objects.bulk_create(objs=character_competencies)
         return {"detail": _("Подтверждение почты прошло успешно")}
 
 
