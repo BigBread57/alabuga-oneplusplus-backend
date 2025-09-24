@@ -21,10 +21,10 @@ class MissionCompetency(AbstractBaseModel):
         on_delete=models.CASCADE,
         related_name="mission_competencies",
     )
-    experience = models.IntegerField(
+    experience = models.PositiveIntegerField(
         verbose_name=_("Очки прокачки"),
         default=1,
-        help_text=_("На сколько повысится уровень компетенции"),
+        help_text=_("На сколько повысится уровень компетенции за прохождение события"),
     )
 
     class Meta(AbstractBaseModel.Meta):

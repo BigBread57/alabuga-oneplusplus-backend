@@ -30,6 +30,7 @@ class ArtifactNestedSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "icon",
+            "color",
             "modifier",
             "modifier_value",
         )

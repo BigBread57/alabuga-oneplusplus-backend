@@ -9,12 +9,6 @@ class Event(AbstractBaseModel):
     Событие.
     """
 
-    icon = models.ImageField(
-        verbose_name=_("Иконка"),
-        upload_to="events",
-        null=True,
-        blank=True,
-    )
     name = models.CharField(
         verbose_name=_("Название события"),
         max_length=256,
@@ -26,12 +20,24 @@ class Event(AbstractBaseModel):
         verbose_name=_("Награда в опыте"),
         default=0,
     )
+    icon = models.ImageField(
+        verbose_name=_("Иконка"),
+        upload_to="events",
+        null=True,
+        blank=True,
+    )
+    color = models.CharField(
+        verbose_name=_("Цвет"),
+        max_length=256,
+        blank=True,
+    )
     currency = models.PositiveIntegerField(
         verbose_name=_("Награда в валюте"),
         default=0,
     )
     required_number = models.PositiveIntegerField(
-        verbose_name=_("Обязательное количество выполненных миссий"),
+        verbose_name=_("Обязательное количество выполненных миссий для всех игроков"),
+        help_text=_("Сколько пользователй должны посетить или закрыть это событие для общего успеха")
     )
     is_active = models.BooleanField(
         verbose_name=_("Активна"),

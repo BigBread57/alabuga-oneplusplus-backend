@@ -14,6 +14,8 @@ class RankNestedSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "description",
+            "icon",
+            "color",
         )
 
 

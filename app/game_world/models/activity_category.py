@@ -6,13 +6,8 @@ from common.models import AbstractBaseModel
 
 class ActivityCategory(AbstractBaseModel):
     """
-    Категория миссии.
+    Категория активности.
     """
-
-    # QUEST = 'QUEST', _('Квест')
-    # RECRUITING = 'RECRUITING', _('Рекрутинг')
-    # LECTURING = 'LECTURING', _('Лекторий')
-    # SIMULATOR = 'SIMULATOR', _('Симулятор')
 
     name = models.CharField(
         verbose_name=_("Название категории"),
@@ -33,9 +28,8 @@ class ActivityCategory(AbstractBaseModel):
     )
 
     class Meta(AbstractBaseModel.Meta):
-        verbose_name = _("Категория миссии")
-        verbose_name_plural = _("Категории миссий")
-        ordering = ("-id",)
+        verbose_name = _("Категория активности")
+        verbose_name_plural = _("Категории активностей")
 
     def __str__(self):
         return self.name

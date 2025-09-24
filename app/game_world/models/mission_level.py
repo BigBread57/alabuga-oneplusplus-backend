@@ -9,12 +9,6 @@ class MissionLevel(AbstractBaseModel):
     Уровень миссии.
     """
 
-    icon = models.ImageField(
-        verbose_name=_("Иконка"),
-        upload_to="mission_levels",
-        null=True,
-        blank=True,
-    )
     name = models.CharField(
         verbose_name=_("Название"),
         max_length=256,
@@ -23,16 +17,22 @@ class MissionLevel(AbstractBaseModel):
         verbose_name=_("Описание"),
         blank=True,
     )
-    multiplier_experience = models.PositiveIntegerField(
-        verbose_name=_("Множитель опыта от стандартного, в %"),
-    )
-    multiplier_currency = models.PositiveIntegerField(
-        verbose_name=_("Множитель опыта от стандартного, в %"),
+    icon = models.ImageField(
+        verbose_name=_("Иконка"),
+        upload_to="mission_levels",
+        null=True,
+        blank=True,
     )
     color = models.CharField(
         verbose_name=_("Цвет"),
         max_length=256,
         blank=True,
+    )
+    multiplier_experience = models.PositiveIntegerField(
+        verbose_name=_("Множитель опыта от стандартного, в %"),
+    )
+    multiplier_currency = models.PositiveIntegerField(
+        verbose_name=_("Множитель опыта от стандартного, в %"),
     )
 
     class Meta(AbstractBaseModel.Meta):

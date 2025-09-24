@@ -21,6 +21,7 @@ class ArtifactListSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "icon",
+            "color",
             "modifier",
             "modifier_display_name",
             "modifier_value",
@@ -50,6 +51,7 @@ class ArtifactDetailSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "icon",
+            "color",
             "modifier",
             "modifier_display_name",
             "modifier_value",
@@ -73,6 +75,7 @@ class ArtifactCreateOrUpdateSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "icon",
+            "color",
             "modifier",
             "modifier_value",
         )

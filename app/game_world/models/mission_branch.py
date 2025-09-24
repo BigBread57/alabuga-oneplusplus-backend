@@ -9,18 +9,18 @@ class MissionBranch(AbstractBaseModel):
     Ветка миссий.
     """
 
-    icon = models.ImageField(
-        verbose_name=_("Иконка"),
-        upload_to="mission_branches",
-        null=True,
-        blank=True,
-    )
     name = models.CharField(
         verbose_name=_("Название"),
         max_length=256,
     )
     description = models.TextField(
         verbose_name=_("Описание"),
+        blank=True,
+    )
+    icon = models.ImageField(
+        verbose_name=_("Иконка"),
+        upload_to="mission_branches",
+        null=True,
         blank=True,
     )
     color = models.CharField(
@@ -46,10 +46,11 @@ class MissionBranch(AbstractBaseModel):
         verbose_name=_("Ранг ветки миссий"),
         on_delete=models.PROTECT,
         related_name="mission_branches",
+        help_text=_("Для какого ранга подходит эта ветка миссий"),
     )
     category = models.ForeignKey(
         to="game_world.ActivityCategory",
-        verbose_name=_("Категория"),
+        verbose_name=_("Категория миссии"),
         on_delete=models.CASCADE,
         related_name="mission_branches",
     )
@@ -58,6 +59,9 @@ class MissionBranch(AbstractBaseModel):
         verbose_name=_("Ментор"),
         on_delete=models.CASCADE,
         related_name="mission_branches",
+        null=True,
+        blank=True,
+        help_text=_("Ссылка на ментора, который может помочь в выполнении миссии."),
     )
     game_world = models.ForeignKey(
         to="game_world.GameWorld",

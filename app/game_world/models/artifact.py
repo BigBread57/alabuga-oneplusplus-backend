@@ -17,8 +17,8 @@ class Artifact(AbstractBaseModel):
 
         DEFAULT = "DEFAULT", _("Стандартный")
         EXPERIENCE_GAIN = "EXPERIENCE_GAIN", _("Прирост опыта")
-        MANA_GAIN = "MANA_GAIN", _("Прирост опыта")
-        STORE_DISCOUNT = "STORE_DISCOUNT", _("Прирост опыта")
+        CURRENCY_GAIN = "CURRENCY_GAIN", _("Прирост валюты")
+        STORE_DISCOUNT = "STORE_DISCOUNT", _("Скидка в магазине")
 
     name = models.CharField(
         verbose_name=_("Название"),
@@ -33,6 +33,11 @@ class Artifact(AbstractBaseModel):
         verbose_name=_("Иконка"),
         upload_to="competencies",
         null=True,
+        blank=True,
+    )
+    color = models.CharField(
+        verbose_name=_("Цвет"),
+        max_length=256,
         blank=True,
     )
     modifier = models.CharField(
