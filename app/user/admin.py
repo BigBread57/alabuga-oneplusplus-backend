@@ -136,9 +136,7 @@ class CharacterAdmin(admin.ModelAdmin):
         "user",
         "game_world",
     )
-    list_filter = (
-        "is_active",
-    )
+    list_filter = ("is_active",)
     autocomplete_fields = (
         "user",
         "game_world",

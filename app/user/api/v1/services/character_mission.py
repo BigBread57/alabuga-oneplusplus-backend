@@ -1,10 +1,12 @@
+from datetime import timedelta
 from typing import Any
 
-from django.db import transaction
+from django.db import models, transaction
+from django.utils.timezone import now
 
 from common.services import BaseService
-from game_mechanics.models import Competency, Rank
-from game_world.models import MissionArtifact, MissionCompetency
+from game_mechanics.models import Competency, Rank, RequiredRankCompetency
+from game_world.models import Mission, MissionArtifact, MissionCompetency
 from user.models import Character, CharacterArtifact, CharacterCompetency, CharacterMission
 from user.models.character_rank import CharacterRank
 from user.tasks import send_mail_about_character_mission_for_character, send_mail_about_character_mission_for_inspector
@@ -90,12 +92,67 @@ class CharacterMissionService(BaseService):
             character_rank.experience = rank.required_experience
             character_rank.is_received = True
             character_rank.save()
-            if new_rank := Rank.objects.filter(parent=character_rank).first():
+
+            is_required_missions = (
+                Mission.objects.filter(rank=character_rank.rank)
+                .annotate(
+                    required_count=models.Count("required_missions"),
+                    completed_required_count=models.Subquery(
+                        CharacterMission.objects.filter(
+                            character=character,
+                            status=CharacterMission.Statuses.COMPLETED,
+                            mission__rank=character_rank.rank,
+                        )
+                        .values("mission")
+                        .annotate(count=models.Count("pk", distinct=True))
+                        .values("count")[:1]
+                    ),
+                )
+                .filter(required_count=models.F("completed_required_count"))
+                .exists()
+            )
+            is_required_rank_competency = (
+                RequiredRankCompetency.objects.filter(
+                    rank=character_rank.rank,
+                )
+                .annotate(
+                    required_count=models.Count("pk"),
+                    completed_required_count=models.Subquery(
+                        CharacterCompetency.objects.filter(
+                            character=character,
+                            mission__rank=character_rank.rank,
+                            is_received=True,
+                        )
+                        .values("competency")
+                        .annotate(count=models.Count("pk", distinct=True))
+                        .values("count")[:1]
+                    ),
+                )
+                .filter(required_count=models.F("completed_required_count"))
+                .exists()
+            )
+
+            new_rank = Rank.objects.filter(parent=character_rank).first()
+
+            if new_rank and is_required_missions and is_required_rank_competency:
                 CharacterRank.objects.create(
                     character=character,
                     rank=new_rank,
                     experience=new_experience_for_character_rank - rank.required_experience,
                 )
+                now_datetime = now()
+                character_missions = [
+                    CharacterMission(
+                        character=character,
+                        mission=mission,
+                        start_datetime=now_datetime,
+                        end_datetime=now_datetime + timedelta(days=mission.time_to_complete),
+                    )
+                    for mission in Mission.objects.filter(
+                        is_active=True, branch__rank=new_rank, game_world=character.game_world
+                    )
+                ]
+                CharacterMission.objects.bulk_create(objs=character_missions)
 
     def update_from_character(
         self,

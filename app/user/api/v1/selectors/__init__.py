@@ -2,7 +2,6 @@ from user.api.v1.selectors.character import CharacterActualForUserSelector
 from user.api.v1.selectors.character_event import (
     CharacterEventDetailOrUpdateFilterSerializer,
     CharacterEventDetailSelector,
-    CharacterEventForInspectorFilterSerializer,
     CharacterEventListFilterSerializer,
     CharacterEventListSelector,
     CharacterEventUpdateFromCharacterSelector,
@@ -25,6 +24,7 @@ __all__ = (
     "CharacterEventUpdateFromInspectorSelector",
     "CharacterEventListFilterSerializer",
     "CharacterEventListSelector",
+    "CharacterEventDetailOrUpdateFilterSerializer",
     # CharacterMission
     "CharacterMissionDetailSelector",
     "CharacterMissionUpdateFromCharacterSelector",

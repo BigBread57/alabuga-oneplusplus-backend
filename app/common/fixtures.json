@@ -724,7 +724,6 @@
     "fields": {
       "rank": 1,
       "competency": 1,
-      "required_experience": 30,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -735,7 +734,6 @@
     "fields": {
       "rank": 1,
       "competency": 5,
-      "required_experience": 40,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -745,8 +743,7 @@
     "pk": 3,
     "fields": {
       "rank": 2,
-      "competency": 1,
-      "required_experience": 50,
+      "competency": 1,game_mechanics.RequiredRankCompetency
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -757,7 +754,6 @@
     "fields": {
       "rank": 2,
       "competency": 3,
-      "required_experience": 60,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -768,7 +764,6 @@
     "fields": {
       "rank": 2,
       "competency": 5,
-      "required_experience": 50,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -779,7 +774,6 @@
     "fields": {
       "rank": 3,
       "competency": 1,
-      "required_experience": 70,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -790,7 +784,6 @@
     "fields": {
       "rank": 3,
       "competency": 3,
-      "required_experience": 80,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -801,7 +794,6 @@
     "fields": {
       "rank": 3,
       "competency": 7,
-      "required_experience": 90,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -812,7 +804,6 @@
     "fields": {
       "rank": 4,
       "competency": 3,
-      "required_experience": 120,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -823,7 +814,6 @@
     "fields": {
       "rank": 4,
       "competency": 5,
-      "required_experience": 100,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -834,7 +824,6 @@
     "fields": {
       "rank": 4,
       "competency": 7,
-      "required_experience": 110,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -845,7 +834,6 @@
     "fields": {
       "rank": 4,
       "competency": 11,
-      "required_experience": 80,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -856,7 +844,6 @@
     "fields": {
       "rank": 5,
       "competency": 2,
-      "required_experience": 80,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -867,7 +854,6 @@
     "fields": {
       "rank": 5,
       "competency": 6,
-      "required_experience": 100,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -878,7 +864,6 @@
     "fields": {
       "rank": 5,
       "competency": 8,
-      "required_experience": 180,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -889,7 +874,6 @@
     "fields": {
       "rank": 5,
       "competency": 12,
-      "required_experience": 150,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -900,7 +884,6 @@
     "fields": {
       "rank": 6,
       "competency": 4,
-      "required_experience": 120,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -911,7 +894,6 @@
     "fields": {
       "rank": 6,
       "competency": 8,
-      "required_experience": 200,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -922,7 +904,6 @@
     "fields": {
       "rank": 6,
       "competency": 10,
-      "required_experience": 300,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -933,7 +914,6 @@
     "fields": {
       "rank": 6,
       "competency": 14,
-      "required_experience": 250,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -944,7 +924,6 @@
     "fields": {
       "rank": 7,
       "competency": 4,
-      "required_experience": 140,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -955,7 +934,6 @@
     "fields": {
       "rank": 7,
       "competency": 10,
-      "required_experience": 350,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -966,7 +944,6 @@
     "fields": {
       "rank": 7,
       "competency": 14,
-      "required_experience": 300,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -977,7 +954,6 @@
     "fields": {
       "rank": 7,
       "competency": 16,
-      "required_experience": 150,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -988,7 +964,6 @@
     "fields": {
       "rank": 8,
       "competency": 6,
-      "required_experience": 110,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -999,7 +974,6 @@
     "fields": {
       "rank": 8,
       "competency": 10,
-      "required_experience": 380,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1010,7 +984,6 @@
     "fields": {
       "rank": 8,
       "competency": 12,
-      "required_experience": 180,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1021,7 +994,6 @@
     "fields": {
       "rank": 8,
       "competency": 16,
-      "required_experience": 170,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1032,7 +1004,6 @@
     "fields": {
       "rank": 8,
       "competency": 18,
-      "required_experience": 400,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1043,7 +1014,6 @@
     "fields": {
       "rank": 9,
       "competency": 2,
-      "required_experience": 90,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1054,7 +1024,6 @@
     "fields": {
       "rank": 9,
       "competency": 4,
-      "required_experience": 140,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1065,7 +1034,6 @@
     "fields": {
       "rank": 9,
       "competency": 8,
-      "required_experience": 220,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1076,7 +1044,6 @@
     "fields": {
       "rank": 9,
       "competency": 10,
-      "required_experience": 400,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1087,7 +1054,6 @@
     "fields": {
       "rank": 9,
       "competency": 14,
-      "required_experience": 320,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1098,7 +1064,6 @@
     "fields": {
       "rank": 9,
       "competency": 18,
-      "required_experience": 450,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1109,7 +1074,6 @@
     "fields": {
       "rank": 10,
       "competency": 4,
-      "required_experience": 150,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1120,7 +1084,6 @@
     "fields": {
       "rank": 10,
       "competency": 8,
-      "required_experience": 240,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1131,7 +1094,6 @@
     "fields": {
       "rank": 10,
       "competency": 10,
-      "required_experience": 400,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1142,7 +1104,6 @@
     "fields": {
       "rank": 10,
       "competency": 14,
-      "required_experience": 350,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1153,7 +1114,6 @@
     "fields": {
       "rank": 10,
       "competency": 16,
-      "required_experience": 180,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
@@ -1164,7 +1124,6 @@
     "fields": {
       "rank": 10,
       "competency": 18,
-      "required_experience": 500,
       "created_at": "2025-09-24T14:58:24.186615+00:00",
       "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }

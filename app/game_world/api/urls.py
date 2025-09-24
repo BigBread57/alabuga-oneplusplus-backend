@@ -4,5 +4,5 @@ app_name = "game_world"
 
 
 urlpatterns = [
-    path("v1/game_world/", include("game_world.api.v1.urls")),
+    path("v1/game-world/", include("game_world.api.v1.urls")),
 ]

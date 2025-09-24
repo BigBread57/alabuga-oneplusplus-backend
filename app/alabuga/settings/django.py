@@ -41,8 +41,8 @@ LOCAL_INSTALLED_APPS: list[str] = [
     "game_mechanics",
     "game_world",
     "shop",
-    # "communication",
-    # "multimedia",
+    "communication",
+    "multimedia",
 ]
 
 

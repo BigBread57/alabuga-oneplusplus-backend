@@ -1,18 +1,24 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.utils.serializer_helpers import ReturnDict
-from server.apps.services.serializers import ModelSerializerWithPermission
 
-from app.communication.api.serializers.base_data import (
-    BasePostSerializer,
-)
-from app.communication.models import Topic
+from communication.api.v1.serializers.nested import PostNestedSerializer
+from communication.models import Topic
 
 
-class ListTopicSerializer(ModelSerializerWithPermission):
-    """Сериалайзер темы."""
+class TopicListSerializer(serializers.ModelSerializer):
+    """
+    Тема. Список.
+    """
 
-    post_count = serializers.SerializerMethodField()
-    last_post = serializers.SerializerMethodField()
+    post_count = serializers.SerializerMethodField(
+        label=_("Количество постов"),
+        help_text=_("Количество постов"),
+    )
+    last_post = serializers.SerializerMethodField(
+        label=_("Последний пост"),
+        help_text=_("Последний пост"),
+    )
 
     class Meta:
         model = Topic
@@ -28,24 +34,34 @@ class ListTopicSerializer(ModelSerializerWithPermission):
         )
 
     def get_post_count(self, topic: Topic) -> int:
-        """Количество постов в теме."""
+        """
+        Количество постов в теме.
+        """
         return topic.posts.count()
 
     def get_last_post(self, topic: Topic) -> ReturnDict | None:
-        """Информация о последнем сообщении."""
+        """
+        Информация о последнем сообщении.
+        """
         post = topic.posts.first()
         if post:
-            return BasePostSerializer(
+            return PostNestedSerializer(
                 instance=topic.posts.first(),
                 context=self.context,
             ).data
         return None
 
 
-class DetailTopicSerializer(ModelSerializerWithPermission):
-    """Сериалайзер темы."""
+class TopicDetailSerializer(serializers.ModelSerializer):
+    """
+    Тема. Детальная информация.
+    """
 
-    posts = BasePostSerializer(many=True)
+    posts = PostNestedSerializer(
+        label=_("Посты"),
+        help_text=_("Посты"),
+        many=True,
+    )
 
     class Meta:
         model = Topic
@@ -55,7 +71,6 @@ class DetailTopicSerializer(ModelSerializerWithPermission):
             "shot_description",
             "description",
             "posts",
-            "content_type_id",
             "created_at",
             "updated_at",
         )

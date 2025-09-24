@@ -1,12 +1,10 @@
 from django.contrib import admin
 
-from app.communication.models import Comment
-from app.communication.models.post import Post
-from app.communication.models.topic import Topic
+from communication.models import Comment, Post, Topic
 
 
 @admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin[Comment]):
+class CommentAdmin(admin.ModelAdmin):
     """Комментарий."""
 
     list_display = (
@@ -14,12 +12,11 @@ class CommentAdmin(admin.ModelAdmin[Comment]):
         "user",
         "text",
     )
-    search_fields = ("name",)
     ordering = ("-id",)
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin[Post]):
+class PostAdmin(admin.ModelAdmin):
     """Пост."""
 
     list_display = (
@@ -34,7 +31,7 @@ class PostAdmin(admin.ModelAdmin[Post]):
 
 
 @admin.register(Topic)
-class TopicAdmin(admin.ModelAdmin[Topic]):
+class TopicAdmin(admin.ModelAdmin):
     """тема."""
 
     list_display = (

@@ -9,6 +9,7 @@ from common.permissions import UserInspectorForObjectPermission
 from common.views import QuerySelectorMixin
 from game_mechanics.api.v1.serializers import CompetencyDetailSerializer
 from user.api.v1.selectors import (
+    CharacterEventDetailOrUpdateFilterSerializer,
     CharacterEventDetailSelector,
     CharacterEventListFilterSerializer,
     CharacterEventListSelector,
@@ -59,6 +60,7 @@ class CharacterEventDetailAPIView(QuerySelectorMixin, GenericAPIView):
 
     selector = CharacterEventDetailSelector
     serializer_class = CharacterEventDetailSerializer
+    filter_params_serializer_class = CharacterEventDetailOrUpdateFilterSerializer
 
     @extend_schema(
         responses={
@@ -84,7 +86,7 @@ class CharacterEventUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIVie
     Событие персонажа. Изменение со стороны персонажа.
     """
 
-    queryset = CharacterEventUpdateFromCharacterSelector
+    selector = CharacterEventUpdateFromCharacterSelector
     serializer_class = CharacterEventUpdateFromCharacterSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -122,7 +124,7 @@ class CharacterEventUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIVie
     Событие персонажа. Изменение со стороны проверяющего.
     """
 
-    queryset = CharacterEventUpdateFromInspectorSelector
+    selector = CharacterEventUpdateFromInspectorSelector
     serializer_class = CharacterEventUpdateFromInspectorSerializer
     permission_classes = (UserInspectorForObjectPermission,)
 

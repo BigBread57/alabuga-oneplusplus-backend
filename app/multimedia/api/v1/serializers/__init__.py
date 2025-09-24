@@ -1,9 +1,6 @@
-from app.multimedia.api.serializers.multimedia import (
-    CreateMultimediaSerializer,
-    MultimediaSerializer,
-)
+from multimedia.api.v1.serializers.multimedia import MultimediaCreateSerializer, MultimediaDetailSerializer
 
-__all__ = [
-    "MultimediaSerializer",
-    "CreateMultimediaSerializer",
-]
+__all__ = (
+    "MultimediaDetailSerializer",
+    "MultimediaCreateSerializer",
+)

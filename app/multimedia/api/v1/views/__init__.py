@@ -1,5 +1,3 @@
-from app.multimedia.api.views.multimedia import MultimediaViewSet
+from multimedia.api.v1.views.multimedia import MultimediaCreateAPIView
 
-__all__ = [
-    "MultimediaViewSet",
-]
+__all__ = ("MultimediaCreateAPIView",)

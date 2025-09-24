@@ -6,12 +6,12 @@ from .models import (
     Event,
     EventCompetency,
     GameWorld,
+    GameWorldStory,
     Mission,
     MissionArtifact,
     MissionBranch,
     MissionCompetency,
     MissionLevel,
-    GameWorldStory,
 )
 
 

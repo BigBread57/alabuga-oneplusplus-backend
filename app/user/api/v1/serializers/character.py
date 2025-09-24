@@ -73,6 +73,7 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         """
         return RankNestedSerializer(
             instance=character.character_ranks.filter(is_received=False).first(),
+            context=self.context,
         ).data
 
     def get_character_competencies(self, character: Character) -> dict[str, Any]:
@@ -81,5 +82,6 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         """
         return RankNestedSerializer(
             instance=character.character_competencies.filter(is_received=False),
+            context=self.context,
             many=True,
         ).data

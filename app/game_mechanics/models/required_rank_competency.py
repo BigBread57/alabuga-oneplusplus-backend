@@ -21,9 +21,6 @@ class RequiredRankCompetency(AbstractBaseModel):
         on_delete=models.CASCADE,
         related_name="required_rank_competencies",
     )
-    required_experience = models.PositiveIntegerField(
-        verbose_name=_("Требуемый опыт"),
-    )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Требование к компетенции")

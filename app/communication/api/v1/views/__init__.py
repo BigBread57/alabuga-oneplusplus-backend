@@ -1,11 +1,13 @@
-from app.communication.api.views.comment import CommentViewSet
-from app.communication.api.views.event import EventViewSet
-from app.communication.api.views.post import PostViewSet
-from app.communication.api.views.topic import TopicViewSet
+from communication.api.v1.views.comment import CommentCreateAPIView
+from communication.api.v1.views.post import PostListAPIView
+from communication.api.v1.views.topic import TopicDetailAPIView, TopicListAPIView
 
-__all__ = [
-    "EventViewSet",
-    "CommentViewSet",
-    "PostViewSet",
-    "TopicViewSet",
-]
+__all__ = (
+    # Comment
+    "CommentCreateAPIView",
+    # Post
+    "PostListAPIView",
+    # Topic
+    "TopicListAPIView",
+    "TopicDetailAPIView",
+)

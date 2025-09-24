@@ -1,15 +1,24 @@
-from server.apps.services.serializers import ModelSerializerWithPermission
-from server.apps.user.api.serializers import BaseUserSerializer
+from django.utils.translation import gettext_lazy as _
+from rest_framework import serializers
 
-from app.communication.api.serializers import BaseTopicSerializer
-from app.communication.models import Post
+from communication.api.v1.serializers.nested import TopicNestedSerializer
+from communication.models import Post
+from user.api.v1.serializers.nested import UserNestedSerializer
 
 
-class PostSerializer(ModelSerializerWithPermission):
-    """Сериалайзер отзывов."""
+class PostListSerializer(serializers.ModelSerializer):
+    """
+    Пост.
+    """
 
-    user = BaseUserSerializer()
-    topic = BaseTopicSerializer()
+    user = UserNestedSerializer(
+        label=_("Пользователь"),
+        help_text=_("Пользователь"),
+    )
+    topic = TopicNestedSerializer(
+        label=_("Тема"),
+        help_text=_("Тема"),
+    )
 
     class Meta:
         model = Post
@@ -24,8 +33,10 @@ class PostSerializer(ModelSerializerWithPermission):
         )
 
 
-class CreatePostSerializer(ModelSerializerWithPermission):
-    """Сериалайзер создания отзывов."""
+class PostCreateSerializer(serializers.ModelSerializer):
+    """
+    Пост.
+    """
 
     class Meta:
         model = Post

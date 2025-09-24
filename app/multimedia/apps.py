@@ -8,4 +8,4 @@ class MultimediaConfig(AppConfig):
     """
 
     name = "multimedia"
-    verbose_name = _("Файлы")
+    verbose_name = _("Мультимедиа")

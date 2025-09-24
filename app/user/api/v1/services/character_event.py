@@ -1,10 +1,12 @@
+from datetime import timedelta
 from typing import Any
 
 from django.db import transaction
+from django.utils.timezone import now
 
 from common.services import BaseService
 from game_mechanics.models import Competency, Rank
-from game_world.models import EventArtifact, EventCompetency
+from game_world.models import Event, EventArtifact, EventCompetency
 from user.models import Character, CharacterArtifact, CharacterCompetency, CharacterEvent
 from user.models.character_rank import CharacterRank
 from user.tasks import send_mail_about_character_event_for_character, send_mail_about_character_event_for_inspector
@@ -96,6 +98,18 @@ class CharacterEventService(BaseService):
                     rank=new_rank,
                     experience=new_experience_for_character_rank - rank.required_experience,
                 )
+                now_datetime = now()
+                character_events = [
+                    CharacterEvent(
+                        character=character,
+                        event=event,
+                        start_datetime=now_datetime,
+                        end_datetime=now_datetime + timedelta(days=event.time_to_complete),
+                    )
+                    for event in Event.objects.filter(is_active=True, rank=new_rank, game_world=character.game_world)
+                ]
+
+                CharacterEvent.objects.bulk_create(objs=character_events)
 
     def update_from_character(
         self,
@@ -139,7 +153,7 @@ class CharacterEventService(BaseService):
                     "inspector",
                     "character__user",
                     "event",
-                    "character",
+                    "character__game_world",
                 )
                 .prefetch_related(
                     "event__artifacts",

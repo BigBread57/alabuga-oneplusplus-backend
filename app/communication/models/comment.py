@@ -35,3 +35,6 @@ class Comment(AbstractBaseModel):
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Комментарий")
         verbose_name_plural = _("Комментарии")
+
+    def __str__(self):
+        return f"{self.user} - {self.content_type}"

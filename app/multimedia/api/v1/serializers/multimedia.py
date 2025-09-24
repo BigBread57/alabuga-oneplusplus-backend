@@ -1,10 +1,12 @@
-from server.apps.services.serializers import ModelSerializerWithPermission
+from rest_framework import serializers
 
-from app.multimedia.models import Multimedia
+from multimedia.models import Multimedia
 
 
-class MultimediaSerializer(ModelSerializerWithPermission):
-    """Сериалайзер файлов."""
+class MultimediaDetailSerializer(serializers.ModelSerializer):
+    """
+    Мультимедиа. Детальная информация.
+    """
 
     class Meta:
         model = Multimedia
@@ -18,8 +20,10 @@ class MultimediaSerializer(ModelSerializerWithPermission):
         )
 
 
-class CreateMultimediaSerializer(ModelSerializerWithPermission):
-    """Создание файлов."""
+class MultimediaCreateSerializer(serializers.ModelSerializer):
+    """
+    Мультимедиа. Создание.
+    """
 
     class Meta:
         model = Multimedia

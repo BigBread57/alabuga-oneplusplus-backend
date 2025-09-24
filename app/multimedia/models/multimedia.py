@@ -18,7 +18,7 @@ class Multimedia(AbstractBaseModel):
         to="user.User",
         on_delete=models.CASCADE,
         verbose_name=_("Пользователь - создатель объекта"),
-        related_name="%(class)s_created_objects",  # noqa: WPS323
+        related_name="multimedias",  # noqa: WPS323
         blank=True,
         null=True,
     )
@@ -39,3 +39,6 @@ class Multimedia(AbstractBaseModel):
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Файл")
         verbose_name_plural = _("Файлы")
+
+    def __str__(self):
+        return f"{self.multimedia}"

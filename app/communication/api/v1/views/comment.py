@@ -1,44 +1,38 @@
-import django_filters
+from drf_spectacular.utils import extend_schema
+from rest_framework import status
 from rest_framework.generics import GenericAPIView
+from rest_framework.request import Request
+from rest_framework.response import Response
+
+from communication.api.v1.serializers import CommentCreateSerializer, CommentListOrDetailSerializer
 
 
-class CommentFilter(
-    UserFilterMixin,
-    CreatedUpdatedDateFilterMixin,
-    django_filters.FilterSet,
-):
-    """Фильтр отзывов."""
+class CommentCreateAPIView(GenericAPIView):
+    """
+    Комментарий. Создание.
+    """
 
-    class Meta:
-        model = Comment
-        fields = (
-            "id",
-            "user",
-            "user_email",
-            "user_username",
-            "user_first_name",
-            "user_last_name",
-            "user_middle_name",
-            "content_type",
-            "object_id",
+    serializer_class = CommentCreateSerializer
+
+    @extend_schema(
+        request=CommentCreateSerializer,
+        responses={
+            status.HTTP_201_CREATED: CommentListOrDetailSerializer,
+        },
+        tags=["game_mechanics:Comment"],
+    )
+    def post(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Создание объекта.
+        """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        comment = serializer.save()
+
+        return Response(
+            data=CommentListOrDetailSerializer(
+                instance=comment,
+                context=self.get_serializer_context(),
+            ).data,
+            status=status.HTTP_201_CREATED,
         )
-
-
-class CommentListViewSet(GenericAPIView):
-    """
-    Комментарий. Список.
-    """
-
-    serializer_class = CommentSerializer
-    create_serializer_class = CreateCommentSerializer
-    queryset = Comment.objects.select_related("user")
-    search_fields = ("text",)
-    ordering_fields = "__all__"
-    filterset_class = CommentFilter
-
-    def perform_create(self, serializer):
-        """
-        Добавляем информацию о пользователе.
-        """
-        serializer.validated_data.update(user=self.request.user)
-        serializer.save()

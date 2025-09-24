@@ -4,6 +4,6 @@ from communication.models.topic import Topic
 
 __all__ = (
     "Comment",
-    "Post",
     "Topic",
+    "Post",
 )

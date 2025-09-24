@@ -1,13 +1,17 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from app.communication.models import Comment
-from user.api.v1.serializers.user import BaseUserSerializer
+from communication.models import Comment
+from user.api.v1.serializers.nested import UserNestedSerializer
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentListOrDetailSerializer(serializers.ModelSerializer):
     """Сериалайзер отзывов."""
 
-    user = BaseUserSerializer()
+    user = UserNestedSerializer(
+        label=_("Пользователь"),
+        help_text=_("Пользователь"),
+    )
 
     class Meta:
         model = Comment
@@ -22,7 +26,7 @@ class CommentSerializer(serializers.ModelSerializer):
         )
 
 
-class CreateCommentSerializer(serializers.ModelSerializer):
+class CommentCreateSerializer(serializers.ModelSerializer):
     """Сериалайзер создания отзывов."""
 
     class Meta:

@@ -7,6 +7,9 @@ from common.models import AbstractBaseModel
 class Post(AbstractBaseModel):
     """Пост."""
 
+    text = models.TextField(
+        verbose_name=_("Текст"),
+    )
     user = models.ForeignKey(
         to="user.User",
         on_delete=models.CASCADE,
@@ -29,13 +32,10 @@ class Post(AbstractBaseModel):
         db_index=True,
         null=True,
     )
-    text = models.TextField(
-        verbose_name=_("Текст"),
-    )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Пост")
         verbose_name_plural = _("Посты")
 
     def __str__(self):
-        return self.name
+        return f"{self.user} - {self.topic}"

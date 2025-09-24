@@ -4,7 +4,7 @@ from celery import Celery
 from celery.schedules import crontab
 from django.conf import settings
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alabuga.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "alabuga.settings")
 
 app = Celery("alabuga")
 app.config_from_object(settings.CELERY, namespace="CELERY")

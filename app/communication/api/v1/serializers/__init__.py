@@ -1,35 +1,15 @@
-from app.communication.api.serializers.base_data import (
-    BaseCommentSerializer,
-    BasePostSerializer,
-    BaseTopicSerializer,
-)
-from app.communication.api.serializers.comment import (
-    CommentSerializer,
-    CreateCommentSerializer,
-)
-from app.communication.api.serializers.event import (
-    DetailEventSerializer,
-    ListEventSerializer,
-)
-from app.communication.api.serializers.post import (
-    CreatePostSerializer,
-    PostSerializer,
-)
-from app.communication.api.serializers.topic import (
-    DetailTopicSerializer,
-    ListTopicSerializer,
-)
+from communication.api.v1.serializers.comment import CommentCreateSerializer, CommentListOrDetailSerializer
+from communication.api.v1.serializers.post import PostCreateSerializer, PostListSerializer
+from communication.api.v1.serializers.topic import TopicDetailSerializer, TopicListSerializer
 
-__all__ = [
-    "BaseCommentSerializer",
-    "BasePostSerializer",
-    "DetailEventSerializer",
-    "ListEventSerializer",
-    "CommentSerializer",
-    "CreateCommentSerializer",
-    "ListTopicSerializer",
-    "DetailTopicSerializer",
-    "PostSerializer",
-    "CreatePostSerializer",
-    "BaseTopicSerializer",
-]
+__all__ = (
+    # Comment
+    "CommentListOrDetailSerializer",
+    "CommentCreateSerializer",
+    # Post
+    "PostListSerializer",
+    "PostCreateSerializer",
+    # Topic
+    "TopicListSerializer",
+    "TopicDetailSerializer",
+)

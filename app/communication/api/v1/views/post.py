@@ -1,51 +1,34 @@
-import django_filters
-from server.apps.services.filters_mixins import (
-    CreatedUpdatedDateFilterMixin,
-    UserFilterMixin,
-)
-from server.apps.services.views import RetrieveListCreateViewSet
+from drf_spectacular.utils import extend_schema
+from rest_framework import status
+from rest_framework.generics import GenericAPIView
+from rest_framework.request import Request
+from rest_framework.response import Response
 
-from app.communication.api.serializers import (
-    CreatePostSerializer,
-    PostSerializer,
-)
-from app.communication.models import Post
+from communication.api.v1.serializers import PostListSerializer
+from communication.models import Post
 
 
-class PostFilter(
-    UserFilterMixin,
-    CreatedUpdatedDateFilterMixin,
-    django_filters.FilterSet,
-):
-    """Фильтр постов."""
+class PostListAPIView(GenericAPIView):
+    """
+    Тема. Список.
+    """
 
-    class Meta:
-        model = Post
-        fields = (
-            "id",
-            "user",
-            "user_email",
-            "user_username",
-            "user_first_name",
-            "user_last_name",
-            "user_middle_name",
-            "topic",
-            "parent",
-        )
+    queryset = Post.objects.all()
+    serializer_class = PostListSerializer
+    search_fields = ("name",)
 
-
-class PostViewSet(RetrieveListCreateViewSet):
-    """Пост."""
-
-    serializer_class = PostSerializer
-    create_serializer_class = CreatePostSerializer
-    queryset = Post.objects.select_related("user", "topic")
-    ordering_fields = "__all__"
-    filterset_class = PostFilter
-
-    def perform_create(self, serializer):
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: PostListSerializer(many=True),
+        },
+        tags=["shop:user_purchase"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
         """
-        Добавляем информацию о пользователе.
+        Список объектов.
         """
-        serializer.validated_data.update(user=self.request.user)
-        serializer.save()
+        queryset = self.filter_queryset(queryset=self.get_queryset())
+        page = self.paginate_queryset(queryset=queryset)
+        serializer = self.get_serializer(page, many=True)
+
+        return self.get_paginated_response(data=serializer.data)

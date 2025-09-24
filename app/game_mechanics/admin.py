@@ -68,7 +68,6 @@ class RequiredRankCompetencyAdmin(admin.ModelAdmin):
         "id",
         "rank",
         "competency",
-        "required_experience",
     )
     ordering = ("-id",)
     autocomplete_fields = (
