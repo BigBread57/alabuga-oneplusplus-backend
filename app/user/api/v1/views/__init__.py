@@ -1,11 +1,18 @@
-from .auth import LoginAPIView, RegistrationAPIView, TokenRefreshAPIView
-from .user import UserDetailAPIView, UserListAPIView, UserUpdateAPIView
+from user.api.v1.views.character import CharacterActualForUserAPIView
+from user.api.v1.views.user import UseResendEmailConfirmationAPIView, UserLoginAPIView, UserRequestResetPasswordAPIView, \
+    UserConfirmResetPasswordAPIView, UserUpdatePasswordAPIView, UserRegisterAPIView, UserLogoutAPIView, UserInfoAPIView, \
+    UserConfirmEmailAPIView
 
 __all__ = (
-    "LoginAPIView",
-    "RegistrationAPIView",
-    "TokenRefreshAPIView",
-    "UserListAPIView",
-    "UserDetailAPIView",
-    "UserUpdateAPIView",
+    "UseResendEmailConfirmationAPIView",
+    "UserLoginAPIView",
+    "UserRequestResetPasswordAPIView",
+    "UserConfirmResetPasswordAPIView",
+    "UserUpdatePasswordAPIView",
+    "UserRegisterAPIView",
+    "UserLogoutAPIView",
+    "UserInfoAPIView",
+    "UserConfirmEmailAPIView",
+    "CharacterActualForUserAPIView",
 )
+

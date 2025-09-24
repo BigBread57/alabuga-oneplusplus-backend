@@ -1,0 +1,100 @@
+services:
+  db:
+    image: "postgres:17"
+    ports:
+      - ${DB_PORT:-5435}:5432
+    volumes:
+      - ./docker/db/data:/var/lib/postgresql/data:rw
+    env_file:
+      - .env
+      - app/.env
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: app/docker/app/Dockerfile
+    environment:
+      - SERVICE_TYPE=app
+    ports:
+      - ${APP_PORT:-8000}:8000
+    volumes:
+      - ./:/app
+      - ./app/alabuga/static:/usr/src/app/alabuga/static
+    env_file:
+      - .env
+      - app/.env
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - ${REDIS_PORT:-6379}:6379
+
+  keycloak:
+    image: "jboss/keycloak"
+    environment:
+      KEYCLOAK_USER: admin_key
+      KEYCLOAK_PASSWORD: admin_key
+    ports:
+      - "8080:8080"
+
+#  celery:
+#    build:
+#      context: .
+#      dockerfile: app/docker/app/Dockerfile
+#    command: celery -A alabuga worker -l info --concurrency=4
+#    volumes:
+#      - ./:/app
+#    env_file:
+#      - .env
+#      - app/.env
+#    depends_on:
+#      - db
+#      - redis
+#
+#  celery-beat:
+#    build:
+#      context: .
+#      dockerfile: app/docker/app/Dockerfile
+#    command: celery -A alabuga beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+#    volumes:
+#      - ./:/app
+#    env_file:
+#      - .env
+#      - app/.env
+#    depends_on:
+#      - db
+#      - redis
+
+
+#  bot:
+#    build:
+#      context: .
+#      dockerfile: app/docker/bot/Dockerfile
+#    volumes:
+#      - ./:/app
+#    env_file:
+#      - .env
+#      - app/.env
+#    command: python bot/main.py
+#    depends_on:
+#      - app
+#    restart: unless-stopped
+#
+#  nginx:
+#    build:
+#      context: .
+#      dockerfile: app/docker/nginx/Dockerfile
+#    volumes:
+#      - ./app/static:/app/static
+#      - ./app/media:/app/media
+#    env_file:
+#      - .env
+#      - app/.env
+#    ports:
+#      - ${NGINX_PORT:-1337}:80
+#    depends_on:
+#      - app

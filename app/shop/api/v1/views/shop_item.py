@@ -1,21 +1,20 @@
+from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from app.common.permissions import UserHRPermission
-from app.common.serializers import ResponseDetailSerializer
-from app.common.views import QuerySelectorMixin
-from app.shop.api.v1.selectors import ShopItemListSelector, ShopItemListFilterSerializer, ShopItemDetailSelector
-from app.shop.api.v1.serializers import (
-    ShopItemListSerializer,
+from common.permissions import UserHRPermission
+from common.serializers import ResponseDetailSerializer
+from common.views import QuerySelectorMixin
+from shop.api.v1.selectors import ShopItemDetailSelector, ShopItemListFilterSerializer, ShopItemListSelector
+from shop.api.v1.serializers import (
     ShopItemCreateOrUpdateSerializer,
     ShopItemDetailSerializer,
+    ShopItemListSerializer,
 )
-from django.utils.translation import gettext_lazy as _
-
-from app.shop.models import ShopItem
+from shop.models import ShopItem
 
 
 class ShopItemListAPIView(QuerySelectorMixin, GenericAPIView):
@@ -23,7 +22,7 @@ class ShopItemListAPIView(QuerySelectorMixin, GenericAPIView):
     Товар в магазине. Список.
     """
 
-    selector = ShopItemListSelector()
+    selector = ShopItemListSelector
     serializer_class = ShopItemListSerializer
     filter_params_serializer_class = ShopItemListFilterSerializer
     search_fields = ("name", "category__name")
@@ -46,13 +45,12 @@ class ShopItemListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-
 class ShopItemDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Товар в магазине. Детальная информация.
     """
 
-    selector = ShopItemDetailSelector()
+    selector = ShopItemDetailSelector
     serializer_class = ShopItemDetailSerializer
 
     @extend_schema(
@@ -142,9 +140,10 @@ class ShopItemUpdateAPIView(GenericAPIView):
             status=status.HTTP_200_OK,
         )
 
+
 class ShopItemDeleteAPIView(GenericAPIView):
     """
-    Товар в магазине. Удаление.
+    Товар в магазине. Удаление объекта.
     """
 
     queryset = ShopItem.objects.all()

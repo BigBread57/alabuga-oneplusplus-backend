@@ -1,14 +1,11 @@
 from typing import Any
 
-from django.contrib.auth import get_user_model
 from django.db import transaction
 
-from app.common.services import BaseService
-from app.shop.models import UserPurchase
-from app.shop.tasks import send_mail_about_new_user_purchase
-
-User = get_user_model()
-
+from common.services import BaseService
+from shop.models import UserPurchase
+from shop.tasks import send_mail_about_new_user_purchase
+from user.models import User
 
 
 class UserPurchaseService(BaseService):
@@ -28,7 +25,7 @@ class UserPurchaseService(BaseService):
         """
         user_purchase = UserPurchase.objects.create(
             buyer=buyer,
-            total_sum = validated_data["price"] * validated_data["number"],
+            total_sum=validated_data["price"] * validated_data["number"],
             **validated_data,
         )
         transaction.on_commit(
@@ -68,8 +65,9 @@ class UserPurchaseService(BaseService):
         UserPurchase.objects.filter(
             id=user_purchase.id,
         ).update(
-             manager=manager,
+            manager=manager,
         )
         return None
+
 
 user_purchase_service = UserPurchaseService()

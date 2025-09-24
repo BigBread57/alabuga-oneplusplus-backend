@@ -1,91 +1,95 @@
 from django.urls import path
 
-from app.shop.api.v1.views import (
-    ShopItemCategoryListAPIView,
+from shop.api.v1.views import (
     ShopItemCategoryCreateAPIView,
-    ShopItemCategoryUpdateAPIView, ShopItemCategoryDeleteAPIView, ShopItemDeleteAPIView,
-)
-from app.shop.api.v1.views import (
-    ShopItemListAPIView,
+    ShopItemCategoryDeleteAPIView,
+    ShopItemCategoryListAPIView,
+    ShopItemCategoryUpdateAPIView,
     ShopItemCreateAPIView,
+    ShopItemDeleteAPIView,
+    ShopItemListAPIView,
     ShopItemUpdateAPIView,
+    UserPurchaseCreateAPIView,
+    UserPurchaseDetailAPIView,
+    UserPurchaseListAPIView,
+    UserPurchaseToWorkAPIView,
+    UserPurchaseUpdateAPIView,
 )
-from app.shop.api.v1.views import UserPurchaseListAPIView, UserPurchaseCreateAPIView, \
-    UserPurchaseUpdateAPIView, UserPurchaseToWorkAPIView, UserPurchaseDetailAPIView
 
 app_name = "v1"
 
 
 shop_item_category_urls = [
     path(
-        route="item-category/list/",
+        route="item-categories/list/",
         view=ShopItemCategoryListAPIView.as_view(),
-        name="item-category-list",
+        name="item-categories-list",
     ),
     path(
-        route="item-category/create/",
+        route="item-categories/create/",
         view=ShopItemCategoryCreateAPIView.as_view(),
-        name="item-category-create",
+        name="item-categories-create",
     ),
     path(
-        route="item-category/<int:pk>/update/",
+        route="item-categories/<int:pk>/update/",
         view=ShopItemCategoryUpdateAPIView.as_view(),
-        name="item-category-update",
+        name="item-categories-update",
     ),
     path(
-        route="item-category/<int:pk>/delete/",
+        route="item-categories/<int:pk>/delete/",
         view=ShopItemCategoryDeleteAPIView.as_view(),
-        name="item-category-delete",
+        name="item-categories-delete",
     ),
 ]
+
 shop_item_urls = [
     path(
-        route="item/list/",
+        route="items/list/",
         view=ShopItemListAPIView.as_view(),
-        name="item-list",
+        name="items-list",
     ),
     path(
-        route="item/create/",
+        route="items/create/",
         view=ShopItemCreateAPIView.as_view(),
-        name="item-create",
+        name="items-create",
     ),
     path(
-        route="item/<int:pk>/update/",
+        route="items/<int:pk>/update/",
         view=ShopItemUpdateAPIView.as_view(),
-        name="item-update",
+        name="items-update",
     ),
     path(
-        route="item/<int:pk>/delete/",
+        route="items/<int:pk>/delete/",
         view=ShopItemDeleteAPIView.as_view(),
-        name="item-delete",
+        name="items-delete",
     ),
 ]
 
 user_purchase_urls = [
     path(
-        route="user-purchase/list/",
+        route="user-purchases/list/",
         view=UserPurchaseListAPIView.as_view(),
-        name="user-purchase-list",
+        name="user-purchases-list",
     ),
     path(
         route="item/<int:pk>/detail/",
         view=UserPurchaseDetailAPIView.as_view(),
-        name="user-purchase-detail",
+        name="user-purchases-detail",
     ),
     path(
-        route="user-purchase/create/",
+        route="user-purchases/create/",
         view=UserPurchaseCreateAPIView.as_view(),
-        name="user-purchase-create",
+        name="user-purchases-create",
     ),
     path(
-        route="item/<int:pk>/update/",
+        route="user-purchases/<int:pk>/update/",
         view=UserPurchaseUpdateAPIView.as_view(),
-        name="user-purchase-update",
+        name="user-purchases-update",
     ),
     path(
-        route="item/<int:pk>/to-work/",
+        route="user-purchases/<int:pk>/to-work/",
         view=UserPurchaseToWorkAPIView.as_view(),
-        name="user-purchase-to-work",
+        name="user-purchases-to-work",
     ),
 ]
 

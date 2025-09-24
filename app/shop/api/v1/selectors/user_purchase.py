@@ -3,8 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
-from app.common.selectors import BaseSelector
-from app.shop.models import UserPurchase
+from common.selectors import BaseSelector
+from shop.models import UserPurchase
 
 
 class UserPurchaseListFilterSerializer(serializers.Serializer):
@@ -25,7 +25,7 @@ class UserPurchaseListFilterSerializer(serializers.Serializer):
     )
 
 
-class UserPurchaseListDetailSerializer(serializers.Serializer):
+class UserPurchaseDetailSerializer(serializers.Serializer):
     """
     Покупки пользователя. Детальная информация. Сериализатор для фильтра.
     """
@@ -35,7 +35,6 @@ class UserPurchaseListDetailSerializer(serializers.Serializer):
         help_text=_("Покупатель"),
         default=CurrentUserDefault(),
     )
-
 
 
 class UserPurchaseListFilter(django_filters.FilterSet):
@@ -65,7 +64,7 @@ class UserPurchaseListSelector(BaseSelector):
 
     queryset = UserPurchase.objects.select_related(
         "shop_item",
-    ).all()
+    )
     filter_class = UserPurchaseListFilter
 
 
@@ -78,5 +77,5 @@ class UserPurchaseDetailSelector(BaseSelector):
         "shop_item",
         "buyer",
         "manager",
-    ).all()
+    )
     filter_class = UserPurchaseDetailFilter

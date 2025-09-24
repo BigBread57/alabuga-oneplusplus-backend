@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.common.models import AbstractBaseModel
+from common.models import AbstractBaseModel
 
 
 class Rank(AbstractBaseModel):
@@ -9,12 +9,6 @@ class Rank(AbstractBaseModel):
     Ранг пользователя.
     """
 
-    icon = models.ImageField(
-        verbose_name=_("Иконка"),
-        upload_to="ranks",
-        null=True,
-        blank=True,
-    )
     name = models.CharField(
         verbose_name=_("Название"),
         max_length=256,
@@ -27,10 +21,31 @@ class Rank(AbstractBaseModel):
     required_experience = models.PositiveIntegerField(
         verbose_name=_("Требуемый опыт"),
     )
-    order = models.PositiveIntegerField(
-        verbose_name=_("Порядок ранга"),
-        default=1,
-        unique=True,
+    icon = models.ImageField(
+        verbose_name=_("Иконка"),
+        upload_to="ranks",
+        null=True,
+        blank=True,
+    )
+    color = models.CharField(
+        verbose_name=_("Цвет"),
+        max_length=256,
+        blank=True,
+    )
+    parent = models.ForeignKey(
+        to="self",
+        on_delete=models.CASCADE,
+        verbose_name=_("Родительский ранг"),
+        related_name="children",
+        db_index=True,
+        null=True,
+        blank=True,
+    )
+    game_world = models.ForeignKey(
+        to="game_world.GameWorld",
+        on_delete=models.CASCADE,
+        verbose_name=_("Игровой мир"),
+        related_name="ranks",
     )
 
     class Meta(AbstractBaseModel.Meta):

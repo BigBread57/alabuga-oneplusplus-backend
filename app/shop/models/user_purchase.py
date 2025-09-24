@@ -1,10 +1,7 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.common.models import AbstractBaseModel
-
-User = get_user_model()
+from common.models import AbstractBaseModel
 
 
 class UserPurchase(AbstractBaseModel):
@@ -22,20 +19,14 @@ class UserPurchase(AbstractBaseModel):
         DELIVERED = "DELIVERED", _("Доставлена")
         CANCELLED = "CANCELLED", _("Отменена")
 
-    price = models.DecimalField(
-        verbose_name=_("Цена на момент покупки в мане"),
-        max_digits=10,
-        decimal_places=2,
+    price = models.PositiveIntegerField(
+        verbose_name=_("Цена на момент покупки в валюте"),
     )
-    number = models.DecimalField(
+    number = models.PositiveIntegerField(
         verbose_name=_("Количество"),
-        max_digits=10,
-        decimal_places=2,
     )
-    total_sum = models.DecimalField(
+    total_sum = models.PositiveIntegerField(
         verbose_name=_("Общая сумма"),
-        max_digits=10,
-        decimal_places=2,
     )
     status = models.CharField(
         verbose_name=_("Статус"),
@@ -48,7 +39,7 @@ class UserPurchase(AbstractBaseModel):
         blank=True,
     )
     buyer = models.ForeignKey(
-        to=User,
+        to="user.User",
         verbose_name=_("Покупатель"),
         on_delete=models.CASCADE,
         related_name="buyer_purchases",
@@ -60,7 +51,7 @@ class UserPurchase(AbstractBaseModel):
         related_name="purchases",
     )
     manager = models.ForeignKey(
-        to=User,
+        to="user.User",
         verbose_name=_("Менеджер"),
         on_delete=models.SET_NULL,
         null=True,

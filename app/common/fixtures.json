@@ -56,11 +56,11 @@
       "name": "Футболка 'Кодер'",
       "description": "Стильная хлопковая футболка с принтом кода на спине",
       "category": 1,
-      "price": "1500.00",
+      "price": 1500,
       "parent": null,
       "rank": null,
       "competency": null,
-      "quantity": "100.00",
+      "number": 100,
       "image": null,
       "is_active": true
     }
@@ -74,11 +74,11 @@
       "name": "Билет на концерт Imagine Dragons",
       "description": "Билет на концерт в Лужниках, сектор A, ряд 5",
       "category": 2,
-      "price": "5000.00",
+      "price": 5000,
       "parent": null,
       "rank": null,
       "competency": null,
-      "quantity": "50.00",
+      "number": 50,
       "image": null,
       "is_active": true
     }
@@ -92,11 +92,11 @@
       "name": "Скидка 20% в М.Видео",
       "description": "Скидка на всю бытовую технику в магазинах М.Видео",
       "category": 3,
-      "price": "3000.00",
+      "price": 3000,
       "parent": null,
       "rank": null,
       "competency": null,
-      "quantity": "0.00",
+      "number": 0,
       "image": null,
       "is_active": true
     }
@@ -110,11 +110,11 @@
       "name": "Курс Python для начинающих",
       "description": "Базовый курс по программированию на Python",
       "category": 4,
-      "price": "10000.00",
+      "price": 10000,
       "parent": null,
       "rank": null,
       "competency": null,
-      "quantity": "0.00",
+      "number": 0,
       "image": null,
       "is_active": true
     }
@@ -128,11 +128,11 @@
       "name": "Младший разработчик (Уровень 1)",
       "description": "Начальный уровень разработчика с базовыми навыками",
       "category": 4,
-      "price": "15000.00",
+      "price": 15000,
       "parent": null,
       "rank": 1,
       "competency": 1,
-      "quantity": "0.00",
+      "number": 0,
       "image": null,
       "is_active": true
     }
@@ -146,11 +146,11 @@
       "name": "Разработчик (Уровень 2)",
       "description": "Продвинутый уровень разработчика с углубленными знаниями",
       "category": 4,
-      "price": "25000.00",
+      "price": 25000,
       "parent": 5,
       "rank": 2,
       "competency": 2,
-      "quantity": "0.00",
+      "number": 0,
       "image": null,
       "is_active": true
     }
@@ -164,11 +164,11 @@
       "name": "Старший разработчик (Уровень 3)",
       "description": "Экспертный уровень с лидерскими качествами",
       "category": 4,
-      "price": "40000.00",
+      "price": 40000,
       "parent": 6,
       "rank": 3,
       "competency": 3,
-      "quantity": "0.00",
+      "number": 0,
       "image": null,
       "is_active": true
     }
@@ -182,11 +182,11 @@
       "name": "Тимлид (Уровень 4)",
       "description": "Уровень управления командой разработки",
       "category": 4,
-      "price": "60000.00",
+      "price": 60000,
       "parent": 7,
       "rank": 4,
       "competency": 4,
-      "quantity": "0.00",
+      "number": 0,
       "image": null,
       "is_active": true
     }
@@ -200,11 +200,11 @@
       "name": "Базовые алгоритмы",
       "description": "Основные алгоритмы и структуры данных",
       "category": 4,
-      "price": "8000.00",
+      "price": 8000,
       "parent": null,
       "rank": 1,
       "competency": 5,
-      "quantity": "0.00",
+      "number": 0,
       "image": null,
       "is_active": true
     }
@@ -218,11 +218,11 @@
       "name": "Продвинутые алгоритмы",
       "description": "Сложные алгоритмы и оптимизация",
       "category": 4,
-      "price": "15000.00",
+      "price": 15000,
       "parent": 9,
       "rank": 2,
       "competency": 6,
-      "quantity": "0.00",
+      "number": 0,
       "image": null,
       "is_active": true
     }
@@ -236,11 +236,11 @@
       "name": "Кепка 'Программист'",
       "description": "Стильная кепка с логотипом языка программирования",
       "category": 1,
-      "price": "800.00",
+      "price": 800,
       "parent": null,
       "rank": null,
       "competency": null,
-      "quantity": "75.00",
+      "number": 75,
       "image": null,
       "is_active": true
     }
@@ -254,11 +254,11 @@
       "name": "Билет на IT-конференцию",
       "description": "Билет на годовую IT-конференцию с участием топ-спикеров",
       "category": 2,
-      "price": "7000.00",
+      "price": 7000,
       "parent": null,
       "rank": null,
       "competency": null,
-      "quantity": "30.00",
+      "number": 30,
       "image": null,
       "is_active": true
     }
@@ -272,11 +272,11 @@
       "name": "Скидка 15% на технику Apple",
       "description": "Скидка на всю технику Apple в М.Видео",
       "category": 3,
-      "price": "5000.00",
+      "price": 5000,
       "parent": null,
       "rank": null,
       "competency": null,
-      "quantity": "0.00",
+      "number": 0,
       "image": null,
       "is_active": true
     }
@@ -290,13 +290,897 @@
       "name": "Архитектор систем (Уровень 5)",
       "description": "Уровень проектирования сложных систем",
       "category": 4,
-      "price": "80000.00",
+      "price": 80000,
       "parent": 8,
       "rank": 5,
       "competency": 7,
-      "quantity": "0.00",
+      "number": 0,
       "image": null,
       "is_active": true
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 1,
+    "fields": {
+      "name": "Вера в дело 1",
+      "description": "Базовая уверенность в правильности выбранного пути",
+      "required_experience": 50,
+      "color": "#4CAF50",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 2,
+    "fields": {
+      "name": "Вера в дело 2",
+      "description": "Углубленная уверенность и преданность выбранному делу",
+      "required_experience": 100,
+      "color": "#388E3C",
+      "icon": null,
+      "parent": 1,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 3,
+    "fields": {
+      "name": "Стремление к большему 1",
+      "description": "Базовое желание развиваться и достигать новых высот",
+      "required_experience": 75,
+      "color": "#2196F3",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 4,
+    "fields": {
+      "name": "Стремление к большему 2",
+      "description": "Сильная мотивация к постоянному совершенствованию",
+      "required_experience": 150,
+      "color": "#1976D2",
+      "icon": null,
+      "parent": 3,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 5,
+    "fields": {
+      "name": "Общение 1",
+      "description": "Базовые навыки коммуникации с другими людьми",
+      "required_experience": 60,
+      "color": "#FF9800",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 6,
+    "fields": {
+      "name": "Общение 2",
+      "description": "Продвинутые навыки ведения переговоров и публичных выступлений",
+      "required_experience": 120,
+      "color": "#F57C00",
+      "icon": null,
+      "parent": 5,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 7,
+    "fields": {
+      "name": "Аналитика 1",
+      "description": "Базовые навыки анализа информации и принятия решений",
+      "required_experience": 120,
+      "color": "#9C27B0",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 8,
+    "fields": {
+      "name": "Аналитика 2",
+      "description": "Продвинутый анализ данных и стратегическое мышление",
+      "required_experience": 240,
+      "color": "#7B1FA2",
+      "icon": null,
+      "parent": 7,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 9,
+    "fields": {
+      "name": "Командование 1",
+      "description": "Базовые навыки управления командой",
+      "required_experience": 200,
+      "color": "#F44336",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 10,
+    "fields": {
+      "name": "Командование 2",
+      "description": "Продвинутое лидерство и управление крупными проектами",
+      "required_experience": 400,
+      "color": "#D32F2F",
+      "icon": null,
+      "parent": 9,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 11,
+    "fields": {
+      "name": "Юриспруденция 1",
+      "description": "Базовые знания правовых норм и законодательства",
+      "required_experience": 100,
+      "color": "#3F51B5",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 12,
+    "fields": {
+      "name": "Юриспруденция 2",
+      "description": "Продвинутые знания юриспруденции и судебной практики",
+      "required_experience": 200,
+      "color": "#303F9F",
+      "icon": null,
+      "parent": 11,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 13,
+    "fields": {
+      "name": "Трёхмерное мышление 1",
+      "description": "Базовые навыки пространственного мышления",
+      "required_experience": 180,
+      "color": "#009688",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 14,
+    "fields": {
+      "name": "Трёхмерное мышление 2",
+      "description": "Продвинутое проектирование в трёхмерном пространстве",
+      "required_experience": 360,
+      "color": "#00796B",
+      "icon": null,
+      "parent": 13,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 15,
+    "fields": {
+      "name": "Базовая экономика 1",
+      "description": "Основные понятия экономики и финансов",
+      "required_experience": 90,
+      "color": "#795548",
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 16,
+    "fields": {
+      "name": "Базовая экономика 2",
+      "description": "Продвинутые экономические модели и анализ рынков",
+      "required_experience": 180,
+      "color": "#5D4037",
+      "icon": null,
+      "parent": 15,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 17,
+    "fields": {
+      "name": "Основы аэронавигации 1",
+      "description": "Базовые принципы навигации в воздушном пространстве",
+      "required_experience": 250,
+      "color": "#607D8B",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 18,
+    "fields": {
+      "name": "Основы аэронавигации 2",
+      "description": "Продвинутые системы навигации и управления полетами",
+      "required_experience": 500,
+      "color": "#455A64",
+      "icon": null,
+      "parent": 17,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 1,
+    "fields": {
+      "name": "Новичок",
+      "description": "Начальный ранг, первые шаги в игре",
+      "required_experience": 0,
+      "icon": null,
+      "color": "#9E9E9E",
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 2,
+    "fields": {
+      "name": "Ученик",
+      "description": "Освоивший базовые механики игры",
+      "required_experience": 100,
+      "icon": null,
+      "color": "#4CAF50",
+      "parent": 1,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 3,
+    "fields": {
+      "name": "Опытный",
+      "description": "Уверенно владеет основными навыками",
+      "required_experience": 300,
+      "icon": null,
+      "color": "#2196F3",
+      "parent": 2,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 4,
+    "fields": {
+      "name": "Специалист",
+      "description": "Углубленные знания в конкретных областях",
+      "required_experience": 600,
+      "icon": null,
+      "color": "#FF9800",
+      "parent": 3,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 5,
+    "fields": {
+      "name": "Эксперт",
+      "description": "Высокий уровень мастерства",
+      "required_experience": 1000,
+      "icon": null,
+      "color": "#9C27B0",
+      "parent": 4,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 6,
+    "fields": {
+      "name": "Мастер",
+      "description": "Виртуозное владение игровыми механиками",
+      "required_experience": 1500,
+      "icon": null,
+      "color": "#F44336",
+      "parent": 5,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 7,
+    "fields": {
+      "name": "Грандмастер",
+      "description": "Легендарный уровень мастерства",
+      "required_experience": 2100,
+      "icon": null,
+      "color": "#FFD700",
+      "parent": 6,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 8,
+    "fields": {
+      "name": "Легенда",
+      "description": "Мифический статус, достижимый лишь единицами",
+      "required_experience": 2800,
+      "icon": null,
+      "color": "#E91E63",
+      "parent": 7,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 9,
+    "fields": {
+      "name": "Чемпион",
+      "description": "Абсолютный пик игрового совершенства",
+      "required_experience": 3600,
+      "icon": null,
+      "color": "#3F51B5",
+      "parent": 8,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 10,
+    "fields": {
+      "name": "Властелин",
+      "description": "Высший ранг, символ абсолютного превосходства",
+      "required_experience": 4500,
+      "icon": null,
+      "color": "#00BCD4",
+      "parent": 9,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 1,
+    "fields": {
+      "rank": 1,
+      "competency": 1,
+      "required_experience": 30,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 2,
+    "fields": {
+      "rank": 1,
+      "competency": 5,
+      "required_experience": 40,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 3,
+    "fields": {
+      "rank": 2,
+      "competency": 1,
+      "required_experience": 50,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 4,
+    "fields": {
+      "rank": 2,
+      "competency": 3,
+      "required_experience": 60,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 5,
+    "fields": {
+      "rank": 2,
+      "competency": 5,
+      "required_experience": 50,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 6,
+    "fields": {
+      "rank": 3,
+      "competency": 1,
+      "required_experience": 70,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 7,
+    "fields": {
+      "rank": 3,
+      "competency": 3,
+      "required_experience": 80,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 8,
+    "fields": {
+      "rank": 3,
+      "competency": 7,
+      "required_experience": 90,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 9,
+    "fields": {
+      "rank": 4,
+      "competency": 3,
+      "required_experience": 120,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 10,
+    "fields": {
+      "rank": 4,
+      "competency": 5,
+      "required_experience": 100,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 11,
+    "fields": {
+      "rank": 4,
+      "competency": 7,
+      "required_experience": 110,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 12,
+    "fields": {
+      "rank": 4,
+      "competency": 11,
+      "required_experience": 80,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 13,
+    "fields": {
+      "rank": 5,
+      "competency": 2,
+      "required_experience": 80,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 14,
+    "fields": {
+      "rank": 5,
+      "competency": 6,
+      "required_experience": 100,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 15,
+    "fields": {
+      "rank": 5,
+      "competency": 8,
+      "required_experience": 180,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 16,
+    "fields": {
+      "rank": 5,
+      "competency": 12,
+      "required_experience": 150,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 17,
+    "fields": {
+      "rank": 6,
+      "competency": 4,
+      "required_experience": 120,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 18,
+    "fields": {
+      "rank": 6,
+      "competency": 8,
+      "required_experience": 200,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 19,
+    "fields": {
+      "rank": 6,
+      "competency": 10,
+      "required_experience": 300,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 20,
+    "fields": {
+      "rank": 6,
+      "competency": 14,
+      "required_experience": 250,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 21,
+    "fields": {
+      "rank": 7,
+      "competency": 4,
+      "required_experience": 140,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 22,
+    "fields": {
+      "rank": 7,
+      "competency": 10,
+      "required_experience": 350,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 23,
+    "fields": {
+      "rank": 7,
+      "competency": 14,
+      "required_experience": 300,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 24,
+    "fields": {
+      "rank": 7,
+      "competency": 16,
+      "required_experience": 150,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 25,
+    "fields": {
+      "rank": 8,
+      "competency": 6,
+      "required_experience": 110,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 26,
+    "fields": {
+      "rank": 8,
+      "competency": 10,
+      "required_experience": 380,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 27,
+    "fields": {
+      "rank": 8,
+      "competency": 12,
+      "required_experience": 180,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 28,
+    "fields": {
+      "rank": 8,
+      "competency": 16,
+      "required_experience": 170,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 29,
+    "fields": {
+      "rank": 8,
+      "competency": 18,
+      "required_experience": 400,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 30,
+    "fields": {
+      "rank": 9,
+      "competency": 2,
+      "required_experience": 90,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 31,
+    "fields": {
+      "rank": 9,
+      "competency": 4,
+      "required_experience": 140,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 32,
+    "fields": {
+      "rank": 9,
+      "competency": 8,
+      "required_experience": 220,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 33,
+    "fields": {
+      "rank": 9,
+      "competency": 10,
+      "required_experience": 400,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 34,
+    "fields": {
+      "rank": 9,
+      "competency": 14,
+      "required_experience": 320,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 35,
+    "fields": {
+      "rank": 9,
+      "competency": 18,
+      "required_experience": 450,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 36,
+    "fields": {
+      "rank": 10,
+      "competency": 4,
+      "required_experience": 150,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 37,
+    "fields": {
+      "rank": 10,
+      "competency": 8,
+      "required_experience": 240,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 38,
+    "fields": {
+      "rank": 10,
+      "competency": 10,
+      "required_experience": 400,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 39,
+    "fields": {
+      "rank": 10,
+      "competency": 14,
+      "required_experience": 350,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 40,
+    "fields": {
+      "rank": 10,
+      "competency": 16,
+      "required_experience": 180,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 41,
+    "fields": {
+      "rank": 10,
+      "competency": 18,
+      "required_experience": 500,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.GameWorld",
+    "pk": 1,
+    "fields": {
+      "name": "Аэрокосмический Альянс",
+      "description": "Игровой мир будущего, где человечество освоило межпланетные перелеты и создало масштабную космическую инфраструктуру. Игроки выступают в роли пилотов, инженеров, дипломатов и стратегов, развивающих космическую экспансию человечества. От строительства орбитальных станций до дипломатических миссий с инопланетными цивилизациями - здесь каждый найдет свой путь к звездам. Компетенции отражают ключевые навыки, необходимые для выживания и процветания в условиях космической экспансии.",
+      "color": "#1a237e",
+      "standard_experience": 25,
+      "standard_currency": 50,
+      "currency_name": "звездные кредиты",
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
     }
   }
 ]

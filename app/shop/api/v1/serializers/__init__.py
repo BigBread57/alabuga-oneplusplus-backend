@@ -1,17 +1,17 @@
-from app.shop.api.v1.serializers.shop_item_category import (
-    ShopItemCategoryListSerializer,
+from shop.api.v1.serializers.shop_item import (
+    ShopItemCreateOrUpdateSerializer,
+    ShopItemDetailSerializer,
+    ShopItemListSerializer,
+)
+from shop.api.v1.serializers.shop_item_category import (
     ShopItemCategoryCreateOrUpdateSerializer,
     ShopItemCategoryDetailSerializer,
+    ShopItemCategoryListSerializer,
 )
-from app.shop.api.v1.serializers.shop_item import (
-    ShopItemListSerializer,
-    ShopItemDetailSerializer,
-    ShopItemCreateOrUpdateSerializer,
-)
-from app.shop.api.v1.serializers.user_purchase import (
-    UserPurchaseListSerializer,
-    UserPurchaseDetailSerializer,
+from shop.api.v1.serializers.user_purchase import (
     UserPurchaseCreateSerializer,
+    UserPurchaseDetailSerializer,
+    UserPurchaseListSerializer,
     UserPurchaseUpdateSerializer,
 )
 

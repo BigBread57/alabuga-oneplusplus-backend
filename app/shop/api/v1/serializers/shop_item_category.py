@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.shop.models import ShopItemCategory
+from shop.models import ShopItemCategory
 
 
 class ShopItemCategoryListSerializer(serializers.ModelSerializer):

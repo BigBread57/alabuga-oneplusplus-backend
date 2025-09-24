@@ -1,7 +1,10 @@
-from rest_framework import serializers
-from app.shop.api.v1.serializers.nested import ShopItemNestedSerializer
-from app.shop.models import UserPurchase
+from typing import Any
+
 from django.utils.translation import gettext_lazy as _
+from rest_framework import serializers
+
+from shop.api.v1.serializers.nested import ShopItemNestedSerializer
+from shop.models import ShopItem, UserPurchase
 
 
 class UserPurchaseListSerializer(serializers.ModelSerializer):
@@ -26,7 +29,6 @@ class UserPurchaseListSerializer(serializers.ModelSerializer):
             "buyer",
             "shop_item",
         )
-
 
 
 class UserPurchaseDetailSerializer(serializers.ModelSerializer):
@@ -91,6 +93,13 @@ class UserPurchaseCreateSerializer(serializers.ModelSerializer):
     Покупки пользователя. Создать.
     """
 
+    shop_item = serializers.PrimaryKeyRelatedField(
+        label=_("Товар в магазине"),
+        help_text=_("Товар в магазине"),
+        queryset=ShopItem.objects.select_related("category"),
+        required=False,
+    )
+
     class Meta:
         model = UserPurchase
         fields = (
@@ -99,6 +108,18 @@ class UserPurchaseCreateSerializer(serializers.ModelSerializer):
             "number",
             "shop_item",
         )
+
+    def validate(self, attrs: dict[str, Any]):
+        """
+        Проверить количество.
+        """
+        shop_item = self.attrs["shop_item"]
+        number = self.attrs["number"]
+        if purchase_restriction := shop_item.category.purchase_restriction:
+            if number > purchase_restriction.number:
+                raise serializers.ValidationError(_(f"Вы не можете купить только {purchase_restriction} товаров"))
+
+        return attrs
 
 
 class UserPurchaseUpdateSerializer(serializers.ModelSerializer):

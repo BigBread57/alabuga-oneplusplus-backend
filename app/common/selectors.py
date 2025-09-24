@@ -1,4 +1,4 @@
-from typing import Optional, TypeVar
+from typing import TypeVar
 
 from django.db.models import QuerySet
 from django_filters import FilterSet
@@ -12,7 +12,7 @@ class BaseSelector:
     """
 
     queryset: QuerySet[T]
-    filter_class: Optional[type[FilterSet]] = None
+    filter_class: type[FilterSet] | None = None
 
     def get_queryset(self, **kwargs) -> QuerySet[T]:
         """
@@ -27,7 +27,7 @@ class BaseSelector:
         """
         return self.filter_class
 
-    def get_filtered(self, queryset: QuerySet[T], filters: Optional[dict] = None) -> QuerySet[T]:
+    def get_filtered(self, queryset: QuerySet[T], filters: dict | None = None) -> QuerySet[T]:
         """
         Получить отфильтрованный queryset.
         """

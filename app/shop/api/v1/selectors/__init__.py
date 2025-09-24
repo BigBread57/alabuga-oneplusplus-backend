@@ -1,15 +1,16 @@
-from app.shop.api.v1.selectors.shop_item_category import (
-    ShopItemCategoryListSelector,
-    ShopItemCategoryListFilterSerializer,
-)
-from app.shop.api.v1.selectors.shop_item import (
-    ShopItemListSelector,
-    ShopItemListFilterSerializer,
+from shop.api.v1.selectors.shop_item import (
     ShopItemDetailSelector,
+    ShopItemListFilterSerializer,
+    ShopItemListSelector,
 )
-from app.shop.api.v1.selectors.user_purchase import (
+from shop.api.v1.selectors.shop_item_category import (
+    ShopItemCategoryListFilterSerializer,
+    ShopItemCategoryListSelector,
+)
+from shop.api.v1.selectors.user_purchase import (
+    UserPurchaseDetailSelector,
+    UserPurchaseListFilterSerializer,
     UserPurchaseListSelector,
-    UserPurchaseListFilterSerializer, UserPurchaseDetailSelector,
 )
 
 __all__ = (

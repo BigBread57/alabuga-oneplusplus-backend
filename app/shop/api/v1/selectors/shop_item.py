@@ -1,9 +1,10 @@
 import django_filters
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from app.common.selectors import BaseSelector
-from app.shop.models import ShopItem, ShopItemCategory
+from common.selectors import BaseSelector
+from shop.models import ShopItem, ShopItemCategory
 
 
 class ShopItemListFilterSerializer(serializers.Serializer):
@@ -12,13 +13,13 @@ class ShopItemListFilterSerializer(serializers.Serializer):
     """
 
     name = serializers.CharField(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
+        label=_("Название"),
+        help_text=_("Название"),
         required=False,
     )
     category = serializers.PrimaryKeyRelatedField(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
+        label=_("Категория"),
+        help_text=_("Категория"),
         queryset=ShopItemCategory.objects.all(),
         required=False,
     )
@@ -30,8 +31,8 @@ class ShopItemListFilter(django_filters.FilterSet):
     """
 
     category = django_filters.ModelMultipleChoiceFilter(
-        label=_("Название категории"),
-        help_text=_("Название категории"),
+        label=_("Название"),
+        help_text=_("Название"),
         queryset=ShopItemCategory.objects.all(),
     )
 
@@ -48,11 +49,17 @@ class ShopItemListSelector(BaseSelector):
     Товар в магазине. Список. Селектор.
     """
 
-    queryset = ShopItem.objects.select_related(
-        "category",
-    ).filter(
-        is_active=True,
-        parent__isnull=True,
+    queryset = (
+        ShopItem.objects.select_related(
+            "category",
+        )
+        .filter(
+            is_active=True,
+            parent__isnull=True,
+        )
+        .annotate(
+            purchase_restriction=models.F("category__purchase_restriction"),
+        )
     )
     filter_class = ShopItemListFilter
 
@@ -62,15 +69,22 @@ class ShopItemDetailSelector(BaseSelector):
     Товар в магазине. Детальная информация. Селектор.
     """
 
-    queryset = ShopItem.objects.select_related(
-        "category",
-        "parent",
-        "rank",
-        "competency",
-    ).prefetch_related(
-       "children",
-    ).filter(
-        is_active=True,
-        parent__isnull=True,
+    queryset = (
+        ShopItem.objects.select_related(
+            "category",
+            "parent",
+            "rank",
+            "competency",
+        )
+        .prefetch_related(
+            "children",
+        )
+        .filter(
+            is_active=True,
+            parent__isnull=True,
+        )
+        .annotate(
+            purchase_restriction=models.F("category__purchase_restriction"),
+        )
     )
     filter_class = ShopItemListFilter
