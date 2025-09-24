@@ -1,6 +1,6 @@
 from user.api.v1.views.character import CharacterActualForUserAPIView
 from user.api.v1.views.user import (
-    UserConfirmEmailAPIView,
+    UserConfirmRegisterAPIView,
     UserConfirmResetPasswordAPIView,
     UseResendEmailConfirmationAPIView,
     UserInfoAPIView,
@@ -20,6 +20,6 @@ __all__ = (
     "UserRegisterAPIView",
     "UserLogoutAPIView",
     "UserInfoAPIView",
-    "UserConfirmEmailAPIView",
+    "UserConfirmRegisterAPIView",
     "CharacterActualForUserAPIView",
 )

@@ -11,28 +11,93 @@ from rest_framework.exceptions import ValidationError
 from user.models import User
 
 
-class BaseUserSerializer(serializers.ModelSerializer):
-    """Сериалайзер пользователя. Используется в других сериалайзерах."""
+class UserRegisterSerializer(serializers.Serializer):
+    """
+    Регистрация пользователя.
+    """
 
-    avatar = serializers.ImageField(use_url=True)
+    first_name = serializers.CharField(
+        label=_("Имя"),
+        help_text=_("Имя"),
+        required=True,
+    )
+    last_name = serializers.CharField(
+        label=_("Отчество"),
+        help_text=_("Отчество"),
+        required=True,
+    )
+    middle_name = serializers.CharField(
+        label=_("Фамилия"),
+        help_text=_("Фамилия"),
+        required=True,
+    )
+    email = serializers.EmailField(
+        label=_("Email"),
+        help_text=_("Email"),
+        required=True,
+    )
+    phone = PhoneNumberField(
+        label=_("Телефон"),
+        help_text=_("Телефон"),
+        required=True,
+    )
+    password1 = serializers.CharField(
+        label=_("Пароль 1"),
+        help_text=_("Пароль 1"),
+        required=True,
+    )
+    password2 = serializers.CharField(
+        label=_("Пароль 2"),
+        help_text=_("Пароль 2"),
+        required=True,
+    )
 
-    class Meta:
-        model = User
-        fields = (
-            "id",
-            "avatar",
-            "email",
-            "username",
-            "first_name",
-            "last_name",
-            "middle_name",
-            "full_name",
-        )
+    def validate_email(self, email: str) -> str:
+        """Валидация email."""
+        if User.objects.filter(email=email).exists():
+            raise ValidationError(
+                {
+                    "email": [
+                        _(
+                            f"Пользователь с email {email} "
+                            + "уже существует, укажите другой email или "
+                            + "попробуйте восстановить пароль.",
+                        )
+                    ],
+                },
+            )
+        return email
+
+    def validate(self, attrs: dict[str, Any]):
+        """Валидация паролей."""
+        password1 = attrs["password1"]
+        password2 = attrs["password2"]
+
+        if not password1:
+            raise ValidationError(
+                {"password1": [_("Необходимо указать пароль")]},
+            )
+
+        if not password2:
+            raise ValidationError(
+                {"password2": [_("Необходимо указать пароль два раза")]},
+            )
+
+        if password1 != password2:
+            raise ValidationError(
+                {"password": [_("Оба пароля должны совпадать")]},
+            )
+
+        try:
+            validate_password(str(password1))
+        except DjangoValidationError as exc:
+            raise ValidationError(exc.messages) from exc
+        return attrs
 
 
 class UseResendEmailConfirmationSerializer(serializers.Serializer):
     """
-    Сериализатор отправки сообщения подтверждения регистрации.
+    Повторная отправка сообщения об активации аккаунта.
     """
 
     email = serializers.EmailField(
@@ -60,7 +125,9 @@ class UseResendEmailConfirmationSerializer(serializers.Serializer):
 
 
 class UserLoginSerializer(serializers.Serializer):
-    """Сериалайзер для авторизации пользователя."""
+    """
+    Авторизация пользователя.
+    """
 
     email = serializers.EmailField(
         label=_("Email"),
@@ -162,70 +229,6 @@ class UserUpdatePasswordSerializer(serializers.Serializer):
             validate_password(str(password1))
         except DjangoValidationError as exc:
             raise ValidationError(exc.messages) from exc
-
-
-class UserRegisterSerializer(serializers.Serializer):
-    """
-    Регистрация пользователя.
-    """
-
-    first_name = serializers.CharField(label=_("Имя"), help_text=_("Имя"), required=True)
-    last_name = serializers.CharField(label=_("Отчество"), help_text=_("Отчество"), required=True)
-    middle_name = serializers.CharField(label=_("Фамилия"), help_text=_("Фамилия"), required=True)
-    email = serializers.EmailField(label=_("Email"), help_text=_("Email"), required=True)
-    phone = PhoneNumberField(label=_("Телефон"), help_text=_("Телефон"), required=True)
-    password1 = serializers.CharField(
-        label=_("Пароль 1"),
-        help_text=_("Пароль 1"),
-        required=True,
-    )
-    password2 = serializers.CharField(
-        label=_("Пароль 2"),
-        help_text=_("Пароль 2"),
-        required=True,
-    )
-
-    def validate_email(self, email: str) -> None:
-        """Валидация email."""
-        if User.objects.filter(email=email).exists():
-            raise ValidationError(
-                {
-                    "email": [
-                        _(
-                            f"Пользователь с email {email} "
-                            + "уже существует, укажите другой email или "
-                            + "попробуйте восстановить пароль.",
-                        )
-                    ],
-                },
-            )
-        return email
-
-    def validate(self, attrs: dict[str, Any]):
-        """Валидация паролей."""
-        password1 = attrs["password1"]
-        password2 = attrs["password2"]
-
-        if not password1:
-            raise ValidationError(
-                {"password1": [_("Необходимо указать пароль")]},
-            )
-
-        if not password2:
-            raise ValidationError(
-                {"password2": [_("Необходимо указать пароль два раза")]},
-            )
-
-        if password1 != password2:
-            raise ValidationError(
-                {"password": [_("Оба пароля должны совпадать")]},
-            )
-
-        try:
-            validate_password(str(password1))
-        except DjangoValidationError as exc:
-            raise ValidationError(exc.messages) from exc
-        return attrs
 
 
 class UserInfoSerializer(serializers.ModelSerializer):

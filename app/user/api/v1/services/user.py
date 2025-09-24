@@ -13,13 +13,15 @@ from django.core.mail import send_mail
 from django.template.loader import get_template
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
-from requests import Request
 from rest_framework import status
 from rest_framework.exceptions import APIException, NotFound, ParseError, ValidationError
+from rest_framework.request import Request
 from rest_framework.reverse import reverse
 
 from common.services import BaseService
-from user.models import User
+from game_mechanics.models import Rank
+from game_world.models import GameWorld
+from user.models import User, Character
 
 
 class SendEmailError(APIException):
@@ -34,9 +36,9 @@ class UserService(BaseService):
     """
 
     @staticmethod
-    def get_user_by_token(uidb36_inner: str, key: str) -> User:
+    def get_user_by_token(pk_str: str, key: str) -> User:
         """Получение пользователя по ключу и id пользователя."""
-        pk = url_str_to_user_pk(uidb36_inner)
+        pk = url_str_to_user_pk(pk_str)
 
         try:
             reset_user = User.objects.get(pk=pk)
@@ -51,15 +53,46 @@ class UserService(BaseService):
             raise ValidationError(_("Токен сброса пароля не действителен"))
         return reset_user
 
-    def send_confirm_email(
+    @staticmethod
+    def check_extra_path(
+        extra_path: str,
+    ) -> tuple[str, ...]:
+        """Проверка корректности extra_path, при подтверждении почты."""
+        match = re.compile("(?P<email>.+)/(?P<key>.+)").match(extra_path)
+        if match:
+            return match.groups()
+
+        raise ParseError(
+            _(
+                "Не удалось извлечь email пользователя и ключ для " + "подтверждения email",
+            ),
+        )
+
+    @staticmethod
+    def get_user_by_email_and_check_token(email: str, key: str):
+        """Получаем пользователя по e-mail и проверяем токен."""
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist as exc:
+            raise NotFound(_("Пользователь не найден")) from exc
+
+        if not default_token_generator.check_token(user, key):
+            raise ValidationError(_("Токен подтверждения регистрации не действителен"))
+
+        return user
+
+    @staticmethod
+    def send_email_with_confirm(
         self,
         user: User,
         request: Request,
     ) -> None:
-        """Отправка письма со ссылкой для подтверждения регистрации."""
+        """
+        Отправка письма со ссылкой для подтверждения регистрации.
+        """
         temp_key = default_token_generator.make_token(user)
         path = reverse(
-            viewname="user:v1:users-confirm-email",
+            viewname="user:v1:users-confirm-register",
             kwargs={"extra_path": f"{user.email}/{temp_key}"},
         )
         url = build_absolute_uri(request, path)
@@ -71,7 +104,7 @@ class UserService(BaseService):
             "year": now().year,
             "company": "ALABUGA",
         }
-        name_template = "email/confirm_email.html"
+        name_template = "mail/confirm_email.html"
         template = get_template(name_template).render(context)
         try:
             send_mail(
@@ -92,7 +125,9 @@ class UserService(BaseService):
         user: User,
         request: Request,
     ) -> None:
-        """Отправка пользователю письма со сбросом пароля."""
+        """
+        Запрос сброса пароля.
+        """
         path = reverse(
             viewname="user:v1:users-request-reset-password",
             kwargs={
@@ -103,20 +138,21 @@ class UserService(BaseService):
         url_without_api = url.replace("api/user/users", "")
 
         context = {
-            "current_site": get_current_site(request),
             "user": user,
             "password_reset_url": url_without_api,
-            "request": request,
             "year": now().year,
+            "company": "ALABUGA",
         }
+        name_template = "mail/reset_password.html"
+        template = get_template(name_template).render(context)
 
-        method = account.app_settings.AUTHENTICATION_METHOD
-        if method != account.app_settings.AuthenticationMethod.EMAIL:
-            context["username"] = user_username(user)
-        account.adapter.get_adapter(request).send_mail(
-            "password_reset_key",
-            user.email,
-            context,
+        send_mail(
+            subject=_("Сброс пароля"),
+            message="",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email],
+            fail_silently=False,
+            html_message=template,
         )
 
     def login(
@@ -147,31 +183,28 @@ class UserService(BaseService):
         """
         match = re.compile("(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)").match(extra_path)
         if match:
-            uidb36, key = match.groups()
-            return self.get_user_by_token(uidb36, key)
+            pk_str, key = match.groups()
+            return self.get_user_by_token(pk_str, key)
 
         raise ValidationError(
             _("Не удалось извлечь id пользователя и ключ сброса пароля"),
         )
 
-    def set_new_password(self, extra_path: str, password: str) -> None:
+    def set_new_password(self, user: User, password: str) -> None:
         """Установка нового пароля для пользователя."""
-        user = self.get_user_reset_password_process(extra_path=extra_path)
         user.set_password(password)
-
-        # Активация аккаунта пользователя и создание профиля.
         if not user.is_active:
             user.is_active = True
 
-        user.save(update_fields=["password", "is_active"])
+        user.save()
         return None
 
-    def change_password(self, user: User, validated_data: dict[str, Any]) -> None:
+    def update_password(self, user: User, validated_data: dict[str, Any]) -> None:
         """
         Смена пароля.
         """
         user.set_password(validated_data.get("new_password1"))
-        user.save(update_fields=["password"])
+        user.save()
         return None
 
     def register_user(self, request: Request, validated_data: dict[str, Any]) -> User:
@@ -194,39 +227,33 @@ class UserService(BaseService):
         user.refresh_from_db()
 
         # Отправляем письмо активации пользователя
-        self.send_confirm_email(
+        self.resend_email_with_confirm(
             request=request,
             user=user,
         )
         return user
 
-    @staticmethod
-    def check_extra_path(
-        extra_path: str,
-    ) -> tuple[str, ...]:
-        """Проверка корректности extra_path, при подтверждении почты."""
-        match = re.compile("(?P<email>.+)/(?P<key>.+)").match(extra_path)
-        if match:
-            return match.groups()
-
-        raise ParseError(
-            _(
-                "Не удалось извлечь email пользователя и ключ для " + "подтверждения email",
-            ),
-        )
-
-    @staticmethod
-    def get_user_by_email_and_check_token(email: str, key: str):
-        """Получаем пользователя по e-mail и проверяем токен."""
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist as exc:
-            raise NotFound(_("Пользователь не найден")) from exc
-
+    def confirm_register(self, extra_path: str) -> dict[str, Any]:
+        """
+        Подтверждение регистрации пользователя.
+        """
+        email, key = self.check_extra_path(extra_path)
+        user = self.get_user_by_email_and_check_token(email=email, key=key)
         if not default_token_generator.check_token(user, key):
-            raise ValidationError(_("Токен подтверждения регистрации не действителен"))
-
-        return user
+            raise ParseError(
+                _("Некорректный ключ подтверждения активации"),
+            )
+        if user.is_active:
+            return {"detail": _("Ваша почта уже подтверждена")}
+        user.is_active = True
+        user.save()
+        game_world = GameWorld.objects.first()
+        rank = Rank.objects.filter(game_world=game_world, parent__isnull=True)
+        Character.objects.create(
+            user=user,
+            rank=rank,
+        )
+        return {"detail": _("Подтверждение почты прошло успешно")}
 
 
 user_service = UserService()

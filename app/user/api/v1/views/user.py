@@ -1,17 +1,13 @@
-from allauth.account.forms import default_token_generator
 from django.contrib.auth import logout
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
-from rest_framework.exceptions import ParseError
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
 from common.serializers import ResponseDetailSerializer
-from game_mechanics.models import Rank
-from game_world.models import GameWorld
 from user.api.v1.serializers import (
     UserConfirmResetPasswordSerializer,
     UseResendEmailConfirmationSerializer,
@@ -22,7 +18,63 @@ from user.api.v1.serializers import (
     UserUpdatePasswordSerializer,
 )
 from user.api.v1.services import user_service
-from user.models import Character
+
+
+class UserRegisterAPIView(GenericAPIView):
+    """
+    Регистрация пользователя.
+    """
+
+    serializer_class = UserRegisterSerializer
+    permission_classes = (AllowAny,)
+
+    @extend_schema(
+        request=UserRegisterSerializer,
+        responses={
+            status.HTTP_200_OK: UserInfoSerializer,
+        },
+        tags=["user:auth"],
+    )
+    def post(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Регистрация пользователя.
+        """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = user_service.register_user(request=request, validated_data=serializer.validated_data)
+
+        return Response(
+            data=UserInfoSerializer(
+                instance=user,
+                context=self.get_serializer_context(),
+            ).data,
+            status=status.HTTP_200_OK,
+        )
+
+
+class UserConfirmRegisterAPIView(GenericAPIView):
+    """
+    Подтверждение регистрации пользователя.
+    """
+
+    permission_classes = (AllowAny,)
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: UserInfoSerializer,
+        },
+        tags=["user:auth"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Подтверждение регистрации пользователя.
+        """
+        detail = user_service.confirm_register(extra_path=kwargs["extra_path"])
+
+        return Response(
+            data=ResponseDetailSerializer(detail=detail).data,
+            status=status.HTTP_200_OK,
+        )
 
 
 class UseResendEmailConfirmationAPIView(GenericAPIView):
@@ -47,17 +99,14 @@ class UseResendEmailConfirmationAPIView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        # Отправляем письмо активации пользователя
-        user_service.send_confirm_email(
+        user_service.send_email_with_confirm(
             user=serializer.user,
             request=request,
         )
         return Response(
             data=ResponseDetailSerializer(
-                {
-                    "detail": _(
-                        "На указанный адрес электронной почты " + "отправлено письмо с подтверждением " + "регистрации",
-                    ),
+                detail={
+                    "detail": _("На указанный адрес электронной почты отправлено письмо с подтверждением регистрации"),
                 },
             ).data,
             status=status.HTTP_200_OK,
@@ -125,9 +174,10 @@ class UserRequestResetPasswordAPIView(GenericAPIView):
             user=serializer.user,
             request=request,
         )
+
         return Response(
             data=ResponseDetailSerializer(
-                {
+                detail={
                     "detail": _(
                         "На указанный адрес электронной почты отправлено "
                         + "письмо с инструкцией по восстановлению пароля",
@@ -153,11 +203,11 @@ class UserConfirmResetPasswordAPIView(GenericAPIView):
         },
         tags=["user:auth"],
     )
-    def get(self, request: Request, extra_path: str) -> Response:
+    def get(self, request: Request, *args, **kwargs) -> Response:
         """
         Проверить возможность сброса пароля пользователя.
         """
-        user = user_service.get_user_reset_password_process(extra_path)
+        user = user_service.get_user_reset_password_process(kwargs.get("extra_path"))
         return Response(
             data=UserInfoSerializer(
                 instance=user,
@@ -177,16 +227,16 @@ class UserConfirmResetPasswordAPIView(GenericAPIView):
         """
         Сброс пароля пользователя.
         """
-
+        user = user_service.get_user_reset_password_process(kwargs.get("extra_path"))
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user_service.set_new_password(
-            extra_path=kwargs.get("extra_path"),
+            user=user,
             password=serializer.validated_data["password1"],
         )
 
         return Response(
-            data=ResponseDetailSerializer({"detail": _("Новый пароль успешно установлен")}).data,
+            data=ResponseDetailSerializer(detail={"detail": _("Новый пароль успешно установлен")}).data,
             status=status.HTTP_200_OK,
         )
 
@@ -215,45 +265,13 @@ class UserUpdatePasswordAPIView(GenericAPIView):
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        user_service.change_password(
+        user_service.update_password(
             user=request.user,
             validated_data=serializer.validated_data,
         )
 
         return Response(
             data={"detail": _("Пароль успешно изменен")},
-            status=status.HTTP_200_OK,
-        )
-
-
-class UserRegisterAPIView(GenericAPIView):
-    """
-    Регистрация пользователя.
-    """
-
-    serializer_class = UserRegisterSerializer
-    permission_classes = (AllowAny,)
-
-    @extend_schema(
-        request=UserRegisterSerializer,
-        responses={
-            status.HTTP_200_OK: UserInfoSerializer,
-        },
-        tags=["user:auth"],
-    )
-    def post(self, request: Request, *args, **kwargs) -> Response:
-        """
-        Регистрация пользователя.
-        """
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = user_service.register_user(request=request, validated_data=serializer.validated_data)
-
-        return Response(
-            data=UserInfoSerializer(
-                instance=user,
-                context=self.get_serializer_context(),
-            ).data,
             status=status.HTTP_200_OK,
         )
 
@@ -278,7 +296,7 @@ class UserLogoutAPIView(GenericAPIView):
         logout(request=request)
 
         return Response(
-            data=ResponseDetailSerializer({"detail": _("Пользователь успешно вышел из системы")}).data,
+            data=ResponseDetailSerializer(detail={"detail": _("Пользователь успешно вышел из системы")}).data,
             status=status.HTTP_200_OK,
         )
 
@@ -303,48 +321,5 @@ class UserInfoAPIView(GenericAPIView):
         serializer = self.get_serializer(request.user)
         return Response(
             data=serializer.data,
-            status=status.HTTP_200_OK,
-        )
-
-
-class UserConfirmEmailAPIView(GenericAPIView):
-    """
-    Подтверждение регистрации.
-    """
-
-    permission_classes = (AllowAny,)
-
-    @extend_schema(
-        responses={
-            status.HTTP_200_OK: UserInfoSerializer,
-        },
-        tags=["user:auth"],
-    )
-    def get(self, request: Request, *args, **kwargs) -> Response:
-        email, key = user_service.check_extra_path(extra_path=kwargs["extra_path"])
-        user = user_service.get_user_by_email_and_check_token(email=email, key=key)
-
-        if not default_token_generator.check_token(user, key):
-            raise ParseError(
-                _("Некорректный ключ подтверждения активации"),
-            )
-
-        if user.is_active:
-            return Response(
-                data=ResponseDetailSerializer({"detail": _("Ваша почта уже подтверждена")}).data,
-                status=status.HTTP_200_OK,
-            )
-
-        user.is_active = True
-        user.save()
-        game_world = GameWorld.objects.first()
-        rank = Rank.objects.filter(game_world=game_world, parent__isnull=True)
-        Character.objects.create(
-            user=user,
-            rank=rank,
-        )
-
-        return Response(
-            data=ResponseDetailSerializer({"detail": _("Подтверждение почты прошло успешно")}).data,
             status=status.HTTP_200_OK,
         )

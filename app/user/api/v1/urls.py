@@ -2,7 +2,7 @@ from django.urls import path
 
 from user.api.v1.views import (
     CharacterActualForUserAPIView,
-    UserConfirmEmailAPIView,
+    UserConfirmRegisterAPIView,
     UserConfirmResetPasswordAPIView,
     UseResendEmailConfirmationAPIView,
     UserInfoAPIView,
@@ -58,9 +58,9 @@ user_urls = [
         name="users-info",
     ),
     path(
-        route="users/confirm-email/<path:extra_path>",
-        view=UserConfirmEmailAPIView.as_view(),
-        name="users-confirm-email",
+        route="users/confirm-register/<path:extra_path>",
+        view=UserConfirmRegisterAPIView.as_view(),
+        name="users-confirm-register",
     ),
 ]
 
