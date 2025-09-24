@@ -11,6 +11,7 @@ from .models import (
     MissionBranch,
     MissionCompetency,
     MissionLevel,
+    GameWorldStory,
 )
 
 
@@ -197,4 +198,14 @@ class MissionLevelAdmin(admin.ModelAdmin):
 
     list_display = ("id", "name", "color", "multiplier_experience", "multiplier_currency")
     search_fields = ("name",)
+    ordering = ("-id",)
+
+
+@admin.register(GameWorldStory)
+class GameWorldStoryAdmin(admin.ModelAdmin):
+    """
+    История игрового мира.
+    """
+
+    list_display = ("id", "text", "game_world", "content_type", "object_id")
     ordering = ("-id",)

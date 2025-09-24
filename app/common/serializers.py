@@ -10,3 +10,15 @@ class ResponseDetailSerializer(serializers.Serializer):
         help_text=_("Подробная информация о результате действия"),
         required=True,
     )
+
+class CurrentCharacterDefault:
+    """
+    Возвращает персонажа текущего пользователя по умолчанию.
+    """
+    requires_context = True
+
+    def __call__(self, serializer_field):
+        user = serializer_field.context['request'].user
+        if hasattr(user, 'character'):
+            return user.character
+        return None

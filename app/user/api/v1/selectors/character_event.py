@@ -5,6 +5,7 @@ from rest_framework.fields import CurrentUserDefault
 
 from common.constants import UserRoles
 from common.selectors import BaseSelector
+from common.serializers import CurrentCharacterDefault
 from user.models import CharacterEvent, User
 
 
@@ -22,7 +23,7 @@ class CharacterEventListFilterSerializer(serializers.Serializer):
     character = serializers.HiddenField(
         label=_("Покупатель"),
         help_text=_("Покупатель"),
-        default=CurrentUserDefault().character,
+        default=CurrentCharacterDefault(),
     )
 
 
@@ -34,7 +35,7 @@ class CharacterEventDetailOrUpdateFilterSerializer(serializers.Serializer):
     character = serializers.HiddenField(
         label=_("Покупатель"),
         help_text=_("Покупатель"),
-        default=CurrentUserDefault().character,
+        default=CurrentCharacterDefault(),
     )
 
 

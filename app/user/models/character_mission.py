@@ -24,7 +24,7 @@ class CharacterMission(AbstractBaseModel):
         verbose_name=_("Статус"),
         max_length=20,
         choices=Statuses.choices,
-        default=Statuses.AVAILABLE,
+        default=Statuses.IN_PROGRESS,
     )
     start_datetime = models.DateTimeField(
         verbose_name=_("Начата"),

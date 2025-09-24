@@ -23,7 +23,7 @@ class GameWorldStory(AbstractBaseModel):
         to="game_world.GameWorld",
         on_delete=models.CASCADE,
         verbose_name=_("Игровой мир"),
-        related_name="competencies",
+        related_name="game_world_stories",
     )
     content_type = models.ForeignKey(
         to="contenttypes.ContentType",

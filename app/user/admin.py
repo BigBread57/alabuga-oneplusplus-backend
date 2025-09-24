@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from user.models import Character, CharacterArtifact, CharacterCompetency, CharacterEvent, CharacterMission
+from user.models.character_rank import CharacterRank
 from user.models.user import User
 
 
@@ -113,6 +114,15 @@ class CharacterMissionInline(admin.TabularInline):
     extra = 1
 
 
+class CharacterRankInline(admin.TabularInline):
+    """
+    Прогресс персонажа по рангам.
+    """
+
+    model = CharacterRank
+    extra = 1
+
+
 @admin.register(Character)
 class CharacterAdmin(admin.ModelAdmin):
     """
@@ -121,26 +131,21 @@ class CharacterAdmin(admin.ModelAdmin):
 
     list_display = (
         "id",
-        "experience",
         "currency",
         "is_active",
         "user",
         "game_world",
-        "rank",
     )
     list_filter = (
-        "rank",
         "is_active",
     )
     autocomplete_fields = (
         "user",
         "game_world",
-        "rank",
     )
     list_select_related = (
         "user",
         "game_world",
-        "rank",
     )
     ordering = ("-id",)
     inlines = (
@@ -148,6 +153,7 @@ class CharacterAdmin(admin.ModelAdmin):
         CharacterCompetencyInline,
         CharacterEventInline,
         CharacterMissionInline,
+        CharacterRankInline,
     )
 
 
