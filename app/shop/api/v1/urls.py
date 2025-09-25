@@ -50,7 +50,7 @@ shop_item_urls = [
         name="items-list",
     ),
     path(
-        route="items/list/-for-buy",
+        route="items/list-for-buy",
         view=ShopItemListForBuyAPIView.as_view(),
         name="items-list-for-buy",
     ),
