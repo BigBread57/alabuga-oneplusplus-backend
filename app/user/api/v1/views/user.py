@@ -69,7 +69,10 @@ class UserConfirmRegisterAPIView(GenericAPIView):
         """
         Подтверждение регистрации пользователя.
         """
-        detail = user_service.confirm_register(extra_path=kwargs["extra_path"])
+        detail = user_service.confirm_register(
+            email=kwargs["email"],
+            token=kwargs["token"],
+        )
 
         return Response(
             data=ResponseDetailSerializer(detail).data,

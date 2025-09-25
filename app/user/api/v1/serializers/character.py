@@ -3,7 +3,6 @@ from typing import Any
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from game_mechanics.api.v1.serializers.nested import RankNestedSerializer
 from game_world.api.v1.serializers.nested import GameWorldNestedSerializer
 from user.api.v1.serializers.nested import (
     CharacterArtifactNestedSerializer,
@@ -31,25 +30,25 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         label=_("Ранг"),
         help_text=_("Ранг"),
     )
-    character_artifacts = CharacterArtifactNestedSerializer(
-        label=_("Артефакты пользователя"),
-        help_text=_("Артефакты пользователя"),
-        many=True,
-    )
-    character_competencies = serializers.SerializerMethodField(
-        label=_("Компетенции пользователя"),
-        help_text=_("Компетенции пользователя"),
-    )
-    character_missions = CharacterMissionNestedSerializer(
-        label=_("Миссии пользователя"),
-        help_text=_("Миссии пользователя"),
-        many=True,
-    )
-    character_events = CharacterEventNestedSerializer(
-        label=_("События пользователя"),
-        help_text=_("События пользователя"),
-        many=True,
-    )
+    # character_artifacts = CharacterArtifactNestedSerializer(
+    #     label=_("Артефакты пользователя"),
+    #     help_text=_("Артефакты пользователя"),
+    #     many=True,
+    # )
+    # character_competencies = serializers.SerializerMethodField(
+    #     label=_("Компетенции пользователя"),
+    #     help_text=_("Компетенции пользователя"),
+    # )
+    # character_missions = CharacterMissionNestedSerializer(
+    #     label=_("Миссии пользователя"),
+    #     help_text=_("Миссии пользователя"),
+    #     many=True,
+    # )
+    # character_events = CharacterEventNestedSerializer(
+    #     label=_("События пользователя"),
+    #     help_text=_("События пользователя"),
+    #     many=True,
+    # )
 
     class Meta:
         model = Character
@@ -61,10 +60,6 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
             "user",
             "game_world",
             "rank",
-            "character_artifacts",
-            "character_competencies",
-            "character_missions",
-            "character_events",
         )
 
     def get_rank(self, character: Character) -> dict[str, Any] | None:
@@ -74,14 +69,4 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         return CharacterRankNestedSerializer(
             instance=character.character_ranks.select_related("rank").filter(is_received=False).first(),
             context=self.context,
-        ).data
-
-    def get_character_competencies(self, character: Character) -> dict[str, Any]:
-        """
-        Ранг пользователя.
-        """
-        return CharacterCompetencyNestedSerializer(
-            instance=character.character_competencies.select_related("competency").filter(is_received=False),
-            context=self.context,
-            many=True,
         ).data

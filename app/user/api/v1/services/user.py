@@ -56,25 +56,11 @@ class UserService(BaseService):
             raise ValidationError(_("Токен сброса пароля не действителен"))
         return reset_user
 
-    @staticmethod
-    def check_extra_path(
-        extra_path: str,
-    ) -> tuple[str, ...]:
-        """Проверка корректности extra_path, при подтверждении почты."""
-        match = re.compile("(?P<email>.+)/(?P<key>.+)").match(extra_path)
-        if match:
-            return match.groups()
-
-        raise ParseError(
-            _(
-                "Не удалось извлечь email пользователя и ключ для " + "подтверждения email",
-            ),
-        )
 
     @staticmethod
     def get_user_by_email_and_check_token(
         email: str,
-        key: str,
+        token: str,
     ):
         """Получаем пользователя по e-mail и проверяем токен."""
         try:
@@ -82,7 +68,7 @@ class UserService(BaseService):
         except User.DoesNotExist as exc:
             raise NotFound(_("Пользователь не найден")) from exc
 
-        if not default_token_generator.check_token(user, key):
+        if not default_token_generator.check_token(user, token):
             raise ValidationError(_("Токен подтверждения регистрации не действителен"))
 
         return user
@@ -97,7 +83,7 @@ class UserService(BaseService):
         temp_key = default_token_generator.make_token(user)
         context = {
             "user": user,
-            "activate_url": f"{settings.DOMAIN_NAME}/confirm-register/{user.email}/{temp_key}",
+            "activate_url": f"{settings.DOMAIN_NAME}/confirm-register/&email={user.email}&token={temp_key}",
             "year": now().year,
             "company": "ALABUGA",
         }
@@ -237,14 +223,14 @@ class UserService(BaseService):
 
     def confirm_register(
         self,
-        extra_path: str,
+        email: str,
+        token: str,
     ) -> dict[str, Any]:
         """
         Подтверждение регистрации пользователя.
         """
-        email, key = self.check_extra_path(extra_path)
-        user = self.get_user_by_email_and_check_token(email=email, key=key)
-        if not default_token_generator.check_token(user, key):
+        user = self.get_user_by_email_and_check_token(email=email, token=token)
+        if not default_token_generator.check_token(user, token):
             raise ParseError(
                 _("Некорректный ключ подтверждения активации"),
             )

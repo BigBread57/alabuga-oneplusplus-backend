@@ -114,16 +114,20 @@ class CharacterEventNestedSerializer(serializers.ModelSerializer):
         label=_("Событие"),
         help_text=_("Событие"),
     )
+    status_display_name = serializers.SerializerMethodField(
+        label=_("Название статуса"),
+        help_text=_("Название статуса"),
+    )
+
 
     class Meta:
         model = CharacterEvent
         fields = (
             "id",
             "status",
+            "status_display_name",
             "start_datetime",
             "end_datetime",
-            "result",
             "event",
             "inspector",
-            "inspector_comment",
         )

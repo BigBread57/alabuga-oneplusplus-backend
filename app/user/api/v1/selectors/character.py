@@ -39,11 +39,5 @@ class CharacterActualForUserSelector(BaseSelector):
         "game_world",
     ).prefetch_related(
         "character_ranks",
-        "character_artifacts__artifact__game_world_stories",
-        "character_competencies__competency__game_world_stories",
-        "character_missions__mission__branch__category",
-        "character_missions__mission__game_world_stories",
-        "character_events__event__category",
-        "character_events__event__game_world_stories",
     )
     filter_class = CharacterActualForUserFilter

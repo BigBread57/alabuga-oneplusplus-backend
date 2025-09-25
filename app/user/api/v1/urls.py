@@ -52,7 +52,7 @@ user_urls = [
         name="users-register",
     ),
     path(
-        route="users/confirm-register/<path:extra_path>",
+        route="users/confirm-register/",
         view=UserConfirmRegisterAPIView.as_view(),
         name="users-confirm-register",
     ),
