@@ -26,7 +26,7 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         label=_("Игровой мир"),
         help_text=_("Игровой мир"),
     )
-    rank = serializers.SerializerMethodField(
+    character_rank = serializers.SerializerMethodField(
         label=_("Ранг"),
         help_text=_("Ранг"),
     )
@@ -59,10 +59,10 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
             "is_active",
             "user",
             "game_world",
-            "rank",
+            "character_rank",
         )
 
-    def get_rank(self, character: Character) -> dict[str, Any] | None:
+    def get_character_rank(self, character: Character) -> dict[str, Any] | None:
         """
         Ранг пользователя.
         """

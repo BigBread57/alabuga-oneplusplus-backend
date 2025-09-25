@@ -23,6 +23,7 @@ class RankNestedSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "description",
+            "required_experience",
             "icon",
             "color",
             "game_world_stories",
