@@ -39,7 +39,7 @@ class CharacterMissionListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: CharacterMissionListSerializer(many=True),
         },
-        tags=["user:character_Mission"],
+        tags=["user:character_mission"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -64,7 +64,7 @@ class CharacterMissionDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: CharacterMissionDetailSerializer,
         },
-        tags=["user:character_Mission"],
+        tags=["user:character_mission"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """

@@ -1,7 +1,7 @@
 from user.api.v1.selectors.character import CharacterActualForUserSelector
 from user.api.v1.selectors.character_artifact import \
     CharacterArtifactListSelector, CharacterArtifactDetailSelector, CharacterArtifactListOrDetailFilterSerializer
-from user.api.v1.selectors.character_competency import CharacterCompetencyOrDetailFilterSerializer, \
+from user.api.v1.selectors.character_competency import CharacterCompetencyListOrDetailFilterSerializer, \
     CharacterCompetencyListSelector, CharacterCompetencyDetailSelector
 from user.api.v1.selectors.character_event import (
     CharacterEventDetailOrUpdateFilterSerializer,
@@ -36,7 +36,7 @@ __all__ = (
     "CharacterMissionListFilterSerializer",
     "CharacterMissionListSelector",
     # CharacterCompetency
-    "CharacterCompetencyOrDetailFilterSerializer",
+    "CharacterCompetencyListOrDetailFilterSerializer",
     "CharacterCompetencyListSelector",
     "CharacterCompetencyDetailSelector",
     # CharacterArtifact

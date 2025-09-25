@@ -6,7 +6,7 @@ from common.selectors import BaseSelector, CurrentCharacterDefault
 from user.models import CharacterCompetency
 
 
-class CharacterCompetencyOrDetailFilterSerializer(serializers.Serializer):
+class CharacterCompetencyListOrDetailFilterSerializer(serializers.Serializer):
     """
     Уровень компетенции персонажа. Список. Сериализатор для фильтра.
     """

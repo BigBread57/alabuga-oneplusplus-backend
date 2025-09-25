@@ -1,28 +1,13 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserInspectorForObjectPermission
 from common.views import QuerySelectorMixin
-from game_mechanics.api.v1.serializers import CompetencyDetailSerializer
-from user.api.v1.selectors import (
-    CharacterCompetencyDetailOrUpdateFilterSerializer,
-    CharacterCompetencyDetailSelector,
-    CharacterCompetencyListFilterSerializer,
-    CharacterCompetencyListSelector,
-    CharacterCompetencyUpdateFromCharacterSelector,
-    CharacterCompetencyUpdateFromInspectorSelector,
-)
-from user.api.v1.serializers import (
-    CharacterCompetencyDetailSerializer,
-    CharacterCompetencyListSerializer,
-    CharacterCompetencyUpdateFromCharacterSerializer,
-    CharacterCompetencyUpdateFromInspectorSerializer,
-)
-from user.api.v1.services import character_event_service
+from user.api.v1.selectors import CharacterCompetencyListSelector, CharacterCompetencyListOrDetailFilterSerializer, \
+    CharacterCompetencyDetailSelector
+from user.api.v1.serializers import CharacterCompetencyListSerializer, CharacterCompetencyDetailSerializer
 
 
 class CharacterCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
@@ -32,15 +17,15 @@ class CharacterCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
 
     selector = CharacterCompetencyListSelector
     serializer_class = CharacterCompetencyListSerializer
-    filter_params_serializer_class = CharacterCompetencyListFilterSerializer
+    filter_params_serializer_class = CharacterCompetencyListOrDetailFilterSerializer
     search_fields = ("name",)
 
     @extend_schema(
-        parameters=[CharacterCompetencyListFilterSerializer],
+        parameters=[CharacterCompetencyListOrDetailFilterSerializer],
         responses={
             status.HTTP_200_OK: CharacterCompetencyListSerializer(many=True),
         },
-        tags=["user:character_event"],
+        tags=["user:character_competency"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -60,20 +45,20 @@ class CharacterCompetencyDetailAPIView(QuerySelectorMixin, GenericAPIView):
 
     selector = CharacterCompetencyDetailSelector
     serializer_class = CharacterCompetencyDetailSerializer
-    filter_params_serializer_class = CharacterCompetencyDetailOrUpdateFilterSerializer
+    filter_params_serializer_class = CharacterCompetencyListOrDetailFilterSerializer
 
     @extend_schema(
         responses={
             status.HTTP_200_OK: CharacterCompetencyDetailSerializer,
         },
-        tags=["user:character_event"],
+        tags=["user:character_competency"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
         Детальная информация.
         """
-        character_event = self.get_object()
-        serializer = self.get_serializer(instance=character_event)
+        character_competency = self.get_object()
+        serializer = self.get_serializer(instance=character_competency)
 
         return Response(
             data=serializer.data,
