@@ -27,4 +27,4 @@ class RequiredRankCompetency(AbstractBaseModel):
         verbose_name_plural = _("Требования к компетенциям")
 
     def __str__(self):
-        return f"{self.rank} - {self.competency}: {self.required_experience}"
+        return f"{self.rank} - {self.competency}"

@@ -69,7 +69,7 @@ event_urls = [
     path(
         route="events/<int:pk>/detail/",
         view=EventDetailAPIView.as_view(),
-        name="events/<int:pk>/detail/",
+        name="events-detail/",
     ),
     path(
         route="events/create/",
@@ -97,7 +97,7 @@ game_world_urls = [
     path(
         route="game-worlds/<int:pk>/detail/",
         view=GameWorldDetailAPIView.as_view(),
-        name="game-worlds/<int:pk>/detail/",
+        name="game-worlds-detail/",
     ),
     path(
         route="game-worlds/create/",
@@ -135,7 +135,7 @@ mission_urls = [
     path(
         route="missions/<int:pk>/detail/",
         view=MissionDetailAPIView.as_view(),
-        name="missions/<int:pk>/detail/",
+        name="missions-detail/",
     ),
     path(
         route="missions/create/",
@@ -163,7 +163,7 @@ mission_branch_urls = [
     path(
         route="mission-branches/<int:pk>/detail/",
         view=MissionBranchDetailAPIView.as_view(),
-        name="mission-branches/<int:pk>/detail/",
+        name="mission-branches-detail/",
     ),
     path(
         route="mission-branches/create/",
@@ -190,7 +190,7 @@ activity_category_urls = [
     path(
         route="mission-categories/<int:pk>/detail/",
         view=ActivityCategoryDetailAPIView.as_view(),
-        name="mission-categories/<int:pk>/detail/",
+        name="mission-categories-detail/",
     ),
     path(
         route="mission-categories/create/",

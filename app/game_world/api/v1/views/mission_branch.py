@@ -1,15 +1,15 @@
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
-from mission_branch.api.v1.selectors import (
+from game_world.api.v1.selectors import (
     MissionBranchListFilterSerializer,
     MissionBranchListSelector,
 )
-from mission_branch.api.v1.serializers import (
+from game_world.api.v1.serializers import (
     MissionBranchCreateOrUpdateSerializer,
     MissionBranchDetailSerializer,
     MissionBranchListSerializer,
 )
-from mission_branch.models import MissionBranch
+from game_world.models import MissionBranch
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request

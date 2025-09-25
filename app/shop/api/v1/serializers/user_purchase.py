@@ -15,6 +15,7 @@ class UserPurchaseListSerializer(serializers.ModelSerializer):
     shop_item = ShopItemNestedSerializer(
         label=_("Товар"),
         help_text=_("Товар"),
+        many=True,
     )
 
     class Meta:
@@ -39,6 +40,7 @@ class UserPurchaseDetailSerializer(serializers.ModelSerializer):
     shop_item = ShopItemNestedSerializer(
         label=_("Товар"),
         help_text=_("Товар"),
+        many=True,
     )
     status_display_name = serializers.SerializerMethodField(
         label=_("Название статуса"),

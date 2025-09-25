@@ -25,7 +25,6 @@ class RequiredRankCompetencyListSerializer(serializers.ModelSerializer):
             "id",
             "rank",
             "competency",
-            "required_experience",
         )
 
 
@@ -49,7 +48,6 @@ class RequiredRankCompetencyDetailSerializer(serializers.ModelSerializer):
             "id",
             "rank",
             "competency",
-            "required_experience",
         )
 
 
@@ -63,5 +61,4 @@ class RequiredRankCompetencyCreateOrUpdateSerializer(serializers.ModelSerializer
         fields = (
             "rank",
             "competency",
-            "required_experience",
         )

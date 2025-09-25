@@ -19,7 +19,7 @@ class ArtifactListFilterSerializer(serializers.Serializer):
     modifier = serializers.ChoiceField(
         label=_("Модификатор"),
         help_text=_("Модификатор"),
-        source=Artifact.Modifiers.choices,
+        choices=Artifact.Modifiers.choices,
         required=False,
     )
 

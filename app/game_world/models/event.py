@@ -87,8 +87,8 @@ class Event(AbstractBaseModel):
     game_world_stories = GenericRelation(to="game_world.GameWorldStory")
 
     class Meta(AbstractBaseModel.Meta):
-        verbose_name = _("Миссия")
-        verbose_name_plural = _("Миссии")
+        verbose_name = _("Событие")
+        verbose_name_plural = _("События")
 
     def __str__(self):
         return self.name

@@ -29,6 +29,7 @@ djangorestframework-simplejwt = "^5.5"  # https://github.com/jazzband/djangorest
 drf-spectacular = "0.28.0"  # https://pypi.org/project/requests-cache/
 locust = "^2.40"
 drf-standardized-errors = "^0.15.0"
+pillow = "^11.3.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24"  # https://github.com/psf/black

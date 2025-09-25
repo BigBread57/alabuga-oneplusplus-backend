@@ -14,6 +14,7 @@ class ShopItemCategoryNestedSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
+            "icon",
             "color",
         )
 

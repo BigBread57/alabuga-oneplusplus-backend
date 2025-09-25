@@ -26,6 +26,7 @@ class ShopItemListSerializer(serializers.ModelSerializer):
     children = ShopItemNestedSerializer(
         label=_("Другой вид товара"),
         help_text=_("Другой вид товара"),
+        many=True,
     )
 
     class Meta:
@@ -70,6 +71,7 @@ class ShopItemListForBuySerializer(serializers.ModelSerializer):
     children = ShopItemNestedSerializer(
         label=_("Другой вид товара"),
         help_text=_("Другой вид товара"),
+        many=True,
     )
     shop_discount = serializers.IntegerField(
         label=_("Скидка"),

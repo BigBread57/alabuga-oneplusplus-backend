@@ -14,6 +14,10 @@ urlpatterns = [
     # API.
     path("api/", include("user.api.urls")),
     path("api/", include("shop.api.urls")),
+    path("api/", include("communication.api.urls")),
+    path("api/", include("game_world.api.urls")),
+    path("api/", include("game_mechanics.api.urls")),
+    path("api/", include("multimedia.api.urls")),
     # Docs.
     path(
         "api/schema/",
