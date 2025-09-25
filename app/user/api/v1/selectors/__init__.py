@@ -1,4 +1,8 @@
 from user.api.v1.selectors.character import CharacterActualForUserSelector
+from user.api.v1.selectors.character_artifact import \
+    CharacterArtifactListSelector, CharacterArtifactDetailSelector, CharacterArtifactListOrDetailFilterSerializer
+from user.api.v1.selectors.character_competency import CharacterCompetencyOrDetailFilterSerializer, \
+    CharacterCompetencyListSelector, CharacterCompetencyDetailSelector
 from user.api.v1.selectors.character_event import (
     CharacterEventDetailOrUpdateFilterSerializer,
     CharacterEventDetailSelector,
@@ -31,4 +35,12 @@ __all__ = (
     "CharacterMissionUpdateFromInspectorSelector",
     "CharacterMissionListFilterSerializer",
     "CharacterMissionListSelector",
+    # CharacterCompetency
+    "CharacterCompetencyOrDetailFilterSerializer",
+    "CharacterCompetencyListSelector",
+    "CharacterCompetencyDetailSelector",
+    # CharacterArtifact
+    "CharacterArtifactListOrDetailFilterSerializer",
+    "CharacterArtifactListSelector",
+    "CharacterArtifactDetailSelector",
 )

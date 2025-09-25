@@ -1,4 +1,5 @@
 import django_filters
+from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
@@ -99,8 +100,7 @@ class CharacterMissionListSelector(BaseSelector):
     """
     Миссия персонажа. Список. Селектор.
     """
-
-    queryset = CharacterMission.objects.select_related(
+    CharacterMission.objects.select_related(
         "character",
         "mission",
         "inspector",
@@ -113,7 +113,11 @@ class CharacterMissionDetailSelector(BaseSelector):
     Миссия персонажа. Детальная информация. Селектор.
     """
 
-    queryset = CharacterMission.objects.all()
+    queryset = CharacterMission.objects.select_related(
+        "character",
+        "mission",
+        "inspector",
+    )
     filter_class = CharacterMissionDetailOrUpdateFilter
 
 

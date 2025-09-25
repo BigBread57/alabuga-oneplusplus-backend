@@ -83,7 +83,7 @@ class UserService(BaseService):
         temp_key = default_token_generator.make_token(user)
         context = {
             "user": user,
-            "activate_url": f"{settings.DOMAIN_NAME}/confirm-register/&email={user.email}&token={temp_key}",
+            "activate_url": f"{settings.DOMAIN_NAME}/confirm-register/?email={user.email}&token={temp_key}",
             "year": now().year,
             "company": "ALABUGA",
         }

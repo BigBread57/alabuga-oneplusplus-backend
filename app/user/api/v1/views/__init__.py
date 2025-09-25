@@ -1,11 +1,11 @@
 from user.api.v1.views.character import CharacterActualForUserAPIView
 from user.api.v1.views.character_event import (
     CharacterEventUpdateFromCharacterAPIView,
-    CharacterEventUpdateFromInspectorAPIView,
+    CharacterEventUpdateFromInspectorAPIView, CharacterEventListAPIView, CharacterEventDetailAPIView,
 )
 from user.api.v1.views.character_mission import (
     CharacterMissionUpdateFromCharacterAPIView,
-    CharacterMissionUpdateFromInspectorAPIView,
+    CharacterMissionUpdateFromInspectorAPIView, CharacterMissionListAPIView, CharacterMissionDetailAPIView,
 )
 from user.api.v1.views.user import (
     UserConfirmRegisterAPIView,
@@ -33,9 +33,13 @@ __all__ = (
     # Character
     "CharacterActualForUserAPIView",
     # CharacterEvent
+    "CharacterEventListAPIView",
+    "CharacterEventDetailAPIView",
     "CharacterEventUpdateFromCharacterAPIView",
     "CharacterEventUpdateFromInspectorAPIView",
     # CharacterMission
+    "CharacterMissionListAPIView",
+    "CharacterMissionDetailAPIView",
     "CharacterMissionUpdateFromCharacterAPIView",
     "CharacterMissionUpdateFromInspectorAPIView",
 )

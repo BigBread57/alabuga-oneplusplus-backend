@@ -1,4 +1,8 @@
 from user.api.v1.serializers.character import CharacterActualForUserSerializer
+from user.api.v1.serializers.character_artifact import CharacterArtifactListSerializer, \
+    CharacterArtifactDetailSerializer
+from user.api.v1.serializers.character_competency import CharacterCompetencyListSerializer, \
+    CharacterCompetencyDetailSerializer
 from user.api.v1.serializers.character_event import (
     CharacterEventDetailSerializer,
     CharacterEventListSerializer,
@@ -43,4 +47,10 @@ __all__ = (
     # Character
     "CharacterActualForUserSerializer",
     "CharacterActualForUserSerializer",
+    # CharacterCompetency
+    "CharacterCompetencyListSerializer",
+    "CharacterCompetencyDetailSerializer",
+    # CharacterArtifact
+    "CharacterArtifactListSerializer",
+    "CharacterArtifactDetailSerializer",
 )

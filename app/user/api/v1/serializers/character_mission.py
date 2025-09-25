@@ -59,10 +59,10 @@ class CharacterMissionDetailSerializer(serializers.ModelSerializer):
             "status_display_name",
             "start_datetime",
             "end_datetime",
-            "inspector_comment",
             "character",
             "mission",
             "inspector",
+            "inspector_comment",
             "result",
         )
 

@@ -1,10 +1,11 @@
 import django_filters
+from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
 from common.constants import UserRoles
-from common.selectors import BaseSelector, CurrentCharacterDefault
+from common.selectors import BaseSelector, CurrentCharacterDefault, T
 from user.models import CharacterEvent, User
 
 
@@ -57,7 +58,10 @@ class CharacterEventListFilter(django_filters.FilterSet):
 
     class Meta:
         model = CharacterEvent
-        fields = ("status", "character")
+        fields = (
+            "status",
+            "character",
+        )
 
 
 class CharacterEventDetailOrUpdateFilter(django_filters.FilterSet):
@@ -113,7 +117,11 @@ class CharacterEventDetailSelector(BaseSelector):
     Событие персонажа. Детальная информация. Селектор.
     """
 
-    queryset = CharacterEvent.objects.all()
+    queryset = CharacterEvent.objects.select_related(
+        "character",
+        "event",
+        "inspector",
+    )
     filter_class = CharacterEventDetailOrUpdateFilter
 
 

@@ -1,9 +1,11 @@
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
 from common.constants import UserRoles
+from user.models import Character
 
 
 class DefaultUserManager(UserManager):
@@ -82,10 +84,14 @@ class User(AbstractUser):  # type: ignore
     def __str__(self):
         return self.email
 
-    @property
+    @cached_property
     def full_name(self):
         """Полное имя сотрудника если он прикреплен или пользователя."""
         name_elements = (self.last_name, self.first_name, self.middle_name)
         if not any(name_elements):
             return self.username
         return " ".join(filter(None, name_elements)).strip()
+
+    @cached_property
+    def active_character(self):
+        return Character.objects.filter(is_active=True, user=self)

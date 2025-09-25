@@ -14,7 +14,8 @@ from user.api.v1.views import (
     UserLogoutAPIView,
     UserRegisterAPIView,
     UserRequestResetPasswordAPIView,
-    UserUpdatePasswordAPIView,
+    UserUpdatePasswordAPIView, CharacterEventListAPIView, CharacterEventDetailAPIView, CharacterMissionListAPIView,
+    CharacterMissionDetailAPIView,
 )
 
 app_name = "v1"
@@ -78,6 +79,16 @@ character_urls = [
 
 character_event_urls = [
     path(
+        route="character-events/list/",
+        view=CharacterEventListAPIView.as_view(),
+        name="character-events-list",
+    ),
+    path(
+        route="character-events/<int:pk>/detail/",
+        view=CharacterEventDetailAPIView.as_view(),
+        name="character-events-detail",
+    ),
+    path(
         route="character-events/<int:pk>/update-for-character/",
         view=CharacterEventUpdateFromCharacterAPIView.as_view(),
         name="character-events-update-for-character",
@@ -90,6 +101,16 @@ character_event_urls = [
 ]
 
 character_mission_urls = [
+    path(
+        route="character-missions/list/",
+        view=CharacterMissionListAPIView.as_view(),
+        name="character-missions-list",
+    ),
+    path(
+        route="character-missions/<int:pk>/detail/",
+        view=CharacterMissionDetailAPIView.as_view(),
+        name="character-missions-detail",
+    ),
     path(
         route="character-missions/<int:pk>/update-for-character/",
         view=CharacterMissionUpdateFromCharacterAPIView.as_view(),

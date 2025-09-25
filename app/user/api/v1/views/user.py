@@ -70,8 +70,8 @@ class UserConfirmRegisterAPIView(GenericAPIView):
         Подтверждение регистрации пользователя.
         """
         detail = user_service.confirm_register(
-            email=kwargs["email"],
-            token=kwargs["token"],
+            email=request.query_params.get("email"),
+            token=request.query_params.get("token"),
         )
 
         return Response(

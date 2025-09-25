@@ -75,7 +75,7 @@ class ShopItemListForBuySelector(BaseSelector):
     filter_class = ShopItemListFilter
 
     def get_queryset(self, **kwargs) -> QuerySet[ShopItem]:
-        user = kwargs.get("request").user
+        active_character = kwargs["request"].user.active_character
         return (
             ShopItem.objects.select_related(
                 "category",
@@ -86,13 +86,13 @@ class ShopItemListForBuySelector(BaseSelector):
             .filter(
                 is_active=True,
                 parent__isnull=True,
-                rank__character_ranks__character__user=user,
-                competency__character_competencies__character__user=user,
+                rank__character_ranks__character=active_character,
+                competency__character_competencies__character=active_character,
             )
             .annotate(
                 shop_discount=models.Subquery(
                     CharacterArtifact.objects.filter(
-                        character__user=user,
+                        character=active_character,
                         artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
                     )
                     .values(
@@ -111,7 +111,7 @@ class ShopItemDetailForBuySelector(BaseSelector):
     """
 
     def get_queryset(self, **kwargs) -> QuerySet[ShopItem]:
-        user = kwargs.get("request").user
+        active_character = kwargs["request"].active_character
         return (
             ShopItem.objects.select_related(
                 "category",
@@ -122,13 +122,13 @@ class ShopItemDetailForBuySelector(BaseSelector):
             .filter(
                 is_active=True,
                 parent__isnull=True,
-                rank__character_ranks__character__user=user,
-                competency__character_competencies__character__user=user,
+                rank__character_ranks__character=active_character,
+                competency__character_competencies__character=active_character,
             )
             .annotate(
                 shop_discount=models.Subquery(
                     CharacterArtifact.objects.filter(
-                        character__user=user,
+                        character=active_character,
                         artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
                     )
                     .values(

@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from alabuga.settings import BASE_DIR, config
 
 SECRET_KEY = config("DJANGO_SECRET_KEY")
+DOMAIN_NAME = config("DOMAIN_NAME")
 DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 SITE_ID = 1
 

@@ -59,10 +59,9 @@ class CharacterEventDetailSerializer(serializers.ModelSerializer):
             "status_display_name",
             "start_datetime",
             "end_datetime",
-            "inspector_comment",
-            "character",
             "event",
             "inspector",
+            "inspector_comment",
             "result",
         )
 
