@@ -1,7 +1,10 @@
+from typing import Any
+
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer, RankNestedSerializer
+from game_mechanics.models import Rank
 from game_world.api.v1.serializers.nested import ArtifactNestedSerializer, MissionNestedSerializer, \
     EventNestedSerializer
 from user.models import CharacterArtifact, CharacterCompetency, CharacterEvent, CharacterMission, User
@@ -77,6 +80,10 @@ class CharacterRankNestedSerializer(serializers.ModelSerializer):
         label=_("Ранг"),
         help_text=_("Ранг"),
     )
+    next_rank = serializers.SerializerMethodField(
+        label=_("Следующий ранг"),
+        help_text=_("Следующий ранг"),
+    )
 
     class Meta:
         model = CharacterRank
@@ -85,6 +92,15 @@ class CharacterRankNestedSerializer(serializers.ModelSerializer):
             "rank",
             "experience",
         )
+
+    def get_next_rank(self, character_rank: CharacterRank) -> dict[str, Any]:
+        """
+        Следующий ранг.
+        """
+        return CharacterRankNestedSerializer(
+            instance=Rank.objects.filter(parent=character_rank.rank),
+            context=self.context,
+        ).data
 
 class CharacterMissionNestedSerializer(serializers.ModelSerializer):
     """
