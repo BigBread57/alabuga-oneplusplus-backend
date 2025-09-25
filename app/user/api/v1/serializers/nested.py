@@ -90,6 +90,7 @@ class CharacterRankNestedSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "rank",
+            "next_rank",
             "experience",
         )
 
