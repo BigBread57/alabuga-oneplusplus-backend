@@ -94,7 +94,7 @@ class CharacterMissionUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIV
         },
         tags=["user:character_mission"],
     )
-    def get(self, request: Request, *args, **kwargs) -> Response:
+    def put(self, request: Request, *args, **kwargs) -> Response:
         """
         Миссия персонажа. Изменение со стороны персонажа.
         """
@@ -132,7 +132,7 @@ class CharacterMissionUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIV
         },
         tags=["user:character_mission"],
     )
-    def get(self, request: Request, *args, **kwargs) -> Response:
+    def put(self, request: Request, *args, **kwargs) -> Response:
         """
         Миссия персонажа. Изменение со стороны проверяющего.
         """

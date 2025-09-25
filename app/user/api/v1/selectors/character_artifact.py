@@ -36,8 +36,7 @@ class CharacterArtifactListSelector(BaseSelector):
 
     queryset = CharacterArtifact.objects.select_related(
         "character",
-        "Artifact",
-        "inspector",
+        "artifact",
     )
     filter_class = CharacterArtifactListOrDetailFilter
 
@@ -49,7 +48,6 @@ class CharacterArtifactDetailSelector(BaseSelector):
 
     queryset = CharacterArtifact.objects.select_related(
         "character",
-        "Artifact",
-        "inspector",
+        "artifact",
     )
     filter_class = CharacterArtifactListOrDetailFilter

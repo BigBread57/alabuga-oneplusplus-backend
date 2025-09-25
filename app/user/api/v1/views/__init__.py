@@ -1,4 +1,6 @@
 from user.api.v1.views.character import CharacterActualForUserAPIView
+from user.api.v1.views.character_artifact import CharacterArtifactListAPIView, CharacterArtifactDetailAPIView
+from user.api.v1.views.character_competency import CharacterCompetencyListAPIView, CharacterCompetencyDetailAPIView
 from user.api.v1.views.character_event import (
     CharacterEventUpdateFromCharacterAPIView,
     CharacterEventUpdateFromInspectorAPIView, CharacterEventListAPIView, CharacterEventDetailAPIView,
@@ -42,4 +44,10 @@ __all__ = (
     "CharacterMissionDetailAPIView",
     "CharacterMissionUpdateFromCharacterAPIView",
     "CharacterMissionUpdateFromInspectorAPIView",
+    # CharacterCompetency
+    "CharacterCompetencyListAPIView",
+    "CharacterCompetencyDetailAPIView",
+    # CharacterArtifact
+    "CharacterArtifactListAPIView",
+    "CharacterArtifactDetailAPIView",
 )

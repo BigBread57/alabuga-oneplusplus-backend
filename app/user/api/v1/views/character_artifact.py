@@ -21,7 +21,6 @@ class CharacterArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
     search_fields = ("name",)
 
     @extend_schema(
-        parameters=[CharacterArtifactListOrDetailFilterSerializer],
         responses={
             status.HTTP_200_OK: CharacterArtifactListSerializer(many=True),
         },

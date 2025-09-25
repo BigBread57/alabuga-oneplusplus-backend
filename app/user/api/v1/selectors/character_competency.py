@@ -36,8 +36,7 @@ class CharacterCompetencyListSelector(BaseSelector):
 
     queryset = CharacterCompetency.objects.select_related(
         "character",
-        "Competency",
-        "inspector",
+        "competency",
     )
     filter_class = CharacterCompetencyOrDetailFilter
 
@@ -49,7 +48,6 @@ class CharacterCompetencyDetailSelector(BaseSelector):
 
     queryset = CharacterCompetency.objects.select_related(
         "character",
-        "Competency",
-        "inspector",
+        "competency",
     )
     filter_class = CharacterCompetencyOrDetailFilter

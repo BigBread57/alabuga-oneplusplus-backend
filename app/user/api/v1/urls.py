@@ -15,7 +15,8 @@ from user.api.v1.views import (
     UserRegisterAPIView,
     UserRequestResetPasswordAPIView,
     UserUpdatePasswordAPIView, CharacterEventListAPIView, CharacterEventDetailAPIView, CharacterMissionListAPIView,
-    CharacterMissionDetailAPIView,
+    CharacterMissionDetailAPIView, CharacterArtifactDetailAPIView, CharacterArtifactListAPIView,
+    CharacterCompetencyDetailAPIView, CharacterCompetencyListAPIView,
 )
 
 app_name = "v1"
@@ -77,6 +78,33 @@ character_urls = [
     ),
 ]
 
+character_competency_urls = [
+    path(
+        route="character-competencies/list/",
+        view=CharacterCompetencyListAPIView.as_view(),
+        name="character-competencies-list",
+    ),
+    path(
+        route="character-competencies/<int:pk>/detail/",
+        view=CharacterCompetencyDetailAPIView.as_view(),
+        name="character-competencies-detail",
+    ),
+]
+
+
+character_artifact_urls = [
+    path(
+        route="character-artifacts/list/",
+        view=CharacterArtifactListAPIView.as_view(),
+        name="character-artifacts-list",
+    ),
+    path(
+        route="character-artifacts/<int:pk>/detail/",
+        view=CharacterArtifactDetailAPIView.as_view(),
+        name="character-artifacts-detail",
+    ),
+]
+
 character_event_urls = [
     path(
         route="character-events/list/",
@@ -127,5 +155,7 @@ urlpatterns = [
     *user_urls,
     *character_urls,
     *character_event_urls,
+    *character_competency_urls,
+    *character_artifact_urls,
     *character_mission_urls,
 ]

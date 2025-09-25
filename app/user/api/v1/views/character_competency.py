@@ -21,7 +21,6 @@ class CharacterCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
     search_fields = ("name",)
 
     @extend_schema(
-        parameters=[CharacterCompetencyListOrDetailFilterSerializer],
         responses={
             status.HTTP_200_OK: CharacterCompetencyListSerializer(many=True),
         },

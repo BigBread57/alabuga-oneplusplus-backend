@@ -96,7 +96,7 @@ class CharacterEventUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIVie
         },
         tags=["user:character_event"],
     )
-    def get(self, request: Request, *args, **kwargs) -> Response:
+    def put(self, request: Request, *args, **kwargs) -> Response:
         """
         Событие персонажа. Изменение со стороны персонажа.
         """
@@ -134,7 +134,7 @@ class CharacterEventUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIVie
         },
         tags=["user:character_event"],
     )
-    def get(self, request: Request, *args, **kwargs) -> Response:
+    def put(self, request: Request, *args, **kwargs) -> Response:
         """
         Событие персонажа. Изменение со стороны проверяющего.
         """

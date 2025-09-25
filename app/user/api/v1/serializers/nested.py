@@ -13,6 +13,11 @@ class UserNestedSerializer(serializers.ModelSerializer):
     Пользователь. Вложенный сериалайзер.
     """
 
+    full_name = serializers.CharField(
+        label=_("Полное имя"),
+        help_text=_("Полное имя"),
+    )
+
     class Meta:
         model = User
         fields = (
