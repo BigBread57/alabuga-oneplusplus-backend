@@ -23,7 +23,7 @@ from game_world.api.v1.views.game_world import (
     GameWorldDeleteAPIView,
     GameWorldDetailAPIView,
     GameWorldListAPIView,
-    GameWorldUpdateAPIView,
+    GameWorldUpdateAPIView, GameWorldRatingAPIView, GameWorldStatisticsAPIView,
 )
 from game_world.api.v1.views.mission import (
     MissionCreateAPIView,
@@ -58,6 +58,8 @@ __all__ = (
     "GameWorldCreateAPIView",
     "GameWorldUpdateAPIView",
     "GameWorldDeleteAPIView",
+    "GameWorldRatingAPIView",
+    "GameWorldStatisticsAPIView",
     # Mission
     "MissionListAPIView",
     "MissionDetailAPIView",

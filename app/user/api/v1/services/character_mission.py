@@ -3,8 +3,10 @@ from typing import Any
 
 from django.db import models, transaction
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
 
 from common.services import BaseService
+from communication.models import ActivityLog
 from game_mechanics.models import Competency, Rank, RequiredRankCompetency
 from game_world.models import Mission, MissionArtifact, MissionCompetency
 from user.models import Character, CharacterArtifact, CharacterCompetency, CharacterMission
@@ -65,10 +67,24 @@ class CharacterMissionService(BaseService):
                 character_competency.is_received = True
                 character_competency.save()
                 if new_competence := Competency.objects.filter(parent=character_competency).first():
-                    CharacterCompetency.objects.create(
+                    new_character_competency = CharacterCompetency.objects.create(
                         character=character,
                         competency=new_competence,
                         experience=new_experience_for_character_competency - competency.required_experience,
+                    )
+                    ActivityLog.objects.create(
+                        character=character,
+                        text=_(
+                            f"У вас новая компетенция {new_competence}. Поздравляем!"
+                            "Улучшайте свои навыки для получения новых наград"
+                        ),
+                        content_object=new_character_competency,
+                    )
+                else:
+                    ActivityLog.objects.create(
+                        character=character,
+                        text=_(f"Вы получили максимальный уровень для {character_competency.competency}. Поздравляем!"),
+                        content_object=character_competency,
                     )
 
     @staticmethod
@@ -135,10 +151,18 @@ class CharacterMissionService(BaseService):
             new_rank = Rank.objects.filter(parent=character_rank).first()
 
             if new_rank and is_required_missions and is_required_rank_competency:
-                CharacterRank.objects.create(
+                new_character_rank = CharacterRank.objects.create(
                     character=character,
                     rank=new_rank,
                     experience=new_experience_for_character_rank - rank.required_experience,
+                )
+                ActivityLog.objects.create(
+                    character=character,
+                    text=_(
+                        f"У вас новый ранг {new_character_rank}. Поздравляем!"
+                        "Повышайте свой ранг для получения новых наград"
+                    ),
+                    content_object=new_character_rank,
                 )
                 now_datetime = now()
                 character_missions = [
@@ -153,6 +177,12 @@ class CharacterMissionService(BaseService):
                     )
                 ]
                 CharacterMission.objects.bulk_create(objs=character_missions)
+            else:
+                ActivityLog.objects.create(
+                    character=character,
+                    text=_(f"У вас максимальный ранг {character_rank.rank}. Поздравляем!"),
+                    content_object=character_rank.rank,
+                )
 
     def update_from_character(
         self,
@@ -227,6 +257,17 @@ class CharacterMissionService(BaseService):
                     )
                 character.currency = character.currency + character_mission.mission.currency
                 character.save()
+                ActivityLog.objects.create(
+                    character=character,
+                    text=_(f"Вы успешно завершили миссию {character_mission.mission}. Поздравляем!"),
+                    content_object=character_mission,
+                )
+            else:
+                ActivityLog.objects.create(
+                    character=character,
+                    text=_(f"По миссии {character_mission.mission} требуются доработки."),
+                    content_object=character_mission,
+                )
 
         transaction.on_commit(
             lambda: send_mail_about_character_mission_for_character.delay(

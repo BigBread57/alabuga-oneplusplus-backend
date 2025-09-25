@@ -67,8 +67,8 @@ class ActivityCategoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
         """
         Детальная информация.
         """
-        user_purchase = self.get_object()
-        serializer = self.get_serializer(instance=user_purchase)
+        activity_category = self.get_object()
+        serializer = self.get_serializer(instance=activity_category)
 
         return Response(
             data=serializer.data,

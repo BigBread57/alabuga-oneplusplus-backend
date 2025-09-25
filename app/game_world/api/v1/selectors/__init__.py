@@ -6,9 +6,8 @@ from game_world.api.v1.selectors.activity_category import (
 from game_world.api.v1.selectors.artifact import ArtifactListFilterSerializer, ArtifactListSelector
 from game_world.api.v1.selectors.event import EventDetailSelector, EventListFilterSerializer, EventListSelector
 from game_world.api.v1.selectors.game_world import (
-    GameWorldDetailSelector,
-    GameWorldListFilterSerializer,
-    GameWorldListSelector,
+    GameWorldListOrRatingOrStatisticsFilterSerializer,
+    GameWorldListOrRatingOrStatisticsSelector,
 )
 from game_world.api.v1.selectors.mission import (
     MissionDetailSelector,
@@ -16,7 +15,6 @@ from game_world.api.v1.selectors.mission import (
     MissionListSelector,
 )
 from game_world.api.v1.selectors.mission_branch import (
-    MissionBranchDetailSelector,
     MissionBranchListFilterSerializer,
     MissionBranchListSelector,
 )
@@ -35,16 +33,15 @@ __all__ = (
     "EventDetailSelector",
     "EventListFilterSerializer",
     # GameWorld
-    "GameWorldListSelector",
-    "GameWorldDetailSelector",
-    "GameWorldListFilterSerializer",
+    "GameWorldListOrRatingOrStatisticsSelector",
+    "GameWorldListOrRatingOrStatisticsFilterSerializer",
+    "GameWorldListOrRatingOrStatisticsSelector",
     # Mission
     "MissionListSelector",
     "MissionDetailSelector",
     "MissionListFilterSerializer",
     # MissionBranch
     "MissionBranchListSelector",
-    "MissionBranchDetailSelector",
     "MissionBranchListFilterSerializer",
     # ActivityCategory
     "ActivityCategoryListSelector",

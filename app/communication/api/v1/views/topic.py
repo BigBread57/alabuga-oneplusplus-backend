@@ -21,7 +21,7 @@ class TopicListAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: TopicListSerializer(many=True),
         },
-        tags=["shop:user_purchase"],
+        tags=["communication:topic"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -46,7 +46,7 @@ class TopicDetailAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: TopicDetailSerializer,
         },
-        tags=["shop:user_purchase"],
+        tags=["communication:topic"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """

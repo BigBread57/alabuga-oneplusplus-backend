@@ -29,7 +29,7 @@ from game_world.api.v1.views import (
     MissionDeleteAPIView,
     MissionDetailAPIView,
     MissionListAPIView,
-    MissionUpdateAPIView,
+    MissionUpdateAPIView, GameWorldRatingAPIView, GameWorldStatisticsAPIView,
 )
 
 app_name = "v1"
@@ -111,6 +111,16 @@ game_world_urls = [
         route="game-worlds/<int:pk>/delete/",
         view=GameWorldDeleteAPIView.as_view(),
         name="game-worlds-delete",
+    ),
+    path(
+        route="game-worlds/rating/",
+        view=GameWorldRatingAPIView.as_view(),
+        name="game-worlds-rating",
+    ),
+    path(
+        route="game-worlds/statistics/",
+        view=GameWorldStatisticsAPIView.as_view(),
+        name="game-worlds-statistics",
     ),
 ]
 

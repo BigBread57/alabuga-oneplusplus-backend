@@ -1,6 +1,12 @@
 from django.urls import path
 
-from communication.api.v1.views import CommentCreateAPIView, PostListAPIView, TopicDetailAPIView, TopicListAPIView
+from communication.api.v1.views import (
+    ActivityLogListAPIView,
+    CommentCreateAPIView,
+    PostListAPIView,
+    TopicDetailAPIView,
+    TopicListAPIView,
+)
 
 app_name = "v1"
 
@@ -33,8 +39,17 @@ topic_urls = [
     ),
 ]
 
+activity_logs_urls = [
+    path(
+        route="activity-logs/list/",
+        view=ActivityLogListAPIView.as_view(),
+        name="activity-logs-list",
+    ),
+]
+
 urlpatterns = [
     *comment_urls,
     *post_urls,
     *topic_urls,
+    *activity_logs_urls,
 ]

@@ -63,8 +63,8 @@ class MissionDetailAPIView(QuerySelectorMixin, GenericAPIView):
         """
         Детальная информация.
         """
-        user_purchase = self.get_object()
-        serializer = self.get_serializer(instance=user_purchase)
+        mission = self.get_object()
+        serializer = self.get_serializer(instance=mission)
 
         return Response(
             data=serializer.data,

@@ -4,24 +4,24 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from communication.api.v1.serializers import PostListSerializer
-from communication.models import Post
+from communication.api.v1.serializers import ActivityLogListSerializer
+from communication.models import ActivityLog
 
 
-class PostListAPIView(GenericAPIView):
+class ActivityLogListAPIView(GenericAPIView):
     """
-    Тема. Список.
+    Журнал действий. Список.
     """
 
-    queryset = Post.objects.all()
-    serializer_class = PostListSerializer
+    queryset = ActivityLog.objects.all()
+    serializer_class = ActivityLogListSerializer
     search_fields = ("name",)
 
     @extend_schema(
         responses={
-            status.HTTP_200_OK: PostListSerializer(many=True),
+            status.HTTP_200_OK: ActivityLogListSerializer(many=True),
         },
-        tags=["communication:post"],
+        tags=["communication:activity_log"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """

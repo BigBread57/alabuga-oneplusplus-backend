@@ -12,6 +12,7 @@ class GameWorld(AbstractBaseModel):
     name = models.CharField(
         verbose_name=_("Название"),
         max_length=256,
+        unique=True,
     )
     description = models.TextField(
         verbose_name=_("Описание"),

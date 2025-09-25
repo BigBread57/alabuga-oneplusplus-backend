@@ -6,6 +6,20 @@ from django_filters import FilterSet
 T = TypeVar("T")
 
 
+class CurrentCharacterDefault:
+    """
+    Возвращает персонажа текущего пользователя по умолчанию.
+    """
+
+    requires_context = True
+
+    def __call__(self, serializer_field):
+        user = serializer_field.context["request"].user
+        if hasattr(user, "character"):
+            return user.character
+        return None
+
+
 class BaseSelector:
     """
     Класс, который позволяет формировать корректный селектор.

@@ -17,6 +17,7 @@ from rest_framework.request import Request
 from rest_framework.reverse import reverse
 
 from common.services import BaseService
+from communication.models import ActivityLog
 from game_mechanics.models import Competency, Rank
 from game_world.models import Event, GameWorld, Mission
 from user.models import Character, CharacterCompetency, CharacterEvent, CharacterMission, User
@@ -269,9 +270,18 @@ class UserService(BaseService):
             return {"detail": _("Ваша почта уже подтверждена")}
         user.is_active = True
         user.save()
+
         game_world = GameWorld.objects.first()
         rank = Rank.objects.filter(game_world=game_world, parent__isnull=True)
         character = Character.objects.create(user=user)
+        ActivityLog.objects.create(
+            character=character,
+            text=_(
+                f"Добро пожаловать. Вам присвоен ранг: {rank}. "
+                f"Выполняйте миссии для его повышения и получения новых наград"
+            ),
+            content_object=rank,
+        )
         CharacterRank.objects.create(
             character=character,
             rank=rank,

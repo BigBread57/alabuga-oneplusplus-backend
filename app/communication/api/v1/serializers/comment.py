@@ -6,7 +6,9 @@ from user.api.v1.serializers.nested import UserNestedSerializer
 
 
 class CommentListOrDetailSerializer(serializers.ModelSerializer):
-    """Сериалайзер отзывов."""
+    """
+    Комментарий. Детальная информация/список.
+    """
 
     user = UserNestedSerializer(
         label=_("Пользователь"),
@@ -27,7 +29,9 @@ class CommentListOrDetailSerializer(serializers.ModelSerializer):
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
-    """Сериалайзер создания отзывов."""
+    """
+    Комментарий. Создание.
+    """
 
     class Meta:
         model = Comment

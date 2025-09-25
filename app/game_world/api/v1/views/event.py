@@ -63,8 +63,8 @@ class EventDetailAPIView(QuerySelectorMixin, GenericAPIView):
         """
         Детальная информация.
         """
-        user_purchase = self.get_object()
-        serializer = self.get_serializer(instance=user_purchase)
+        event = self.get_object()
+        serializer = self.get_serializer(instance=event)
 
         return Response(
             data=serializer.data,

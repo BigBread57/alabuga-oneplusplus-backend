@@ -66,8 +66,8 @@ class MissionBranchDetailAPIView(GenericAPIView):
         """
         Детальная информация.
         """
-        user_purchase = self.get_object()
-        serializer = self.get_serializer(instance=user_purchase)
+        mission_branch = self.get_object()
+        serializer = self.get_serializer(instance=mission_branch)
 
         return Response(
             data=serializer.data,

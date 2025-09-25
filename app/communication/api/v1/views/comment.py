@@ -19,7 +19,7 @@ class CommentCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: CommentListOrDetailSerializer,
         },
-        tags=["game_mechanics:Comment"],
+        tags=["communication:comment"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """

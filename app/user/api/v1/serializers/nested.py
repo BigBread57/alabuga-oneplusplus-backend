@@ -8,7 +8,7 @@ from user.models import CharacterArtifact, CharacterCompetency, CharacterEvent, 
 
 class UserNestedSerializer(serializers.ModelSerializer):
     """
-    Категория товара в магазине. Вложенный сериалайзер.
+    Пользователь. Вложенный сериалайзер.
     """
 
     class Meta:

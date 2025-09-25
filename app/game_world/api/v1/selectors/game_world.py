@@ -6,7 +6,7 @@ from common.selectors import BaseSelector
 from game_world.models import GameWorld
 
 
-class GameWorldListFilterSerializer(serializers.Serializer):
+class GameWorldListOrRatingOrStatisticsFilterSerializer(serializers.Serializer):
     """
     Игровой мир. Список. Сериализатор для фильтра.
     """
@@ -18,7 +18,7 @@ class GameWorldListFilterSerializer(serializers.Serializer):
     )
 
 
-class GameWorldListFilter(django_filters.FilterSet):
+class GameWorldListOrRatingOrStatisticsFilter(django_filters.FilterSet):
     """
     Игровой мир. Список. Фильтр.
     """
@@ -28,19 +28,10 @@ class GameWorldListFilter(django_filters.FilterSet):
         fields = ("name",)
 
 
-class GameWorldListSelector(BaseSelector):
+class GameWorldListOrRatingOrStatisticsSelector(BaseSelector):
     """
-    Игровой мир. Список. Селектор.
-    """
-
-    queryset = GameWorld.objects.all()
-    filter_class = GameWorldListFilter
-
-
-class GameWorldDetailSelector(BaseSelector):
-    """
-    Игровой мир. Детальная информация. Селектор.
+    Игровой мир. Рейтинг. Селектор.
     """
 
     queryset = GameWorld.objects.all()
-    filter_class = GameWorldListFilter
+    filter_class = GameWorldListOrRatingOrStatisticsFilter

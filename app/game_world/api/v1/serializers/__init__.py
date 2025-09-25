@@ -17,6 +17,8 @@ from game_world.api.v1.serializers.game_world import (
     GameWorldCreateOrUpdateSerializer,
     GameWorldDetailSerializer,
     GameWorldListSerializer,
+    GameWorldRatingSerializer,
+    GameWorldStatisticsSerializer,
 )
 from game_world.api.v1.serializers.mission import (
     MissionCreateOrUpdateSerializer,
@@ -42,6 +44,8 @@ __all__ = (
     "GameWorldListSerializer",
     "GameWorldDetailSerializer",
     "GameWorldCreateOrUpdateSerializer",
+    "GameWorldRatingSerializer",
+    "GameWorldStatisticsSerializer",
     # Mission
     "MissionListSerializer",
     "MissionDetailSerializer",
