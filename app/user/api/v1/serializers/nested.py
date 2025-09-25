@@ -98,8 +98,8 @@ class CharacterRankNestedSerializer(serializers.ModelSerializer):
         """
         Следующий ранг.
         """
-        return CharacterRankNestedSerializer(
-            instance=Rank.objects.filter(parent=character_rank.rank),
+        return RankNestedSerializer(
+            instance=Rank.objects.filter(parent=character_rank.rank).first(),
             context=self.context,
         ).data
 
