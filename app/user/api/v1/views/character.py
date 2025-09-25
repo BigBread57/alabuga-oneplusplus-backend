@@ -25,7 +25,7 @@ class CharacterActualForUserAPIView(QuerySelectorMixin, GenericAPIView):
         """
         Персонаж пользователя. Актуальный.
         """
-        character = request.user.character
+        character = request.user.active_character
         serializer = self.get_serializer(instance=character)
 
         return Response(
@@ -51,7 +51,7 @@ class CharacterUpdateAPIView(GenericAPIView):
         """
         Персонаж. Изменение.
         """
-        character = request.user.character
+        character = request.user.active_character
         serializer = self.get_serializer(
             instance=character,
             data=request.data,
