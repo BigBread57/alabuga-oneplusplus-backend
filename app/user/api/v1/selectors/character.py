@@ -4,13 +4,12 @@ from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
 from common.selectors import BaseSelector
-from shop.models import ShopItem
 from user.models import Character
 
 
 class CharacterActualForUserFilterSerializer(serializers.Serializer):
     """
-    Персонаж пользователя. Детальная информация. Сериализатор для фильтра.
+    Персонаж пользователя. Детальная информация об актуальном персонаже. Сериализатор для фильтра.
     """
 
     user = serializers.HiddenField(
@@ -20,9 +19,9 @@ class CharacterActualForUserFilterSerializer(serializers.Serializer):
     )
 
 
-class UserPurchaseDetailFilter(django_filters.FilterSet):
+class CharacterActualForUserFilter(django_filters.FilterSet):
     """
-    Персонаж пользователя. Детальная информация. Фильтр.
+    Персонаж пользователя. Детальная информация об актуальном персонаже. Фильтр.
     """
 
     class Meta:
@@ -32,23 +31,19 @@ class UserPurchaseDetailFilter(django_filters.FilterSet):
 
 class CharacterActualForUserSelector(BaseSelector):
     """
-    Персонаж пользователя. Детальная информация. Селектор.
+    Персонаж пользователя. Детальная информация об актуальном персонаже. Селектор.
     """
 
-    queryset = (
-        ShopItem.objects.select_related(
-            "user",
-            "game_world",
-            "rank",
-        )
-        .prefetch_related(
-            "character_artifacts__artifacts",
-            "character_competencies__competencies",
-            "character_missions__missions",
-            "character_events__events",
-        )
-        .filter(
-            is_active=True,
-        )
+    queryset = Character.objects.select_related(
+        "user",
+        "game_world",
+    ).prefetch_related(
+        "character_ranks",
+        "character_artifacts__artifact__game_world_stories",
+        "character_competencies__competency__game_world_stories",
+        "character_missions__mission__branch__category",
+        "character_missions__mission__game_world_stories",
+        "character_events__event__category",
+        "character_events__event__game_world_stories",
     )
-    filter_class = UserPurchaseDetailFilter
+    filter_class = CharacterActualForUserFilter

@@ -272,8 +272,11 @@ class UserService(BaseService):
         user.save()
 
         game_world = GameWorld.objects.first()
-        rank = Rank.objects.filter(game_world=game_world, parent__isnull=True)
-        character = Character.objects.create(user=user)
+        rank = Rank.objects.filter(game_world=game_world, parent__isnull=True).first()
+        character = Character.objects.create(
+            user=user,
+            game_world=game_world,
+        )
         ActivityLog.objects.create(
             character=character,
             text=_(

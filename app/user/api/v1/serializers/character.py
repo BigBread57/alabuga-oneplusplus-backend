@@ -9,7 +9,7 @@ from user.api.v1.serializers.nested import (
     CharacterArtifactNestedSerializer,
     CharacterEventNestedSerializer,
     CharacterMissionNestedSerializer,
-    UserNestedSerializer,
+    UserNestedSerializer, CharacterCompetencyNestedSerializer, CharacterRankNestedSerializer,
 )
 from user.models import Character
 
@@ -67,12 +67,12 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
             "character_events",
         )
 
-    def get_rank(self, character: Character) -> dict[str, Any]:
+    def get_rank(self, character: Character) -> dict[str, Any] | None:
         """
         Ранг пользователя.
         """
-        return RankNestedSerializer(
-            instance=character.character_ranks.filter(is_received=False).first(),
+        return CharacterRankNestedSerializer(
+            instance=character.character_ranks.select_related("rank").filter(is_received=False).first(),
             context=self.context,
         ).data
 
@@ -80,8 +80,8 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         """
         Ранг пользователя.
         """
-        return RankNestedSerializer(
-            instance=character.character_competencies.filter(is_received=False),
+        return CharacterCompetencyNestedSerializer(
+            instance=character.character_competencies.select_related("competency").filter(is_received=False),
             context=self.context,
             many=True,
         ).data

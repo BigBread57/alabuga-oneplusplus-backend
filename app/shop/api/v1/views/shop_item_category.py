@@ -138,6 +138,6 @@ class ShopItemCategoryDeleteAPIView(GenericAPIView):
         shop_item_category.delete()
 
         return Response(
-            data=ResponseDetailSerializer(detail={"detail": _("Объект успешно удален")}).data,
+            data=ResponseDetailSerializer({"detail": _("Объект успешно удален")}).data,
             status=status.HTTP_204_NO_CONTENT,
         )

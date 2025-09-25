@@ -32,7 +32,6 @@ OTHER_INSTALLED_APPS: list[str] = [
     "drf_standardized_errors",
     # "django_celery_beat",
     "phonenumber_field",
-    "debug_toolbar",
     "drf_spectacular",
 ]
 
@@ -63,7 +62,6 @@ MIDDLEWARE: list[str] = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "alabuga.urls"

@@ -181,6 +181,6 @@ class UserPurchaseToWorkAPIView(GenericAPIView):
             manager=request.user,
         )
         return Response(
-            data=ResponseDetailSerializer(detail={"detail": _("Взято в работу")}).data,
+            data=ResponseDetailSerializer({"detail": _("Взято в работу")}).data,
             status=status.HTTP_200_OK,
         )

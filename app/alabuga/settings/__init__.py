@@ -12,10 +12,11 @@ include(
     "caches.py",
     "celery.py",
     "cors.py",
+    "drf.py",
     "email.py",
     "keycloak.py",
     "llm.py",
     "logging.py",
     "sentry.py",
-    "drf.py",
+    "debug_tools.py",
 )

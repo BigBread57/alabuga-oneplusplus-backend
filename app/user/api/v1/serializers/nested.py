@@ -1,9 +1,11 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer
-from game_world.api.v1.serializers.nested import ArtifactNestedSerializer, MissionNestedSerializer
+from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer, RankNestedSerializer
+from game_world.api.v1.serializers.nested import ArtifactNestedSerializer, MissionNestedSerializer, \
+    EventNestedSerializer
 from user.models import CharacterArtifact, CharacterCompetency, CharacterEvent, CharacterMission, User
+from user.models.character_rank import CharacterRank
 
 
 class UserNestedSerializer(serializers.ModelSerializer):
@@ -61,6 +63,24 @@ class CharacterCompetencyNestedSerializer(serializers.ModelSerializer):
         )
 
 
+class CharacterRankNestedSerializer(serializers.ModelSerializer):
+    """
+    Ранг персонажа. Вложенный сериалайзер.
+    """
+
+    rank = RankNestedSerializer(
+        label=_("Ранг"),
+        help_text=_("Ранг"),
+    )
+
+    class Meta:
+        model = CharacterRank
+        fields = (
+            "id",
+            "rank",
+            "experience",
+        )
+
 class CharacterMissionNestedSerializer(serializers.ModelSerializer):
     """
     Прогресс персонажа по миссиям. Вложенный сериалайзер.
@@ -90,7 +110,7 @@ class CharacterEventNestedSerializer(serializers.ModelSerializer):
     Прогресс персонажа по событиям. Вложенный сериалайзер.
     """
 
-    event = MissionNestedSerializer(
+    event = EventNestedSerializer(
         label=_("Событие"),
         help_text=_("Событие"),
     )

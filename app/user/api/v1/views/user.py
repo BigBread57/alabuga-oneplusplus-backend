@@ -72,7 +72,7 @@ class UserConfirmRegisterAPIView(GenericAPIView):
         detail = user_service.confirm_register(extra_path=kwargs["extra_path"])
 
         return Response(
-            data=ResponseDetailSerializer(detail=detail).data,
+            data=ResponseDetailSerializer(detail).data,
             status=status.HTTP_200_OK,
         )
 
@@ -105,9 +105,7 @@ class UseResendEmailConfirmationAPIView(GenericAPIView):
         )
         return Response(
             data=ResponseDetailSerializer(
-                detail={
-                    "detail": _("На указанный адрес электронной почты отправлено письмо с подтверждением регистрации"),
-                },
+                {"detail": _("На указанный адрес электронной почты отправлено письмо с подтверждением регистрации")},
             ).data,
             status=status.HTTP_200_OK,
         )
@@ -177,7 +175,7 @@ class UserRequestResetPasswordAPIView(GenericAPIView):
 
         return Response(
             data=ResponseDetailSerializer(
-                detail={
+                {
                     "detail": _(
                         "На указанный адрес электронной почты отправлено "
                         "письмо с инструкцией по восстановлению пароля",
@@ -236,7 +234,7 @@ class UserConfirmResetPasswordAPIView(GenericAPIView):
         )
 
         return Response(
-            data=ResponseDetailSerializer(detail={"detail": _("Новый пароль успешно установлен")}).data,
+            data=ResponseDetailSerializer({"detail": _("Новый пароль успешно установлен")}).data,
             status=status.HTTP_200_OK,
         )
 
@@ -296,7 +294,7 @@ class UserLogoutAPIView(GenericAPIView):
         logout(request=request)
 
         return Response(
-            data=ResponseDetailSerializer(detail={"detail": _("Пользователь успешно вышел из системы")}).data,
+            data=ResponseDetailSerializer({"detail": _("Пользователь успешно вышел из системы")}).data,
             status=status.HTTP_200_OK,
         )
 
