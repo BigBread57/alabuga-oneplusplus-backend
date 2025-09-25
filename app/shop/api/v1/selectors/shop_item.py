@@ -1,10 +1,13 @@
 import django_filters
 from django.db import models
+from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from common.selectors import BaseSelector
+from game_world.models import Artifact
 from shop.models import ShopItem, ShopItemCategory
+from user.models import CharacterArtifact
 
 
 class ShopItemListFilterSerializer(serializers.Serializer):
@@ -52,6 +55,8 @@ class ShopItemListSelector(BaseSelector):
     queryset = (
         ShopItem.objects.select_related(
             "category",
+        ).prefetch_related(
+            "children",
         )
         .filter(
             is_active=True,
@@ -62,6 +67,71 @@ class ShopItemListSelector(BaseSelector):
         )
     )
     filter_class = ShopItemListFilter
+
+
+
+class ShopItemListForBuySelector(BaseSelector):
+    """
+    Товар в магазине. Список для покупки. Селектор.
+    """
+
+    filter_class = ShopItemListFilter
+
+    def get_queryset(self, **kwargs) -> QuerySet[ShopItem]:
+        user = kwargs.get("request").user
+        return ShopItem.objects.select_related(
+            "category",
+        ).prefetch_related(
+            "children",
+        ).filter(
+            is_active=True,
+            parent__isnull=True,
+            rank__character_ranks__character__user=user,
+            competency__character_competencies__character__user=user,
+        ).annotate(
+            purchase_restriction=models.F("category__purchase_restriction"),
+            shop_discont=models.Subquery(
+                CharacterArtifact.objects.filter(
+                    character__user=user,
+                    artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
+                ).values(
+                   "artifact",
+                ).annotate(
+                    sum=models.Sum("artifact__modifier_value")
+                ).values("sum")[:1]
+            )
+        )
+
+
+class ShopItemDetailForBuySelector(BaseSelector):
+    """
+    Товар в магазине. Детальная информация о покупке. Селектор.
+    """
+
+    def get_queryset(self, **kwargs) -> QuerySet[ShopItem]:
+        user = kwargs.get("request").user
+        return ShopItem.objects.select_related(
+            "category",
+        ).prefetch_related(
+            "children",
+        ).filter(
+            is_active=True,
+            parent__isnull=True,
+            rank__character_ranks__character__user=user,
+            competency__character_competencies__character__user=user,
+        ).annotate(
+            purchase_restriction=models.F("category__purchase_restriction"),
+            shop_discont=models.Subquery(
+                CharacterArtifact.objects.filter(
+                    character__user=user,
+                    artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
+                ).values(
+                    "artifact",
+                ).annotate(
+                    sum=models.Sum("artifact__modifier_value")
+                ).values("sum")[:1]
+            )
+        )
 
 
 class ShopItemDetailSelector(BaseSelector):

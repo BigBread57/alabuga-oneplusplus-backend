@@ -25,6 +25,10 @@ class UserPurchase(AbstractBaseModel):
     number = models.PositiveIntegerField(
         verbose_name=_("Количество"),
     )
+    discount = models.PositiveIntegerField(
+        verbose_name=_("Скидка"),
+        default=0,
+    )
     total_sum = models.PositiveIntegerField(
         verbose_name=_("Общая сумма"),
     )

@@ -16,6 +16,11 @@ class ActivityCategory(AbstractBaseModel):
     description = models.TextField(
         verbose_name=_("Описание категории"),
     )
+    repeatability = models.PositiveIntegerField(
+        verbose_name=_("Через сколько дней повторять активность"),
+        null=True,
+        blank=True,
+    )
     icon = models.ImageField(
         verbose_name=_("Иконка"),
         upload_to="mission_categories",

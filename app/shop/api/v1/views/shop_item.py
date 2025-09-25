@@ -1,3 +1,4 @@
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
@@ -12,8 +13,9 @@ from shop.api.v1.selectors import ShopItemDetailSelector, ShopItemListFilterSeri
 from shop.api.v1.serializers import (
     ShopItemCreateOrUpdateSerializer,
     ShopItemDetailSerializer,
-    ShopItemListSerializer,
+    ShopItemListSerializer, ShopItemBuySerializer,
 )
+from shop.api.v1.services import shop_item_service
 from shop.models import ShopItem
 
 
@@ -161,6 +163,70 @@ class ShopItemDeleteAPIView(GenericAPIView):
         """
         placement_metering_device = self.get_object()
         placement_metering_device.delete()
+
+        return Response(
+            data=ResponseDetailSerializer(detail={"detail": _("Объект успешно удален")}).data,
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
+
+class ShopItemListForBuyAPIView(QuerySelectorMixin, GenericAPIView):
+    """
+    Товар в магазине. Список для покупки.
+    """
+
+    selector = ShopItemListSelector
+    serializer_class = ShopItemListSerializer
+    filter_params_serializer_class = ShopItemListFilterSerializer
+    search_fields = ("name", "category__name")
+
+    @extend_schema(
+        parameters=[ShopItemListFilterSerializer],
+        responses={
+            status.HTTP_200_OK: ShopItemListSerializer(many=True),
+        },
+        tags=["shop:shop_item"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Список объектов.
+        """
+        queryset = self.filter_queryset(queryset=self.get_queryset())
+        page = self.paginate_queryset(queryset=queryset)
+        serializer = self.get_serializer(page, many=True)
+
+        return self.get_paginated_response(data=serializer.data)
+
+
+class ShopItemBuyAPIView(GenericAPIView):
+    """
+    Товар в магазине. Покупка.
+    """
+
+    queryset = ShopItem.objects.annotate(
+        purchase_restriction=models.F("category__purchase_restriction"),
+    )
+    serializer_class = ShopItemBuySerializer
+
+    @extend_schema(
+        request=ShopItemBuySerializer,
+        responses={
+            status.HTTP_201_CREATED: ResponseDetailSerializer,
+        },
+        tags=["shop:shop_item"],
+    )
+    def post(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Товар в магазине. Покупка.
+        """
+        shop_item = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        shop_item_service.buy(
+            shop_item=shop_item,
+            user=request.user,
+            validated_data=serializer.validated_data
+        )
 
         return Response(
             data=ResponseDetailSerializer(detail={"detail": _("Объект успешно удален")}).data,

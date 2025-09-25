@@ -27,6 +27,10 @@ class ShopItemListSerializer(serializers.ModelSerializer):
         label=_("Доступно для покупки"),
         help_text=_("Доступно для покупки"),
     )
+    children = ShopItemNestedSerializer(
+        label=_("Другой вид товара"),
+        help_text=_("Другой вид товара"),
+    )
 
     class Meta:
         model = ShopItem
@@ -42,6 +46,7 @@ class ShopItemListSerializer(serializers.ModelSerializer):
             "start_datetime",
             "end_datetime",
             "purchase_restriction",
+            "children",
         )
 
     def get_end_datetime(self, shop_item: ShopItem) -> datetime | None:
@@ -140,3 +145,14 @@ class ShopItemCreateOrUpdateSerializer(serializers.ModelSerializer):
                 _("Вы можете установить ранг или компетенцию только при заполнении родительского предмета")
             )
         return attrs
+
+
+class ShopItemBuySerializer(serializers.Serializer):
+    """
+    Товар в магазине. Покупка.
+    """
+
+    number = serializers.IntegerField(
+        label=_("Количество вещей для покупки"),
+        help_text=_("Количество вещей для покупки"),
+    )

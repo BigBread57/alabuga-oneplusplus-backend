@@ -13,7 +13,7 @@ from shop.api.v1.views import (
     UserPurchaseDetailAPIView,
     UserPurchaseListAPIView,
     UserPurchaseToWorkAPIView,
-    UserPurchaseUpdateAPIView,
+    UserPurchaseUpdateStatusAPIView,
 )
 
 app_name = "v1"
@@ -82,9 +82,9 @@ user_purchase_urls = [
         name="user-purchases-create",
     ),
     path(
-        route="user-purchases/<int:pk>/update/",
-        view=UserPurchaseUpdateAPIView.as_view(),
-        name="user-purchases-update",
+        route="user-purchases/<int:pk>/update-status/",
+        view=UserPurchaseUpdateStatusAPIView.as_view(),
+        name="user-purchases-update-status",
     ),
     path(
         route="user-purchases/<int:pk>/to-work/",

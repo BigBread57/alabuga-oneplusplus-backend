@@ -104,7 +104,6 @@ class UserPurchaseCreateSerializer(serializers.ModelSerializer):
         model = UserPurchase
         fields = (
             "id",
-            "price",
             "number",
             "shop_item",
         )
@@ -122,7 +121,7 @@ class UserPurchaseCreateSerializer(serializers.ModelSerializer):
         return attrs
 
 
-class UserPurchaseUpdateSerializer(serializers.ModelSerializer):
+class UserPurchaseUpdateStatusSerializer(serializers.ModelSerializer):
     """
     Покупки пользователя. Изменить.
     """

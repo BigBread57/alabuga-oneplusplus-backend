@@ -5,6 +5,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from common.permissions import UserHRPermission, UserManagerForObjectPermission, UserManagerPermission
+from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from shop.api.v1.selectors import (
     UserPurchaseDetailSelector,
@@ -15,11 +16,12 @@ from shop.api.v1.serializers import (
     UserPurchaseCreateSerializer,
     UserPurchaseDetailSerializer,
     UserPurchaseListSerializer,
-    UserPurchaseUpdateSerializer,
+    UserPurchaseUpdateStatusSerializer,
 )
 from shop.api.v1.services import user_purchase_service
 from shop.models import UserPurchase
 
+from django.utils.translation import gettext_lazy as _
 
 class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):
     """
@@ -111,17 +113,17 @@ class UserPurchaseCreateAPIView(GenericAPIView):
         )
 
 
-class UserPurchaseUpdateAPIView(GenericAPIView):
+class UserPurchaseUpdateStatusAPIView(GenericAPIView):
     """
     Покупки пользователя. Изменение.
     """
 
     queryset = UserPurchase.objects.all()
-    serializer_class = UserPurchaseUpdateSerializer
+    serializer_class = UserPurchaseUpdateStatusSerializer
     permission_classes = (UserManagerForObjectPermission,)
 
     @extend_schema(
-        request=UserPurchaseUpdateSerializer,
+        request=UserPurchaseUpdateStatusSerializer,
         responses={
             status.HTTP_200_OK: UserPurchaseDetailSerializer,
         },
@@ -160,13 +162,11 @@ class UserPurchaseToWorkAPIView(GenericAPIView):
     """
 
     queryset = UserPurchase.objects.all()
-    serializer_class = UserPurchaseUpdateSerializer
     permission_classes = (UserManagerPermission,)
 
     @extend_schema(
-        request=UserPurchaseUpdateSerializer,
         responses={
-            status.HTTP_200_OK: UserPurchaseDetailSerializer,
+            status.HTTP_200_OK: ResponseDetailSerializer,
         },
         tags=["shop:user_purchase"],
     )
@@ -179,4 +179,7 @@ class UserPurchaseToWorkAPIView(GenericAPIView):
             user_purchase=user_purchase,
             manager=request.user,
         )
-        return Response(status=status.HTTP_200_OK)
+        return Response(
+            data=ResponseDetailSerializer(detail={"detail": _("Взято в работу")}).data,
+            status=status.HTTP_200_OK,
+        )

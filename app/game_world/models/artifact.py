@@ -19,7 +19,7 @@ class Artifact(AbstractBaseModel):
         DEFAULT = "DEFAULT", _("Стандартный")
         EXPERIENCE_GAIN = "EXPERIENCE_GAIN", _("Прирост опыта")
         CURRENCY_GAIN = "CURRENCY_GAIN", _("Прирост валюты")
-        STORE_DISCOUNT = "STORE_DISCOUNT", _("Скидка в магазине")
+        SHOP_DISCOUNT = "SHOP_DISCOUNT", _("Скидка в магазине")
 
     name = models.CharField(
         verbose_name=_("Название"),

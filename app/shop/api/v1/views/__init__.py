@@ -15,7 +15,7 @@ from shop.api.v1.views.user_purchase import (
     UserPurchaseDetailAPIView,
     UserPurchaseListAPIView,
     UserPurchaseToWorkAPIView,
-    UserPurchaseUpdateAPIView,
+    UserPurchaseUpdateStatusAPIView,
 )
 
 __all__ = (
@@ -32,7 +32,7 @@ __all__ = (
     # UserPurchase
     "UserPurchaseListAPIView",
     "UserPurchaseCreateAPIView",
-    "UserPurchaseUpdateAPIView",
+    "UserPurchaseUpdateStatusAPIView",
     "UserPurchaseToWorkAPIView",
     "UserPurchaseDetailAPIView",
 )
