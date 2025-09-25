@@ -307,6 +307,7 @@ class UserInfoAPIView(GenericAPIView):
     """
 
     permission_classes = (IsAuthenticated,)
+    serializer_class = UserInfoSerializer
 
     @extend_schema(
         responses={
