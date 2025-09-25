@@ -5,8 +5,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from common.views import QuerySelectorMixin
-from user.api.v1.selectors import CharacterActualForUserSelector
-from user.api.v1.serializers import CharacterActualForUserSerializer
+from user.api.v1.serializers import CharacterActualForUserSerializer, CharacterUpdateSerializer
 
 
 class CharacterActualForUserAPIView(QuerySelectorMixin, GenericAPIView):
@@ -14,7 +13,6 @@ class CharacterActualForUserAPIView(QuerySelectorMixin, GenericAPIView):
     Персонаж пользователя. Актуальный.
     """
 
-    selector = CharacterActualForUserSelector
     serializer_class = CharacterActualForUserSerializer
 
     @extend_schema(
@@ -27,10 +25,46 @@ class CharacterActualForUserAPIView(QuerySelectorMixin, GenericAPIView):
         """
         Персонаж пользователя. Актуальный.
         """
-        character = self.filter_queryset(queryset=self.get_queryset()).first()
+        character = request.user.character
         serializer = self.get_serializer(instance=character)
 
         return Response(
             data=serializer.data,
+            status=status.HTTP_200_OK,
+        )
+
+
+class CharacterUpdateAPIView(GenericAPIView):
+    """
+    Персонаж. Изменение.
+    """
+
+    serializer_class = CharacterUpdateSerializer
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: CharacterUpdateSerializer,
+        },
+        tags=["user:character"],
+    )
+    def put(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Персонаж. Изменение.
+        """
+        character = request.user.character
+        serializer = self.get_serializer(
+            instance=character,
+            data=request.data,
+        )
+        serializer.is_valid(raise_exception=True)
+        character = serializer.save()
+        if getattr(character, "_prefetched_objects_cache", None):
+            character._prefetched_objects_cache = {}
+
+        return Response(
+            data=CharacterActualForUserSerializer(
+                instance=character,
+                context=self.get_serializer_context(),
+            ).data,
             status=status.HTTP_200_OK,
         )

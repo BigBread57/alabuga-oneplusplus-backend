@@ -5,10 +5,8 @@ from rest_framework import serializers
 
 from game_world.api.v1.serializers.nested import GameWorldNestedSerializer
 from user.api.v1.serializers.nested import (
-    CharacterArtifactNestedSerializer,
-    CharacterEventNestedSerializer,
-    CharacterMissionNestedSerializer,
-    UserNestedSerializer, CharacterCompetencyNestedSerializer, CharacterRankNestedSerializer,
+    UserNestedSerializer,
+    CharacterRankNestedSerializer,
 )
 from user.models import Character
 
@@ -30,25 +28,6 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         label=_("Ранг"),
         help_text=_("Ранг"),
     )
-    # character_artifacts = CharacterArtifactNestedSerializer(
-    #     label=_("Артефакты пользователя"),
-    #     help_text=_("Артефакты пользователя"),
-    #     many=True,
-    # )
-    # character_competencies = serializers.SerializerMethodField(
-    #     label=_("Компетенции пользователя"),
-    #     help_text=_("Компетенции пользователя"),
-    # )
-    # character_missions = CharacterMissionNestedSerializer(
-    #     label=_("Миссии пользователя"),
-    #     help_text=_("Миссии пользователя"),
-    #     many=True,
-    # )
-    # character_events = CharacterEventNestedSerializer(
-    #     label=_("События пользователя"),
-    #     help_text=_("События пользователя"),
-    #     many=True,
-    # )
 
     class Meta:
         model = Character
@@ -70,3 +49,16 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
             instance=character.character_ranks.select_related("rank").filter(is_received=False).first(),
             context=self.context,
         ).data
+
+
+
+class CharacterUpdateSerializer(serializers.ModelSerializer):
+    """
+    Персонаж. Изменение.
+    """
+
+    class Meta:
+        model = Character
+        fields = (
+            "avatar",
+        )

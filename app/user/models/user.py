@@ -94,4 +94,9 @@ class User(AbstractUser):  # type: ignore
 
     @cached_property
     def active_character(self):
-        return Character.objects.filter(is_active=True, user=self)
+        return Character.objects.select_related(
+            "user",
+            "game_world",
+        ).prefetch_related(
+            "character_ranks",
+        ).filter(is_active=True, user=self).first()

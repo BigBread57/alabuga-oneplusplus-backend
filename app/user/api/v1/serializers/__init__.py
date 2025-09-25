@@ -1,4 +1,4 @@
-from user.api.v1.serializers.character import CharacterActualForUserSerializer
+from user.api.v1.serializers.character import CharacterActualForUserSerializer, CharacterUpdateSerializer
 from user.api.v1.serializers.character_artifact import CharacterArtifactListSerializer, \
     CharacterArtifactDetailSerializer
 from user.api.v1.serializers.character_competency import CharacterCompetencyListSerializer, \
@@ -46,7 +46,7 @@ __all__ = (
     "UseResendEmailConfirmationSerializer",
     # Character
     "CharacterActualForUserSerializer",
-    "CharacterActualForUserSerializer",
+    "CharacterUpdateSerializer",
     # CharacterCompetency
     "CharacterCompetencyListSerializer",
     "CharacterCompetencyDetailSerializer",

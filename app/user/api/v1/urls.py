@@ -16,7 +16,7 @@ from user.api.v1.views import (
     UserRequestResetPasswordAPIView,
     UserUpdatePasswordAPIView, CharacterEventListAPIView, CharacterEventDetailAPIView, CharacterMissionListAPIView,
     CharacterMissionDetailAPIView, CharacterArtifactDetailAPIView, CharacterArtifactListAPIView,
-    CharacterCompetencyDetailAPIView, CharacterCompetencyListAPIView,
+    CharacterCompetencyDetailAPIView, CharacterCompetencyListAPIView, CharacterUpdateAPIView,
 )
 
 app_name = "v1"
@@ -75,6 +75,11 @@ character_urls = [
         route="characters/actual-for-user/",
         view=CharacterActualForUserAPIView.as_view(),
         name="characters-actual-for-user",
+    ),
+    path(
+        route="characters/update/",
+        view=CharacterUpdateAPIView.as_view(),
+        name="characters-update",
     ),
 ]
 

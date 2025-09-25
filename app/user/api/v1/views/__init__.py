@@ -1,4 +1,4 @@
-from user.api.v1.views.character import CharacterActualForUserAPIView
+from user.api.v1.views.character import CharacterActualForUserAPIView, CharacterUpdateAPIView
 from user.api.v1.views.character_artifact import CharacterArtifactListAPIView, CharacterArtifactDetailAPIView
 from user.api.v1.views.character_competency import CharacterCompetencyListAPIView, CharacterCompetencyDetailAPIView
 from user.api.v1.views.character_event import (
@@ -34,6 +34,7 @@ __all__ = (
     "UserConfirmRegisterAPIView",
     # Character
     "CharacterActualForUserAPIView",
+    "CharacterUpdateAPIView",
     # CharacterEvent
     "CharacterEventListAPIView",
     "CharacterEventDetailAPIView",
