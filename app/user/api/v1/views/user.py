@@ -99,10 +99,7 @@ class UseResendEmailConfirmationAPIView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        user_service.send_email_with_confirm(
-            user=serializer.user,
-            request=request,
-        )
+        user_service.send_email_with_confirm(user=serializer.user)
         return Response(
             data=ResponseDetailSerializer(
                 {"detail": _("На указанный адрес электронной почты отправлено письмо с подтверждением регистрации")},
@@ -168,10 +165,7 @@ class UserRequestResetPasswordAPIView(GenericAPIView):
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user_service.send_email_with_request_reset_password(
-            user=serializer.user,
-            request=request,
-        )
+        user_service.send_email_with_request_reset_password(user=serializer.user)
 
         return Response(
             data=ResponseDetailSerializer(

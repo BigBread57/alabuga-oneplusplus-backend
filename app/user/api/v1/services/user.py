@@ -90,22 +90,14 @@ class UserService(BaseService):
     @staticmethod
     def send_email_with_confirm(
         user: User,
-        request: Request,
     ) -> None:
         """
         Отправка письма со ссылкой для подтверждения регистрации.
         """
         temp_key = default_token_generator.make_token(user)
-        path = reverse(
-            viewname="user:v1:users-confirm-register",
-            kwargs={"extra_path": f"{user.email}/{temp_key}"},
-        )
-        url = build_absolute_uri(request, path)
-        url_without_api = url.replace("api/user/users/", "")
-
         context = {
             "user": user,
-            "activate_url": url_without_api,
+            "activate_url": f"{settings.DOMAIN_NAME}/confirm-register/{user.email}/{temp_key}",
             "year": now().year,
             "company": "ALABUGA",
         }
@@ -128,23 +120,16 @@ class UserService(BaseService):
     @staticmethod
     def send_email_with_request_reset_password(
         user: User,
-        request: Request,
     ) -> None:
         """
         Запрос сброса пароля.
         """
-        path = reverse(
-            viewname="user:v1:users-request-reset-password",
-            kwargs={
-                "extra_path": f"{user_pk_to_url_str(user)}-" + str(default_token_generator.make_token(user)),
-            },
-        )
-        url = build_absolute_uri(request, path)
-        url_without_api = url.replace("api/user/users", "")
-
         context = {
             "user": user,
-            "password_reset_url": url_without_api,
+            "password_reset_url": (
+                f"{settings.DOMAIN_NAME}/request-reset-password/"
+                f"{user_pk_to_url_str(user)}-{default_token_generator.make_token(user)}"
+            ),
             "year": now().year,
             "company": "ALABUGA",
         }
@@ -247,10 +232,7 @@ class UserService(BaseService):
         user.refresh_from_db()
 
         # Отправляем письмо активации пользователя
-        self.send_email_with_confirm(
-            request=request,
-            user=user,
-        )
+        self.send_email_with_confirm(user=user)
         return user
 
     def confirm_register(

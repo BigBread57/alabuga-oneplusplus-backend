@@ -52,6 +52,11 @@ user_urls = [
         name="users-register",
     ),
     path(
+        route="users/confirm-register/<path:extra_path>",
+        view=UserConfirmRegisterAPIView.as_view(),
+        name="users-confirm-register",
+    ),
+    path(
         route="users/logout/",
         view=UserLogoutAPIView.as_view(),
         name="users-logout",
@@ -60,11 +65,6 @@ user_urls = [
         route="users/info/",
         view=UserInfoAPIView.as_view(),
         name="users-info",
-    ),
-    path(
-        route="users/confirm-register/<path:extra_path>",
-        view=UserConfirmRegisterAPIView.as_view(),
-        name="users-confirm-register",
     ),
 ]
 
