@@ -44,6 +44,11 @@ class ShopItem(AbstractBaseModel):
         null=True,
         blank=True,
     )
+    purchase_restriction = models.PositiveIntegerField(
+        verbose_name=_("Ограничение на покупку, количество"),
+        null=True,
+        blank=True,
+    )
     category = models.ForeignKey(
         to="shop.ShopItemCategory",
         verbose_name=_("Категория"),

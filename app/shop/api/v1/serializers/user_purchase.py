@@ -114,8 +114,8 @@ class UserPurchaseCreateSerializer(serializers.ModelSerializer):
         """
         shop_item = self.attrs["shop_item"]
         number = self.attrs["number"]
-        if purchase_restriction := shop_item.category.purchase_restriction:
-            if number > purchase_restriction.number:
+        if purchase_restriction := shop_item.purchase_restriction:
+            if number > purchase_restriction:
                 raise serializers.ValidationError(_(f"Вы не можете купить только {purchase_restriction} товаров"))
 
         return attrs

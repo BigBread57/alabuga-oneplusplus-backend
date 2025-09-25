@@ -9,13 +9,14 @@ from rest_framework.response import Response
 from common.permissions import UserHRPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
-from shop.api.v1.selectors import ShopItemDetailSelector, ShopItemListFilterSerializer, ShopItemListSelector
+from shop.api.v1.selectors import ShopItemDetailSelector, ShopItemListFilterSerializer, ShopItemListSelector, \
+    ShopItemListForBuySelector, ShopItemDetailForBuySelector
 from shop.api.v1.serializers import (
     ShopItemCreateOrUpdateSerializer,
     ShopItemDetailSerializer,
-    ShopItemListSerializer, ShopItemBuySerializer,
+    ShopItemListSerializer,
+    ShopItemListForBuySerializer, ShopItemDetailForBuySerializer,
 )
-from shop.api.v1.services import shop_item_service
 from shop.models import ShopItem
 
 
@@ -175,15 +176,15 @@ class ShopItemListForBuyAPIView(QuerySelectorMixin, GenericAPIView):
     Товар в магазине. Список для покупки.
     """
 
-    selector = ShopItemListSelector
-    serializer_class = ShopItemListSerializer
+    selector = ShopItemListForBuySelector
+    serializer_class = ShopItemListForBuySerializer
     filter_params_serializer_class = ShopItemListFilterSerializer
     search_fields = ("name", "category__name")
 
     @extend_schema(
         parameters=[ShopItemListFilterSerializer],
         responses={
-            status.HTTP_200_OK: ShopItemListSerializer(many=True),
+            status.HTTP_200_OK: ShopItemListForBuySerializer(many=True),
         },
         tags=["shop:shop_item"],
     )
@@ -198,37 +199,29 @@ class ShopItemListForBuyAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-class ShopItemBuyAPIView(GenericAPIView):
+class ShopItemDetailForBuyAPIView(QuerySelectorMixin, GenericAPIView):
     """
-    Товар в магазине. Покупка.
+    Товар в магазине. Детальная информация для покупки.
     """
 
-    queryset = ShopItem.objects.annotate(
-        purchase_restriction=models.F("category__purchase_restriction"),
-    )
-    serializer_class = ShopItemBuySerializer
+    selector = ShopItemDetailForBuySelector
+    serializer_class = ShopItemDetailForBuySerializer
+    search_fields = ("name", "category__name")
 
     @extend_schema(
-        request=ShopItemBuySerializer,
         responses={
-            status.HTTP_201_CREATED: ResponseDetailSerializer,
+            status.HTTP_200_OK: ShopItemDetailForBuySerializer(many=True),
         },
         tags=["shop:shop_item"],
     )
-    def post(self, request: Request, *args, **kwargs) -> Response:
+    def get(self, request: Request, *args, **kwargs) -> Response:
         """
-        Товар в магазине. Покупка.
+        Детальная информация для покупки.
         """
         shop_item = self.get_object()
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        shop_item_service.buy(
-            shop_item=shop_item,
-            user=request.user,
-            validated_data=serializer.validated_data
-        )
+        serializer = self.get_serializer(instance=shop_item)
 
         return Response(
-            data=ResponseDetailSerializer(detail={"detail": _("Объект успешно удален")}).data,
-            status=status.HTTP_204_NO_CONTENT,
+            data=serializer.data,
+            status=status.HTTP_200_OK,
         )

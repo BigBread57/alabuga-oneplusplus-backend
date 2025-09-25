@@ -33,6 +33,7 @@ class GameWorldStoryNestedSerializer(serializers.ModelSerializer):
             "text",
         )
 
+
 class ArtifactNestedSerializer(serializers.ModelSerializer):
     """
     Артефакт. Вложенный сериалайзер.
@@ -143,7 +144,6 @@ class EventNestedSerializer(serializers.ModelSerializer):
         help_text=_("История игрового мира"),
         many=True,
     )
-
 
     class Meta:
         model = Event

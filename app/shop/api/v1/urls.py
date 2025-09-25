@@ -14,6 +14,7 @@ from shop.api.v1.views import (
     UserPurchaseListAPIView,
     UserPurchaseToWorkAPIView,
     UserPurchaseUpdateStatusAPIView,
+    ShopItemDetailAPIView, ShopItemListForBuyAPIView, ShopItemDetailForBuyAPIView,
 )
 
 app_name = "v1"
@@ -47,6 +48,21 @@ shop_item_urls = [
         route="items/list/",
         view=ShopItemListAPIView.as_view(),
         name="items-list",
+    ),
+    path(
+        route="items/list/-for-buy",
+        view=ShopItemListForBuyAPIView.as_view(),
+        name="items-list-for-buy",
+    ),
+    path(
+        route="items/<int:pk>/detail",
+        view=ShopItemDetailAPIView.as_view(),
+        name="items-detail",
+    ),
+    path(
+        route="items/<int:pk>/detail-for-buy",
+        view=ShopItemDetailForBuyAPIView.as_view(),
+        name="items-detail-for-buy",
     ),
     path(
         route="items/create/",

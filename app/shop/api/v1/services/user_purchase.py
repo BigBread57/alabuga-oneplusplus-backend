@@ -1,6 +1,8 @@
+from datetime import timedelta
 from typing import Any
 
 from django.db import transaction
+from django.utils.timezone import now
 from rest_framework.exceptions import ValidationError
 
 from common.services import BaseService
@@ -28,15 +30,14 @@ class UserPurchaseService(BaseService):
         number = validated_data["number"]
         with transaction.atomic():
             new_number = 0 if shop_item.number == 0 else shop_item.number - number
-            if getattr(shop_item, "purchase_restriction") and shop_item.purchase_restriction < number:
-                raise ValidationError(
-                    _("На покупку товара стоит ограничение")
-                )
+            if getattr(shop_item, "purchase_restriction", None) and shop_item.purchase_restriction < number:
+                raise ValidationError(_("На покупку товара стоит ограничение"))
 
             if shop_item.number != 0 and new_number < 0:
-                raise ValidationError(
-                    _("Введенное вами количество товара не доступно")
-                )
+                raise ValidationError(_("Введенное вами количество товара не доступно"))
+
+            if shop_item.start_datetime and shop_item.time_to_buy and (shop_item.start_datetime + timedelta(hours=shop_item.time_to_buy) < now()):
+                raise ValidationError(_("Время для покупки товара истекло"))
 
             character = Character.objects.filter(is_active=True, user=buyer).first()
             character_artifacts_shop_discount = list(
@@ -48,9 +49,7 @@ class UserPurchaseService(BaseService):
             discount = (100 - sum(character_artifacts_shop_discount)) / 100
             total_sum = number * shop_item.price * discount
             if character.currency < total_sum:
-                raise ValidationError(
-                    _("У вас не достаточно денег для покупки")
-                )
+                raise ValidationError(_("У вас не достаточно денег для покупки"))
 
             ShopItem.objects.filter(
                 id=shop_item.id,

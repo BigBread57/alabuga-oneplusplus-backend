@@ -23,7 +23,9 @@ from game_world.api.v1.views.game_world import (
     GameWorldDeleteAPIView,
     GameWorldDetailAPIView,
     GameWorldListAPIView,
-    GameWorldUpdateAPIView, GameWorldRatingAPIView, GameWorldStatisticsAPIView,
+    GameWorldUpdateAPIView,
+    GameWorldRatingAPIView,
+    GameWorldStatisticsAPIView,
 )
 from game_world.api.v1.views.mission import (
     MissionCreateAPIView,

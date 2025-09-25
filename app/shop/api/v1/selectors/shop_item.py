@@ -55,19 +55,16 @@ class ShopItemListSelector(BaseSelector):
     queryset = (
         ShopItem.objects.select_related(
             "category",
-        ).prefetch_related(
+        )
+        .prefetch_related(
             "children",
         )
         .filter(
             is_active=True,
             parent__isnull=True,
         )
-        .annotate(
-            purchase_restriction=models.F("category__purchase_restriction"),
-        )
     )
     filter_class = ShopItemListFilter
-
 
 
 class ShopItemListForBuySelector(BaseSelector):
@@ -79,26 +76,31 @@ class ShopItemListForBuySelector(BaseSelector):
 
     def get_queryset(self, **kwargs) -> QuerySet[ShopItem]:
         user = kwargs.get("request").user
-        return ShopItem.objects.select_related(
-            "category",
-        ).prefetch_related(
-            "children",
-        ).filter(
-            is_active=True,
-            parent__isnull=True,
-            rank__character_ranks__character__user=user,
-            competency__character_competencies__character__user=user,
-        ).annotate(
-            purchase_restriction=models.F("category__purchase_restriction"),
-            shop_discont=models.Subquery(
-                CharacterArtifact.objects.filter(
-                    character__user=user,
-                    artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
-                ).values(
-                   "artifact",
-                ).annotate(
-                    sum=models.Sum("artifact__modifier_value")
-                ).values("sum")[:1]
+        return (
+            ShopItem.objects.select_related(
+                "category",
+            )
+            .prefetch_related(
+                "children",
+            )
+            .filter(
+                is_active=True,
+                parent__isnull=True,
+                rank__character_ranks__character__user=user,
+                competency__character_competencies__character__user=user,
+            )
+            .annotate(
+                shop_discount=models.Subquery(
+                    CharacterArtifact.objects.filter(
+                        character__user=user,
+                        artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
+                    )
+                    .values(
+                        "artifact",
+                    )
+                    .annotate(sum=models.Sum("artifact__modifier_value"))
+                    .values("sum")[:1]
+                ),
             )
         )
 
@@ -110,26 +112,31 @@ class ShopItemDetailForBuySelector(BaseSelector):
 
     def get_queryset(self, **kwargs) -> QuerySet[ShopItem]:
         user = kwargs.get("request").user
-        return ShopItem.objects.select_related(
-            "category",
-        ).prefetch_related(
-            "children",
-        ).filter(
-            is_active=True,
-            parent__isnull=True,
-            rank__character_ranks__character__user=user,
-            competency__character_competencies__character__user=user,
-        ).annotate(
-            purchase_restriction=models.F("category__purchase_restriction"),
-            shop_discont=models.Subquery(
-                CharacterArtifact.objects.filter(
-                    character__user=user,
-                    artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
-                ).values(
-                    "artifact",
-                ).annotate(
-                    sum=models.Sum("artifact__modifier_value")
-                ).values("sum")[:1]
+        return (
+            ShopItem.objects.select_related(
+                "category",
+            )
+            .prefetch_related(
+                "children",
+            )
+            .filter(
+                is_active=True,
+                parent__isnull=True,
+                rank__character_ranks__character__user=user,
+                competency__character_competencies__character__user=user,
+            )
+            .annotate(
+                shop_discount=models.Subquery(
+                    CharacterArtifact.objects.filter(
+                        character__user=user,
+                        artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
+                    )
+                    .values(
+                        "artifact",
+                    )
+                    .annotate(sum=models.Sum("artifact__modifier_value"))
+                    .values("sum")[:1]
+                ),
             )
         )
 
@@ -152,9 +159,6 @@ class ShopItemDetailSelector(BaseSelector):
         .filter(
             is_active=True,
             parent__isnull=True,
-        )
-        .annotate(
-            purchase_restriction=models.F("category__purchase_restriction"),
         )
     )
     filter_class = ShopItemListFilter

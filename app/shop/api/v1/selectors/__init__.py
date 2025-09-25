@@ -1,7 +1,9 @@
 from shop.api.v1.selectors.shop_item import (
     ShopItemDetailSelector,
     ShopItemListFilterSerializer,
-    ShopItemListSelector, ShopItemListForBuySelector, ShopItemDetailForBuySelector,
+    ShopItemListSelector,
+    ShopItemListForBuySelector,
+    ShopItemDetailForBuySelector,
 )
 from shop.api.v1.selectors.shop_item_category import (
     ShopItemCategoryListFilterSerializer,

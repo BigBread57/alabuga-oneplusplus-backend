@@ -23,6 +23,7 @@ from shop.models import UserPurchase
 
 from django.utils.translation import gettext_lazy as _
 
+
 class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Покупки пользователя. Список.

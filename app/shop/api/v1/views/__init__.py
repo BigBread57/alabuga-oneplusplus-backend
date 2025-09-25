@@ -2,7 +2,7 @@ from shop.api.v1.views.shop_item import (
     ShopItemCreateAPIView,
     ShopItemDeleteAPIView,
     ShopItemListAPIView,
-    ShopItemUpdateAPIView,
+    ShopItemUpdateAPIView, ShopItemDetailAPIView, ShopItemListForBuyAPIView, ShopItemDetailForBuyAPIView,
 )
 from shop.api.v1.views.shop_item_category import (
     ShopItemCategoryCreateAPIView,
@@ -29,6 +29,9 @@ __all__ = (
     "ShopItemCreateAPIView",
     "ShopItemUpdateAPIView",
     "ShopItemDeleteAPIView",
+    "ShopItemDetailAPIView",
+    "ShopItemListForBuyAPIView",
+    "ShopItemDetailForBuyAPIView",
     # UserPurchase
     "UserPurchaseListAPIView",
     "UserPurchaseCreateAPIView",

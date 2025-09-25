@@ -12,7 +12,7 @@ from shop.models import ShopItem
 
 class ShopItemListSerializer(serializers.ModelSerializer):
     """
-    Товар в магазине. Список
+    Товар в магазине. Список.
     """
 
     category = ShopItemCategoryNestedSerializer(
@@ -22,10 +22,6 @@ class ShopItemListSerializer(serializers.ModelSerializer):
     end_datetime = serializers.SerializerMethodField(
         label=_("Дата и время окончания продаж"),
         help_text=_("Дата и время окончания продаж"),
-    )
-    purchase_restriction = serializers.IntegerField(
-        label=_("Доступно для покупки"),
-        help_text=_("Доступно для покупки"),
     )
     children = ShopItemNestedSerializer(
         label=_("Другой вид товара"),
@@ -47,6 +43,55 @@ class ShopItemListSerializer(serializers.ModelSerializer):
             "end_datetime",
             "purchase_restriction",
             "children",
+        )
+
+    def get_end_datetime(self, shop_item: ShopItem) -> datetime | None:
+        """
+        Дата и время окончания продаж.
+        """
+        if shop_item.start_datetime and shop_item.time_to_buy:
+            return shop_item.start_datetime + timedelta(hours=shop_item.time_to_buy)
+        return None
+
+
+class ShopItemListForBuySerializer(serializers.ModelSerializer):
+    """
+    Товар в магазине. Список для покупки.
+    """
+
+    category = ShopItemCategoryNestedSerializer(
+        label=_("Категория"),
+        help_text=_("Категория"),
+    )
+    end_datetime = serializers.SerializerMethodField(
+        label=_("Дата и время окончания продаж"),
+        help_text=_("Дата и время окончания продаж"),
+    )
+    children = ShopItemNestedSerializer(
+        label=_("Другой вид товара"),
+        help_text=_("Другой вид товара"),
+    )
+    shop_discount = serializers.IntegerField(
+        label=_("Скидка"),
+        help_text=_("Скидка"),
+    )
+
+    class Meta:
+        model = ShopItem
+        fields = (
+            "id",
+            "name",
+            "description",
+            "category",
+            "price",
+            "number",
+            "image",
+            "is_active",
+            "start_datetime",
+            "end_datetime",
+            "purchase_restriction",
+            "children",
+            "shop_discount",
         )
 
     def get_end_datetime(self, shop_item: ShopItem) -> datetime | None:
@@ -84,9 +129,63 @@ class ShopItemDetailSerializer(serializers.ModelSerializer):
         label=_("Дата и время окончания продаж"),
         help_text=_("Дата и время окончания продаж"),
     )
-    purchase_restriction = serializers.IntegerField(
-        label=_("Доступно для покупки"),
-        help_text=_("Доступно для покупки"),
+
+    class Meta:
+        model = ShopItem
+        fields = (
+            "id",
+            "name",
+            "description",
+            "category",
+            "price",
+            "children",
+            "rank",
+            "competency",
+            "number",
+            "image",
+            "is_active",
+            "end_datetime",
+            "purchase_restriction",
+        )
+
+    def get_end_datetime(self, shop_item: ShopItem) -> datetime | None:
+        """
+        Дата и время окончания продаж.
+        """
+        if shop_item.start_datetime and shop_item.time_to_buy:
+            return shop_item.start_datetime + timedelta(hours=shop_item.time_to_buy)
+        return None
+
+
+class ShopItemDetailForBuySerializer(serializers.ModelSerializer):
+    """
+    Товар в магазине. Детальная информация для покупки.
+    """
+
+    category = ShopItemCategoryNestedSerializer(
+        label=_("Категория"),
+        help_text=_("Категория"),
+    )
+    rank = RankNestedSerializer(
+        label=_("Ранг"),
+        help_text=_("Ранг"),
+    )
+    competency = CompetencyNestedSerializer(
+        label=_("Компетенция"),
+        help_text=_("Компетенция"),
+    )
+    children = ShopItemNestedSerializer(
+        label=_("Дочерние элементы"),
+        help_text=_("Дочерние элементы"),
+        many=True,
+    )
+    end_datetime = serializers.SerializerMethodField(
+        label=_("Дата и время окончания продаж"),
+        help_text=_("Дата и время окончания продаж"),
+    )
+    shop_discount = serializers.IntegerField(
+        label=_("Скидка"),
+        help_text=_("Скидка"),
     )
 
     class Meta:
@@ -105,6 +204,7 @@ class ShopItemDetailSerializer(serializers.ModelSerializer):
             "is_active",
             "end_datetime",
             "purchase_restriction",
+            "shop_discount",
         )
 
     def get_end_datetime(self, shop_item: ShopItem) -> datetime | None:
