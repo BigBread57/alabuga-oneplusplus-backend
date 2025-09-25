@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from game_world.models import ActivityCategory, Artifact, Event, GameWorld, Mission, MissionBranch
+from game_world.models import ActivityCategory, Artifact, Event, GameWorld, Mission, MissionBranch, GameWorldStory
 
 
 class GameWorldNestedSerializer(serializers.ModelSerializer):
@@ -20,10 +20,29 @@ class GameWorldNestedSerializer(serializers.ModelSerializer):
         )
 
 
+class GameWorldStoryNestedSerializer(serializers.ModelSerializer):
+    """
+    Игровой мир. Вложенный сериалайзер.
+    """
+
+    class Meta:
+        model = GameWorldStory
+        fields = (
+            "id",
+            "image",
+            "text",
+        )
+
 class ArtifactNestedSerializer(serializers.ModelSerializer):
     """
     Артефакт. Вложенный сериалайзер.
     """
+
+    game_world_stories = GameWorldStoryNestedSerializer(
+        label=_("История игрового мира"),
+        help_text=_("История игрового мира"),
+        many=True,
+    )
 
     class Meta:
         model = Artifact
@@ -35,6 +54,7 @@ class ArtifactNestedSerializer(serializers.ModelSerializer):
             "color",
             "modifier",
             "modifier_value",
+            "game_world_stories",
         )
 
 
@@ -60,8 +80,8 @@ class MissionBranchNestedSerializer(serializers.ModelSerializer):
     """
 
     category = ActivityCategoryNestedSerializer(
-        label=_("Ветка миссий"),
-        help_text=_("Ветка миссий"),
+        label=_("Категория активности"),
+        help_text=_("Категория активности"),
     )
 
     class Meta:
@@ -85,6 +105,11 @@ class MissionNestedSerializer(serializers.ModelSerializer):
         label=_("Ветка миссий"),
         help_text=_("Ветка миссий"),
     )
+    game_world_stories = GameWorldStoryNestedSerializer(
+        label=_("История игрового мира"),
+        help_text=_("История игрового мира"),
+        many=True,
+    )
 
     class Meta:
         model = Mission
@@ -100,6 +125,7 @@ class MissionNestedSerializer(serializers.ModelSerializer):
             "is_key_mission",
             "level",
             "branch",
+            "game_world_stories",
         )
 
 
@@ -107,6 +133,17 @@ class EventNestedSerializer(serializers.ModelSerializer):
     """
     Событие. Вложенный сериалайзер.
     """
+
+    category = ActivityCategoryNestedSerializer(
+        label=_("Категория активности"),
+        help_text=_("Категория активности"),
+    )
+    game_world_stories = GameWorldStoryNestedSerializer(
+        label=_("История игрового мира"),
+        help_text=_("История игрового мира"),
+        many=True,
+    )
+
 
     class Meta:
         model = Event
@@ -119,4 +156,5 @@ class EventNestedSerializer(serializers.ModelSerializer):
             "currency",
             "experience",
             "category",
+            "game_world_stories",
         )
