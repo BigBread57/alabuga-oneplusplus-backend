@@ -67,6 +67,7 @@ class MissionBranch(AbstractBaseModel):
         to="game_world.GameWorld",
         on_delete=models.CASCADE,
         verbose_name=_("Игровой мир"),
+        help_text=_("Игровой мир в рамках которого создается ветка миссий"),
         related_name="mission_branches",
     )
 

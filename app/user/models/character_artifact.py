@@ -1,4 +1,6 @@
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from common.models import AbstractBaseModel
@@ -28,3 +30,7 @@ class CharacterArtifact(AbstractBaseModel):
 
     def __str__(self):
         return f"{self.character} - {self.artifact}"
+
+    @cached_property
+    def content_type_id(self):
+        return ContentType.objects.get_for_model(self.__class__).id

@@ -23,6 +23,7 @@ class GameWorldStory(AbstractBaseModel):
         to="game_world.GameWorld",
         on_delete=models.CASCADE,
         verbose_name=_("Игровой мир"),
+        help_text=_("Игровой мир в рамках которого создается история, особенности и описание его предметов и механик."),
         related_name="game_world_stories",
     )
     content_type = models.ForeignKey(

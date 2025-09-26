@@ -68,6 +68,7 @@ class Event(AbstractBaseModel):
         to="game_world.GameWorld",
         on_delete=models.CASCADE,
         verbose_name=_("Игровой мир"),
+        help_text=_("Игровой мир в рамках которого создается событие"),
         related_name="events",
     )
     artifacts = models.ManyToManyField(

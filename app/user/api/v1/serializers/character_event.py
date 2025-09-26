@@ -18,6 +18,10 @@ class CharacterEventListSerializer(serializers.ModelSerializer):
         label=_("Название статуса"),
         help_text=_("Название статуса"),
     )
+    content_type_id = serializers.IntegerField(
+        label=_("ID тип содержимого"),
+        help_text=_("ID тип содержимого"),
+    )
 
     class Meta:
         model = CharacterEvent
@@ -27,6 +31,7 @@ class CharacterEventListSerializer(serializers.ModelSerializer):
             "status_display_name",
             "start_datetime",
             "end_datetime",
+            "content_type_id",
             "event",
         )
 
@@ -50,6 +55,10 @@ class CharacterEventDetailSerializer(serializers.ModelSerializer):
         label=_("Название статуса"),
         help_text=_("Название статуса"),
     )
+    content_type_id = serializers.IntegerField(
+        label=_("ID тип содержимого"),
+        help_text=_("ID тип содержимого"),
+    )
 
     class Meta:
         model = CharacterEvent
@@ -63,6 +72,7 @@ class CharacterEventDetailSerializer(serializers.ModelSerializer):
             "inspector",
             "inspector_comment",
             "result",
+            "content_type_id",
         )
 
     def get_status_display_name(self, character_event: CharacterEvent) -> str:

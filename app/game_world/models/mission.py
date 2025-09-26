@@ -70,6 +70,7 @@ class Mission(AbstractBaseModel):
         to="game_world.GameWorld",
         on_delete=models.CASCADE,
         verbose_name=_("Игровой мир"),
+        help_text=_("Игровой мир в рамках которого создается миссия"),
         related_name="missions",
     )
     required_missions = models.ManyToManyField(

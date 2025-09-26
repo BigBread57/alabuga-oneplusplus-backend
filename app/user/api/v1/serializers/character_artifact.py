@@ -14,12 +14,17 @@ class CharacterArtifactListSerializer(serializers.ModelSerializer):
         label=_("Артефакт"),
         help_text=_("Артефакт"),
     )
+    content_type_id = serializers.IntegerField(
+        label=_("ID тип содержимого"),
+        help_text=_("ID тип содержимого"),
+    )
 
     class Meta:
         model = CharacterArtifact
         fields = (
             "id",
             "artifact",
+            "content_type_id",
             "created_at",
         )
 
@@ -33,11 +38,16 @@ class CharacterArtifactDetailSerializer(serializers.ModelSerializer):
         label=_("Артефакт"),
         help_text=_("Артефакт"),
     )
+    content_type_id = serializers.IntegerField(
+        label=_("ID тип содержимого"),
+        help_text=_("ID тип содержимого"),
+    )
 
     class Meta:
         model = CharacterArtifact
         fields = (
             "id",
             "artifact",
+            "content_type_id",
             "created_at",
         )

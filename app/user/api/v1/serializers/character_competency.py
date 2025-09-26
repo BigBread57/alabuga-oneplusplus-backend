@@ -14,6 +14,10 @@ class CharacterCompetencyListSerializer(serializers.ModelSerializer):
         label=_("Компетенция"),
         help_text=_("Компетенция"),
     )
+    content_type_id = serializers.IntegerField(
+        label=_("ID тип содержимого"),
+        help_text=_("ID тип содержимого"),
+    )
 
     class Meta:
         model = CharacterCompetency
@@ -22,6 +26,7 @@ class CharacterCompetencyListSerializer(serializers.ModelSerializer):
             "competency",
             "experience",
             "is_received",
+            "content_type_id",
             "created_at",
         )
 
@@ -35,6 +40,10 @@ class CharacterCompetencyDetailSerializer(serializers.ModelSerializer):
         label=_("Компетенция"),
         help_text=_("Компетенция"),
     )
+    content_type_id = serializers.IntegerField(
+        label=_("ID тип содержимого"),
+        help_text=_("ID тип содержимого"),
+    )
 
     class Meta:
         model = CharacterCompetency
@@ -43,5 +52,6 @@ class CharacterCompetencyDetailSerializer(serializers.ModelSerializer):
             "competency",
             "experience",
             "is_received",
+            "content_type_id",
             "created_at",
         )

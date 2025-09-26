@@ -35,4 +35,4 @@ def add_timestamps_to_fixture_file(input_file, output_file=None):
 
 # Использование
 if __name__ == "__main__":
-    add_timestamps_to_fixture_file("fixtures.json", "new_fixtures.json")
+    add_timestamps_to_fixture_file("../fixtures/fixtures.json", "new_fixtures.json")

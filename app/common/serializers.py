@@ -22,10 +22,16 @@ class ContentTypeNestedSerializer(serializers.ModelSerializer):
         label=_("Название типа содержимого"),
         help_text=_("Название типа содержимого"),
     )
+    color = serializers.CharField(
+        label=_("Цвет"),
+        help_text=_("Цвет"),
+        default="",
+    )
 
     class Meta:
         model = ContentType
         fields = (
             "id",
             "name",
+            "color",
         )

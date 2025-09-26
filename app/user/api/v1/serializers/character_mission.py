@@ -18,6 +18,10 @@ class CharacterMissionListSerializer(serializers.ModelSerializer):
         label=_("Название статуса"),
         help_text=_("Название статуса"),
     )
+    content_type_id = serializers.IntegerField(
+        label=_("ID тип содержимого"),
+        help_text=_("ID тип содержимого"),
+    )
 
     class Meta:
         model = CharacterMission
@@ -28,6 +32,7 @@ class CharacterMissionListSerializer(serializers.ModelSerializer):
             "start_datetime",
             "end_datetime",
             "mission",
+            "content_type_id",
         )
 
     def get_status_display_name(self, character_mission: CharacterMission) -> str:
@@ -50,6 +55,10 @@ class CharacterMissionDetailSerializer(serializers.ModelSerializer):
         label=_("Название статуса"),
         help_text=_("Название статуса"),
     )
+    content_type_id = serializers.IntegerField(
+        label=_("ID тип содержимого"),
+        help_text=_("ID тип содержимого"),
+    )
 
     class Meta:
         model = CharacterMission
@@ -64,6 +73,7 @@ class CharacterMissionDetailSerializer(serializers.ModelSerializer):
             "inspector",
             "inspector_comment",
             "result",
+            "content_type_id",
         )
 
     def get_status_display_name(self, character_mission: CharacterMission) -> str:

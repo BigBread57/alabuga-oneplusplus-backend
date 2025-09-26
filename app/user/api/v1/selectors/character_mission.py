@@ -100,7 +100,7 @@ class CharacterMissionListSelector(BaseSelector):
     Миссия персонажа. Список. Селектор.
     """
 
-    CharacterMission.objects.select_related(
+    queryset = CharacterMission.objects.select_related(
         "character",
         "mission",
         "inspector",

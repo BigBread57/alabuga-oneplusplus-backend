@@ -10,14 +10,21 @@ class ActivityCategory(AbstractBaseModel):
     """
 
     name = models.CharField(
-        verbose_name=_("Название категории"),
+        verbose_name=_("Название"),
+        help_text=_("Название категории активности"),
         max_length=256,
     )
     description = models.TextField(
-        verbose_name=_("Описание категории"),
+        verbose_name=_("Описание"),
+        help_text=_("Описание категории активности"),
     )
     repeatability = models.PositiveIntegerField(
         verbose_name=_("Через сколько дней повторять активность"),
+        help_text=_(
+            "Количество дней, через которую данную категории активности стоит повторить. "
+            "Используется в некоторых миссиях и событиях. "
+            "Например: категория 'Еженедельная миссия', repeatability = 7"
+        ),
         null=True,
         blank=True,
     )
