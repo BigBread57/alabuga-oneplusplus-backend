@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from communication.api.v1.serializers.nested import TopicNestedSerializer, PostNestedSerializer
+from communication.api.v1.serializers.nested import PostNestedSerializer, TopicNestedSerializer
 from communication.models import Post
 from user.api.v1.serializers.nested import UserNestedSerializer
 

@@ -19,6 +19,8 @@ from game_world.api.v1.views import (
     GameWorldDeleteAPIView,
     GameWorldDetailAPIView,
     GameWorldListAPIView,
+    GameWorldRatingAPIView,
+    GameWorldStatisticsAPIView,
     GameWorldUpdateAPIView,
     MissionBranchCreateAPIView,
     MissionBranchDeleteAPIView,
@@ -30,8 +32,6 @@ from game_world.api.v1.views import (
     MissionDetailAPIView,
     MissionListAPIView,
     MissionUpdateAPIView,
-    GameWorldRatingAPIView,
-    GameWorldStatisticsAPIView,
 )
 
 app_name = "v1"

@@ -5,9 +5,12 @@ from rest_framework import serializers
 
 from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer, RankNestedSerializer
 from game_mechanics.models import Rank
-from game_world.api.v1.serializers.nested import ArtifactNestedSerializer, MissionNestedSerializer, \
-    EventNestedSerializer
-from user.models import CharacterArtifact, CharacterCompetency, CharacterEvent, CharacterMission, User, Character
+from game_world.api.v1.serializers.nested import (
+    ArtifactNestedSerializer,
+    EventNestedSerializer,
+    MissionNestedSerializer,
+)
+from user.models import Character, CharacterArtifact, CharacterCompetency, CharacterEvent, CharacterMission, User
 from user.models.character_rank import CharacterRank
 
 
@@ -123,6 +126,7 @@ class CharacterRankNestedSerializer(serializers.ModelSerializer):
             context=self.context,
         ).data
 
+
 class CharacterMissionNestedSerializer(serializers.ModelSerializer):
     """
     Прогресс персонажа по миссиям. Вложенный сериалайзер.
@@ -160,7 +164,6 @@ class CharacterEventNestedSerializer(serializers.ModelSerializer):
         label=_("Название статуса"),
         help_text=_("Название статуса"),
     )
-
 
     class Meta:
         model = CharacterEvent

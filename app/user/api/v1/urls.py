@@ -2,10 +2,19 @@ from django.urls import path
 
 from user.api.v1.views import (
     CharacterActualForUserAPIView,
+    CharacterArtifactDetailAPIView,
+    CharacterArtifactListAPIView,
+    CharacterCompetencyDetailAPIView,
+    CharacterCompetencyListAPIView,
+    CharacterEventDetailAPIView,
+    CharacterEventListAPIView,
     CharacterEventUpdateFromCharacterAPIView,
     CharacterEventUpdateFromInspectorAPIView,
+    CharacterMissionDetailAPIView,
+    CharacterMissionListAPIView,
     CharacterMissionUpdateFromCharacterAPIView,
     CharacterMissionUpdateFromInspectorAPIView,
+    CharacterUpdateAPIView,
     UserConfirmRegisterAPIView,
     UserConfirmResetPasswordAPIView,
     UseResendEmailConfirmationAPIView,
@@ -14,9 +23,7 @@ from user.api.v1.views import (
     UserLogoutAPIView,
     UserRegisterAPIView,
     UserRequestResetPasswordAPIView,
-    UserUpdatePasswordAPIView, CharacterEventListAPIView, CharacterEventDetailAPIView, CharacterMissionListAPIView,
-    CharacterMissionDetailAPIView, CharacterArtifactDetailAPIView, CharacterArtifactListAPIView,
-    CharacterCompetencyDetailAPIView, CharacterCompetencyListAPIView, CharacterUpdateAPIView,
+    UserUpdatePasswordAPIView,
 )
 
 app_name = "v1"

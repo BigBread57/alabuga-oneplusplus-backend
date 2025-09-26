@@ -1,5 +1,4 @@
 import django_filters
-from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
@@ -100,6 +99,7 @@ class CharacterMissionListSelector(BaseSelector):
     """
     Миссия персонажа. Список. Селектор.
     """
+
     CharacterMission.objects.select_related(
         "character",
         "mission",

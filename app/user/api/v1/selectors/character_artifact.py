@@ -25,9 +25,8 @@ class CharacterArtifactListOrDetailFilter(django_filters.FilterSet):
 
     class Meta:
         model = CharacterArtifact
-        fields = (
-            "character",
-        )
+        fields = ("character",)
+
 
 class CharacterArtifactListSelector(BaseSelector):
     """

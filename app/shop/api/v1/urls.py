@@ -7,14 +7,16 @@ from shop.api.v1.views import (
     ShopItemCategoryUpdateAPIView,
     ShopItemCreateAPIView,
     ShopItemDeleteAPIView,
+    ShopItemDetailAPIView,
+    ShopItemDetailForBuyAPIView,
     ShopItemListAPIView,
+    ShopItemListForBuyAPIView,
     ShopItemUpdateAPIView,
     UserPurchaseCreateAPIView,
     UserPurchaseDetailAPIView,
     UserPurchaseListAPIView,
     UserPurchaseToWorkAPIView,
     UserPurchaseUpdateStatusAPIView,
-    ShopItemDetailAPIView, ShopItemListForBuyAPIView, ShopItemDetailForBuyAPIView,
 )
 
 app_name = "v1"

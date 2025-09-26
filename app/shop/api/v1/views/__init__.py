@@ -1,8 +1,11 @@
 from shop.api.v1.views.shop_item import (
     ShopItemCreateAPIView,
     ShopItemDeleteAPIView,
+    ShopItemDetailAPIView,
+    ShopItemDetailForBuyAPIView,
     ShopItemListAPIView,
-    ShopItemUpdateAPIView, ShopItemDetailAPIView, ShopItemListForBuyAPIView, ShopItemDetailForBuyAPIView,
+    ShopItemListForBuyAPIView,
+    ShopItemUpdateAPIView,
 )
 from shop.api.v1.views.shop_item_category import (
     ShopItemCategoryCreateAPIView,

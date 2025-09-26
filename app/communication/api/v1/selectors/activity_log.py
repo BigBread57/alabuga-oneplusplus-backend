@@ -57,10 +57,13 @@ class ActivityLogContentTypeListSelector(BaseSelector):
     """
 
     filter_class = ActivityLogListFilter
+
     def get_queryset(self, **kwargs) -> models.QuerySet:
         active_character = self.request.user.active_character
         return ContentType.objects.filter(
             id__in=ActivityLog.objects.filter(
                 character=active_character,
-            ).values_list("content_type", flat=True).distinct()
+            )
+            .values_list("content_type", flat=True)
+            .distinct()
         )

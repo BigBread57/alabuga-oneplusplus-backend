@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from game_world.models import ActivityCategory, Artifact, Event, GameWorld, Mission, MissionBranch, GameWorldStory
+from game_world.models import ActivityCategory, Artifact, Event, GameWorld, GameWorldStory, Mission, MissionBranch
 
 
 class GameWorldNestedSerializer(serializers.ModelSerializer):

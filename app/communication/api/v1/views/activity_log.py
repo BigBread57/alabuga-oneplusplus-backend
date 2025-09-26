@@ -1,5 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
-from django.db.models import QuerySet
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
@@ -8,8 +6,11 @@ from rest_framework.response import Response
 
 from common.serializers import ContentTypeNestedSerializer
 from common.views import QuerySelectorMixin
-from communication.api.v1.selectors import ActivityLogListSelector, \
-    ActivityLogListFilterSerializer, ActivityLogContentTypeListSelector
+from communication.api.v1.selectors import (
+    ActivityLogContentTypeListSelector,
+    ActivityLogListFilterSerializer,
+    ActivityLogListSelector,
+)
 from communication.api.v1.serializers import ActivityLogListSerializer
 
 

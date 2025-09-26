@@ -4,7 +4,6 @@ from typing import Any
 
 from allauth.account.forms import default_token_generator
 from allauth.account.utils import url_str_to_user_pk, user_pk_to_url_str
-from allauth.utils import build_absolute_uri
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
@@ -14,7 +13,6 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import status
 from rest_framework.exceptions import APIException, NotFound, ParseError, ValidationError
 from rest_framework.request import Request
-from rest_framework.reverse import reverse
 
 from common.services import BaseService
 from communication.models import ActivityLog
@@ -55,7 +53,6 @@ class UserService(BaseService):
         if reset_user is None or invalid_token:
             raise ValidationError(_("Токен сброса пароля не действителен"))
         return reset_user
-
 
     @staticmethod
     def get_user_by_email_and_check_token(

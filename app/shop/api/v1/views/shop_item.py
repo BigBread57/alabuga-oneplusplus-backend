@@ -1,4 +1,3 @@
-from django.db import models
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
@@ -9,13 +8,19 @@ from rest_framework.response import Response
 from common.permissions import UserHRPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
-from shop.api.v1.selectors import ShopItemDetailSelector, ShopItemListFilterSerializer, ShopItemListSelector, \
-    ShopItemListForBuySelector, ShopItemDetailForBuySelector
+from shop.api.v1.selectors import (
+    ShopItemDetailForBuySelector,
+    ShopItemDetailSelector,
+    ShopItemListFilterSerializer,
+    ShopItemListForBuySelector,
+    ShopItemListSelector,
+)
 from shop.api.v1.serializers import (
     ShopItemCreateOrUpdateSerializer,
+    ShopItemDetailForBuySerializer,
     ShopItemDetailSerializer,
+    ShopItemListForBuySerializer,
     ShopItemListSerializer,
-    ShopItemListForBuySerializer, ShopItemDetailForBuySerializer,
 )
 from shop.models import ShopItem
 

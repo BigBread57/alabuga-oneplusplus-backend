@@ -1,8 +1,12 @@
 from user.api.v1.serializers.character import CharacterActualForUserSerializer, CharacterUpdateSerializer
-from user.api.v1.serializers.character_artifact import CharacterArtifactListSerializer, \
-    CharacterArtifactDetailSerializer
-from user.api.v1.serializers.character_competency import CharacterCompetencyListSerializer, \
-    CharacterCompetencyDetailSerializer
+from user.api.v1.serializers.character_artifact import (
+    CharacterArtifactDetailSerializer,
+    CharacterArtifactListSerializer,
+)
+from user.api.v1.serializers.character_competency import (
+    CharacterCompetencyDetailSerializer,
+    CharacterCompetencyListSerializer,
+)
 from user.api.v1.serializers.character_event import (
     CharacterEventDetailSerializer,
     CharacterEventListSerializer,

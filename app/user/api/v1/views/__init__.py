@@ -1,13 +1,17 @@
 from user.api.v1.views.character import CharacterActualForUserAPIView, CharacterUpdateAPIView
-from user.api.v1.views.character_artifact import CharacterArtifactListAPIView, CharacterArtifactDetailAPIView
-from user.api.v1.views.character_competency import CharacterCompetencyListAPIView, CharacterCompetencyDetailAPIView
+from user.api.v1.views.character_artifact import CharacterArtifactDetailAPIView, CharacterArtifactListAPIView
+from user.api.v1.views.character_competency import CharacterCompetencyDetailAPIView, CharacterCompetencyListAPIView
 from user.api.v1.views.character_event import (
+    CharacterEventDetailAPIView,
+    CharacterEventListAPIView,
     CharacterEventUpdateFromCharacterAPIView,
-    CharacterEventUpdateFromInspectorAPIView, CharacterEventListAPIView, CharacterEventDetailAPIView,
+    CharacterEventUpdateFromInspectorAPIView,
 )
 from user.api.v1.views.character_mission import (
+    CharacterMissionDetailAPIView,
+    CharacterMissionListAPIView,
     CharacterMissionUpdateFromCharacterAPIView,
-    CharacterMissionUpdateFromInspectorAPIView, CharacterMissionListAPIView, CharacterMissionDetailAPIView,
+    CharacterMissionUpdateFromInspectorAPIView,
 )
 from user.api.v1.views.user import (
     UserConfirmRegisterAPIView,

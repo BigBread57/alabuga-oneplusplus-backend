@@ -1,8 +1,8 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from common.serializers import ContentTypeNestedSerializer
 from communication.models import ActivityLog
-from django.utils.translation import gettext_lazy as _
 
 
 class ActivityLogListSerializer(serializers.ModelSerializer):

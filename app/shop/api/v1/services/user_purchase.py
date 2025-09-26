@@ -3,14 +3,14 @@ from typing import Any
 
 from django.db import transaction
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
 from rest_framework.exceptions import ValidationError
 
 from common.services import BaseService
 from game_world.models import Artifact
-from shop.models import UserPurchase, ShopItem
+from shop.models import ShopItem, UserPurchase
 from shop.tasks import send_mail_about_new_user_purchase
-from user.models import User, Character, CharacterArtifact
-from django.utils.translation import gettext_lazy as _
+from user.models import Character, CharacterArtifact, User
 
 
 class UserPurchaseService(BaseService):
@@ -36,7 +36,11 @@ class UserPurchaseService(BaseService):
             if shop_item.number != 0 and new_number < 0:
                 raise ValidationError(_("Введенное вами количество товара не доступно"))
 
-            if shop_item.start_datetime and shop_item.time_to_buy and (shop_item.start_datetime + timedelta(hours=shop_item.time_to_buy) < now()):
+            if (
+                shop_item.start_datetime
+                and shop_item.time_to_buy
+                and (shop_item.start_datetime + timedelta(hours=shop_item.time_to_buy) < now())
+            ):
                 raise ValidationError(_("Время для покупки товара истекло"))
 
             character = Character.objects.filter(is_active=True, user=buyer).first()

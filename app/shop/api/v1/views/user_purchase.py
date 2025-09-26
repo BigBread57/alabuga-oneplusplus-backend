@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
@@ -20,8 +21,6 @@ from shop.api.v1.serializers import (
 )
 from shop.api.v1.services import user_purchase_service
 from shop.models import UserPurchase
-
-from django.utils.translation import gettext_lazy as _
 
 
 class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):

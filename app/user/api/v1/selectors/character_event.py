@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
 from common.constants import CharacterRoles
-from common.selectors import BaseSelector, CurrentCharacterDefault, T
+from common.selectors import BaseSelector, CurrentCharacterDefault
 from user.models import CharacterEvent, User
 
 

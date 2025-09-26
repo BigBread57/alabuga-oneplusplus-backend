@@ -1,8 +1,14 @@
 from user.api.v1.selectors.character import CharacterActualForUserSelector
-from user.api.v1.selectors.character_artifact import \
-    CharacterArtifactListSelector, CharacterArtifactDetailSelector, CharacterArtifactListOrDetailFilterSerializer
-from user.api.v1.selectors.character_competency import CharacterCompetencyListOrDetailFilterSerializer, \
-    CharacterCompetencyListSelector, CharacterCompetencyDetailSelector
+from user.api.v1.selectors.character_artifact import (
+    CharacterArtifactDetailSelector,
+    CharacterArtifactListOrDetailFilterSerializer,
+    CharacterArtifactListSelector,
+)
+from user.api.v1.selectors.character_competency import (
+    CharacterCompetencyDetailSelector,
+    CharacterCompetencyListOrDetailFilterSerializer,
+    CharacterCompetencyListSelector,
+)
 from user.api.v1.selectors.character_event import (
     CharacterEventDetailOrUpdateFilterSerializer,
     CharacterEventDetailSelector,

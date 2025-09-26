@@ -35,7 +35,6 @@ class Post(AbstractBaseModel):
         blank=True,
     )
 
-
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Пост")
         verbose_name_plural = _("Посты")

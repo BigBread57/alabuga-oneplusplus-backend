@@ -5,9 +5,12 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from common.views import QuerySelectorMixin
-from user.api.v1.selectors import CharacterCompetencyListSelector, CharacterCompetencyListOrDetailFilterSerializer, \
-    CharacterCompetencyDetailSelector
-from user.api.v1.serializers import CharacterCompetencyListSerializer, CharacterCompetencyDetailSerializer
+from user.api.v1.selectors import (
+    CharacterCompetencyDetailSelector,
+    CharacterCompetencyListOrDetailFilterSerializer,
+    CharacterCompetencyListSelector,
+)
+from user.api.v1.serializers import CharacterCompetencyDetailSerializer, CharacterCompetencyListSerializer
 
 
 class CharacterCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):

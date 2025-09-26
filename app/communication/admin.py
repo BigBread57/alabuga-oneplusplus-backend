@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from communication.models import Comment, Post, Topic, ActivityLog
+from communication.models import ActivityLog, Comment, Post, Topic
 
 
 @admin.register(ActivityLog)
@@ -18,12 +18,8 @@ class ActivityLogAdmin(admin.ModelAdmin):
     list_filter = ("content_type",)
     search_fields = ("text",)
     ordering = ("-id",)
-    autocomplete_fields = (
-        "character",
-    )
-    list_select_related = (
-        "character",
-    )
+    autocomplete_fields = ("character",)
+    list_select_related = ("character",)
 
 
 @admin.register(Comment)
@@ -41,12 +37,8 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ("content_type",)
     search_fields = ("text",)
     ordering = ("-id",)
-    autocomplete_fields = (
-        "character",
-    )
-    list_select_related = (
-        "character",
-    )
+    autocomplete_fields = ("character",)
+    list_select_related = ("character",)
 
 
 @admin.register(Post)
@@ -88,4 +80,3 @@ class TopicAdmin(admin.ModelAdmin):
     list_filter = ("game_worlds",)
     search_fields = ("name", "description")
     ordering = ("-id",)
-

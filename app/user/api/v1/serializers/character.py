@@ -5,8 +5,8 @@ from rest_framework import serializers
 
 from game_world.api.v1.serializers.nested import GameWorldNestedSerializer
 from user.api.v1.serializers.nested import (
-    UserNestedSerializer,
     CharacterRankNestedSerializer,
+    UserNestedSerializer,
 )
 from user.models import Character
 
@@ -51,7 +51,6 @@ class CharacterActualForUserSerializer(serializers.ModelSerializer):
         ).data
 
 
-
 class CharacterUpdateSerializer(serializers.ModelSerializer):
     """
     Персонаж. Изменение.
@@ -59,6 +58,4 @@ class CharacterUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Character
-        fields = (
-            "avatar",
-        )
+        fields = ("avatar",)

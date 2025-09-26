@@ -25,9 +25,8 @@ class CharacterCompetencyOrDetailFilter(django_filters.FilterSet):
 
     class Meta:
         model = CharacterCompetency
-        fields = (
-            "character",
-        )
+        fields = ("character",)
+
 
 class CharacterCompetencyListSelector(BaseSelector):
     """
