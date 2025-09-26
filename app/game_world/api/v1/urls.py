@@ -1,38 +1,6 @@
 from django.urls import path
 
-from game_world.api.v1.views import (
-    ActivityCategoryCreateAPIView,
-    ActivityCategoryDeleteAPIView,
-    ActivityCategoryDetailAPIView,
-    ActivityCategoryListAPIView,
-    ActivityCategoryUpdateAPIView,
-    ArtifactCreateAPIView,
-    ArtifactDeleteAPIView,
-    ArtifactListAPIView,
-    ArtifactUpdateAPIView,
-    EventCreateAPIView,
-    EventDeleteAPIView,
-    EventDetailAPIView,
-    EventListAPIView,
-    EventUpdateAPIView,
-    GameWorldCreateAPIView,
-    GameWorldDeleteAPIView,
-    GameWorldDetailAPIView,
-    GameWorldListAPIView,
-    GameWorldRatingAPIView,
-    GameWorldStatisticsAPIView,
-    GameWorldUpdateAPIView,
-    MissionBranchCreateAPIView,
-    MissionBranchDeleteAPIView,
-    MissionBranchDetailAPIView,
-    MissionBranchListAPIView,
-    MissionBranchUpdateAPIView,
-    MissionCreateAPIView,
-    MissionDeleteAPIView,
-    MissionDetailAPIView,
-    MissionListAPIView,
-    MissionUpdateAPIView,
-)
+from game_world.api.v1 import views
 
 app_name = "v1"
 
@@ -40,22 +8,22 @@ app_name = "v1"
 artifact_urls = [
     path(
         route="artifacts/list/",
-        view=ArtifactListAPIView.as_view(),
+        view=views.ArtifactListAPIView.as_view(),
         name="artifacts-list",
     ),
     path(
         route="artifacts/create/",
-        view=ArtifactCreateAPIView.as_view(),
+        view=views.ArtifactCreateAPIView.as_view(),
         name="artifacts-create",
     ),
     path(
         route="artifacts/<int:pk>/update/",
-        view=ArtifactUpdateAPIView.as_view(),
+        view=views.ArtifactUpdateAPIView.as_view(),
         name="artifacts-update",
     ),
     path(
         route="artifacts/<int:pk>/delete/",
-        view=ArtifactDeleteAPIView.as_view(),
+        view=views.ArtifactDeleteAPIView.as_view(),
         name="artifacts-delete",
     ),
 ]
@@ -63,27 +31,27 @@ artifact_urls = [
 event_urls = [
     path(
         route="events/list/",
-        view=EventListAPIView.as_view(),
+        view=views.EventListAPIView.as_view(),
         name="events-list",
     ),
     path(
         route="events/<int:pk>/detail/",
-        view=EventDetailAPIView.as_view(),
+        view=views.EventDetailAPIView.as_view(),
         name="events-detail/",
     ),
     path(
         route="events/create/",
-        view=EventCreateAPIView.as_view(),
+        view=views.EventCreateAPIView.as_view(),
         name="events-create",
     ),
     path(
         route="events/<int:pk>/update/",
-        view=EventUpdateAPIView.as_view(),
+        view=views.EventUpdateAPIView.as_view(),
         name="events-update",
     ),
     path(
         route="events/<int:pk>/delete/",
-        view=EventDeleteAPIView.as_view(),
+        view=views.EventDeleteAPIView.as_view(),
         name="events-delete",
     ),
 ]
@@ -91,37 +59,37 @@ event_urls = [
 game_world_urls = [
     path(
         route="game-worlds/list/",
-        view=GameWorldListAPIView.as_view(),
+        view=views.GameWorldListAPIView.as_view(),
         name="game-worlds-list",
     ),
     path(
         route="game-worlds/<int:pk>/detail/",
-        view=GameWorldDetailAPIView.as_view(),
+        view=views.GameWorldDetailAPIView.as_view(),
         name="game-worlds-detail/",
     ),
     path(
         route="game-worlds/create/",
-        view=GameWorldCreateAPIView.as_view(),
+        view=views.GameWorldCreateAPIView.as_view(),
         name="game-worlds-create",
     ),
     path(
         route="game-worlds/<int:pk>/update/",
-        view=GameWorldUpdateAPIView.as_view(),
+        view=views.GameWorldUpdateAPIView.as_view(),
         name="game-worlds-update",
     ),
     path(
         route="game-worlds/<int:pk>/delete/",
-        view=GameWorldDeleteAPIView.as_view(),
+        view=views.GameWorldDeleteAPIView.as_view(),
         name="game-worlds-delete",
     ),
     path(
         route="game-worlds/rating/",
-        view=GameWorldRatingAPIView.as_view(),
+        view=views.GameWorldRatingAPIView.as_view(),
         name="game-worlds-rating",
     ),
     path(
         route="game-worlds/statistics/",
-        view=GameWorldStatisticsAPIView.as_view(),
+        view=views.GameWorldStatisticsAPIView.as_view(),
         name="game-worlds-statistics",
     ),
 ]
@@ -129,27 +97,27 @@ game_world_urls = [
 mission_urls = [
     path(
         route="missions/list/",
-        view=MissionListAPIView.as_view(),
+        view=views.MissionListAPIView.as_view(),
         name="missions-list",
     ),
     path(
         route="missions/<int:pk>/detail/",
-        view=MissionDetailAPIView.as_view(),
+        view=views.MissionDetailAPIView.as_view(),
         name="missions-detail/",
     ),
     path(
         route="missions/create/",
-        view=MissionCreateAPIView.as_view(),
+        view=views.MissionCreateAPIView.as_view(),
         name="missions-create",
     ),
     path(
         route="missions/<int:pk>/update/",
-        view=MissionUpdateAPIView.as_view(),
+        view=views.MissionUpdateAPIView.as_view(),
         name="missions-update",
     ),
     path(
         route="missions/<int:pk>/delete/",
-        view=MissionDeleteAPIView.as_view(),
+        view=views.MissionDeleteAPIView.as_view(),
         name="missions-delete",
     ),
 ]
@@ -157,54 +125,54 @@ mission_urls = [
 mission_branch_urls = [
     path(
         route="mission-branches/list/",
-        view=MissionBranchListAPIView.as_view(),
+        view=views.MissionBranchListAPIView.as_view(),
         name="mission-branches-list",
     ),
     path(
         route="mission-branches/<int:pk>/detail/",
-        view=MissionBranchDetailAPIView.as_view(),
+        view=views.MissionBranchDetailAPIView.as_view(),
         name="mission-branches-detail/",
     ),
     path(
         route="mission-branches/create/",
-        view=MissionBranchCreateAPIView.as_view(),
+        view=views.MissionBranchCreateAPIView.as_view(),
         name="mission-branches-create",
     ),
     path(
         route="mission-branches/<int:pk>/update/",
-        view=MissionBranchUpdateAPIView.as_view(),
+        view=views.MissionBranchUpdateAPIView.as_view(),
         name="mission-branches-update",
     ),
     path(
         route="mission-branches/<int:pk>/delete/",
-        view=MissionBranchDeleteAPIView.as_view(),
+        view=views.MissionBranchDeleteAPIView.as_view(),
         name="mission-branches-delete",
     ),
 ]
 activity_category_urls = [
     path(
         route="mission-categories/list/",
-        view=ActivityCategoryListAPIView.as_view(),
+        view=views.ActivityCategoryListAPIView.as_view(),
         name="mission-categories-list",
     ),
     path(
         route="mission-categories/<int:pk>/detail/",
-        view=ActivityCategoryDetailAPIView.as_view(),
+        view=views.ActivityCategoryDetailAPIView.as_view(),
         name="mission-categories-detail/",
     ),
     path(
         route="mission-categories/create/",
-        view=ActivityCategoryCreateAPIView.as_view(),
+        view=views.ActivityCategoryCreateAPIView.as_view(),
         name="mission-categories-create",
     ),
     path(
         route="mission-categories/<int:pk>/update/",
-        view=ActivityCategoryUpdateAPIView.as_view(),
+        view=views.ActivityCategoryUpdateAPIView.as_view(),
         name="mission-categories-update",
     ),
     path(
         route="mission-categories/<int:pk>/delete/",
-        view=ActivityCategoryDeleteAPIView.as_view(),
+        view=views.ActivityCategoryDeleteAPIView.as_view(),
         name="mission-categories-delete",
     ),
 ]

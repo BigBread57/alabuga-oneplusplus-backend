@@ -1,30 +1,6 @@
 from django.urls import path
 
-from user.api.v1.views import (
-    CharacterActualForUserAPIView,
-    CharacterArtifactDetailAPIView,
-    CharacterArtifactListAPIView,
-    CharacterCompetencyDetailAPIView,
-    CharacterCompetencyListAPIView,
-    CharacterEventDetailAPIView,
-    CharacterEventListAPIView,
-    CharacterEventUpdateFromCharacterAPIView,
-    CharacterEventUpdateFromInspectorAPIView,
-    CharacterMissionDetailAPIView,
-    CharacterMissionListAPIView,
-    CharacterMissionUpdateFromCharacterAPIView,
-    CharacterMissionUpdateFromInspectorAPIView,
-    CharacterUpdateAPIView,
-    UserConfirmRegisterAPIView,
-    UserConfirmResetPasswordAPIView,
-    UseResendEmailConfirmationAPIView,
-    UserInfoAPIView,
-    UserLoginAPIView,
-    UserLogoutAPIView,
-    UserRegisterAPIView,
-    UserRequestResetPasswordAPIView,
-    UserUpdatePasswordAPIView,
-)
+from user.api.v1 import views
 
 app_name = "v1"
 
@@ -32,47 +8,47 @@ app_name = "v1"
 user_urls = [
     path(
         route="users/resend-email-confirmation/",
-        view=UseResendEmailConfirmationAPIView.as_view(),
+        view=views.UseResendEmailConfirmationAPIView.as_view(),
         name="users-resend-email-confirmation",
     ),
     path(
         route="users/login/",
-        view=UserLoginAPIView.as_view(),
+        view=views.UserLoginAPIView.as_view(),
         name="users-login",
     ),
     path(
         route="users/request-reset-password/",
-        view=UserRequestResetPasswordAPIView.as_view(),
+        view=views.UserRequestResetPasswordAPIView.as_view(),
         name="users-request-reset-password",
     ),
     path(
         route="users/confirm-reset-password/<path:extra_path>/",
-        view=UserConfirmResetPasswordAPIView.as_view(),
+        view=views.UserConfirmResetPasswordAPIView.as_view(),
         name="users-confirm-reset-password",
     ),
     path(
         route="users/update-password/",
-        view=UserUpdatePasswordAPIView.as_view(),
+        view=views.UserUpdatePasswordAPIView.as_view(),
         name="users-update-password",
     ),
     path(
         route="users/register/",
-        view=UserRegisterAPIView.as_view(),
+        view=views.UserRegisterAPIView.as_view(),
         name="users-register",
     ),
     path(
         route="users/confirm-register/",
-        view=UserConfirmRegisterAPIView.as_view(),
+        view=views.UserConfirmRegisterAPIView.as_view(),
         name="users-confirm-register",
     ),
     path(
         route="users/logout/",
-        view=UserLogoutAPIView.as_view(),
+        view=views.UserLogoutAPIView.as_view(),
         name="users-logout",
     ),
     path(
         route="users/info/",
-        view=UserInfoAPIView.as_view(),
+        view=views.UserInfoAPIView.as_view(),
         name="users-info",
     ),
 ]
@@ -80,12 +56,12 @@ user_urls = [
 character_urls = [
     path(
         route="characters/actual-for-user/",
-        view=CharacterActualForUserAPIView.as_view(),
+        view=views.CharacterActualForUserAPIView.as_view(),
         name="characters-actual-for-user",
     ),
     path(
         route="characters/update/",
-        view=CharacterUpdateAPIView.as_view(),
+        view=views.CharacterUpdateAPIView.as_view(),
         name="characters-update",
     ),
 ]
@@ -93,12 +69,12 @@ character_urls = [
 character_competency_urls = [
     path(
         route="character-competencies/list/",
-        view=CharacterCompetencyListAPIView.as_view(),
+        view=views.CharacterCompetencyListAPIView.as_view(),
         name="character-competencies-list",
     ),
     path(
         route="character-competencies/<int:pk>/detail/",
-        view=CharacterCompetencyDetailAPIView.as_view(),
+        view=views.CharacterCompetencyDetailAPIView.as_view(),
         name="character-competencies-detail",
     ),
 ]
@@ -107,12 +83,12 @@ character_competency_urls = [
 character_artifact_urls = [
     path(
         route="character-artifacts/list/",
-        view=CharacterArtifactListAPIView.as_view(),
+        view=views.CharacterArtifactListAPIView.as_view(),
         name="character-artifacts-list",
     ),
     path(
         route="character-artifacts/<int:pk>/detail/",
-        view=CharacterArtifactDetailAPIView.as_view(),
+        view=views.CharacterArtifactDetailAPIView.as_view(),
         name="character-artifacts-detail",
     ),
 ]
@@ -120,22 +96,22 @@ character_artifact_urls = [
 character_event_urls = [
     path(
         route="character-events/list/",
-        view=CharacterEventListAPIView.as_view(),
+        view=views.CharacterEventListAPIView.as_view(),
         name="character-events-list",
     ),
     path(
         route="character-events/<int:pk>/detail/",
-        view=CharacterEventDetailAPIView.as_view(),
+        view=views.CharacterEventDetailAPIView.as_view(),
         name="character-events-detail",
     ),
     path(
         route="character-events/<int:pk>/update-for-character/",
-        view=CharacterEventUpdateFromCharacterAPIView.as_view(),
+        view=views.CharacterEventUpdateFromCharacterAPIView.as_view(),
         name="character-events-update-for-character",
     ),
     path(
         route="character-events/<int:pk>/update-for-inspector/",
-        view=CharacterEventUpdateFromInspectorAPIView.as_view(),
+        view=views.CharacterEventUpdateFromInspectorAPIView.as_view(),
         name="character-events-update-for-inspector",
     ),
 ]
@@ -143,22 +119,22 @@ character_event_urls = [
 character_mission_urls = [
     path(
         route="character-missions/list/",
-        view=CharacterMissionListAPIView.as_view(),
+        view=views.CharacterMissionListAPIView.as_view(),
         name="character-missions-list",
     ),
     path(
         route="character-missions/<int:pk>/detail/",
-        view=CharacterMissionDetailAPIView.as_view(),
+        view=views.CharacterMissionDetailAPIView.as_view(),
         name="character-missions-detail",
     ),
     path(
         route="character-missions/<int:pk>/update-for-character/",
-        view=CharacterMissionUpdateFromCharacterAPIView.as_view(),
+        view=views.CharacterMissionUpdateFromCharacterAPIView.as_view(),
         name="character-missions-update-for-character",
     ),
     path(
         route="character-missions/<int:pk>/update-for-inspector/",
-        view=CharacterMissionUpdateFromInspectorAPIView.as_view(),
+        view=views.CharacterMissionUpdateFromInspectorAPIView.as_view(),
         name="character-missions-update-for-inspector",
     ),
 ]
