@@ -7,20 +7,18 @@ from common.models import AbstractBaseModel
 
 class Multimedia(AbstractBaseModel):
     """
-    Файл.
+    Мультимедиа.
     """
 
     multimedia = models.FileField(
         verbose_name=_("Файл"),
         upload_to="private-media",
     )
-    creator = models.ForeignKey(
-        to="user.User",
+    character = models.ForeignKey(
+        to="user.Character",
+        verbose_name=_("Персонаж"),
         on_delete=models.CASCADE,
-        verbose_name=_("Пользователь - создатель объекта"),
-        related_name="multimedias",  # noqa: WPS323
-        blank=True,
-        null=True,
+        related_name="multimedias",
     )
     content_type = models.ForeignKey(
         to="contenttypes.ContentType",

@@ -1,6 +1,5 @@
 import django_filters
 from django.db import models
-from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
@@ -74,8 +73,8 @@ class ShopItemListForBuySelector(BaseSelector):
 
     filter_class = ShopItemListFilter
 
-    def get_queryset(self, **kwargs) -> QuerySet[ShopItem]:
-        active_character = kwargs["request"].user.active_character
+    def get_queryset(self, **kwargs) -> models.QuerySet:
+        active_character = self.request.user.active_character
         return (
             ShopItem.objects.select_related(
                 "category",
@@ -110,8 +109,8 @@ class ShopItemDetailForBuySelector(BaseSelector):
     Товар в магазине. Детальная информация о покупке. Селектор.
     """
 
-    def get_queryset(self, **kwargs) -> QuerySet[ShopItem]:
-        active_character = kwargs["request"].active_character
+    def get_queryset(self, **kwargs) -> models.QuerySet:
+        active_character = self.request.active_character
         return (
             ShopItem.objects.select_related(
                 "category",

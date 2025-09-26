@@ -55,7 +55,7 @@ class MissionBranch(AbstractBaseModel):
         related_name="mission_branches",
     )
     mentor = models.ForeignKey(
-        to="user.User",
+        to="user.Character",
         verbose_name=_("Ментор"),
         on_delete=models.CASCADE,
         related_name="mission_branches",

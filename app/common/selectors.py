@@ -28,6 +28,9 @@ class BaseSelector:
     queryset: QuerySet[T]
     filter_class: type[FilterSet] | None = None
 
+    def __init__(self, request=None):
+        self.request = request
+
     def get_queryset(self, **kwargs) -> QuerySet[T]:
         """
         Получить queryset.

@@ -7,15 +7,17 @@ from common.models import AbstractBaseModel
 class Post(AbstractBaseModel):
     """Пост."""
 
+    name = models.TextField(
+        verbose_name=_("Название"),
+    )
     text = models.TextField(
         verbose_name=_("Текст"),
     )
-    user = models.ForeignKey(
-        to="user.User",
+    character = models.ForeignKey(
+        to="user.Character",
+        verbose_name=_("Персонаж"),
         on_delete=models.CASCADE,
-        verbose_name=_("Пользователь"),
         related_name="posts",
-        db_index=True,
     )
     topic = models.ForeignKey(
         to="communication.Topic",
@@ -29,9 +31,10 @@ class Post(AbstractBaseModel):
         on_delete=models.CASCADE,
         verbose_name=_("Родительский пост"),
         related_name="children",
-        db_index=True,
         null=True,
+        blank=True,
     )
+
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Пост")

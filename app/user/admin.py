@@ -22,7 +22,6 @@ class UserAdmin(BaseUserAdmin):
                     "first_name",
                     "last_name",
                     "middle_name",
-                    "role",
                     "phone",
                     "email",
                 ),
@@ -56,12 +55,10 @@ class UserAdmin(BaseUserAdmin):
         "first_name",
         "last_name",
         "middle_name",
-        "role",
         "phone",
         "is_staff",
     )
     list_filter = (
-        "role",
         "is_staff",
         "is_superuser",
         "is_active",
@@ -103,6 +100,7 @@ class CharacterEventInline(admin.TabularInline):
 
     model = CharacterEvent
     extra = 1
+    fk_name = "character"
 
 
 class CharacterMissionInline(admin.TabularInline):
@@ -112,6 +110,7 @@ class CharacterMissionInline(admin.TabularInline):
 
     model = CharacterMission
     extra = 1
+    fk_name = "character"
 
 
 class CharacterRankInline(admin.TabularInline):
@@ -134,9 +133,18 @@ class CharacterAdmin(admin.ModelAdmin):
         "currency",
         "is_active",
         "user",
+        "role",
         "game_world",
     )
-    list_filter = ("is_active",)
+    list_filter = (
+        "is_active",
+        "role",
+    )
+    search_fields = (
+        "user__email",
+        "user__first_name",
+        "user__last_name",
+    )
     autocomplete_fields = (
         "user",
         "game_world",

@@ -1,4 +1,6 @@
 import django_filters
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
@@ -16,6 +18,12 @@ class ActivityLogListFilterSerializer(serializers.Serializer):
         help_text=_("Персонаж"),
         default=CurrentCharacterDefault(),
     )
+    content_type = serializers.PrimaryKeyRelatedField(
+        label=_("Тип содержимого"),
+        help_text=_("Тип содержимого"),
+        queryset=ContentType.objects.all(),
+        required=False,
+    )
 
 
 class ActivityLogListFilter(django_filters.FilterSet):
@@ -25,7 +33,10 @@ class ActivityLogListFilter(django_filters.FilterSet):
 
     class Meta:
         model = ActivityLog
-        fields = ("character",)
+        fields = (
+            "character",
+            "content_type",
+        )
 
 
 class ActivityLogListSelector(BaseSelector):
@@ -38,3 +49,18 @@ class ActivityLogListSelector(BaseSelector):
         "content_type",
     )
     filter_class = ActivityLogListFilter
+
+
+class ActivityLogContentTypeListSelector(BaseSelector):
+    """
+    Журнал событий. Тип содержимого. Список. Селектор.
+    """
+
+    filter_class = ActivityLogListFilter
+    def get_queryset(self, **kwargs) -> models.QuerySet:
+        active_character = self.request.user.active_character
+        return ContentType.objects.filter(
+            id__in=ActivityLog.objects.filter(
+                character=active_character,
+            ).values_list("content_type", flat=True).distinct()
+        )

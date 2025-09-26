@@ -43,7 +43,7 @@ class UserPurchase(AbstractBaseModel):
         blank=True,
     )
     buyer = models.ForeignKey(
-        to="user.User",
+        to="user.Character",
         verbose_name=_("Покупатель"),
         on_delete=models.CASCADE,
         related_name="buyer_purchases",
@@ -55,7 +55,7 @@ class UserPurchase(AbstractBaseModel):
         related_name="purchases",
     )
     manager = models.ForeignKey(
-        to="user.User",
+        to="user.Character",
         verbose_name=_("Менеджер"),
         on_delete=models.SET_NULL,
         null=True,

@@ -6,17 +6,18 @@ from common.models import AbstractBaseModel
 
 
 class Comment(AbstractBaseModel):
-    """Комментарий."""
+    """
+    Комментарий.
+    """
 
-    user = models.ForeignKey(
-        to="user.User",
-        on_delete=models.CASCADE,
-        verbose_name=_("Пользователь"),
-        related_name="comments",
-        db_index=True,
-    )
     text = models.TextField(
         verbose_name=_("Текст"),
+    )
+    character = models.ForeignKey(
+        to="user.Character",
+        verbose_name=_("Персонаж"),
+        on_delete=models.CASCADE,
+        related_name="comments",
     )
     content_type = models.ForeignKey(
         to="contenttypes.ContentType",

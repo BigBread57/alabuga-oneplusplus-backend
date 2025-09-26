@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from common.constants import UserRoles
+from common.constants import CharacterRoles
 from user.models import CharacterEvent, CharacterMission, User
 
 
@@ -24,7 +24,7 @@ def send_mail_about_character_event_for_inspector(
     inspector_emails = (
         [character_event.inspector.email]
         if character_event.inspector
-        else list(User.objects.filter(role=UserRoles.HR).values_list("email", flat=True))
+        else list(User.objects.filter(role=CharacterRoles.HR).values_list("email", flat=True))
     )
     url = "ВСТАВИТЬ ССЫЛКУ С ФРОНТА."
     send_mail(
@@ -83,7 +83,7 @@ def send_mail_about_character_mission_for_inspector(
     inspector_emails = (
         [character_mission.inspector.email]
         if character_mission.inspector
-        else list(User.objects.filter(role=UserRoles.HR).values_list("email", flat=True))
+        else list(User.objects.filter(role=CharacterRoles.HR).values_list("email", flat=True))
     )
     url = "ВСТАВИТЬ ССЫЛКУ С ФРОНТА."
     send_mail(

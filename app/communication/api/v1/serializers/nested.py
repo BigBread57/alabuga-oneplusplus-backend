@@ -10,18 +10,12 @@ class PostNestedSerializer(serializers.ModelSerializer):
     Пост. Вложенный сериалайзер.
     """
 
-    user = UserNestedSerializer(
-        label=_("Пользователь"),
-        help_text=_("Пользователь"),
-    )
-
     class Meta:
         model = Post
         fields = (
             "id",
-            "user",
-            "parent",
-            "text",
+            "character",
+            "name",
             "created_at",
         )
 
@@ -36,8 +30,9 @@ class TopicNestedSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
-            "shot_description",
             "description",
+            "color",
+            "icon",
         )
 
 

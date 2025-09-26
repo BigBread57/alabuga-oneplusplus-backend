@@ -4,7 +4,6 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
-from common.constants import UserRoles
 from user.models import Character
 
 
@@ -66,12 +65,6 @@ class User(AbstractUser):  # type: ignore
     phone = PhoneNumberField(
         verbose_name=_("Номер телефона"),
         blank=True,
-    )
-    role = models.CharField(
-        verbose_name=_("Роль"),
-        max_length=20,
-        choices=UserRoles.choices,
-        default=UserRoles.CANDIDATE,
     )
 
     objects = DefaultUserManager()

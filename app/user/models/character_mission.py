@@ -40,6 +40,10 @@ class CharacterMission(AbstractBaseModel):
         verbose_name=_("Результат выполнения миссии"),
         blank=True,
     )
+    inspector_comment = models.TextField(
+        verbose_name=_("Комментарий проверяющего"),
+        blank=True,
+    )
     character = models.ForeignKey(
         to="user.Character",
         verbose_name=_("Персонаж"),
@@ -53,16 +57,12 @@ class CharacterMission(AbstractBaseModel):
         related_name="character_missions",
     )
     inspector = models.ForeignKey(
-        to="user.User",
+        to="user.Character",
         verbose_name=_("Проверяющий"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="character_missions",
-    )
-    inspector_comment = models.TextField(
-        verbose_name=_("Комментарий проверяющего"),
-        blank=True,
+        related_name="character_mission_inspectors",
     )
 
     class Meta(AbstractBaseModel.Meta):

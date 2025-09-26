@@ -20,8 +20,11 @@ class QuerySelectorMixin:
         """Получить queryset из селектора."""
         assert self.selector is not None, "Attribute selector must be set."
         if isinstance(self.selector, FunctionType):
-            return self.selector()
-        return self.selector().get_queryset(**kwargs)
+            return self.selector(request=self.request)
+
+        # Передаем request в селектор
+        selector_instance = self.selector(request=self.request)
+        return selector_instance.get_queryset(**kwargs)
 
     def get_filter_params_data(self, data: dict[str, Any]) -> dict[str, Any]:
         """Корректно преобразовать данные для фильтра в словарь."""
@@ -44,9 +47,9 @@ class QuerySelectorMixin:
             )
             filter_serializer.is_valid(raise_exception=True)
             if isinstance(self.selector, FunctionType):
-                queryset = self.selector(filters=filter_serializer.validated_data)
+                queryset = self.selector(filters=filter_serializer.validated_data, request=self.request)
             else:
-                queryset = self.selector().get_filtered(
+                queryset = self.selector(request=self.request).get_filtered(
                     queryset=queryset,
                     filters=filter_serializer.validated_data,
                 )

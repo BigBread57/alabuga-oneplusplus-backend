@@ -5,7 +5,9 @@ from multimedia.models import Multimedia
 
 @admin.register(Multimedia)
 class MultimediaAdmin(admin.ModelAdmin):
-    """Админка для файлов."""
+    """
+    Мультимедиа.
+    """
 
     list_display = (
         "id",
@@ -20,10 +22,10 @@ class MultimediaAdmin(admin.ModelAdmin):
         "content_type",
         "object_id",
     )
-    readonly_fields = ("creator",)
+    readonly_fields = ("character",)
 
     def save_model(self, request, obj, form, change) -> None:  # noqa: WPS110
         """Сохраняем информацию о том, кто создал объект через админку."""
         if not change:
-            obj.creator = request.user
+            obj.character = request.user.actual_character
         return super().save_model(request, obj, form, change)  # type: ignore

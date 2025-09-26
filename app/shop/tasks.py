@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.translation import gettext_lazy as _
 
-from common.constants import UserRoles
+from common.constants import CharacterRoles
 from shop.models import UserPurchase
 from user.models import User
 
@@ -19,7 +19,7 @@ def send_mail_about_new_user_purchase(
         "buyer",
         "shop_item",
     ).get(id=user_purchase_id)
-    manager_emails = list(User.objects.filter(role=UserRoles.MANAGER).values_list("email", flat=True))
+    manager_emails = list(User.objects.filter(role=CharacterRoles.MANAGER).values_list("email", flat=True))
     url = "ВСТАВИТЬ ССЫЛКУ С ФРОНТА."
     send_mail(
         subject=_(f"Новая покупка №{user_purchase.id}"),

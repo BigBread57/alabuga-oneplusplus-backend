@@ -7,7 +7,7 @@ from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer,
 from game_mechanics.models import Rank
 from game_world.api.v1.serializers.nested import ArtifactNestedSerializer, MissionNestedSerializer, \
     EventNestedSerializer
-from user.models import CharacterArtifact, CharacterCompetency, CharacterEvent, CharacterMission, User
+from user.models import CharacterArtifact, CharacterCompetency, CharacterEvent, CharacterMission, User, Character
 from user.models.character_rank import CharacterRank
 
 
@@ -30,6 +30,26 @@ class UserNestedSerializer(serializers.ModelSerializer):
             "last_name",
             "middle_name",
             "full_name",
+        )
+
+
+class CharacterNestedSerializer(serializers.ModelSerializer):
+    """
+    Пользователь. Вложенный сериалайзер.
+    """
+
+    user = UserNestedSerializer(
+        label=_("Пользователь"),
+        help_text=_("Пользователь"),
+    )
+
+    class Meta:
+        model = Character
+        fields = (
+            "id",
+            "avatar",
+            "user",
+            "role",
         )
 
 

@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
-from common.constants import UserRoles
+from common.constants import CharacterRoles
 from common.selectors import BaseSelector, CurrentCharacterDefault
 from user.models import CharacterMission, User
 
@@ -91,7 +91,7 @@ class CharacterMissionDetailForInspectorFilter(django_filters.FilterSet):
         """
         Фильтр по проверяющему.
         """
-        if getattr(value, "role", None) == UserRoles.HR:
+        if getattr(value, "role", None) == CharacterRoles.HR:
             return queryset.all()
         return queryset.filter(inspector=value)
 

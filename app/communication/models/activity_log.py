@@ -10,14 +10,14 @@ class ActivityLog(AbstractBaseModel):
     Журнал действий.
     """
 
+    text = models.TextField(
+        verbose_name=_("Текст"),
+    )
     character = models.ForeignKey(
         to="user.Character",
         verbose_name=_("Персонаж"),
         on_delete=models.CASCADE,
         related_name="activity_logs",
-    )
-    text = models.TextField(
-        verbose_name=_("Текст"),
     )
     content_type = models.ForeignKey(
         to="contenttypes.ContentType",

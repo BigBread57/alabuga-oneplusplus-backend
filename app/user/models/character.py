@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from common.models import AbstractBaseModel
+from common.constants import CharacterRoles
 
 
 class Character(AbstractBaseModel):
@@ -22,6 +23,12 @@ class Character(AbstractBaseModel):
     is_active = models.BooleanField(
         verbose_name=_("Активный персонаж или нет"),
         default=True,
+    )
+    role = models.CharField(
+        verbose_name=_("Роль"),
+        max_length=20,
+        choices=CharacterRoles.choices,
+        default=CharacterRoles.CANDIDATE,
     )
     user = models.ForeignKey(
         to="user.User",
@@ -60,6 +67,7 @@ class Character(AbstractBaseModel):
         to="game_world.Mission",
         verbose_name=_("Миссии"),
         through="user.CharacterMission",
+        through_fields=('character', 'mission'),
         related_name="characters",
         blank=True,
     )
@@ -67,6 +75,7 @@ class Character(AbstractBaseModel):
         to="game_world.Event",
         verbose_name=_("События"),
         through="user.CharacterEvent",
+        through_fields=('character', 'event'),
         related_name="characters",
         blank=True,
     )

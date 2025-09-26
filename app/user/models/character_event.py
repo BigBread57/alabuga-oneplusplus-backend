@@ -57,12 +57,12 @@ class CharacterEvent(AbstractBaseModel):
         related_name="character_events",
     )
     inspector = models.ForeignKey(
-        to="user.User",
+        to="user.Character",
         verbose_name=_("Проверяющий"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="character_events",
+        related_name="character_event_inspectors",
     )
 
     class Meta(AbstractBaseModel.Meta):

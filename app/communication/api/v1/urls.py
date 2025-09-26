@@ -7,6 +7,7 @@ from communication.api.v1.views import (
     TopicDetailAPIView,
     TopicListAPIView,
 )
+from communication.api.v1.views.activity_log import ActivityLogContentTypeListAPIView
 
 app_name = "v1"
 
@@ -44,6 +45,11 @@ activity_logs_urls = [
         route="activity-logs/list/",
         view=ActivityLogListAPIView.as_view(),
         name="activity-logs-list",
+    ),
+    path(
+        route="activity-logs/content-types/list/",
+        view=ActivityLogContentTypeListAPIView.as_view(),
+        name="activity-logs-content-types-list",
     ),
 ]
 
