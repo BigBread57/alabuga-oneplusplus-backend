@@ -19,8 +19,8 @@ ENV PATH="$POETRY_HOME/bin:$PATH"
 
 WORKDIR /app
 
-# Копирование файлов Poetry
-COPY pyproject.toml poetry.lock ./
+# Копирование файлов Poetry из app/
+COPY app/pyproject.toml app/poetry.lock ./
 
 # Development build
 FROM base AS development_build
@@ -28,8 +28,8 @@ FROM base AS development_build
 # Установка зависимостей для разработки
 RUN poetry install --no-root
 
-# Копирование исходного кода
-COPY . .
+# Копирование исходного кода из app/
+COPY app/ .
 
 # Создание пользователя для безопасности
 RUN groupadd -r django && useradd -r -g django django
@@ -46,8 +46,8 @@ FROM base AS production_build
 # Установка только production зависимостей
 RUN poetry install --only=main --no-root
 
-# Копирование исходного кода
-COPY . .
+# Копирование исходного кода из app/
+COPY app/ .
 
 # Установка проекта
 RUN poetry install --only-root
@@ -67,7 +67,10 @@ USER django
 EXPOSE 8000
 
 # Скрипт запуска для production
-COPY --chown=django:django docker/django/gunicorn.sh /usr/local/bin/start-web-server
+COPY docker/django/gunicorn.sh /usr/local/bin/start-web-server
+USER root
 RUN chmod +x /usr/local/bin/start-web-server
+RUN chown django:django /usr/local/bin/start-web-server
+USER django
 
 CMD ["/usr/local/bin/start-web-server"]

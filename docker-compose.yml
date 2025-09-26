@@ -37,11 +37,11 @@ services:
       dockerfile: docker/django/Dockerfile
       target: development_build
     volumes:
-      - .:/app
+      - ./app:/app
       - django-static:/var/www/django/static
     ports:
       - "8000:8000"
-    env_file: ./config/.env
+    env_file: ./app/config/.env
     environment:
       - DJANGO_DATABASE_HOST=db
       - REDIS_URL=redis://redis:6379/0
@@ -66,8 +66,8 @@ services:
       dockerfile: docker/django/Dockerfile
       target: development_build
     volumes:
-      - .:/app
-    env_file: ./config/.env
+      - ./app:/app
+    env_file: ./app/config/.env
     environment:
       - DJANGO_DATABASE_HOST=db
       - REDIS_URL=redis://redis:6379/0
@@ -91,8 +91,8 @@ services:
       dockerfile: docker/django/Dockerfile
       target: development_build
     volumes:
-      - .:/app
-    env_file: ./config/.env
+      - ./app:/app
+    env_file: ./app/config/.env
     environment:
       - DJANGO_DATABASE_HOST=db
       - REDIS_URL=redis://redis:6379/0
@@ -111,10 +111,10 @@ services:
       dockerfile: docker/django/Dockerfile
       target: development_build
     volumes:
-      - .:/app
+      - ./app:/app
     ports:
       - "5555:5555"
-    env_file: ./config/.env
+    env_file: ./app/config/.env
     environment:
       - DJANGO_DATABASE_HOST=db
       - REDIS_URL=redis://redis:6379/0

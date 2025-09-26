@@ -14,6 +14,9 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     name: Lint and Code Quality
+    defaults:
+      run:
+        working-directory: ./app
 
     steps:
     - name: Checkout code
@@ -35,8 +38,8 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v4
       with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+        path: app/.venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('app/poetry.lock') }}
 
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
@@ -59,6 +62,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Tests
     needs: lint
+    defaults:
+      run:
+        working-directory: ./app
 
     services:
       postgres:
@@ -106,8 +112,8 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v4
       with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+        path: app/.venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('app/poetry.lock') }}
 
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
@@ -118,6 +124,7 @@ jobs:
 
     - name: Create .env file
       run: |
+        mkdir -p config
         cat > config/.env << EOF
         SECRET_KEY=test-secret-key-for-ci
         DEBUG=True
@@ -156,8 +163,8 @@ jobs:
       with:
         name: test-results
         path: |
-          pytest.xml
-          coverage.xml
+          app/pytest.xml
+          app/coverage.xml
 
   build-and-push:
     runs-on: ubuntu-latest
@@ -196,7 +203,8 @@ jobs:
 
     - name: Create .env file for build
       run: |
-        cat > config/.env << EOF
+        mkdir -p app/config
+        cat > app/config/.env << EOF
         SECRET_KEY=build-secret-key
         DEBUG=False
         DJANGO_DATABASE_HOST=db
@@ -225,18 +233,20 @@ jobs:
           BUILD_ID=${{ github.run_number }}
           RELEASE=${{ github.sha }}
 
-  deploy-develop:
+  deploy-staging:
     runs-on: ubuntu-latest
-    name: Deploy to develop
+    name: Deploy to Staging
     needs: build-and-push
     if: github.ref == 'refs/heads/develop'
-    environment: develop
+    environment: staging
 
     steps:
-    - name: Deploy to develop
+    - name: Deploy to staging
       run: |
-        echo "Deployment to develop environment"
+        echo "Deployment to staging environment"
         echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:develop"
+        # Здесь будет ваша логика деплоя
+        # Например, обновление docker-compose на сервере через SSH
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -250,3 +260,4 @@ jobs:
       run: |
         echo "Deployment to production environment"
         echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+        # Здесь будет ваша логика деплоя
