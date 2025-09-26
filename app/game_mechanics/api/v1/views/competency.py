@@ -1,17 +1,20 @@
+from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from app.common.permissions import UserHRPermission
-from app.common.serializers import ResponseDetailSerializer
-from app.common.views import QuerySelectorMixin
-from app.game_mechanics.api.v1.selectors import CompetencyListSelector, CompetencyListFilterSerializer
-from app.game_mechanics.api.v1.serializers import CompetencyListSerializer, CompetencyCreateOrUpdateSerializer
-from app.game_mechanics.models import Competency
-from app.game_mechanics.serializers import CompetencyDetailSerializer
-from django.utils.translation import gettext_lazy as _
+from common.permissions import UserHRPermission
+from common.serializers import ResponseDetailSerializer
+from common.views import QuerySelectorMixin
+from game_mechanics.api.v1.selectors import CompetencyListFilterSerializer, CompetencyListSelector
+from game_mechanics.api.v1.serializers import (
+    CompetencyCreateOrUpdateSerializer,
+    CompetencyDetailSerializer,
+    CompetencyListSerializer,
+)
+from game_mechanics.models import Competency
 
 
 class CompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
@@ -19,7 +22,7 @@ class CompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
     Компетенция. Список.
     """
 
-    selector = CompetencyListSelector()
+    selector = CompetencyListSelector
     serializer_class = CompetencyListSerializer
     filter_params_serializer_class = CompetencyListFilterSerializer
     search_fields = ("name",)
@@ -63,11 +66,11 @@ class CompetencyCreateAPIView(GenericAPIView):
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        shop_item_category = serializer.save()
+        competency = serializer.save()
 
         return Response(
             data=CompetencyDetailSerializer(
-                instance=shop_item_category,
+                instance=competency,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_201_CREATED,
@@ -115,7 +118,7 @@ class CompetencyUpdateAPIView(GenericAPIView):
 
 class CompetencyDeleteAPIView(GenericAPIView):
     """
-    Компетенция. Удаление.
+    Компетенция. Удаление объекта.
     """
 
     queryset = Competency.objects.all()

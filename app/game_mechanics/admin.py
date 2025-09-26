@@ -1,101 +1,80 @@
 from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
 
-from .models import (
-    Artifact,
-    BoardingStep,
+from game_mechanics.models import (
     Competency,
     Rank,
-    RankCompetencyRequirement,
-    UserArtifact,
-    UserBoardingProgress,
-    UserCompetency,
-    UserRank,
+    RequiredRankCompetency,
 )
 
 
-class RankCompetencyRequirementInline(admin.TabularInline):
-    """Инлайн для требований к компетенциям."""
+class RequiredRankCompetencyInline(admin.TabularInline):
+    """
+    Требования к компетенциям для получения ранга.
+    """
 
-    model = RankCompetencyRequirement
+    model = RequiredRankCompetency
     extra = 1
 
 
 @admin.register(Rank)
 class RankAdmin(admin.ModelAdmin):
-    """Административная панель для рангов."""
+    """
+    Ранг.
+    """
 
-    list_display = ("name", "order", "experience_required", "created_at")
-    list_filter = ("created_at",)
-    search_fields = ("name", "description")
-    ordering = ("order",)
-    inlines = [RankCompetencyRequirementInline]
+    list_display = (
+        "id",
+        "name",
+        "parent",
+        "required_experience",
+    )
+    search_fields = (
+        "name",
+        "description",
+    )
+    ordering = ("-id",)
+    inlines = [RequiredRankCompetencyInline]
 
 
 @admin.register(Competency)
 class CompetencyAdmin(admin.ModelAdmin):
-    """Административная панель для компетенций."""
+    """
+    Компетенция.
+    """
 
-    list_display = ("name", "created_at")
-    search_fields = ("name", "description")
-    ordering = ("name",)
-
-
-@admin.register(Artifact)
-class ArtifactAdmin(admin.ModelAdmin):
-    """Административная панель для артефактов."""
-
-    list_display = ("name", "rarity", "created_at")
-    list_filter = ("rarity", "created_at")
-    search_fields = ("name", "description")
-    ordering = ("-created_at",)
-
-
-@admin.register(UserRank)
-class UserRankAdmin(admin.ModelAdmin):
-    """Административная панель для рангов пользователей."""
-
-    list_display = ("user", "rank", "created_at")
-    list_filter = ("rank", "created_at")
-    search_fields = ("user__username", "user__first_name", "user__last_name")
-    ordering = ("-created_at",)
+    list_display = (
+        "id",
+        "name",
+        "required_experience",
+        "game_world",
+    )
+    search_fields = (
+        "name",
+        "description",
+    )
+    list_filter = ("game_world",)
+    autocomplete_fields = ("game_world",)
+    list_select_related = ("game_world",)
+    ordering = ("-id",)
 
 
-@admin.register(UserCompetency)
-class UserCompetencyAdmin(admin.ModelAdmin):
-    """Административная панель для компетенций пользователей."""
+@admin.register(RequiredRankCompetency)
+class RequiredRankCompetencyAdmin(admin.ModelAdmin):
+    """
+    Требования к компетенциям для получения ранга.
+    """
 
-    list_display = ("user", "competency", "level", "updated_at")
-    list_filter = ("competency", "level", "updated_at")
-    search_fields = ("user__username", "competency__name")
-    ordering = ("-updated_at",)
-
-
-@admin.register(UserArtifact)
-class UserArtifactAdmin(admin.ModelAdmin):
-    """Административная панель для артефактов пользователей."""
-
-    list_display = ("user", "artifact", "created_at")
-    list_filter = ("artifact__rarity", "created_at")
-    search_fields = ("user__username", "artifact__name")
-    ordering = ("-created_at",)
-
-
-@admin.register(BoardingStep)
-class BoardingStepAdmin(admin.ModelAdmin):
-    """Административная панель для шагов онбординга."""
-
-    list_display = ("title", "order", "is_active", "created_at")
-    list_filter = ("is_active", "created_at")
-    search_fields = ("title", "content")
-    ordering = ("order",)
-
-
-@admin.register(UserBoardingProgress)
-class UserBoardingProgressAdmin(admin.ModelAdmin):
-    """Административная панель для прогресса онбординга."""
-
-    list_display = ("user", "step", "completed_at", "created_at")
-    list_filter = ("completed_at", "step", "created_at")
-    search_fields = ("user__username", "step__title")
-    ordering = ("-created_at",)
+    list_display = (
+        "id",
+        "rank",
+        "competency",
+    )
+    ordering = ("-id",)
+    autocomplete_fields = (
+        "rank",
+        "competency",
+    )
+    list_select_related = (
+        "rank",
+        "competency",
+    )

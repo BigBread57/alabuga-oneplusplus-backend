@@ -1,25 +1,44 @@
+from shop.api.v1.views.shop_item import (
+    ShopItemCreateAPIView,
+    ShopItemDeleteAPIView,
+    ShopItemDetailAPIView,
+    ShopItemDetailForBuyAPIView,
+    ShopItemListAPIView,
+    ShopItemListForBuyAPIView,
+    ShopItemUpdateAPIView,
+)
+from shop.api.v1.views.shop_item_category import (
+    ShopItemCategoryCreateAPIView,
+    ShopItemCategoryDeleteAPIView,
+    ShopItemCategoryListAPIView,
+    ShopItemCategoryUpdateAPIView,
+)
+from shop.api.v1.views.user_purchase import (
+    UserPurchaseCreateAPIView,
+    UserPurchaseDetailAPIView,
+    UserPurchaseListAPIView,
+    UserPurchaseToWorkAPIView,
+    UserPurchaseUpdateStatusAPIView,
+)
+
 __all__ = (
-    #ShopItemCategory
+    # ShopItemCategory
     "ShopItemCategoryListAPIView",
     "ShopItemCategoryCreateAPIView",
     "ShopItemCategoryUpdateAPIView",
     "ShopItemCategoryDeleteAPIView",
-    #ShopItem
+    # ShopItem
     "ShopItemListAPIView",
     "ShopItemCreateAPIView",
     "ShopItemUpdateAPIView",
     "ShopItemDeleteAPIView",
-    #UserPurchase
+    "ShopItemDetailAPIView",
+    "ShopItemListForBuyAPIView",
+    "ShopItemDetailForBuyAPIView",
+    # UserPurchase
     "UserPurchaseListAPIView",
     "UserPurchaseCreateAPIView",
-    "UserPurchaseUpdateAPIView",
+    "UserPurchaseUpdateStatusAPIView",
     "UserPurchaseToWorkAPIView",
     "UserPurchaseDetailAPIView",
 )
-
-from app.shop.api.v1.views.shop_item import ShopItemListAPIView, ShopItemCreateAPIView, ShopItemUpdateAPIView, \
-    ShopItemDeleteAPIView
-from app.shop.api.v1.views.shop_item_category import ShopItemCategoryListAPIView, ShopItemCategoryCreateAPIView, \
-    ShopItemCategoryUpdateAPIView, ShopItemCategoryDeleteAPIView
-from app.shop.api.v1.views.user_purchase import UserPurchaseListAPIView, UserPurchaseCreateAPIView, \
-    UserPurchaseUpdateAPIView, UserPurchaseToWorkAPIView, UserPurchaseDetailAPIView

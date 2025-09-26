@@ -1,20 +1,26 @@
+from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema
-from rest_framework import status, generics
+from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from app.common.permissions import UserHRPermission, UserManagerPermission, UserManagerForObjectPermission
-from app.common.views import QuerySelectorMixin
-from app.shop.api.v1.selectors import UserPurchaseListSelector, UserPurchaseListFilterSerializer, \
-    UserPurchaseDetailSelector
-from app.shop.api.v1.serializers import (
-    UserPurchaseListSerializer,
-    UserPurchaseDetailSerializer,
-    UserPurchaseCreateSerializer, UserPurchaseUpdateSerializer,
+from common.permissions import UserHRPermission, UserManagerForObjectPermission, UserManagerPermission
+from common.serializers import ResponseDetailSerializer
+from common.views import QuerySelectorMixin
+from shop.api.v1.selectors import (
+    UserPurchaseDetailSelector,
+    UserPurchaseListFilterSerializer,
+    UserPurchaseListSelector,
 )
-from app.shop.api.v1.services import user_purchase_service
-from app.shop.models import UserPurchase
+from shop.api.v1.serializers import (
+    UserPurchaseCreateSerializer,
+    UserPurchaseDetailSerializer,
+    UserPurchaseListSerializer,
+    UserPurchaseUpdateStatusSerializer,
+)
+from shop.api.v1.services import user_purchase_service
+from shop.models import UserPurchase
 
 
 class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):
@@ -22,7 +28,7 @@ class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):
     Покупки пользователя. Список.
     """
 
-    selector = UserPurchaseListSelector()
+    selector = UserPurchaseListSelector
     serializer_class = UserPurchaseListSerializer
     filter_params_serializer_class = UserPurchaseListFilterSerializer
     search_fields = ("name",)
@@ -45,13 +51,12 @@ class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-
 class UserPurchaseDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Покупки пользователя. Детальная информация.
     """
 
-    selector = UserPurchaseDetailSelector()
+    selector = UserPurchaseDetailSelector
     serializer_class = UserPurchaseDetailSerializer
 
     @extend_schema(
@@ -108,17 +113,17 @@ class UserPurchaseCreateAPIView(GenericAPIView):
         )
 
 
-class UserPurchaseUpdateAPIView(GenericAPIView):
+class UserPurchaseUpdateStatusAPIView(GenericAPIView):
     """
     Покупки пользователя. Изменение.
     """
 
     queryset = UserPurchase.objects.all()
-    serializer_class = UserPurchaseUpdateSerializer
+    serializer_class = UserPurchaseUpdateStatusSerializer
     permission_classes = (UserManagerForObjectPermission,)
 
     @extend_schema(
-        request=UserPurchaseUpdateSerializer,
+        request=UserPurchaseUpdateStatusSerializer,
         responses={
             status.HTTP_200_OK: UserPurchaseDetailSerializer,
         },
@@ -157,13 +162,11 @@ class UserPurchaseToWorkAPIView(GenericAPIView):
     """
 
     queryset = UserPurchase.objects.all()
-    serializer_class = UserPurchaseUpdateSerializer
     permission_classes = (UserManagerPermission,)
 
     @extend_schema(
-        request=UserPurchaseUpdateSerializer,
         responses={
-            status.HTTP_200_OK: UserPurchaseDetailSerializer,
+            status.HTTP_200_OK: ResponseDetailSerializer,
         },
         tags=["shop:user_purchase"],
     )
@@ -176,5 +179,7 @@ class UserPurchaseToWorkAPIView(GenericAPIView):
             user_purchase=user_purchase,
             manager=request.user,
         )
-        return Response(status=status.HTTP_200_OK)
-
+        return Response(
+            data=ResponseDetailSerializer({"detail": _("Взято в работу")}).data,
+            status=status.HTTP_200_OK,
+        )

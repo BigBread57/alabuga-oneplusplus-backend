@@ -1,9 +1,6 @@
-from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated
 
-from app.common.constants import UserRoles
-
-User = get_user_model()
+from common.constants import CharacterRoles
 
 
 class UserHRPermission(IsAuthenticated):
@@ -12,7 +9,7 @@ class UserHRPermission(IsAuthenticated):
     """
 
     def has_permission(self, request, view):
-        return request.user.role == UserRoles.HR
+        return request.user.role == CharacterRoles.HR
 
 
 class UserManagerPermission(IsAuthenticated):
@@ -21,7 +18,7 @@ class UserManagerPermission(IsAuthenticated):
     """
 
     def has_permission(self, request, view):
-        return request.user.role == UserRoles.MANAGER
+        return request.user.role == CharacterRoles.MANAGER
 
 
 class UserManagerForObjectPermission(UserManagerPermission):
@@ -29,9 +26,20 @@ class UserManagerForObjectPermission(UserManagerPermission):
     Пользователь с ролью MANAGER для определенного объекта.
     """
 
-
     def has_object_permission(self, request, view, obj):
         """
         Проверка того, что пользователь является менеджером для объекта.
         """
         return obj.manager == request.user
+
+
+class UserInspectorForObjectPermission(UserManagerPermission):
+    """
+    Пользователь является проверяющим для определенного объекта.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        """
+        Проверка того, что пользователь является менеджером для объекта.
+        """
+        return obj.inspector == request.user or request.user.role == CharacterRoles.HR

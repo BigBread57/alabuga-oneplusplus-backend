@@ -1,40 +1,82 @@
 from django.urls import path
 
-from app.shop.api.v1.views.shop_item_category import (
-    ShopItemCategoryListAPIView,
-    ShopItemCategoryCreateAPIView,
-    ShopItemCategoryUpdateAPIView,
-)
-from app.shop.api.v1.views.shop_item import (
-    ShopItemListAPIView,
-    ShopItemCreateAPIView,
-    ShopItemUpdateAPIView,
-)
-from app.shop.api.v1.views.user_purchase import UserPurchaseListAPIView, UserPurchaseCreateAPIView, \
-    UserPurchaseUpdateAPIView, UserPurchaseToWorkAPIView, UserPurchaseDetailAPIView
+from game_mechanics.api.v1 import views
 
 app_name = "v1"
 
 
-shop_item_category_urls = [
+competency_urls = [
     path(
-        route="item-category/list/",
-        view=ShopItemCategoryListAPIView.as_view(),
-        name="item-category-list",
+        route="competencies/list/",
+        view=views.CompetencyListAPIView.as_view(),
+        name="competencies-list",
     ),
     path(
-        route="item-category/create/",
-        view=ShopItemCategoryCreateAPIView.as_view(),
-        name="item-category-create",
+        route="competencies/create/",
+        view=views.CompetencyCreateAPIView.as_view(),
+        name="competencies-create",
     ),
     path(
-        route="item-category/<int:pk>/update/",
-        view=ShopItemCategoryUpdateAPIView.as_view(),
-        name="item-category-update",
+        route="competencies/<int:pk>/update/",
+        view=views.CompetencyUpdateAPIView.as_view(),
+        name="competencies-update",
+    ),
+    path(
+        route="competencies/<int:pk>/delete/",
+        view=views.CompetencyDeleteAPIView.as_view(),
+        name="competencies-delete",
+    ),
+]
+
+rank_urls = [
+    path(
+        route="ranks/list/",
+        view=views.RankListAPIView.as_view(),
+        name="ranks-list",
+    ),
+    path(
+        route="ranks/create/",
+        view=views.RankCreateAPIView.as_view(),
+        name="ranks-create",
+    ),
+    path(
+        route="ranks/<int:pk>/update/",
+        view=views.RankUpdateAPIView.as_view(),
+        name="ranks-update",
+    ),
+    path(
+        route="ranks/<int:pk>/delete/",
+        view=views.RankDeleteAPIView.as_view(),
+        name="ranks-delete",
+    ),
+]
+
+required_rank_competency_urls = [
+    path(
+        route="required-rank-competencies/list/",
+        view=views.RequiredRankCompetencyListAPIView.as_view(),
+        name="required-rank-competencies-list",
+    ),
+    path(
+        route="required-rank-competencies/create/",
+        view=views.RequiredRankCompetencyCreateAPIView.as_view(),
+        name="required-rank-competencies-create",
+    ),
+    path(
+        route="required-rank-competencies/<int:pk>/update/",
+        view=views.RequiredRankCompetencyUpdateAPIView.as_view(),
+        name="required-rank-competencies-update",
+    ),
+    path(
+        route="required-rank-competencies/<int:pk>/delete/",
+        view=views.RequiredRankCompetencyDeleteAPIView.as_view(),
+        name="required-rank-competencies-delete",
     ),
 ]
 
 
 urlpatterns = [
-    *shop_item_category_urls,
+    *competency_urls,
+    *rank_urls,
+    *required_rank_competency_urls,
 ]

@@ -1,11 +1,58 @@
-from .auth import LoginAPIView, RegistrationAPIView, TokenRefreshAPIView
-from .user import UserDetailAPIView, UserListAPIView, UserUpdateAPIView
+from user.api.v1.views.character import CharacterActualForUserAPIView, CharacterUpdateAPIView
+from user.api.v1.views.character_artifact import CharacterArtifactDetailAPIView, CharacterArtifactListAPIView
+from user.api.v1.views.character_competency import CharacterCompetencyDetailAPIView, CharacterCompetencyListAPIView
+from user.api.v1.views.character_event import (
+    CharacterEventDetailAPIView,
+    CharacterEventListAPIView,
+    CharacterEventUpdateFromCharacterAPIView,
+    CharacterEventUpdateFromInspectorAPIView,
+)
+from user.api.v1.views.character_mission import (
+    CharacterMissionDetailAPIView,
+    CharacterMissionListAPIView,
+    CharacterMissionUpdateFromCharacterAPIView,
+    CharacterMissionUpdateFromInspectorAPIView,
+)
+from user.api.v1.views.user import (
+    UserConfirmRegisterAPIView,
+    UserConfirmResetPasswordAPIView,
+    UseResendEmailConfirmationAPIView,
+    UserInfoAPIView,
+    UserLoginAPIView,
+    UserLogoutAPIView,
+    UserRegisterAPIView,
+    UserRequestResetPasswordAPIView,
+    UserUpdatePasswordAPIView,
+)
 
 __all__ = (
-    "LoginAPIView",
-    "RegistrationAPIView",
-    "TokenRefreshAPIView",
-    "UserListAPIView",
-    "UserDetailAPIView",
-    "UserUpdateAPIView",
+    # User
+    "UseResendEmailConfirmationAPIView",
+    "UserLoginAPIView",
+    "UserRequestResetPasswordAPIView",
+    "UserConfirmResetPasswordAPIView",
+    "UserUpdatePasswordAPIView",
+    "UserRegisterAPIView",
+    "UserLogoutAPIView",
+    "UserInfoAPIView",
+    "UserConfirmRegisterAPIView",
+    # Character
+    "CharacterActualForUserAPIView",
+    "CharacterUpdateAPIView",
+    # CharacterEvent
+    "CharacterEventListAPIView",
+    "CharacterEventDetailAPIView",
+    "CharacterEventUpdateFromCharacterAPIView",
+    "CharacterEventUpdateFromInspectorAPIView",
+    # CharacterMission
+    "CharacterMissionListAPIView",
+    "CharacterMissionDetailAPIView",
+    "CharacterMissionUpdateFromCharacterAPIView",
+    "CharacterMissionUpdateFromInspectorAPIView",
+    # CharacterCompetency
+    "CharacterCompetencyListAPIView",
+    "CharacterCompetencyDetailAPIView",
+    # CharacterArtifact
+    "CharacterArtifactListAPIView",
+    "CharacterArtifactDetailAPIView",
 )

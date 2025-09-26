@@ -1,11 +1,60 @@
-from .auth import TokenObtainPairSerializer, TokenRefreshSerializer, UserRegistrationSerializer
-from .user import UserDetailSerializer, UserListSerializer, UserUpdateSerializer
+from user.api.v1.serializers.character import CharacterActualForUserSerializer, CharacterUpdateSerializer
+from user.api.v1.serializers.character_artifact import (
+    CharacterArtifactDetailSerializer,
+    CharacterArtifactListSerializer,
+)
+from user.api.v1.serializers.character_competency import (
+    CharacterCompetencyDetailSerializer,
+    CharacterCompetencyListSerializer,
+)
+from user.api.v1.serializers.character_event import (
+    CharacterEventDetailSerializer,
+    CharacterEventListSerializer,
+    CharacterEventUpdateFromCharacterSerializer,
+    CharacterEventUpdateFromInspectorSerializer,
+)
+from user.api.v1.serializers.character_mission import (
+    CharacterMissionDetailSerializer,
+    CharacterMissionListSerializer,
+    CharacterMissionUpdateFromCharacterSerializer,
+    CharacterMissionUpdateFromInspectorSerializer,
+)
+from user.api.v1.serializers.user import (
+    UserConfirmResetPasswordSerializer,
+    UseResendEmailConfirmationSerializer,
+    UserInfoSerializer,
+    UserLoginSerializer,
+    UserRegisterSerializer,
+    UserRequestResetPasswordSerializer,
+    UserUpdatePasswordSerializer,
+)
 
-__all__ = [
-    "TokenObtainPairSerializer",
-    "TokenRefreshSerializer",
-    "UserRegistrationSerializer",
-    "UserDetailSerializer",
-    "UserListSerializer",
-    "UserUpdateSerializer",
-]
+__all__ = (
+    # CharacterEvent
+    "CharacterEventUpdateFromCharacterSerializer",
+    "CharacterEventUpdateFromInspectorSerializer",
+    "CharacterEventDetailSerializer",
+    "CharacterEventListSerializer",
+    # CharacterMission
+    "CharacterMissionUpdateFromCharacterSerializer",
+    "CharacterMissionUpdateFromInspectorSerializer",
+    "CharacterMissionDetailSerializer",
+    "CharacterMissionListSerializer",
+    # User
+    "UserLoginSerializer",
+    "UserConfirmResetPasswordSerializer",
+    "UserRequestResetPasswordSerializer",
+    "UserUpdatePasswordSerializer",
+    "UserRegisterSerializer",
+    "UserInfoSerializer",
+    "UseResendEmailConfirmationSerializer",
+    # Character
+    "CharacterActualForUserSerializer",
+    "CharacterUpdateSerializer",
+    # CharacterCompetency
+    "CharacterCompetencyListSerializer",
+    "CharacterCompetencyDetailSerializer",
+    # CharacterArtifact
+    "CharacterArtifactListSerializer",
+    "CharacterArtifactDetailSerializer",
+)

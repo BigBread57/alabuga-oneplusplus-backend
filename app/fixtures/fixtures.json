@@ -1,0 +1,2207 @@
+[
+  {
+    "model": "shop.ShopItemCategory",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "name": "Мерч",
+      "description": "Фирменный мерч",
+      "icon": null,
+      "color": ""
+    }
+  },
+  {
+    "model": "shop.ShopItemCategory",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "name": "Билет",
+      "description": "Билет на концерт",
+      "icon": null,
+      "color": ""
+    }
+  },
+  {
+    "model": "shop.ShopItemCategory",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "name": "Бонус",
+      "description": "Бонус на покупку бытовой техники в М.Видео",
+      "icon": null,
+      "color": ""
+    }
+  },
+  {
+    "model": "shop.ShopItemCategory",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "name": "Крусы",
+      "description": "Любой курс в ИТ",
+      "icon": null,
+      "color": ""
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Футболка 'Кодер'",
+      "description": "Стильная хлопковая футболка с принтом кода на спине",
+      "category": 1,
+      "price": 1500,
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "number": 100,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Билет на концерт Imagine Dragons",
+      "description": "Билет на концерт в Лужниках, сектор A, ряд 5",
+      "category": 2,
+      "price": 5000,
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "number": 50,
+      "image": "https://wantedshop.ru/magazin/product/view/13/modnyy_muzhskoy_kardigan_2024#gallery-1",
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Скидка 20% в М.Видео",
+      "description": "Скидка на всю бытовую технику в магазинах М.Видео",
+      "category": 3,
+      "price": 3000,
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "number": 0,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Курс Python для начинающих",
+      "description": "Базовый курс по программированию на Python",
+      "category": 4,
+      "price": 10000,
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "number": 0,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Младший разработчик (Уровень 1)",
+      "description": "Начальный уровень разработчика с базовыми навыками",
+      "category": 4,
+      "price": 15000,
+      "parent": null,
+      "rank": 1,
+      "competency": 1,
+      "number": 0,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Разработчик (Уровень 2)",
+      "description": "Продвинутый уровень разработчика с углубленными знаниями",
+      "category": 4,
+      "price": 25000,
+      "parent": 5,
+      "rank": 2,
+      "competency": 2,
+      "number": 0,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Старший разработчик (Уровень 3)",
+      "description": "Экспертный уровень с лидерскими качествами",
+      "category": 4,
+      "price": 40000,
+      "parent": 6,
+      "rank": 3,
+      "competency": 3,
+      "number": 0,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Тимлид (Уровень 4)",
+      "description": "Уровень управления командой разработки",
+      "category": 4,
+      "price": 60000,
+      "parent": 7,
+      "rank": 4,
+      "competency": 4,
+      "number": 0,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Базовые алгоритмы",
+      "description": "Основные алгоритмы и структуры данных",
+      "category": 4,
+      "price": 8000,
+      "parent": null,
+      "rank": 1,
+      "competency": 5,
+      "number": 0,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Продвинутые алгоритмы",
+      "description": "Сложные алгоритмы и оптимизация",
+      "category": 4,
+      "price": 15000,
+      "parent": 9,
+      "rank": 2,
+      "competency": 6,
+      "number": 0,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Кепка 'Программист'",
+      "description": "Стильная кепка с логотипом языка программирования",
+      "category": 1,
+      "price": 800,
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "number": 75,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Билет на IT-конференцию",
+      "description": "Билет на годовую IT-конференцию с участием топ-спикеров",
+      "category": 2,
+      "price": 7000,
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "number": 30,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 13,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Скидка 15% на технику Apple",
+      "description": "Скидка на всю технику Apple в М.Видео",
+      "category": 3,
+      "price": 5000,
+      "parent": null,
+      "rank": null,
+      "competency": null,
+      "number": 0,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "shop.ShopItem",
+    "pk": 14,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00.000Z",
+      "updated_at": "2025-01-27T08:00:00.000Z",
+      "name": "Архитектор систем (Уровень 5)",
+      "description": "Уровень проектирования сложных систем",
+      "category": 4,
+      "price": 80000,
+      "parent": 8,
+      "rank": 5,
+      "competency": 7,
+      "number": 0,
+      "image": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 1,
+    "fields": {
+      "name": "Вера в дело 1",
+      "description": "Базовая уверенность в правильности выбранного пути",
+      "required_experience": 50,
+      "color": "#4CAF50",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 2,
+    "fields": {
+      "name": "Вера в дело 2",
+      "description": "Углубленная уверенность и преданность выбранному делу",
+      "required_experience": 100,
+      "color": "#388E3C",
+      "icon": null,
+      "parent": 1,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 3,
+    "fields": {
+      "name": "Стремление к большему 1",
+      "description": "Базовое желание развиваться и достигать новых высот",
+      "required_experience": 75,
+      "color": "#2196F3",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 4,
+    "fields": {
+      "name": "Стремление к большему 2",
+      "description": "Сильная мотивация к постоянному совершенствованию",
+      "required_experience": 150,
+      "color": "#1976D2",
+      "icon": null,
+      "parent": 3,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 5,
+    "fields": {
+      "name": "Общение 1",
+      "description": "Базовые навыки коммуникации с другими людьми",
+      "required_experience": 60,
+      "color": "#FF9800",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 6,
+    "fields": {
+      "name": "Общение 2",
+      "description": "Продвинутые навыки ведения переговоров и публичных выступлений",
+      "required_experience": 120,
+      "color": "#F57C00",
+      "icon": null,
+      "parent": 5,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 7,
+    "fields": {
+      "name": "Аналитика 1",
+      "description": "Базовые навыки анализа информации и принятия решений",
+      "required_experience": 120,
+      "color": "#9C27B0",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 8,
+    "fields": {
+      "name": "Аналитика 2",
+      "description": "Продвинутый анализ данных и стратегическое мышление",
+      "required_experience": 240,
+      "color": "#7B1FA2",
+      "icon": null,
+      "parent": 7,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 9,
+    "fields": {
+      "name": "Командование 1",
+      "description": "Базовые навыки управления командой",
+      "required_experience": 200,
+      "color": "#F44336",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 10,
+    "fields": {
+      "name": "Командование 2",
+      "description": "Продвинутое лидерство и управление крупными проектами",
+      "required_experience": 400,
+      "color": "#D32F2F",
+      "icon": null,
+      "parent": 9,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 11,
+    "fields": {
+      "name": "Юриспруденция 1",
+      "description": "Базовые знания правовых норм и законодательства",
+      "required_experience": 100,
+      "color": "#3F51B5",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 12,
+    "fields": {
+      "name": "Юриспруденция 2",
+      "description": "Продвинутые знания юриспруденции и судебной практики",
+      "required_experience": 200,
+      "color": "#303F9F",
+      "icon": null,
+      "parent": 11,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 13,
+    "fields": {
+      "name": "Трёхмерное мышление 1",
+      "description": "Базовые навыки пространственного мышления",
+      "required_experience": 180,
+      "color": "#009688",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 14,
+    "fields": {
+      "name": "Трёхмерное мышление 2",
+      "description": "Продвинутое проектирование в трёхмерном пространстве",
+      "required_experience": 360,
+      "color": "#00796B",
+      "icon": null,
+      "parent": 13,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 15,
+    "fields": {
+      "name": "Базовая экономика 1",
+      "description": "Основные понятия экономики и финансов",
+      "required_experience": 90,
+      "color": "#795548",
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 16,
+    "fields": {
+      "name": "Базовая экономика 2",
+      "description": "Продвинутые экономические модели и анализ рынков",
+      "required_experience": 180,
+      "color": "#5D4037",
+      "icon": null,
+      "parent": 15,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 17,
+    "fields": {
+      "name": "Основы аэронавигации 1",
+      "description": "Базовые принципы навигации в воздушном пространстве",
+      "required_experience": 250,
+      "color": "#607D8B",
+      "icon": null,
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Competency",
+    "pk": 18,
+    "fields": {
+      "name": "Основы аэронавигации 2",
+      "description": "Продвинутые системы навигации и управления полетами",
+      "required_experience": 500,
+      "color": "#455A64",
+      "icon": null,
+      "parent": 17,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 1,
+    "fields": {
+      "name": "Новичок",
+      "description": "Начальный ранг, первые шаги в игре",
+      "required_experience": 0,
+      "icon": null,
+      "color": "#9E9E9E",
+      "parent": null,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 2,
+    "fields": {
+      "name": "Ученик",
+      "description": "Освоивший базовые механики игры",
+      "required_experience": 100,
+      "icon": null,
+      "color": "#4CAF50",
+      "parent": 1,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 3,
+    "fields": {
+      "name": "Опытный",
+      "description": "Уверенно владеет основными навыками",
+      "required_experience": 300,
+      "icon": null,
+      "color": "#2196F3",
+      "parent": 2,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 4,
+    "fields": {
+      "name": "Специалист",
+      "description": "Углубленные знания в конкретных областях",
+      "required_experience": 600,
+      "icon": null,
+      "color": "#FF9800",
+      "parent": 3,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 5,
+    "fields": {
+      "name": "Эксперт",
+      "description": "Высокий уровень мастерства",
+      "required_experience": 1000,
+      "icon": null,
+      "color": "#9C27B0",
+      "parent": 4,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 6,
+    "fields": {
+      "name": "Мастер",
+      "description": "Виртуозное владение игровыми механиками",
+      "required_experience": 1500,
+      "icon": null,
+      "color": "#F44336",
+      "parent": 5,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 7,
+    "fields": {
+      "name": "Грандмастер",
+      "description": "Легендарный уровень мастерства",
+      "required_experience": 2100,
+      "icon": null,
+      "color": "#FFD700",
+      "parent": 6,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 8,
+    "fields": {
+      "name": "Легенда",
+      "description": "Мифический статус, достижимый лишь единицами",
+      "required_experience": 2800,
+      "icon": null,
+      "color": "#E91E63",
+      "parent": 7,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 9,
+    "fields": {
+      "name": "Чемпион",
+      "description": "Абсолютный пик игрового совершенства",
+      "required_experience": 3600,
+      "icon": null,
+      "color": "#3F51B5",
+      "parent": 8,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.Rank",
+    "pk": 10,
+    "fields": {
+      "name": "Властелин",
+      "description": "Высший ранг, символ абсолютного превосходства",
+      "required_experience": 4500,
+      "icon": null,
+      "color": "#00BCD4",
+      "parent": 9,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 1,
+    "fields": {
+      "rank": 1,
+      "competency": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 2,
+    "fields": {
+      "rank": 1,
+      "competency": 5,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 3,
+    "fields": {
+      "rank": 2,
+      "competency": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 4,
+    "fields": {
+      "rank": 2,
+      "competency": 3,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 5,
+    "fields": {
+      "rank": 2,
+      "competency": 5,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 6,
+    "fields": {
+      "rank": 3,
+      "competency": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 7,
+    "fields": {
+      "rank": 3,
+      "competency": 3,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 8,
+    "fields": {
+      "rank": 3,
+      "competency": 7,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 9,
+    "fields": {
+      "rank": 4,
+      "competency": 3,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 10,
+    "fields": {
+      "rank": 4,
+      "competency": 5,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 11,
+    "fields": {
+      "rank": 4,
+      "competency": 7,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 12,
+    "fields": {
+      "rank": 4,
+      "competency": 11,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 13,
+    "fields": {
+      "rank": 5,
+      "competency": 2,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 14,
+    "fields": {
+      "rank": 5,
+      "competency": 6,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 15,
+    "fields": {
+      "rank": 5,
+      "competency": 8,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 16,
+    "fields": {
+      "rank": 5,
+      "competency": 12,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 17,
+    "fields": {
+      "rank": 6,
+      "competency": 4,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 18,
+    "fields": {
+      "rank": 6,
+      "competency": 8,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 19,
+    "fields": {
+      "rank": 6,
+      "competency": 10,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 20,
+    "fields": {
+      "rank": 6,
+      "competency": 14,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 21,
+    "fields": {
+      "rank": 7,
+      "competency": 4,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 22,
+    "fields": {
+      "rank": 7,
+      "competency": 10,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 23,
+    "fields": {
+      "rank": 7,
+      "competency": 14,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 24,
+    "fields": {
+      "rank": 7,
+      "competency": 16,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 25,
+    "fields": {
+      "rank": 8,
+      "competency": 6,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 26,
+    "fields": {
+      "rank": 8,
+      "competency": 10,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 27,
+    "fields": {
+      "rank": 8,
+      "competency": 12,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 28,
+    "fields": {
+      "rank": 8,
+      "competency": 16,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 29,
+    "fields": {
+      "rank": 8,
+      "competency": 18,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 30,
+    "fields": {
+      "rank": 9,
+      "competency": 2,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 31,
+    "fields": {
+      "rank": 9,
+      "competency": 4,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 32,
+    "fields": {
+      "rank": 9,
+      "competency": 8,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 33,
+    "fields": {
+      "rank": 9,
+      "competency": 10,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 34,
+    "fields": {
+      "rank": 9,
+      "competency": 14,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 35,
+    "fields": {
+      "rank": 9,
+      "competency": 18,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 36,
+    "fields": {
+      "rank": 10,
+      "competency": 4,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 37,
+    "fields": {
+      "rank": 10,
+      "competency": 8,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 38,
+    "fields": {
+      "rank": 10,
+      "competency": 10,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 39,
+    "fields": {
+      "rank": 10,
+      "competency": 14,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 40,
+    "fields": {
+      "rank": 10,
+      "competency": 16,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_mechanics.RequiredRankCompetency",
+    "pk": 41,
+    "fields": {
+      "rank": 10,
+      "competency": 18,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.GameWorld",
+    "pk": 1,
+    "fields": {
+      "name": "Аэрокосмический Альянс",
+      "description": "Игровой мир будущего, где человечество освоило межпланетные перелеты и создало масштабную космическую инфраструктуру. Игроки выступают в роли пилотов, инженеров, дипломатов и стратегов, развивающих космическую экспансию человечества. От строительства орбитальных станций до дипломатических миссий с инопланетными цивилизациями - здесь каждый найдет свой путь к звездам. Компетенции отражают ключевые навыки, необходимые для выживания и процветания в условиях космической экспансии.",
+      "color": "#1a237e",
+      "standard_experience": 25,
+      "standard_currency": 50,
+      "currency_name": "звездные кредиты",
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 1,
+    "fields": {
+      "name": "Ядро нейронного интерфейса \"Прометей\"",
+      "description": "Древний, но превосходно сохранившийся чип, разработанный в первых колониальных экспедициях. Синхронизируется с кортикальной системой пилота, ускоряя обработку сенсорных данных и усвоение навыков в стрессовых ситуациях.",
+      "icon": null,
+      "color": "#4B0082",
+      "modifier": "EXPERIENCE_GAIN",
+      "modifier_value": 15,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 2,
+    "fields": {
+      "name": "Голографический дневник капитана Элизы Рейн",
+      "description": "Личные записи легендарного капитана-первопроходца, содержащие не только хроники открытий, но и детальный разбор тактических маневров, переговоров и инженерных решений. Позволяет учиться на ошибках и успехах великого исследователя.",
+      "icon": null,
+      "color": "#FFD700",
+      "modifier": "EXPERIENCE_GAIN",
+      "modifier_value": 10,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 3,
+    "fields": {
+      "name": "Кристалл памяти Кс'арратхов",
+      "description": "Артефакт загадочной инопланетной расы Кс'арратхов, способный хранить и передавать ментальные импринты навыков. При контакте дарует пользователю фрагменты чуждого, но невероятно продвинутого знания.",
+      "icon": null,
+      "color": "#00FF7F",
+      "modifier": "EXPERIENCE_GAIN",
+      "modifier_value": 20,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 4,
+    "fields": {
+      "name": "Квантовый трейдер \"Удача Звездного Кита\"",
+      "description": "Портативное устройство, использующее квантовую запутанность для анализа межпланетных бирж за доли секунды до обновления котировок. Позволяет находить самые выгодные торговые арбитражные возможности.",
+      "icon": null,
+      "color": "#32CD32",
+      "modifier": "CURRENCY_GAIN",
+      "modifier_value": 15,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 5,
+    "fields": {
+      "name": "Карта тайных грузов Пояса Астероидов",
+      "description": "Зашифрованная карта, ведущая к заброшенным тайникам контрабандистов и местам крушений кораблей с ценными грузами. Постоянно обновляется с учетом гравитационных сдвигов в Поясе.",
+      "icon": null,
+      "color": "#8B4513",
+      "modifier": "CURRENCY_GAIN",
+      "modifier_value": 25,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 6,
+    "fields": {
+      "name": "Нано-анализатор рудных жил",
+      "description": "Устройство, которое при сканировании астероида или планеты с высокой точностью определяет не только состав, но и самые богатые концентрации редких минералов, минимизируя затраты на добычу.",
+      "icon": null,
+      "color": "#C0C0C0",
+      "modifier": "CURRENCY_GAIN",
+      "modifier_value": 10,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 7,
+    "fields": {
+      "name": "Дипломатическая печать Альянса \"Платина\"",
+      "description": "Высшая степень доверия, выдаваемая пилотам, оказавшим неоценимые услуги Альянсу. Предоставляет доступ к закрытым правительственным аукционам и складам с передовым оборудованием по себестоимости.",
+      "icon": null,
+      "color": "#E5E4E2",
+      "modifier": "STORE_DISCOUNT",
+      "modifier_value": 20,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 8,
+    "fields": {
+      "name": "Членская карта Гильдии торговцев \"Зеро-Г\"",
+      "description": "Золотая карта элитной гильдии торговцев. Ее владельцы получают эксклюзивные скидки у всех поставщиков, аффилированных с Гильдией, по всей освоенной территории.",
+      "icon": null,
+      "color": "#FFDF00",
+      "modifier": "STORE_DISCOUNT",
+      "modifier_value": 15,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 9,
+    "fields": {
+      "name": "Ключ доступа к сети \"Бартер-Сеть\"",
+      "description": "Нелегальный децентрализованный чип, который подключается к теневой сети обмена между пилотами, ремонтниками и торговцами. Позволяет находить уникальные предложения и торговаться без лишних наценок.",
+      "icon": null,
+      "color": "#FF4500",
+      "modifier": "STORE_DISCOUNT",
+      "modifier_value": 10,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 10,
+    "fields": {
+      "name": "Сертификат аккредитации пилота-первопроходца",
+      "description": "Официальный документ, дающий право претендовать на первопроходческие миссии по картографированию новых систем и право давать имена открытым объектам. Символ статуса и доверия Альянса.",
+      "icon": null,
+      "color": "#000080",
+      "modifier": "DEFAULT",
+      "modifier_value": 0,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 11,
+    "fields": {
+      "name": "Медальон перемирия с Конкордиатом Сириуса",
+      "description": "Символ дипломатического соглашения между Альянсом и могущественной инопланетной расой. Ношение медальона гарантирует безопасный проход через их пространство и доступ к их дипломатическим миссиям.",
+      "icon": null,
+      "color": "#9370DB",
+      "modifier": "DEFAULT",
+      "modifier_value": 0,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.Artifact",
+    "pk": 12,
+    "fields": {
+      "name": "Черный ящик корабля \"Скиталец\"",
+      "description": "Разбитый бортовой самописец с корабля, бесследно исчезнувшего десятилетия назад на краю известного пространства. Его расшифровка может привести к величайшей тайне или самой большой опасности.",
+      "icon": null,
+      "color": "#2F4F4F",
+      "modifier": "DEFAULT",
+      "modifier_value": 0,
+      "game_world": 1,
+      "created_at": "2025-09-24T14:58:24.186615+00:00",
+      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+    }
+  },
+  {
+    "model": "game_world.ActivityCategory",
+    "pk": 1,
+    "fields": {
+      "name": "Квест",
+      "description": "Последовательность заданий для новых сотрудников с целью знакомства с компанией, процессами и коллегами. Включает ориентационные мероприятия и вводные задачи.",
+      "icon": null,
+      "color": "#4CAF50",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.ActivityCategory",
+    "pk": 2,
+    "fields": {
+      "name": "Рекрутинг",
+      "description": "Активности по привлечению и отбору кандидатов: проведение собеседований, оценка навыков, участие в карьерных мероприятиях и работа с кандидатами.",
+      "icon": null,
+      "color": "#2196F3",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.ActivityCategory",
+    "pk": 3,
+    "fields": {
+      "name": "Лекторий",
+      "description": "Проведение обучающих мероприятий: внутренние воркшопы, мастер-классы, презентации знаний и менторские сессии для развития сотрудников.",
+      "icon": null,
+      "color": "#FF9800",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.ActivityCategory",
+    "pk": 4,
+    "fields": {
+      "name": "Симулятор",
+      "description": "Практические упражнения и ролевые игры для отработки рабочих ситуаций: имитация собеседований, переговоров и рабочих процессов.",
+      "icon": null,
+      "color": "#9C27B0",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.ActivityCategory",
+    "pk": 5,
+    "fields": {
+      "name": "Адаптация",
+      "description": "Активности по интеграции новых сотрудников: программа онбординга, знакомство с командой, кураторство и сопровождение в первые месяцы работы.",
+      "icon": null,
+      "color": "#00BCD4",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.ActivityCategory",
+    "pk": 6,
+    "fields": {
+      "name": "Оценка",
+      "description": "Проведение оценочных мероприятий: ассессмент-центры, оценка компетенций, обратная связь по результатам работы и карьерные консультации.",
+      "icon": null,
+      "color": "#F44336",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.ActivityCategory",
+    "pk": 7,
+    "fields": {
+      "name": "Развитие",
+      "description": "Активности по профессиональному росту сотрудников: планирование карьеры, коучинг-сессии, участие в конференциях и обучение новым навыкам.",
+      "icon": null,
+      "color": "#673AB7",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.ActivityCategory",
+    "pk": 8,
+    "fields": {
+      "name": "Тимбилдинг",
+      "description": "Мероприятия по укреплению командного духа: корпоративные события, тим-тренинги, совместные проекты и неформальные встречи команды.",
+      "icon": null,
+      "color": "#E91E63",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.ActivityCategory",
+    "pk": 9,
+    "fields": {
+      "name": "Бренд работодателя",
+      "description": "Активности по укреплению HR-бренда: участие в днях карьеры, создание контента о компании, работа с соцсетями и отзовиками.",
+      "icon": null,
+      "color": "#795548",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.ActivityCategory",
+    "pk": 10,
+    "fields": {
+      "name": "Процессы и аналитика",
+      "description": "Работа над улучшением HR-процессов: анализ метрик, оптимизация процедур, автоматизация задач и разработка HR-инструментов.",
+      "icon": null,
+      "color": "#607D8B",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.missionlevel",
+    "pk": 1,
+    "fields": {
+      "name": "Простой",
+      "description": "Базовые задачи для новичков. Не требуют специальных навыков и занимают мало времени.",
+      "icon": null,
+      "color": "#4CAF50",
+      "multiplier_experience": 100,
+      "multiplier_currency": 100,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.missionlevel",
+    "pk": 2,
+    "fields": {
+      "name": "Средний",
+      "description": "Задачи средней сложности. Требуют некоторых знаний и опыта, время выполнения умеренное.",
+      "icon": null,
+      "color": "#2196F3",
+      "multiplier_experience": 150,
+      "multiplier_currency": 150,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.missionlevel",
+    "pk": 3,
+    "fields": {
+      "name": "Сложный",
+      "description": "Серьёзные задачи, требующие профессиональных навыков. Занимают значительное время и усилия.",
+      "icon": null,
+      "color": "#FF9800",
+      "multiplier_experience": 250,
+      "multiplier_currency": 250,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.missionlevel",
+    "pk": 4,
+    "fields": {
+      "name": "Экспертный",
+      "description": "Задачи высшего уровня сложности. Требуют экспертных знаний и могут занимать несколько дней.",
+      "icon": null,
+      "color": "#F44336",
+      "multiplier_experience": 400,
+      "multiplier_currency": 400,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.missionlevel",
+    "pk": 5,
+    "fields": {
+      "name": "Легендарный",
+      "description": "Исключительно сложные миссии, доступные только лучшим из лучших. Требуют максимальной отдачи и специализированных навыков.",
+      "icon": null,
+      "color": "#9C27B0",
+      "multiplier_experience": 600,
+      "multiplier_currency": 600,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Event",
+    "pk": 1,
+    "fields": {
+      "name": "День открытых дверей для кандидатов",
+      "description": "Организация и проведение дня открытых дверей для потенциальных кандидатов. Включает презентацию компании, экскурсию по офису и неформальное общение с командой.",
+      "experience": 200,
+      "icon": null,
+      "color": "#4CAF50",
+      "currency": 150,
+      "required_number": 5,
+      "is_active": true,
+      "start_datetime": "2024-10-15T10:00:00Z",
+      "time_to_complete": 7,
+      "category": 9,
+      "rank": 2,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Event",
+    "pk": 2,
+    "fields": {
+      "name": "Серия мастер-классов по проведению собеседований",
+      "description": "Цикл обучающих мероприятий для сотрудников, участвующих в процессе рекрутинга. Практические занятия по техникам интервью и оценке кандидатов.",
+      "experience": 350,
+      "icon": null,
+      "color": "#2196F3",
+      "currency": 250,
+      "required_number": 8,
+      "is_active": true,
+      "start_datetime": "2024-10-20T14:00:00Z",
+      "time_to_complete": 14,
+      "category": 3,
+      "rank": 3,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Event",
+    "pk": 3,
+    "fields": {
+      "name": "Неделя адаптации новых сотрудников",
+      "description": "Комплекс мероприятий по интеграции новых членов команды: воркшопы, знакомство с процессами, менторские сессии и тимбилдинг.",
+      "experience": 150,
+      "icon": null,
+      "color": "#00BCD4",
+      "currency": 100,
+      "required_number": 10,
+      "is_active": true,
+      "start_datetime": "2024-11-01T09:00:00Z",
+      "time_to_complete": 5,
+      "category": 5,
+      "rank": 1,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Event",
+    "pk": 4,
+    "fields": {
+      "name": "HR-аналитика: сбор и обработка метрик отбора",
+      "description": "Масштабный проект по анализу эффективности рекрутинговых процессов. Сбор данных, построение отчетов и выработка рекомендаций по оптимизации.",
+      "experience": 600,
+      "icon": null,
+      "color": "#607D8B",
+      "currency": 400,
+      "required_number": 3,
+      "is_active": true,
+      "start_datetime": "2024-11-10T11:00:00Z",
+      "time_to_complete": 21,
+      "category": 10,
+      "rank": 4,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventArtifact",
+    "pk": 1,
+    "fields": {
+      "event": 1,
+      "artifact": 2,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventArtifact",
+    "pk": 2,
+    "fields": {
+      "event": 2,
+      "artifact": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventArtifact",
+    "pk": 3,
+    "fields": {
+      "event": 4,
+      "artifact": 3,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventCompetency",
+    "pk": 1,
+    "fields": {
+      "event": 1,
+      "competency": 5,
+      "experience": 25,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventCompetency",
+    "pk": 2,
+    "fields": {
+      "event": 1,
+      "competency": 9,
+      "experience": 20,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventCompetency",
+    "pk": 3,
+    "fields": {
+      "event": 2,
+      "competency": 5,
+      "experience": 30,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventCompetency",
+    "pk": 4,
+    "fields": {
+      "event": 2,
+      "competency": 7,
+      "experience": 35,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventCompetency",
+    "pk": 5,
+    "fields": {
+      "event": 3,
+      "competency": 1,
+      "experience": 20,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventCompetency",
+    "pk": 6,
+    "fields": {
+      "event": 3,
+      "competency": 3,
+      "experience": 15,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventCompetency",
+    "pk": 7,
+    "fields": {
+      "event": 4,
+      "competency": 7,
+      "experience": 50,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.EventCompetency",
+    "pk": 8,
+    "fields": {
+      "event": 4,
+      "competency": 15,
+      "experience": 40,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionBranch",
+    "pk": 1,
+    "fields": {
+      "name": "Основы рекрутинга",
+      "description": "Ветка миссий для освоения базовых навыков подбора персонала: от поиска кандидатов до проведения первых собеседований.",
+      "icon": null,
+      "color": "#2196F3",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_complete": 30,
+      "rank": 1,
+      "category": 2,
+      "mentor": null,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionBranch",
+    "pk": 2,
+    "fields": {
+      "name": "Адаптация и онбординг",
+      "description": "Ветка миссий по интеграции новых сотрудников в компанию и созданию комфортной рабочей среды.",
+      "icon": null,
+      "color": "#00BCD4",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_complete": 21,
+      "rank": 2,
+      "category": 5,
+      "mentor": null,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionBranch",
+    "pk": 3,
+    "fields": {
+      "name": "HR-бренд и коммуникации",
+      "description": "Ветка миссий по развитию HR-бренда компании и улучшению внутренних коммуникаций.",
+      "icon": null,
+      "color": "#795548",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_complete": 45,
+      "rank": 3,
+      "category": 9,
+      "mentor": null,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Mission",
+    "pk": 1,
+    "fields": {
+      "icon": null,
+      "name": "Составление профиля идеального кандидата",
+      "description": "Разработка детального описания требований к кандидату на конкретную позицию: hard и soft skills, опыт, личные качества.",
+      "experience": 100,
+      "currency": 80,
+      "order": 1,
+      "is_key_mission": true,
+      "is_active": true,
+      "time_to_complete": 3,
+      "branch": 1,
+      "level": 1,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Mission",
+    "pk": 2,
+    "fields": {
+      "icon": null,
+      "name": "Поиск кандидатов в профессиональных соцсетях",
+      "description": "Активный поиск потенциальных кандидатов в LinkedIn и других профессиональных сетях. Составление первичного списка для контакта.",
+      "experience": 120,
+      "currency": 100,
+      "order": 2,
+      "is_key_mission": false,
+      "is_active": true,
+      "time_to_complete": 5,
+      "branch": 1,
+      "level": 1,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Mission",
+    "pk": 3,
+    "fields": {
+      "icon": null,
+      "name": "Проведение телефонного интервью",
+      "description": "Организация и проведение телефонного собеседования с кандидатом. Оценка базовых компетенций и мотивации.",
+      "experience": 150,
+      "currency": 120,
+      "order": 3,
+      "is_key_mission": true,
+      "is_active": true,
+      "time_to_complete": 2,
+      "branch": 1,
+      "level": 2,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Mission",
+    "pk": 4,
+    "fields": {
+      "icon": null,
+      "name": "Подготовка welcome-пакета для новичка",
+      "description": "Сбор всей необходимой информации и материалов для нового сотрудника: доступы, документация, контакты, сувенирная продукция.",
+      "experience": 80,
+      "currency": 60,
+      "order": 1,
+      "is_key_mission": true,
+      "is_active": true,
+      "time_to_complete": 2,
+      "branch": 2,
+      "level": 1,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Mission",
+    "pk": 5,
+    "fields": {
+      "icon": null,
+      "name": "Проведение ознакомительной экскурсии",
+      "description": "Организация экскурсии по офису для нового сотрудника, знакомство с коллегами и рабочими зонами.",
+      "experience": 60,
+      "currency": 50,
+      "order": 2,
+      "is_key_mission": false,
+      "is_active": true,
+      "time_to_complete": 1,
+      "branch": 2,
+      "level": 1,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Mission",
+    "pk": 6,
+    "fields": {
+      "icon": null,
+      "name": "Написание отзыва о компании на порталах",
+      "description": "Создание качественного и информативного отзыва о работе в компании на популярных порталах для работодателей.",
+      "experience": 90,
+      "currency": 70,
+      "order": 1,
+      "is_key_mission": false,
+      "is_active": true,
+      "time_to_complete": 1,
+      "branch": 3,
+      "level": 1,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.Mission",
+    "pk": 7,
+    "fields": {
+      "icon": null,
+      "name": "Подготовка контента для HR-блога",
+      "description": "Написание статьи или создание презентации о карьерных возможностях в компании для публикации в корпоративном блоге.",
+      "experience": 180,
+      "currency": 150,
+      "order": 2,
+      "is_key_mission": true,
+      "is_active": true,
+      "time_to_complete": 5,
+      "branch": 3,
+      "level": 2,
+      "game_world": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionArtifact",
+    "pk": 1,
+    "fields": {
+      "mission": 3,
+      "artifact": 9,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionArtifact",
+    "pk": 2,
+    "fields": {
+      "mission": 7,
+      "artifact": 8,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionCompetency",
+    "pk": 1,
+    "fields": {
+      "mission": 1,
+      "competency": 7,
+      "experience": 15,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionCompetency",
+    "pk": 2,
+    "fields": {
+      "mission": 2,
+      "competency": 5,
+      "experience": 10,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionCompetency",
+    "pk": 3,
+    "fields": {
+      "mission": 3,
+      "competency": 5,
+      "experience": 20,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionCompetency",
+    "pk": 4,
+    "fields": {
+      "mission": 3,
+      "competency": 7,
+      "experience": 15,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionCompetency",
+    "pk": 5,
+    "fields": {
+      "mission": 4,
+      "competency": 1,
+      "experience": 10,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionCompetency",
+    "pk": 6,
+    "fields": {
+      "mission": 5,
+      "competency": 5,
+      "experience": 8,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionCompetency",
+    "pk": 7,
+    "fields": {
+      "mission": 6,
+      "competency": 5,
+      "experience": 12,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionCompetency",
+    "pk": 8,
+    "fields": {
+      "mission": 7,
+      "competency": 5,
+      "experience": 25,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.MissionCompetency",
+    "pk": 9,
+    "fields": {
+      "mission": 7,
+      "competency": 9,
+      "experience": 20,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.GameWorldStory",
+    "pk": 1,
+    "fields": {
+      "image": null,
+      "text": "В далеком будущем человечество освоило межзвездные перелеты и основало Альянс Колониальных Корпораций. Наша компания - одна из первых, кто отправился к звездам в поисках новых талантов и возможностей. Мы - первопроходцы космического рекрутинга, открывающие двери для лучших специалистов со всех уголков галактики.",
+      "game_world": 1,
+      "content_type": 1,
+      "object_id": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.GameWorldStory",
+    "pk": 2,
+    "fields": {
+      "image": null,
+      "text": "Каждый новый сотрудник - это как новый член экипажа космического корабля. Его интеграция в команду требует тщательной подготовки и поддержки. Система наставничества позволяет плавно ввести новичка в рабочий процесс, подобно тому как опытный пилот обучает штурмана основам космической навигации.",
+      "game_world": 1,
+      "content_type": 1,
+      "object_id": 2,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.GameWorldStory",
+    "pk": 3,
+    "fields": {
+      "image": null,
+      "text": "Процесс рекрутинга сравним с поиском редких артефактов на неизведанных планетах. Каждый кандидат - уникальная находка, требующая особого подхода и экспертной оценки. Наши рекрутеры подобны археологам, раскрывающим скрытый потенциал каждого специалиста.",
+      "game_world": 1,
+      "content_type": 1,
+      "object_id": 3,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.GameWorldStory",
+    "pk": 4,
+    "fields": {
+      "image": null,
+      "text": "Проведение собеседования - это искусство дипломатии и анализа. Как межзвездные переговоры, успешное интервью требует подготовки, эмпатии и стратегического мышления. Каждое решение влияет на будущее всей команды и компании.",
+      "game_world": 1,
+      "content_type": 2,
+      "object_id": 3,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.GameWorldStory",
+    "pk": 5,
+    "fields": {
+      "image": null,
+      "text": "Развитие HR-бренда компании подобно созданию репутации межзвездной корпорации. Каждый отзыв, каждая публикация и мероприятие укрепляет наш статус на галактическом рынке труда. Мы строим мосты между талантами и возможностями.",
+      "game_world": 1,
+      "content_type": 3,
+      "object_id": 7,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "game_world.GameWorldStory",
+    "pk": 6,
+    "fields": {
+      "image": null,
+      "text": "Адаптация новых сотрудников - это как стыковка космического корабля с орбитальной станцией. Процесс требует точности, внимания к деталям и постоянной поддержки. Успешная интеграция гарантирует плавный переход в рабочий ритм команды.",
+      "game_world": 1,
+      "content_type": 2,
+      "object_id": 4,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "communication.ActivityLog",
+    "pk": 1,
+    "fields": {
+      "text": "Действие персонажа 1 с объектом типа 27",
+      "character": 1,
+      "content_type": 27,
+      "object_id": 1,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "communication.ActivityLog",
+    "pk": 2,
+    "fields": {
+      "text": "Действие персонажа 1 с объектом типа 31",
+      "character": 1,
+      "content_type": 31,
+      "object_id": 2,
+      "created_at": "2024-01-15T10:05:00Z",
+      "updated_at": "2024-01-15T10:05:00Z"
+    }
+  },
+  {
+    "model": "communication.ActivityLog",
+    "pk": 3,
+    "fields": {
+      "text": "Действие персонажа 1 с объектом типа 34",
+      "character": 1,
+      "content_type": 34,
+      "object_id": 3,
+      "created_at": "2024-01-15T10:10:00Z",
+      "updated_at": "2024-01-15T10:10:00Z"
+    }
+  },
+  {
+    "model": "communication.ActivityLog",
+    "pk": 4,
+    "fields": {
+      "text": "Действие персонажа 1 с объектом типа 23",
+      "character": 1,
+      "content_type": 23,
+      "object_id": 4,
+      "created_at": "2024-01-15T10:15:00Z",
+      "updated_at": "2024-01-15T10:15:00Z"
+    }
+  },
+  {
+    "model": "communication.ActivityLog",
+    "pk": 5,
+    "fields": {
+      "text": "Действие персонажа 1 с объектом типа 24",
+      "character": 1,
+      "content_type": 24,
+      "object_id": 1,
+      "created_at": "2024-01-15T10:20:00Z",
+      "updated_at": "2024-01-15T10:20:00Z"
+    }
+  },
+  {
+    "model": "communication.ActivityLog",
+    "pk": 6,
+    "fields": {
+      "text": "Другое действие персонажа 1 с объектом типа 27",
+      "character": 1,
+      "content_type": 27,
+      "object_id": 2,
+      "created_at": "2024-01-15T10:25:00Z",
+      "updated_at": "2024-01-15T10:25:00Z"
+    }
+  },
+  {
+    "model": "communication.ActivityLog",
+    "pk": 7,
+    "fields": {
+      "text": "Действие персонажа 1 с объектом типа 31",
+      "character": 1,
+      "content_type": 31,
+      "object_id": 3,
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-01-15T10:30:00Z"
+    }
+  },
+  {
+    "model": "communication.ActivityLog",
+    "pk": 8,
+    "fields": {
+      "text": "Действие персонажа 1 с объектом типа 34",
+      "character": 1,
+      "content_type": 34,
+      "object_id": 4,
+      "created_at": "2024-01-15T10:35:00Z",
+      "updated_at": "2024-01-15T10:35:00Z"
+    }
+  }
+]

@@ -1,11 +1,11 @@
 from types import FunctionType
-from typing import Any, Optional, TypeVar
+from typing import Any, TypeVar
 
 from rest_framework.fields import MultipleChoiceField
 from rest_framework.relations import ManyRelatedField
 from rest_framework.serializers import ListSerializer, Serializer
 
-from apps.common.selectors import BaseSelector
+from common.selectors import BaseSelector
 
 T = TypeVar("T")
 
@@ -14,14 +14,17 @@ class QuerySelectorMixin:
     """Класс позволяет получить queryset в представлениях из селектора."""
 
     selector: BaseSelector
-    filter_params_serializer_class: Optional[type[Serializer]] = None
+    filter_params_serializer_class: type[Serializer] | None = None
 
     def get_queryset(self, **kwargs) -> T:
         """Получить queryset из селектора."""
         assert self.selector is not None, "Attribute selector must be set."
         if isinstance(self.selector, FunctionType):
-            return self.selector()
-        return self.selector().get_queryset(**kwargs)
+            return self.selector(request=self.request)
+
+        # Передаем request в селектор
+        selector_instance = self.selector(request=self.request)
+        return selector_instance.get_queryset(**kwargs)
 
     def get_filter_params_data(self, data: dict[str, Any]) -> dict[str, Any]:
         """Корректно преобразовать данные для фильтра в словарь."""
@@ -44,9 +47,9 @@ class QuerySelectorMixin:
             )
             filter_serializer.is_valid(raise_exception=True)
             if isinstance(self.selector, FunctionType):
-                queryset = self.selector(filters=filter_serializer.validated_data)
+                queryset = self.selector(filters=filter_serializer.validated_data, request=self.request)
             else:
-                queryset = self.selector().get_filtered(
+                queryset = self.selector(request=self.request).get_filtered(
                     queryset=queryset,
                     filters=filter_serializer.validated_data,
                 )
@@ -54,6 +57,10 @@ class QuerySelectorMixin:
 
     @classmethod
     def as_view(cls, **kwargs):
+        # assert cls.selector is None or isinstance(
+        #     cls.selector, Callable
+        # ), "Attribute selector must be static function or class instance."
+
         if hasattr(cls, "selector") and isinstance(cls.selector, FunctionType):
             cls.selector = staticmethod(cls.selector)
 

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from app.common.models import AbstractBaseModel
+from common.models import AbstractBaseModel
 
 
 class ShopItemCategory(AbstractBaseModel):
@@ -26,6 +26,11 @@ class ShopItemCategory(AbstractBaseModel):
     color = models.CharField(
         verbose_name=_("Цвет"),
         max_length=256,
+        blank=True,
+    )
+    purchase_restriction = models.PositiveIntegerField(
+        verbose_name=_("Ограничение на покупку, количество"),
+        null=True,
         blank=True,
     )
 

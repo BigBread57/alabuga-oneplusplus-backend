@@ -1,37 +1,52 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from app.shop.models import ShopItemCategory, ShopItem
+from game_mechanics.models import Competency, Rank
+from game_world.api.v1.serializers.nested import GameWorldStoryNestedSerializer
 
 
-class ShopItemCategoryNestedSerializer(serializers.ModelSerializer):
+class RankNestedSerializer(serializers.ModelSerializer):
     """
-    Категория товара в магазине. Создание.
+    Категория товара в магазине. Вложенный сериалайзер.
     """
+
+    game_world_stories = GameWorldStoryNestedSerializer(
+        label=_("История игрового мира"),
+        help_text=_("История игрового мира"),
+        many=True,
+    )
 
     class Meta:
-        model = ShopItemCategory
+        model = Rank
         fields = (
             "id",
             "name",
+            "description",
+            "required_experience",
+            "icon",
             "color",
+            "game_world_stories",
         )
 
 
+class CompetencyNestedSerializer(serializers.ModelSerializer):
+    """
+    Компетенция. Вложенный сериалайзер.
+    """
 
-class ShopItemNestedSerializer(serializers.ModelSerializer):
-    """
-    Категория товара в магазине. Создание.
-    """
+    game_world_stories = GameWorldStoryNestedSerializer(
+        label=_("История игрового мира"),
+        help_text=_("История игрового мира"),
+        many=True,
+    )
 
     class Meta:
-        model = ShopItem
+        model = Competency
         fields = (
             "id",
             "name",
-            "price",
-            "rank",
-            "competency",
-            "number",
-            "image",
+            "description",
+            "icon",
+            "color",
+            "game_world_stories",
         )
-
