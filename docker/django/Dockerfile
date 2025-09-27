@@ -57,6 +57,7 @@ RUN mkdir -p /var/www/django/static
 
 # Сбор статических файлов
 ENV DJANGO_SETTINGS_MODULE=alabuga.settings
+ENV DJANGO_SECRET_KEY=build-secret-key
 RUN poetry run python manage.py collectstatic --noinput
 
 # Создание пользователя для безопасности
