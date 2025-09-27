@@ -8,7 +8,8 @@ from common.models import AbstractBaseModel
 
 class Artifact(AbstractBaseModel):
     """
-    Артефакт.
+    Артефакт - уникальная награда, которая достается персонажу за прохождение определенных миссий. Только некоторые из
+    артефактов имеют модификаторы.
     """
 
     class Modifiers(models.TextChoices):

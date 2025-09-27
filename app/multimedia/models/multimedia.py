@@ -40,3 +40,10 @@ class Multimedia(AbstractBaseModel):
 
     def __str__(self):
         return f"{self.multimedia}"
+
+    @property
+    def multimedia_name(self):
+        """Возвращает имя файла без пути."""
+        if self.multimedia:
+            return self.multimedia.name.split('/')[-1]  # Только имя файла
+        return ""

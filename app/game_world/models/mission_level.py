@@ -6,15 +6,18 @@ from common.models import AbstractBaseModel
 
 class MissionLevel(AbstractBaseModel):
     """
-    Уровень миссии.
+    Уровень миссии - сложность выполнения той или иной миссии. Сложность должна быть реальной, чтобы миссию
+    можно было сделать в рамках трудовой деятельности.
     """
 
     name = models.CharField(
         verbose_name=_("Название"),
+        help_text=_("Название уровня миссии"),
         max_length=256,
     )
     description = models.TextField(
         verbose_name=_("Описание"),
+        help_text=_("Описание уровня миссии"),
         blank=True,
     )
     icon = models.ImageField(
@@ -30,9 +33,18 @@ class MissionLevel(AbstractBaseModel):
     )
     multiplier_experience = models.PositiveIntegerField(
         verbose_name=_("Множитель опыта от стандартного, в %"),
+        help_text=_(
+            "Множитель опыта от стандартного, в %. "
+            "На сколько процентов увеличивается стандартный размер опыта исходя из сложности миссии"
+        ),
     )
     multiplier_currency = models.PositiveIntegerField(
-        verbose_name=_("Множитель опыта от стандартного, в %"),
+        verbose_name=_("Множитель валюты от стандартного, в %"),
+        help_text=_(
+            "Множитель валюты от стандартного, в %. "
+
+            "На сколько процентов увеличивается стандартный размер валюты исходя из сложности миссии"
+        ),
     )
 
     class Meta(AbstractBaseModel.Meta):

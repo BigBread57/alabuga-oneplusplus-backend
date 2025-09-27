@@ -7,22 +7,32 @@ from common.models import AbstractBaseModel
 
 class Mission(AbstractBaseModel):
     """
-    Миссия.
+    Миссия - это индивидуальное задание пользователя.
+
+    Миссии должны быть реальными, чтобы их можно осуществить при осуществлении трудовой деятельности
+    на предприятии, но также соотноситься с игровым миром.
     """
 
     name = models.CharField(
-        verbose_name=_("Название миссии"),
+        verbose_name=_("Название"),
+        help_text=_("Название миссии"),
         max_length=256,
     )
     description = models.TextField(
         verbose_name=_("Описание миссии"),
+        help_text=_(
+            "Описание миссии. "
+            "Что должен сделать пользователей в рамках миссии с учетом трудовой деятельности",
+    ),
     )
     experience = models.PositiveIntegerField(
         verbose_name=_("Награда в опыте"),
+        help_text=_("Награда в опыте, которое получит персонаж по завершению миссии"),
         default=0,
     )
     currency = models.PositiveIntegerField(
         verbose_name=_("Награда в валюте"),
+        help_text=_("Награда в валюте, которую получит персонаж по завершению миссии"),
         default=0,
     )
     icon = models.ImageField(
@@ -38,25 +48,29 @@ class Mission(AbstractBaseModel):
     )
     order = models.IntegerField(
         verbose_name=_("Порядок в ветке"),
+        help_text=_("Порядок в ветке"),
         default=1,
     )
     is_key_mission = models.BooleanField(
         verbose_name=_("Ключевая миссия или нет"),
+        help_text=_("Является ли миссия обязательной чтобы получить новый ранг"),
         default=False,
-        help_text=_("Обязательная миссия для получения ранга"),
     )
     is_active = models.BooleanField(
         verbose_name=_("Активная миссия или нет"),
+        help_text=_("Активная миссия или нет"),
         default=True,
     )
     time_to_complete = models.PositiveIntegerField(
-        verbose_name=_("Время на выполнение в днях"),
+        verbose_name=_("Количество дней на успешное выполнение миссии"),
+        help_text=_("Количество дней на успешное выполнение миссии"),
         null=True,
         blank=True,
     )
     branch = models.ForeignKey(
         to="game_world.MissionBranch",
         verbose_name=_("Ветка"),
+        help_text=_("Ветка миссии в рамках которой"),
         on_delete=models.CASCADE,
         related_name="missions",
     )
@@ -83,7 +97,8 @@ class Mission(AbstractBaseModel):
     )
     artifacts = models.ManyToManyField(
         to="game_world.Artifact",
-        verbose_name=_("Награды-артефакты"),
+        verbose_name=_("Артефакты"),
+        help_text=_("Артефакты, которые может получить персонаж за успешное выполнение миссии"),
         through="game_world.MissionArtifact",
         related_name="missions",
         blank=True,
@@ -91,6 +106,7 @@ class Mission(AbstractBaseModel):
     competencies = models.ManyToManyField(
         to="game_mechanics.Competency",
         verbose_name=_("Компетенции миссии"),
+        help_text=_("Компетенции, которые прокачиваются у персонажа за успешное выполнение миссии"),
         through="game_world.MissionCompetency",
         related_name="missions",
         blank=True,
