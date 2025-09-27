@@ -28,7 +28,7 @@ fi
 
 # Запуск Gunicorn
 echo "Starting Gunicorn..."
-exec poetry run gunicorn server.wsgi:application \
+exec poetry run gunicorn alabuga.wsgi:application \
     --bind 0.0.0.0:8000 \
     --workers 4 \
     --worker-class gthread \
