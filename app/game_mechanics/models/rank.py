@@ -7,7 +7,7 @@ from common.models import AbstractBaseModel
 
 class Rank(AbstractBaseModel):
     """
-    Ранг пользователя.
+    Ранг персонажа. Общий показатель успеха прохождения миссий и событий. Чем больше ты их проходищь
     """
 
     name = models.CharField(
