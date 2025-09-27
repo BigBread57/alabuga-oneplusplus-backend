@@ -85,13 +85,13 @@ class Mission(AbstractBaseModel):
         verbose_name=_("Категория"),
         help_text=_("Категория ветки миссии"),
         on_delete=models.CASCADE,
-        related_name="mission_branches",
+        related_name="missions",
     )
     mentor = models.ForeignKey(
         to="user.Character",
         verbose_name=_("Ментор"),
         on_delete=models.CASCADE,
-        related_name="mission_branches",
+        related_name="mission_mentors",
         null=True,
         blank=True,
         help_text=_("Ментор, который может помочь в выполнении миссии"),
