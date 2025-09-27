@@ -7,7 +7,6 @@ from rest_framework.response import Response
 
 from common.permissions import UserInspectorForObjectPermission
 from common.views import QuerySelectorMixin
-from game_mechanics.api.v1.serializers import CompetencyDetailSerializer
 from user.api.v1.selectors import (
     CharacterEventDetailOrUpdateFilterSerializer,
     CharacterEventDetailSelector,
@@ -114,7 +113,7 @@ class CharacterEventUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIVie
             character_event._prefetched_objects_cache = {}
 
         return Response(
-            data=CompetencyDetailSerializer(
+            data=CharacterEventDetailSerializer(
                 instance=character_event,
                 context=self.get_serializer_context(),
             ).data,
@@ -152,7 +151,7 @@ class CharacterEventUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIVie
             character_event._prefetched_objects_cache = {}
 
         return Response(
-            data=CompetencyDetailSerializer(
+            data=CharacterEventDetailSerializer(
                 instance=character_event,
                 context=self.get_serializer_context(),
             ).data,
