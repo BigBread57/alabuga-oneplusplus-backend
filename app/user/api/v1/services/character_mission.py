@@ -200,7 +200,7 @@ class CharacterMissionService(BaseService):
         )
         transaction.on_commit(
             lambda: send_mail_about_character_mission_for_inspector.delay(
-                character_mission=character_mission.id,
+                character_mission_id=character_mission.id,
             ),
         )
         character_mission.refresh_from_db()
