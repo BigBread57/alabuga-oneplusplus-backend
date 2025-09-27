@@ -97,9 +97,9 @@ class ShopItemCategoryUpdateAPIView(GenericAPIView):
         """
         Изменение объекта.
         """
-        placement_metering_device = self.get_object()
+        shop_item_category = self.get_object()
         serializer = self.get_serializer(
-            instance=placement_metering_device,
+            instance=shop_item_category,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
@@ -109,7 +109,7 @@ class ShopItemCategoryUpdateAPIView(GenericAPIView):
 
         return Response(
             data=ShopItemCategoryDetailSerializer(
-                instance=placement_metering_device,
+                instance=shop_item_category,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,

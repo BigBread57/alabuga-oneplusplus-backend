@@ -39,17 +39,5 @@ class MultimediaCreateSerializer(serializers.ModelSerializer):
 
         Компания берется из связанного объекта.
         """
-        validated_data.update(
-            {
-                "creator": self.context.get("request").user,
-                "company": validated_data.get(
-                    "content_type",
-                )
-                .model_class()
-                .objects.get(
-                    id=validated_data.get("object_id"),
-                )
-                .company,
-            },
-        )
+        validated_data.update({"creator": self.context.get("request").user})
         return super().create(validated_data)

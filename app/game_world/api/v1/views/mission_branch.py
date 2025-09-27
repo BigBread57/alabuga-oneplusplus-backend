@@ -127,9 +127,9 @@ class MissionBranchUpdateAPIView(GenericAPIView):
         """
         Изменение объекта.
         """
-        placement_metering_device = self.get_object()
+        mission_branch = self.get_object()
         serializer = self.get_serializer(
-            instance=placement_metering_device,
+            instance=mission_branch,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
@@ -139,7 +139,7 @@ class MissionBranchUpdateAPIView(GenericAPIView):
 
         return Response(
             data=MissionBranchDetailSerializer(
-                instance=placement_metering_device,
+                instance=mission_branch,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,

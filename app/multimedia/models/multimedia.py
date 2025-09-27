@@ -18,7 +18,7 @@ class Multimedia(AbstractBaseModel):
         to="user.Character",
         verbose_name=_("Персонаж"),
         on_delete=models.CASCADE,
-        related_name="multimedias",
+        related_name="multimedia",
     )
     content_type = models.ForeignKey(
         to="contenttypes.ContentType",

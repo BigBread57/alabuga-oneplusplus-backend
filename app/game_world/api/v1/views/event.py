@@ -124,9 +124,9 @@ class EventUpdateAPIView(GenericAPIView):
         """
         Изменение объекта.
         """
-        placement_metering_device = self.get_object()
+        event = self.get_object()
         serializer = self.get_serializer(
-            instance=placement_metering_device,
+            instance=event,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
@@ -136,7 +136,7 @@ class EventUpdateAPIView(GenericAPIView):
 
         return Response(
             data=EventDetailSerializer(
-                instance=placement_metering_device,
+                instance=event,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,

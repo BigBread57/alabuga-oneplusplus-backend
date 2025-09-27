@@ -11,11 +11,13 @@ class Event(AbstractBaseModel):
     """
 
     name = models.CharField(
-        verbose_name=_("Название события"),
+        verbose_name=_("Название"),
+        help_text=_("Название события"),
         max_length=256,
     )
     description = models.TextField(
-        verbose_name=_("Описание события"),
+        verbose_name=_("Описание"),
+        help_text=_("Описание события"),
     )
     icon = models.ImageField(
         verbose_name=_("Иконка"),

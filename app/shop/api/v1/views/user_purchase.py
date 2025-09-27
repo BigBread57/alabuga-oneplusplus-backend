@@ -101,7 +101,7 @@ class UserPurchaseCreateAPIView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user_purchase = user_purchase_service.create(
             validated_data=serializer.validated_data,
-            buyer=request.user,
+            buyer=request.user.active_character,
         )
 
         return Response(
@@ -133,15 +133,15 @@ class UserPurchaseUpdateStatusAPIView(GenericAPIView):
         """
         Изменение объекта.
         """
-        placement_metering_device = self.get_object()
+        user_purchase = self.get_object()
         serializer = self.get_serializer(
-            instance=placement_metering_device,
+            instance=user_purchase,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
         user_purchase = user_purchase_service.update(
+            user_purchase=user_purchase,
             validated_data=serializer.validated_data,
-            buyer=request.user,
         )
 
         if getattr(user_purchase, "_prefetched_objects_cache", None):
@@ -149,7 +149,7 @@ class UserPurchaseUpdateStatusAPIView(GenericAPIView):
 
         return Response(
             data=UserPurchaseDetailSerializer(
-                instance=placement_metering_device,
+                instance=user_purchase,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,

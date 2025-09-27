@@ -21,7 +21,7 @@ class UserPurchaseService(BaseService):
     def create(
         self,
         validated_data: dict[str, Any],
-        buyer: User,
+        buyer: Character,
     ) -> UserPurchase:
         """
         Создание покупки пользователя.
@@ -81,7 +81,6 @@ class UserPurchaseService(BaseService):
         self,
         user_purchase: UserPurchase,
         validated_data: dict[str, Any],
-        manager: User,
     ) -> UserPurchase:
         """
         Изменение статуса покупки пользователя.
