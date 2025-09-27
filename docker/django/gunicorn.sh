@@ -18,8 +18,9 @@ if [ "${DJANGO_SUPERUSER_EMAIL:-}" ] && [ "${DJANGO_SUPERUSER_PASSWORD:-}" ]; th
     poetry run python manage.py shell -c "
 from django.contrib.auth import get_user_model
 User = get_user_model()
-if not User.objects.filter(email='${DJANGO_SUPERUSER_EMAIL}').exists():
-    User.objects.create_superuser('${DJANGO_SUPERUSER_EMAIL}', '${DJANGO_SUPERUSER_PASSWORD}')
+email = '${DJANGO_SUPERUSER_EMAIL}'
+if not User.objects.filter(email=email).exists() and not User.objects.filter(username=email).exists():
+    User.objects.create_superuser(email, '${DJANGO_SUPERUSER_PASSWORD}')
     print('Superuser created.')
 else:
     print('Superuser already exists.')
