@@ -14,7 +14,7 @@ from user.api.v1.selectors import (
     CharacterMissionUpdateFromCharacterSelector,
     CharacterMissionUpdateFromInspectorSelector,
 )
-from user.api.v1.selectors.character_mission import CharacterMissionBranchListSelector
+# from user.api.v1.selectors.character_mission import CharacterMissionBranchListSelector
 from user.api.v1.serializers import (
     CharacterMissionDetailSerializer,
     CharacterMissionListSerializer,
@@ -51,33 +51,33 @@ class CharacterMissionListAPIView(QuerySelectorMixin, GenericAPIView):
 
         return self.get_paginated_response(data=serializer.data)
 
-
-class CharacterMissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):
-    """
-    Ветка миссии персонажа. Список.
-    """
-
-    selector = CharacterMissionBranchListSelector
-    serializer_class = CharacterMissionListSerializer
-    filter_params_serializer_class = CharacterMissionListFilterSerializer
-    search_fields = ("name",)
-
-    @extend_schema(
-        parameters=[CharacterMissionListFilterSerializer],
-        responses={
-            status.HTTP_200_OK: CharacterMissionListSerializer(many=True),
-        },
-        tags=["user:character_mission"],
-    )
-    def get(self, request: Request, *args, **kwargs) -> Response:
-        """
-        Список объектов.
-        """
-        queryset = self.filter_queryset(queryset=self.get_queryset())
-        page = self.paginate_queryset(queryset=queryset)
-        serializer = self.get_serializer(page, many=True)
-
-        return self.get_paginated_response(data=serializer.data)
+#
+# class CharacterMissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):
+#     """
+#     Ветка миссии персонажа. Список.
+#     """
+#
+#     selector = CharacterMissionBranchListSelector
+#     serializer_class = CharacterMissionListSerializer
+#     filter_params_serializer_class = CharacterMissionListFilterSerializer
+#     search_fields = ("name",)
+#
+#     @extend_schema(
+#         parameters=[CharacterMissionListFilterSerializer],
+#         responses={
+#             status.HTTP_200_OK: CharacterMissionListSerializer(many=True),
+#         },
+#         tags=["user:character_mission"],
+#     )
+#     def get(self, request: Request, *args, **kwargs) -> Response:
+#         """
+#         Список объектов.
+#         """
+#         queryset = self.filter_queryset(queryset=self.get_queryset())
+#         page = self.paginate_queryset(queryset=queryset)
+#         serializer = self.get_serializer(page, many=True)
+#
+#         return self.get_paginated_response(data=serializer.data)
 
 
 class CharacterMissionDetailAPIView(QuerySelectorMixin, GenericAPIView):
