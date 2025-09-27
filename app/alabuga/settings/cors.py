@@ -6,6 +6,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:9000",
     "http://localhost:3000",
     "http://192.168.21.141:8080",
+    "https://alabuga.star-vim.online",
 ]
 CORS_ALLOW_METHODS = [
     "DELETE",
@@ -43,6 +44,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8080",
     "http://127.0.0.1:9000",
     "http://localhost:3000",
+    "https://alabuga.star-vim.online",
 ]
 
 
@@ -50,4 +52,5 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:8000",
     "http://localhost:8080",
     "http://192.168.21.141:8080",
+    "https://alabuga.star-vim.online",
 ]

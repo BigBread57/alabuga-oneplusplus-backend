@@ -154,3 +154,9 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
 
 AUTH_USER_MODEL = "user.User"
+
+ALLOWED_HOSTS = config(
+    "DJANGO_ALLOWED_HOSTS",
+    cast=lambda v: [s.strip() for s in v.split(',')],
+    default="localhost,127.0.0.1,alabuga.star-vim.online"
+)
