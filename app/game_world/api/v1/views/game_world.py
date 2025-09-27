@@ -130,9 +130,9 @@ class GameWorldUpdateAPIView(GenericAPIView):
         """
         Изменение объекта.
         """
-        placement_metering_device = self.get_object()
+        game_world = self.get_object()
         serializer = self.get_serializer(
-            instance=placement_metering_device,
+            instance=game_world,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
@@ -142,7 +142,7 @@ class GameWorldUpdateAPIView(GenericAPIView):
 
         return Response(
             data=GameWorldDetailSerializer(
-                instance=placement_metering_device,
+                instance=game_world,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,

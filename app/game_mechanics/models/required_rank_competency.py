@@ -6,7 +6,8 @@ from common.models import AbstractBaseModel
 
 class RequiredRankCompetency(AbstractBaseModel):
     """
-    Требования к компетенциям для получения ранга.
+    Требования к компетенциям для получения ранга. Каждый новый ранг имеет определенный набор компетенций, которые
+    должны быть получены предыдущим рангом для повышения на новый.
     """
 
     rank = models.ForeignKey(

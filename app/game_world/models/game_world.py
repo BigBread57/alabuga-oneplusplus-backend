@@ -6,16 +6,20 @@ from common.models import AbstractBaseModel
 
 class GameWorld(AbstractBaseModel):
     """
-    Игровой мир.
+    Игровой мир - мир со своей историей, лором в рамках которого создаются все остальные объекты. Артефакты, ранги,
+    описание миссий и все остальные объекты должны иметь общее с игровым миром (часть описания или название должно
+    переплетаться с общей идеей мира).
     """
 
     name = models.CharField(
         verbose_name=_("Название"),
+        help_text=_("Название игрового мира"),
         max_length=256,
         unique=True,
     )
     description = models.TextField(
         verbose_name=_("Описание"),
+        help_text=_("Описание игрового мира"),
     )
     color = models.CharField(
         verbose_name=_("Цвет"),
@@ -23,12 +27,15 @@ class GameWorld(AbstractBaseModel):
     )
     standard_experience = models.PositiveIntegerField(
         verbose_name=_("Стандартный размер опыта, начисляемый за очень простую миссию"),
+        help_text=_("Стандартный размер опыта, начисляемый за очень простую миссию"),
     )
     standard_currency = models.PositiveIntegerField(
         verbose_name=_("Стандартный размер валюты, начисляемый за очень простую миссию"),
+        help_text=_("Стандартный размер валюты, начисляемый за очень простую миссию"),
     )
     currency_name = models.CharField(
         verbose_name=_("Название валюты"),
+        help_text=_("Название валюты"),
     )
 
     class Meta(AbstractBaseModel.Meta):

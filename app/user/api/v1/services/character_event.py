@@ -156,7 +156,7 @@ class CharacterEventService(BaseService):
         )
         transaction.on_commit(
             lambda: send_mail_about_character_event_for_inspector.delay(
-                character_event=character_event.id,
+                character_event_id=character_event.id,
             ),
         )
         character_event.refresh_from_db()

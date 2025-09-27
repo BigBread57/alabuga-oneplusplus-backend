@@ -6,15 +6,21 @@ from common.models import AbstractBaseModel
 
 class MissionBranch(AbstractBaseModel):
     """
-    Ветка миссий.
+    Ветка миссий. Объединяет миссии в одну логическую ветку. Используется для удобной группировки и формированию
+    миссий в рамках одной предметной области.
     """
 
     name = models.CharField(
         verbose_name=_("Название"),
+        help_text=_("Название ветки миссий"),
         max_length=256,
     )
     description = models.TextField(
         verbose_name=_("Описание"),
+        help_text=_(
+            "Описание ветки миссий. "
+            "Что должен сделать пользователей в рамках ветки миссий с учетом трудовой деятельности"
+        ),
         blank=True,
     )
     icon = models.ImageField(
@@ -29,15 +35,21 @@ class MissionBranch(AbstractBaseModel):
     )
     is_active = models.BooleanField(
         verbose_name=_("Активная ветка миссий или нет"),
+        help_text=_("Активная ветка миссий или нет"),
         default=True,
     )
     start_datetime = models.DateTimeField(
         verbose_name=_("Дата и время для запуска"),
+        help_text=_(
+            "Дата и время для запуска ветки событий. Используется для создания отложенных веток и "
+            "должна сочетать с категорией."
+        ),
         null=True,
         blank=True,
     )
     time_to_complete = models.PositiveIntegerField(
-        verbose_name=_("Время на выполнение в днях"),
+        verbose_name=_("Количество дней на успешное выполнение миссии"),
+        help_text=_("Количество дней на успешное выполнение ветки миссиий"),
         null=True,
         blank=True,
     )
@@ -46,11 +58,12 @@ class MissionBranch(AbstractBaseModel):
         verbose_name=_("Ранг ветки миссий"),
         on_delete=models.PROTECT,
         related_name="mission_branches",
-        help_text=_("Для какого ранга подходит эта ветка миссий"),
+        help_text=_("В рамках какого ранга эта ветка событий доступно для выполнения"),
     )
     category = models.ForeignKey(
         to="game_world.ActivityCategory",
-        verbose_name=_("Категория миссии"),
+        verbose_name=_("Категория"),
+        help_text=_("Категория ветки миссии"),
         on_delete=models.CASCADE,
         related_name="mission_branches",
     )
@@ -61,7 +74,7 @@ class MissionBranch(AbstractBaseModel):
         related_name="mission_branches",
         null=True,
         blank=True,
-        help_text=_("Ссылка на ментора, который может помочь в выполнении миссии."),
+        help_text=_("Ментор, который может помочь в выполнении ветки миссий"),
     )
     game_world = models.ForeignKey(
         to="game_world.GameWorld",

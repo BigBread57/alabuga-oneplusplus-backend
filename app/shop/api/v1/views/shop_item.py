@@ -130,9 +130,9 @@ class ShopItemUpdateAPIView(GenericAPIView):
         """
         Изменение объекта.
         """
-        placement_metering_device = self.get_object()
+        shop_item = self.get_object()
         serializer = self.get_serializer(
-            instance=placement_metering_device,
+            instance=shop_item,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
@@ -142,7 +142,7 @@ class ShopItemUpdateAPIView(GenericAPIView):
 
         return Response(
             data=ShopItemDetailSerializer(
-                instance=placement_metering_device,
+                instance=shop_item,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,
@@ -167,8 +167,8 @@ class ShopItemDeleteAPIView(GenericAPIView):
         """
         Удаление объекта.
         """
-        placement_metering_device = self.get_object()
-        placement_metering_device.delete()
+        shop_item = self.get_object()
+        shop_item.delete()
 
         return Response(
             data=ResponseDetailSerializer({"detail": _("Объект успешно удален")}).data,

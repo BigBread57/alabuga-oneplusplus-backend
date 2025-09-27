@@ -7,9 +7,9 @@ app_name = "v1"
 
 multimedia_urls = [
     path(
-        route="multimedias/create/",
+        route="multimedia/create/",
         view=MultimediaCreateAPIView.as_view(),
-        name="multimedias-create",
+        name="multimedia-create",
     ),
 ]
 

@@ -12,13 +12,13 @@ class Multimedia(AbstractBaseModel):
 
     multimedia = models.FileField(
         verbose_name=_("Файл"),
-        upload_to="private-media",
+        upload_to="multimedia",
     )
     character = models.ForeignKey(
         to="user.Character",
         verbose_name=_("Персонаж"),
         on_delete=models.CASCADE,
-        related_name="multimedias",
+        related_name="multimedia",
     )
     content_type = models.ForeignKey(
         to="contenttypes.ContentType",
@@ -40,3 +40,10 @@ class Multimedia(AbstractBaseModel):
 
     def __str__(self):
         return f"{self.multimedia}"
+
+    @property
+    def multimedia_name(self):
+        """Возвращает имя файла без пути."""
+        if self.multimedia:
+            return self.multimedia.name.split('/')[-1]  # Только имя файла
+        return ""

@@ -7,7 +7,6 @@ from rest_framework.response import Response
 
 from common.permissions import UserInspectorForObjectPermission
 from common.views import QuerySelectorMixin
-from game_mechanics.api.v1.serializers import CompetencyDetailSerializer
 from user.api.v1.selectors import (
     CharacterMissionDetailSelector,
     CharacterMissionListFilterSerializer,
@@ -15,6 +14,7 @@ from user.api.v1.selectors import (
     CharacterMissionUpdateFromCharacterSelector,
     CharacterMissionUpdateFromInspectorSelector,
 )
+from user.api.v1.selectors.character_mission import CharacterMissionBranchListSelector
 from user.api.v1.serializers import (
     CharacterMissionDetailSerializer,
     CharacterMissionListSerializer,
@@ -30,6 +30,34 @@ class CharacterMissionListAPIView(QuerySelectorMixin, GenericAPIView):
     """
 
     selector = CharacterMissionListSelector
+    serializer_class = CharacterMissionListSerializer
+    filter_params_serializer_class = CharacterMissionListFilterSerializer
+    search_fields = ("name",)
+
+    @extend_schema(
+        parameters=[CharacterMissionListFilterSerializer],
+        responses={
+            status.HTTP_200_OK: CharacterMissionListSerializer(many=True),
+        },
+        tags=["user:character_mission"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Список объектов.
+        """
+        queryset = self.filter_queryset(queryset=self.get_queryset())
+        page = self.paginate_queryset(queryset=queryset)
+        serializer = self.get_serializer(page, many=True)
+
+        return self.get_paginated_response(data=serializer.data)
+
+
+class CharacterMissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):
+    """
+    Ветка миссии персонажа. Список.
+    """
+
+    selector = CharacterMissionBranchListSelector
     serializer_class = CharacterMissionListSerializer
     filter_params_serializer_class = CharacterMissionListFilterSerializer
     search_fields = ("name",)
@@ -84,7 +112,7 @@ class CharacterMissionUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIV
     Миссия персонажа. Изменение со стороны персонажа.
     """
 
-    queryset = CharacterMissionUpdateFromCharacterSelector
+    selector = CharacterMissionUpdateFromCharacterSelector
     serializer_class = CharacterMissionUpdateFromCharacterSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -104,12 +132,15 @@ class CharacterMissionUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIV
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        character_mission = character_mission_service.update_from_character(character_mission)
+        character_mission = character_mission_service.update_from_character(
+            character_mission=character_mission,
+            validated_data=serializer.validated_data,
+        )
         if getattr(character_mission, "_prefetched_objects_cache", None):
             character_mission._prefetched_objects_cache = {}
 
         return Response(
-            data=CompetencyDetailSerializer(
+            data=CharacterMissionDetailSerializer(
                 instance=character_mission,
                 context=self.get_serializer_context(),
             ).data,
@@ -122,7 +153,7 @@ class CharacterMissionUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIV
     Миссия персонажа. Изменение со стороны проверяющего.
     """
 
-    queryset = CharacterMissionUpdateFromInspectorSelector
+    selector = CharacterMissionUpdateFromInspectorSelector
     serializer_class = CharacterMissionUpdateFromInspectorSerializer
     permission_classes = (UserInspectorForObjectPermission,)
 
@@ -147,7 +178,7 @@ class CharacterMissionUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIV
             character_mission._prefetched_objects_cache = {}
 
         return Response(
-            data=CompetencyDetailSerializer(
+            data=CharacterMissionDetailSerializer(
                 instance=character_mission,
                 context=self.get_serializer_context(),
             ).data,

@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from game_world.api.v1.serializers.nested import MissionNestedSerializer
+from multimedia.api.v1.serializers.nested import MultimediaNestedSerializer
 from user.models import CharacterMission
 
 
@@ -59,6 +60,11 @@ class CharacterMissionDetailSerializer(serializers.ModelSerializer):
         label=_("ID тип содержимого"),
         help_text=_("ID тип содержимого"),
     )
+    multimedia = MultimediaNestedSerializer(
+        label=_("Мультимедиа"),
+        help_text=_("Мультимедиа"),
+        many=True,
+    )
 
     class Meta:
         model = CharacterMission
@@ -74,6 +80,7 @@ class CharacterMissionDetailSerializer(serializers.ModelSerializer):
             "inspector_comment",
             "result",
             "content_type_id",
+            "multimedia",
         )
 
     def get_status_display_name(self, character_mission: CharacterMission) -> str:

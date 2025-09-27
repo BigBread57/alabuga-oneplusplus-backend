@@ -17,10 +17,7 @@ class MultimediaAdmin(admin.ModelAdmin):
     )
     list_filter = ("content_type",)
     ordering = (
-        "id",
-        "multimedia",
-        "content_type",
-        "object_id",
+        "-id",
     )
     readonly_fields = ("character",)
 

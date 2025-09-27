@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.functional import cached_property
@@ -66,6 +67,7 @@ class CharacterEvent(AbstractBaseModel):
         blank=True,
         related_name="character_event_inspectors",
     )
+    multimedia = GenericRelation(to="multimedia.Multimedia")
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Событие персонажа")

@@ -5,6 +5,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from multimedia.api.v1.serializers import MultimediaCreateSerializer, MultimediaDetailSerializer
+from multimedia.api.v1.services import multimedia_service
 
 
 class MultimediaCreateAPIView(GenericAPIView):
@@ -27,7 +28,10 @@ class MultimediaCreateAPIView(GenericAPIView):
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        multimedia = serializer.save()
+        multimedia = multimedia_service.create(
+            character=request.user.active_character,
+            validated_data=serializer.validated_data,
+        )
 
         return Response(
             data=MultimediaDetailSerializer(

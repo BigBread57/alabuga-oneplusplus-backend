@@ -128,9 +128,9 @@ class ActivityCategoryUpdateAPIView(GenericAPIView):
         """
         Изменение объекта.
         """
-        placement_metering_device = self.get_object()
+        activity_category = self.get_object()
         serializer = self.get_serializer(
-            instance=placement_metering_device,
+            instance=activity_category,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
@@ -140,7 +140,7 @@ class ActivityCategoryUpdateAPIView(GenericAPIView):
 
         return Response(
             data=ActivityCategoryDetailSerializer(
-                instance=placement_metering_device,
+                instance=activity_category,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,
