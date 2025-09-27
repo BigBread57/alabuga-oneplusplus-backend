@@ -1,6 +1,6 @@
+from collections import defaultdict
 from typing import Any
 
-from mypy.checkexpr import defaultdict
 
 from common.services import BaseService
 from game_world.models import GameWorld
