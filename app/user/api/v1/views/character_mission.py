@@ -84,7 +84,7 @@ class CharacterMissionUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIV
     Миссия персонажа. Изменение со стороны персонажа.
     """
 
-    queryset = CharacterMissionUpdateFromCharacterSelector
+    selector = CharacterMissionUpdateFromCharacterSelector
     serializer_class = CharacterMissionUpdateFromCharacterSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -122,7 +122,7 @@ class CharacterMissionUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIV
     Миссия персонажа. Изменение со стороны проверяющего.
     """
 
-    queryset = CharacterMissionUpdateFromInspectorSelector
+    selector = CharacterMissionUpdateFromInspectorSelector
     serializer_class = CharacterMissionUpdateFromInspectorSerializer
     permission_classes = (UserInspectorForObjectPermission,)
 
