@@ -12,7 +12,7 @@ class Multimedia(AbstractBaseModel):
 
     multimedia = models.FileField(
         verbose_name=_("Файл"),
-        upload_to="private-media",
+        upload_to="multimedia",
     )
     character = models.ForeignKey(
         to="user.Character",

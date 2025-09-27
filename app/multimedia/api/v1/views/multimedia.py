@@ -28,7 +28,7 @@ class MultimediaCreateAPIView(GenericAPIView):
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        multimedia = multimedia_service.creaate(
+        multimedia = multimedia_service.create(
             character=request.user.active_character,
             validated_data=serializer.validated_data,
         )
