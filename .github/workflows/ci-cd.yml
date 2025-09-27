@@ -198,8 +198,6 @@ jobs:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: |
           type=ref,event=branch
-          type=ref,event=pr
-          type=sha,prefix={{branch}}-
           type=raw,value=latest,enable={{is_default_branch}}
 
     - name: Create .env file for build
@@ -246,8 +244,6 @@ jobs:
       run: |
         echo "Deployment to staging environment"
         echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:develop"
-        # Здесь будет ваша логика деплоя
-        # Например, обновление docker-compose на сервере через SSH
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -261,4 +257,3 @@ jobs:
       run: |
         echo "Deployment to production environment"
         echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
-        # Здесь будет ваша логика деплоя
