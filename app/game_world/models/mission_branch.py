@@ -74,7 +74,7 @@ class MissionBranch(AbstractBaseModel):
         related_name="mission_branches",
         null=True,
         blank=True,
-        help_text=_("Ментор, который может помочь в выполнении миссии"),
+        help_text=_("Ментор, который может помочь в выполнении ветки миссий"),
     )
     game_world = models.ForeignKey(
         to="game_world.GameWorld",

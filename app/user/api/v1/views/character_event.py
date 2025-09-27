@@ -106,7 +106,10 @@ class CharacterEventUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIVie
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        character_event = character_event_service.update_from_character(character_event)
+        character_event = character_event_service.update_from_character(
+            character_event=character_event,
+            validated_data=serializer.validated_data,
+        )
         if getattr(character_event, "_prefetched_objects_cache", None):
             character_event._prefetched_objects_cache = {}
 

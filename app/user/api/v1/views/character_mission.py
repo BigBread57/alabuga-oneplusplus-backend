@@ -104,7 +104,10 @@ class CharacterMissionUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIV
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        character_mission = character_mission_service.update_from_character(character_mission)
+        character_mission = character_mission_service.update_from_character(
+            character_mission=character_mission,
+            validated_data=serializer.validated_data,
+        )
         if getattr(character_mission, "_prefetched_objects_cache", None):
             character_mission._prefetched_objects_cache = {}
 
