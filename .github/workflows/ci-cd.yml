@@ -204,7 +204,7 @@ jobs:
       run: |
         mkdir -p app/config
         cat > app/config/.env << EOF
-        SECRET_KEY=build-secret-key
+        DJANGO_SECRET_KEY=build-secret-key
         DEBUG=False
         DJANGO_DATABASE_HOST=db
         DJANGO_DATABASE_PORT=5432
