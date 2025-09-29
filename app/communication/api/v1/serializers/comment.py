@@ -5,9 +5,9 @@ from communication.models import Comment
 from user.api.v1.serializers.nested import CharacterNestedSerializer
 
 
-class CommentListOrDetailSerializer(serializers.ModelSerializer):
+class CommentListSerializer(serializers.ModelSerializer):
     """
-    Комментарий. Детальная информация/список.
+    Комментарий. Список.
     """
 
     character = CharacterNestedSerializer(
@@ -19,8 +19,9 @@ class CommentListOrDetailSerializer(serializers.ModelSerializer):
         model = Comment
         fields = (
             "id",
-            "character",
+            "uuid",
             "text",
+            "character",
             "content_type",
             "object_id",
             "created_at",
@@ -28,15 +29,38 @@ class CommentListOrDetailSerializer(serializers.ModelSerializer):
         )
 
 
-class CommentCreateSerializer(serializers.ModelSerializer):
+class CommentDetailSerializer(serializers.ModelSerializer):
     """
-    Комментарий. Создание.
+    Комментарий. Детальная информация.
     """
+
+    character = CharacterNestedSerializer(
+        label=_("Персонаж"),
+        help_text=_("Персонаж"),
+    )
 
     class Meta:
         model = Comment
         fields = (
             "id",
+            "uuid",
+            "text",
+            "character",
+            "content_type",
+            "object_id",
+            "created_at",
+            "updated_at",
+        )
+
+
+class CommentCreateOrUpdateSerializer(serializers.ModelSerializer):
+    """
+    Комментарий. Создание и обновление.
+    """
+
+    class Meta:
+        model = Comment
+        fields = (
             "text",
             "content_type",
             "object_id",

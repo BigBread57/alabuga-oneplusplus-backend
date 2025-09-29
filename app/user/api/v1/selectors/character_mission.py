@@ -5,6 +5,7 @@ from rest_framework.fields import CurrentUserDefault
 
 from common.constants import CharacterRoles
 from common.selectors import BaseSelector, CurrentCharacterDefault
+from game_world.models import MissionBranch
 from user.models import CharacterMission, User
 
 
@@ -106,6 +107,16 @@ class CharacterMissionListSelector(BaseSelector):
         "inspector",
     )
     filter_class = CharacterMissionListFilter
+
+
+class CharacterMissionBranchListSelector(BaseSelector):
+    """
+    Ветка миссии персонаж. Список. Селектор.
+    """
+
+    queryset = MissionBranch.objects.select_related(
+        "missions__character_missions",
+    )
 
 
 class CharacterMissionDetailSelector(BaseSelector):

@@ -240,6 +240,10 @@ class UserInfoSerializer(serializers.ModelSerializer):
         label=_("Полное имя"),
         help_text=_("Полное имя"),
     )
+    active_character = serializers.SerializerMethodField(
+        label=_("Активный персонаж"),
+        help_text=_("Активный персонаж"),
+    )
 
     class Meta:
         model = User
@@ -253,4 +257,8 @@ class UserInfoSerializer(serializers.ModelSerializer):
             "middle_name",
             "full_name",
             "is_active",
+            "active_character",
         )
+
+    def get_active_character(self, user: User) -> int:
+        return user.active_character.id

@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -10,6 +12,12 @@ class MissionBranch(AbstractBaseModel):
     миссий в рамках одной предметной области.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("Используется при генерации объектов через для понимания новый объект или старый"),
+        default=uuid4,
+        unique=True,
+    )
     name = models.CharField(
         verbose_name=_("Название"),
         help_text=_("Название ветки миссий"),
@@ -32,6 +40,7 @@ class MissionBranch(AbstractBaseModel):
     color = models.CharField(
         verbose_name=_("Цвет"),
         max_length=256,
+        blank=True,
     )
     is_active = models.BooleanField(
         verbose_name=_("Активная ветка миссий или нет"),
@@ -71,7 +80,7 @@ class MissionBranch(AbstractBaseModel):
         to="user.Character",
         verbose_name=_("Ментор"),
         on_delete=models.CASCADE,
-        related_name="mission_branches",
+        related_name="mission_branch_mentors",
         null=True,
         blank=True,
         help_text=_("Ментор, который может помочь в выполнении ветки миссий"),

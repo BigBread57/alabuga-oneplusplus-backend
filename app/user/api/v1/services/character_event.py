@@ -9,9 +9,17 @@ from common.services import BaseService
 from communication.models import ActivityLog
 from game_mechanics.models import Competency, Rank
 from game_world.models import Event, EventArtifact, EventCompetency
-from user.models import Character, CharacterArtifact, CharacterCompetency, CharacterEvent
+from user.models import (
+    Character,
+    CharacterArtifact,
+    CharacterCompetency,
+    CharacterEvent,
+)
 from user.models.character_rank import CharacterRank
-from user.tasks import send_mail_about_character_event_for_character, send_mail_about_character_event_for_inspector
+from user.tasks import (
+    send_mail_about_character_event_for_character,
+    send_mail_about_character_event_for_inspector,
+)
 
 
 class CharacterEventService(BaseService):
@@ -175,6 +183,9 @@ class CharacterEventService(BaseService):
             CharacterEvent.objects.filter(
                 id=character_event.id,
             ).update(
+                final_status_datetime=(
+                    timezone.now() if validated_data["status"] == CharacterEvent.Statuses.COMPLETED else None
+                ),
                 **validated_data,
             )
             character_event = (

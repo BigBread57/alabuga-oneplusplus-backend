@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -14,6 +16,12 @@ class Event(AbstractBaseModel):
     на предприятии, но также соотноситься с игровым миром.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("Используется при генерации объектов через для понимания новый объект или старый"),
+        default=uuid4,
+        unique=True,
+    )
     name = models.CharField(
         verbose_name=_("Название"),
         help_text=_("Название события"),
@@ -22,9 +30,18 @@ class Event(AbstractBaseModel):
     description = models.TextField(
         verbose_name=_("Описание"),
         help_text=_(
-            "Описание события. "
-            "Что должен сделать пользователей в рамках события с учетом трудовой деятельности"
+            "Описание события. " "Что должен сделать пользователей в рамках события с учетом трудовой деятельности"
         ),
+    )
+    experience = models.PositiveIntegerField(
+        verbose_name=_("Награда в опыте"),
+        help_text=_("Награда в опыте, которое получит персонаж по завершению события"),
+        default=0,
+    )
+    currency = models.PositiveIntegerField(
+        verbose_name=_("Награда в валюте"),
+        help_text=_("Награда в валюте, которую получит персонаж по завершению события"),
+        default=0,
     )
     icon = models.ImageField(
         verbose_name=_("Иконка"),
@@ -36,16 +53,6 @@ class Event(AbstractBaseModel):
         verbose_name=_("Цвет"),
         max_length=256,
         blank=True,
-    )
-    experience = models.PositiveIntegerField(
-        verbose_name=_("Награда в опыте"),
-        help_text=_("Награда в опыте, которое получит персонаж по завершению события"),
-        default=0,
-    )
-    currency = models.PositiveIntegerField(
-        verbose_name=_("Награда в валюте"),
-        help_text=_("Награда в валюте, которую получит персонаж по завершению события"),
-        default=0,
     )
     required_number = models.PositiveIntegerField(
         verbose_name=_("Обязательное количество выполненных событий для всех игроков"),
@@ -83,13 +90,6 @@ class Event(AbstractBaseModel):
         on_delete=models.PROTECT,
         related_name="events",
     )
-    game_world = models.ForeignKey(
-        to="game_world.GameWorld",
-        on_delete=models.CASCADE,
-        verbose_name=_("Игровой мир"),
-        help_text=_("Игровой мир в рамках которого создается событие"),
-        related_name="events",
-    )
     artifacts = models.ManyToManyField(
         to="game_world.Artifact",
         verbose_name=_("Артефакты"),
@@ -105,6 +105,22 @@ class Event(AbstractBaseModel):
         through="EventCompetency",
         related_name="events",
         blank=True,
+    )
+    mentor = models.ForeignKey(
+        to="user.Character",
+        verbose_name=_("Ментор"),
+        on_delete=models.CASCADE,
+        related_name="events_branches",
+        null=True,
+        blank=True,
+        help_text=_("Ментор, который может помочь в выполнении события"),
+    )
+    game_world = models.ForeignKey(
+        to="game_world.GameWorld",
+        on_delete=models.CASCADE,
+        verbose_name=_("Игровой мир"),
+        help_text=_("Игровой мир в рамках которого создается событие"),
+        related_name="events",
     )
     game_world_stories = GenericRelation(to="game_world.GameWorldStory")
 

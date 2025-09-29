@@ -3,13 +3,22 @@ from rest_framework.permissions import IsAuthenticated
 from common.constants import CharacterRoles
 
 
-class UserHRPermission(IsAuthenticated):
+class CharacterHrPermission(IsAuthenticated):
     """
     Пользователь с ролью HR.
     """
 
     def has_permission(self, request, view):
-        return request.user.role == CharacterRoles.HR
+        return request.user.active_character.role == CharacterRoles.HR
+
+
+class CharacterContentManagerPermission(IsAuthenticated):
+    """
+    Пользователь с ролью CONTENT_MANAGER.
+    """
+
+    def has_permission(self, request, view):
+        return request.user.active_character.role == CharacterRoles.CONTENT_MANAGER
 
 
 class UserManagerPermission(IsAuthenticated):
@@ -18,7 +27,7 @@ class UserManagerPermission(IsAuthenticated):
     """
 
     def has_permission(self, request, view):
-        return request.user.role == CharacterRoles.MANAGER
+        return request.user.active_character.role == CharacterRoles.MANAGER
 
 
 class UserManagerForObjectPermission(UserManagerPermission):
@@ -42,4 +51,4 @@ class UserInspectorForObjectPermission(UserManagerPermission):
         """
         Проверка того, что пользователь является менеджером для объекта.
         """
-        return obj.inspector == request.user or request.user.role == CharacterRoles.HR
+        return obj.inspector == request.user or request.user.active_character.role == CharacterRoles.HR

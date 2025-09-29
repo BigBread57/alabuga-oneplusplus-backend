@@ -134,7 +134,7 @@ def character_event_failed() -> None:
     CharacterEvent.objects.filter(
         status=CharacterEvent.Statuses.IN_PROGRESS,
         end_datetime__lte=timezone.now(),
-    ).update(status=CharacterEvent.Statuses.FAILED)
+    ).update(status=CharacterEvent.Statuses.FAILED, final_status_datetime=timezone.now())
 
 
 @shared_task
@@ -145,4 +145,4 @@ def character_mission_failed() -> None:
     CharacterMission.objects.filter(
         status=CharacterMission.Statuses.IN_PROGRESS,
         end_datetime__lte=timezone.now(),
-    ).update(status=CharacterMission.Statuses.FAILED)
+    ).update(status=CharacterMission.Statuses.FAILED, final_status_datetime=timezone.now())

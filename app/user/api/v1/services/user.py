@@ -11,14 +11,26 @@ from django.template.loader import get_template
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from rest_framework import status
-from rest_framework.exceptions import APIException, NotFound, ParseError, ValidationError
+from rest_framework.exceptions import (
+    APIException,
+    NotFound,
+    ParseError,
+    ValidationError,
+)
 from rest_framework.request import Request
 
 from common.services import BaseService
 from communication.models import ActivityLog
 from game_mechanics.models import Competency, Rank
-from game_world.models import Event, GameWorld, Mission
-from user.models import Character, CharacterCompetency, CharacterEvent, CharacterMission, User
+from game_world.models import Event, GameWorld, Mission, MissionBranch
+from user.models import (
+    Character,
+    CharacterCompetency,
+    CharacterEvent,
+    CharacterMission,
+    User,
+)
+from user.models.character_mission_branch import CharacterMissionBranch
 from user.models.character_rank import CharacterRank
 
 
@@ -255,15 +267,25 @@ class UserService(BaseService):
             rank=rank,
         )
         now_datetime = now()
-        character_missions = [
-            CharacterMission(
+        for mission_branch in MissionBranch.objects.filter(is_active=True, rank=rank, game_world=game_world):
+            character_mission_branch = CharacterMissionBranch.objects.create(
                 character=character,
-                mission=mission,
+                branch=mission_branch,
                 start_datetime=now_datetime,
-                end_datetime=now_datetime + timedelta(days=mission.time_to_complete),
+                end_datetime=now_datetime + timedelta(days=mission_branch.time_to_complete),
+                mentor=mission_branch.mentor,
             )
-            for mission in Mission.objects.filter(is_active=True, branch__rank=rank, game_world=game_world)
-        ]
+            character_missions = [
+                CharacterMission(
+                    character=character,
+                    mission=mission,
+                    branch=character_mission_branch,
+                    start_datetime=now_datetime,
+                    end_datetime=now_datetime + timedelta(days=mission.time_to_complete),
+                    mentor=(mission.mentor if mission.mentor else character_mission_branch.mentor),
+                )
+                for mission in Mission.objects.filter(is_active=True, branch__rank=rank, game_world=game_world)
+            ]
         character_events = [
             CharacterEvent(
                 character=character,
@@ -278,7 +300,10 @@ class UserService(BaseService):
                 character=character,
                 competency=competency,
             )
-            for competency in Competency.objects.filter(game_world=game_world)
+            for competency in Competency.objects.filter(
+                game_world=game_world,
+                parent__isnull=True,
+            )
         ]
 
         CharacterMission.objects.bulk_create(objs=character_missions)

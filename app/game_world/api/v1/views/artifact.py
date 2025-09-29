@@ -5,10 +5,13 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission
+from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
-from game_world.api.v1.selectors import ArtifactListFilterSerializer, ArtifactListSelector
+from game_world.api.v1.selectors import (
+    ArtifactListFilterSerializer,
+    ArtifactListSelector,
+)
 from game_world.api.v1.serializers import (
     ArtifactCreateOrUpdateSerializer,
     ArtifactDetailSerializer,
@@ -51,7 +54,7 @@ class ArtifactCreateAPIView(GenericAPIView):
     """
 
     serializer_class = ArtifactCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=ArtifactCreateOrUpdateSerializer,
@@ -84,7 +87,7 @@ class ArtifactUpdateAPIView(GenericAPIView):
 
     queryset = Artifact.objects.all()
     serializer_class = ArtifactCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=ArtifactCreateOrUpdateSerializer,
@@ -122,7 +125,7 @@ class ArtifactDeleteAPIView(GenericAPIView):
     """
 
     queryset = Artifact.objects.all()
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

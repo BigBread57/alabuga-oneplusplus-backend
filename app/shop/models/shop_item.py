@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -10,6 +12,12 @@ class ShopItem(AbstractBaseModel):
     Товар в магазине.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("UUID"),
+        default=uuid4,
+        unique=True,
+    )
     name = models.CharField(
         verbose_name=_("Название"),
         max_length=256,

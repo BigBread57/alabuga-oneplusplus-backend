@@ -5,7 +5,11 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission, UserManagerForObjectPermission, UserManagerPermission
+from common.permissions import (
+    CharacterHrPermission,
+    UserManagerForObjectPermission,
+    UserManagerPermission,
+)
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from shop.api.v1.selectors import (
@@ -84,7 +88,7 @@ class UserPurchaseCreateAPIView(GenericAPIView):
     """
 
     serializer_class = UserPurchaseCreateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=UserPurchaseCreateSerializer,

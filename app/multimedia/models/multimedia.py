@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -10,6 +12,12 @@ class Multimedia(AbstractBaseModel):
     Мультимедиа.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("UUID"),
+        default=uuid4,
+        unique=True,
+    )
     multimedia = models.FileField(
         verbose_name=_("Файл"),
         upload_to="multimedia",
@@ -45,5 +53,5 @@ class Multimedia(AbstractBaseModel):
     def multimedia_name(self):
         """Возвращает имя файла без пути."""
         if self.multimedia:
-            return self.multimedia.name.split('/')[-1]  # Только имя файла
+            return self.multimedia.name.split("/")[-1]  # Только имя файла
         return ""

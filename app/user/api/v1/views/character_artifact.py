@@ -10,7 +10,10 @@ from user.api.v1.selectors import (
     CharacterArtifactListOrDetailFilterSerializer,
     CharacterArtifactListSelector,
 )
-from user.api.v1.serializers import CharacterArtifactDetailSerializer, CharacterArtifactListSerializer
+from user.api.v1.serializers import (
+    CharacterArtifactDetailSerializer,
+    CharacterArtifactListSerializer,
+)
 
 
 class CharacterArtifactListAPIView(QuerySelectorMixin, GenericAPIView):

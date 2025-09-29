@@ -3,14 +3,24 @@ from typing import Any
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer, RankNestedSerializer
+from game_mechanics.api.v1.serializers.nested import (
+    CompetencyNestedSerializer,
+    RankNestedSerializer,
+)
 from game_mechanics.models import Rank
 from game_world.api.v1.serializers.nested import (
     ArtifactNestedSerializer,
     EventNestedSerializer,
     MissionNestedSerializer,
 )
-from user.models import Character, CharacterArtifact, CharacterCompetency, CharacterEvent, CharacterMission, User
+from user.models import (
+    Character,
+    CharacterArtifact,
+    CharacterCompetency,
+    CharacterEvent,
+    CharacterMission,
+    User,
+)
 from user.models.character_rank import CharacterRank
 
 
@@ -45,6 +55,10 @@ class CharacterNestedSerializer(serializers.ModelSerializer):
         label=_("Пользователь"),
         help_text=_("Пользователь"),
     )
+    role_display_name = serializers.SerializerMethodField(
+        label=_("Роль, наименование"),
+        help_text=_("Роль, наименование"),
+    )
 
     class Meta:
         model = Character
@@ -53,7 +67,11 @@ class CharacterNestedSerializer(serializers.ModelSerializer):
             "avatar",
             "user",
             "role",
+            "role_display_name",
         )
+
+    def get_role_display_name(self, character: Character):
+        return character.get_role_display()
 
 
 class CharacterArtifactNestedSerializer(serializers.ModelSerializer):

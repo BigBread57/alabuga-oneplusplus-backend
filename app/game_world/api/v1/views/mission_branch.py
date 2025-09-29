@@ -5,7 +5,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission
+from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from game_world.api.v1.selectors import (
@@ -60,7 +60,7 @@ class MissionBranchDetailAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionBranchDetailSerializer,
         },
-        tags=["mission_branch:user_purchase"],
+        tags=["game_world:mission_branch"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -81,7 +81,7 @@ class MissionBranchCreateAPIView(GenericAPIView):
     """
 
     serializer_class = MissionBranchCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=MissionBranchCreateOrUpdateSerializer,
@@ -114,7 +114,7 @@ class MissionBranchUpdateAPIView(GenericAPIView):
 
     queryset = MissionBranch.objects.all()
     serializer_class = MissionBranchCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=MissionBranchCreateOrUpdateSerializer,
@@ -152,7 +152,7 @@ class MissionBranchDeleteAPIView(GenericAPIView):
     """
 
     queryset = MissionBranch.objects.all()
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

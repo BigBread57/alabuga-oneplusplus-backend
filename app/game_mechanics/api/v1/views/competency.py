@@ -5,10 +5,13 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission
+from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
-from game_mechanics.api.v1.selectors import CompetencyListFilterSerializer, CompetencyListSelector
+from game_mechanics.api.v1.selectors import (
+    CompetencyListFilterSerializer,
+    CompetencyListSelector,
+)
 from game_mechanics.api.v1.serializers import (
     CompetencyCreateOrUpdateSerializer,
     CompetencyDetailSerializer,
@@ -51,7 +54,7 @@ class CompetencyCreateAPIView(GenericAPIView):
     """
 
     serializer_class = CompetencyCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=CompetencyCreateOrUpdateSerializer,
@@ -84,7 +87,7 @@ class CompetencyUpdateAPIView(GenericAPIView):
 
     queryset = Competency.objects.all()
     serializer_class = CompetencyCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=CompetencyCreateOrUpdateSerializer,
@@ -122,7 +125,7 @@ class CompetencyDeleteAPIView(GenericAPIView):
     """
 
     queryset = Competency.objects.all()
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

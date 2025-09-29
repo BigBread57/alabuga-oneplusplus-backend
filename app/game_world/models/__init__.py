@@ -4,6 +4,7 @@ from game_world.models.event import Event
 from game_world.models.event_artifact import EventArtifact
 from game_world.models.event_competency import EventCompetency
 from game_world.models.game_world import GameWorld
+from game_world.models.game_world_settings import GameWorldSettings
 from game_world.models.game_world_story import GameWorldStory
 from game_world.models.mission import Mission
 from game_world.models.mission_artifact import MissionArtifact
@@ -24,4 +25,5 @@ __all__ = (
     "MissionCompetency",
     "GameWorld",
     "GameWorldStory",
+    "GameWorldSettings",
 )

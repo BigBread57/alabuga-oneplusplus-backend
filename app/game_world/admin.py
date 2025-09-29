@@ -196,7 +196,13 @@ class MissionLevelAdmin(admin.ModelAdmin):
     Уровень миссии.
     """
 
-    list_display = ("id", "name", "color", "multiplier_experience", "multiplier_currency")
+    list_display = (
+        "id",
+        "name",
+        "color",
+        "multiplier_experience",
+        "multiplier_currency",
+    )
     search_fields = ("name",)
     ordering = ("-id",)
 

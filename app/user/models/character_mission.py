@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -23,6 +25,12 @@ class CharacterMission(AbstractBaseModel):
         PENDING_REVIEW = "PENDING_REVIEW", _("На проверке")
         FAILED = "FAILED", _("Провалена")
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("UUID"),
+        default=uuid4,
+        unique=True,
+    )
     status = models.CharField(
         verbose_name=_("Статус"),
         max_length=20,
@@ -30,12 +38,12 @@ class CharacterMission(AbstractBaseModel):
         default=Statuses.IN_PROGRESS,
     )
     start_datetime = models.DateTimeField(
-        verbose_name=_("Начата"),
+        verbose_name=_("Дата и время когда задача получена"),
         null=True,
         blank=True,
     )
     end_datetime = models.DateTimeField(
-        verbose_name=_("Завершена"),
+        verbose_name=_("Крайняя дата и время задачи, когда она должна быть выполнена"),
         null=True,
         blank=True,
     )
@@ -47,9 +55,21 @@ class CharacterMission(AbstractBaseModel):
         verbose_name=_("Комментарий проверяющего"),
         blank=True,
     )
+    final_status_datetime = models.DateTimeField(
+        verbose_name=_("Дата и время проставления конечного статуса"),
+        null=True,
+        blank=True,
+    )
     character = models.ForeignKey(
         to="user.Character",
         verbose_name=_("Персонаж"),
+        on_delete=models.CASCADE,
+        related_name="character_missions",
+    )
+    branch = models.ForeignKey(
+        to="user.CharacterMissionBranch",
+        verbose_name=_("Ветка"),
+        help_text=_("Ветка миссии"),
         on_delete=models.CASCADE,
         related_name="character_missions",
     )
@@ -58,6 +78,15 @@ class CharacterMission(AbstractBaseModel):
         verbose_name=_("Миссия"),
         on_delete=models.CASCADE,
         related_name="character_missions",
+    )
+    mentor = models.ForeignKey(
+        to="user.Character",
+        verbose_name=_("Ментор"),
+        on_delete=models.CASCADE,
+        related_name="character_mission_mentors",
+        null=True,
+        blank=True,
+        help_text=_("Ментор, который может помочь в выполнении миссии"),
     )
     inspector = models.ForeignKey(
         to="user.Character",

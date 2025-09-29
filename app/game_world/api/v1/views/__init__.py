@@ -18,14 +18,37 @@ from game_world.api.v1.views.event import (
     EventListAPIView,
     EventUpdateAPIView,
 )
+from game_world.api.v1.views.event_artifact import (
+    EventArtifactCreateAPIView,
+    EventArtifactDeleteAPIView,
+    EventArtifactDetailAPIView,
+    EventArtifactListAPIView,
+    EventArtifactUpdateAPIView,
+)
+from game_world.api.v1.views.event_competency import (
+    EventCompetencyCreateAPIView,
+    EventCompetencyDeleteAPIView,
+    EventCompetencyDetailAPIView,
+    EventCompetencyListAPIView,
+    EventCompetencyUpdateAPIView,
+)
 from game_world.api.v1.views.game_world import (
     GameWorldCreateAPIView,
     GameWorldDeleteAPIView,
     GameWorldDetailAPIView,
+    GameWorldGenerateAPIView,
+    GameWorldInfoForGenerateAPIView,
     GameWorldListAPIView,
-    GameWorldRatingAPIView,
+    GameWorldListWithAllEntitiesAPIView,
     GameWorldStatisticsAPIView,
     GameWorldUpdateAPIView,
+)
+from game_world.api.v1.views.game_world_story import (
+    GameWorldStoryCreateAPIView,
+    GameWorldStoryDeleteAPIView,
+    GameWorldStoryDetailAPIView,
+    GameWorldStoryListAPIView,
+    GameWorldStoryUpdateAPIView,
 )
 from game_world.api.v1.views.mission import (
     MissionCreateAPIView,
@@ -34,12 +57,33 @@ from game_world.api.v1.views.mission import (
     MissionListAPIView,
     MissionUpdateAPIView,
 )
+from game_world.api.v1.views.mission_artifact import (
+    MissionArtifactCreateAPIView,
+    MissionArtifactDeleteAPIView,
+    MissionArtifactDetailAPIView,
+    MissionArtifactListAPIView,
+    MissionArtifactUpdateAPIView,
+)
 from game_world.api.v1.views.mission_branch import (
     MissionBranchCreateAPIView,
     MissionBranchDeleteAPIView,
     MissionBranchDetailAPIView,
     MissionBranchListAPIView,
     MissionBranchUpdateAPIView,
+)
+from game_world.api.v1.views.mission_competency import (
+    MissionCompetencyCreateAPIView,
+    MissionCompetencyDeleteAPIView,
+    MissionCompetencyDetailAPIView,
+    MissionCompetencyListAPIView,
+    MissionCompetencyUpdateAPIView,
+)
+from game_world.api.v1.views.mission_level import (
+    MissionLevelCreateAPIView,
+    MissionLevelDeleteAPIView,
+    MissionLevelDetailAPIView,
+    MissionLevelListAPIView,
+    MissionLevelUpdateAPIView,
 )
 
 __all__ = (
@@ -60,8 +104,10 @@ __all__ = (
     "GameWorldCreateAPIView",
     "GameWorldUpdateAPIView",
     "GameWorldDeleteAPIView",
-    "GameWorldRatingAPIView",
     "GameWorldStatisticsAPIView",
+    "GameWorldGenerateAPIView",
+    "GameWorldInfoForGenerateAPIView",
+    "GameWorldListWithAllEntitiesAPIView",
     # Mission
     "MissionListAPIView",
     "MissionDetailAPIView",
@@ -80,4 +126,40 @@ __all__ = (
     "ActivityCategoryCreateAPIView",
     "ActivityCategoryUpdateAPIView",
     "ActivityCategoryDeleteAPIView",
+    # MissionLevel
+    "MissionLevelListAPIView",
+    "MissionLevelDetailAPIView",
+    "MissionLevelCreateAPIView",
+    "MissionLevelUpdateAPIView",
+    "MissionLevelDeleteAPIView",
+    # MissionCompetency
+    "MissionCompetencyListAPIView",
+    "MissionCompetencyDetailAPIView",
+    "MissionCompetencyCreateAPIView",
+    "MissionCompetencyUpdateAPIView",
+    "MissionCompetencyDeleteAPIView",
+    # MissionArtifact
+    "MissionArtifactListAPIView",
+    "MissionArtifactDetailAPIView",
+    "MissionArtifactCreateAPIView",
+    "MissionArtifactUpdateAPIView",
+    "MissionArtifactDeleteAPIView",
+    # GameWorldStory
+    "GameWorldStoryListAPIView",
+    "GameWorldStoryDetailAPIView",
+    "GameWorldStoryCreateAPIView",
+    "GameWorldStoryUpdateAPIView",
+    "GameWorldStoryDeleteAPIView",
+    # EventCompetency
+    "EventCompetencyListAPIView",
+    "EventCompetencyDetailAPIView",
+    "EventCompetencyCreateAPIView",
+    "EventCompetencyUpdateAPIView",
+    "EventCompetencyDeleteAPIView",
+    # EventArtifact
+    "EventArtifactListAPIView",
+    "EventArtifactDetailAPIView",
+    "EventArtifactCreateAPIView",
+    "EventArtifactUpdateAPIView",
+    "EventArtifactDeleteAPIView",
 )

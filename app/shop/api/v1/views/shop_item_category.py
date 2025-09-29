@@ -5,10 +5,13 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission
+from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
-from shop.api.v1.selectors import ShopItemCategoryListFilterSerializer, ShopItemCategoryListSelector
+from shop.api.v1.selectors import (
+    ShopItemCategoryListFilterSerializer,
+    ShopItemCategoryListSelector,
+)
 from shop.api.v1.serializers import (
     ShopItemCategoryCreateOrUpdateSerializer,
     ShopItemCategoryDetailSerializer,
@@ -51,7 +54,7 @@ class ShopItemCategoryCreateAPIView(GenericAPIView):
     """
 
     serializer_class = ShopItemCategoryCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=ShopItemCategoryCreateOrUpdateSerializer,
@@ -84,7 +87,7 @@ class ShopItemCategoryUpdateAPIView(GenericAPIView):
 
     queryset = ShopItemCategory.objects.all()
     serializer_class = ShopItemCategoryCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=ShopItemCategoryCreateOrUpdateSerializer,
@@ -122,7 +125,7 @@ class ShopItemCategoryDeleteAPIView(GenericAPIView):
     """
 
     queryset = ShopItemCategory.objects.all()
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

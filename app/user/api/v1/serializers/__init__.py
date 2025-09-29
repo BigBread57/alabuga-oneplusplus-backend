@@ -1,4 +1,8 @@
-from user.api.v1.serializers.character import CharacterActualForUserSerializer, CharacterUpdateSerializer
+from user.api.v1.serializers.character import (
+    CharacterActualForUserSerializer,
+    CharacterStatisticsSerializer,
+    CharacterUpdateSerializer,
+)
 from user.api.v1.serializers.character_artifact import (
     CharacterArtifactDetailSerializer,
     CharacterArtifactListSerializer,
@@ -51,6 +55,7 @@ __all__ = (
     # Character
     "CharacterActualForUserSerializer",
     "CharacterUpdateSerializer",
+    "CharacterStatisticsSerializer",
     # CharacterCompetency
     "CharacterCompetencyListSerializer",
     "CharacterCompetencyDetailSerializer",

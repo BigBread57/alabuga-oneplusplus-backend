@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -9,6 +11,12 @@ class EventArtifact(AbstractBaseModel):
     Артефакты за выполнение события. В редких случаях за выполнение события персонажу достается артефакт.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("Используется при генерации объектов через для понимания новый объект или старый"),
+        default=uuid4,
+        unique=True,
+    )
     event = models.ForeignKey(
         to="game_world.Event",
         verbose_name=_("Событие"),

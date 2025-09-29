@@ -30,7 +30,10 @@ class QuerySelectorMixin:
         """Корректно преобразовать данные для фильтра в словарь."""
         fields = self.filter_params_serializer_class.get_fields(self.filter_params_serializer_class)
         for query_param_name, query_param_value in self.request.query_params.items():
-            if isinstance(fields.get(query_param_name), ManyRelatedField | ListSerializer | MultipleChoiceField):
+            if isinstance(
+                fields.get(query_param_name),
+                ManyRelatedField | ListSerializer | MultipleChoiceField,
+            ):
                 data.update({query_param_name: self.request.query_params.getlist(query_param_name)})
             else:
                 data.update({query_param_name: query_param_value})

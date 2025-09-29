@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils.functional import cached_property
@@ -53,6 +55,12 @@ class User(AbstractUser):  # type: ignore
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("UUID"),
+        default=uuid4,
+        unique=True,
+    )
     middle_name = models.CharField(
         verbose_name=_("Отчество"),
         max_length=50,  # noqa: WPS432

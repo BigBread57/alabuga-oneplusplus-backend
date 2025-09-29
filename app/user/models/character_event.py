@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -23,6 +25,12 @@ class CharacterEvent(AbstractBaseModel):
         PENDING_REVIEW = "PENDING_REVIEW", _("На проверке")
         FAILED = "FAILED", _("Провалена")
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("UUID"),
+        default=uuid4,
+        unique=True,
+    )
     status = models.CharField(
         verbose_name=_("Статус"),
         max_length=20,
@@ -30,12 +38,12 @@ class CharacterEvent(AbstractBaseModel):
         default=Statuses.IN_PROGRESS,
     )
     start_datetime = models.DateTimeField(
-        verbose_name=_("Начата"),
+        verbose_name=_("Дата и время когда задача получена"),
         null=True,
         blank=True,
     )
     end_datetime = models.DateTimeField(
-        verbose_name=_("Завершена"),
+        verbose_name=_("Крайняя дата и время задачи, когда она должна быть выполнена"),
         null=True,
         blank=True,
     )
@@ -45,6 +53,11 @@ class CharacterEvent(AbstractBaseModel):
     )
     inspector_comment = models.TextField(
         verbose_name=_("Комментарий проверяющего"),
+        blank=True,
+    )
+    final_status_datetime = models.DateTimeField(
+        verbose_name=_("Дата и время проставления конечного статуса"),
+        null=True,
         blank=True,
     )
     character = models.ForeignKey(
@@ -58,6 +71,15 @@ class CharacterEvent(AbstractBaseModel):
         verbose_name=_("Событие"),
         on_delete=models.CASCADE,
         related_name="character_events",
+    )
+    mentor = models.ForeignKey(
+        to="user.Character",
+        verbose_name=_("Ментор"),
+        on_delete=models.CASCADE,
+        related_name="character_event_mentors",
+        null=True,
+        blank=True,
+        help_text=_("Ментор, который может помочь в выполнении миссии"),
     )
     inspector = models.ForeignKey(
         to="user.Character",

@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.functional import cached_property
@@ -11,6 +13,12 @@ class CharacterArtifact(AbstractBaseModel):
     Артефакты персонажа.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("UUID"),
+        default=uuid4,
+        unique=True,
+    )
     character = models.ForeignKey(
         to="user.Character",
         verbose_name=_("Персонаж"),

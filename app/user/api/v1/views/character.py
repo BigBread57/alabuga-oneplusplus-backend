@@ -5,7 +5,13 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from common.views import QuerySelectorMixin
-from user.api.v1.serializers import CharacterActualForUserSerializer, CharacterUpdateSerializer
+from user.api.v1.selectors import CharacterStatisticsSelector
+from user.api.v1.serializers import (
+    CharacterActualForUserSerializer,
+    CharacterStatisticsSerializer,
+    CharacterUpdateSerializer,
+)
+from user.api.v1.services import character_service
 
 
 class CharacterActualForUserAPIView(QuerySelectorMixin, GenericAPIView):
@@ -34,7 +40,34 @@ class CharacterActualForUserAPIView(QuerySelectorMixin, GenericAPIView):
         )
 
 
-class CharacterUpdateAPIView(GenericAPIView):
+class CharacterStatisticsAPIView(QuerySelectorMixin, GenericAPIView):
+    """
+    Персонаж пользователя. Статистика.
+    """
+
+    selector = CharacterStatisticsSelector
+    serializer_class = CharacterStatisticsSerializer
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: CharacterStatisticsSerializer,
+        },
+        tags=["user:character"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Персонаж пользователя. Статистика.
+        """
+        character = self.get_object()
+        serializer = self.get_serializer(character_service.statistics(character=character))
+
+        return Response(
+            data=serializer.data,
+            status=status.HTTP_200_OK,
+        )
+
+
+class CharacterActualUpdateAPIView(GenericAPIView):
     """
     Персонаж. Изменение.
     """

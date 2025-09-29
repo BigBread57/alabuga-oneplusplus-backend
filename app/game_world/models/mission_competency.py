@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -10,6 +12,12 @@ class MissionCompetency(AbstractBaseModel):
     получаться компетенции.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("Используется при генерации объектов через для понимания новый объект или старый"),
+        default=uuid4,
+        unique=True,
+    )
     mission = models.ForeignKey(
         to="game_world.Mission",
         verbose_name=_("Миссия"),

@@ -314,7 +314,7 @@ class UserInfoAPIView(GenericAPIView):
         """
         Пользователь. Детальная информация об авторизованном пользователе.
         """
-        serializer = self.get_serializer(request.user)
+        serializer = self.get_serializer(instance=request.user)
         return Response(
             data=serializer.data,
             status=status.HTTP_200_OK,

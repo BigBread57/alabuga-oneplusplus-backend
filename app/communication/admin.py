@@ -49,21 +49,20 @@ class PostAdmin(admin.ModelAdmin):
 
     list_display = (
         "id",
-        "character",
         "name",
+        "character",
         "topic",
-        "parent",
     )
     list_filter = ("topic",)
     search_fields = ("name", "text")
     ordering = ("-id",)
     autocomplete_fields = (
         "topic",
-        "parent",
+        "character",
     )
     list_select_related = (
         "topic",
-        "parent",
+        "character",
     )
 
 
@@ -78,5 +77,5 @@ class TopicAdmin(admin.ModelAdmin):
         "name",
     )
     list_filter = ("game_worlds",)
-    search_fields = ("name", "description")
+    search_fields = ("name",)
     ordering = ("-id",)

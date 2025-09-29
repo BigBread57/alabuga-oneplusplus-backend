@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -10,8 +12,19 @@ class ActivityLog(AbstractBaseModel):
     Журнал действий.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("UUID"),
+        default=uuid4,
+        unique=True,
+    )
     text = models.TextField(
         verbose_name=_("Текст"),
+    )
+    is_read = models.BooleanField(
+        verbose_name=_("Прочитано или нет"),
+        help_text=_("Прочитано или нет"),
+        default=False,
     )
     character = models.ForeignKey(
         to="user.Character",

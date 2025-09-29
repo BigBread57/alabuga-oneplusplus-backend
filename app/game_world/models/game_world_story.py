@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -13,6 +15,12 @@ class GameWorldStory(AbstractBaseModel):
     раскрыть игровой мир
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("Используется при генерации объектов через для понимания новый объект или старый"),
+        default=uuid4,
+        unique=True,
+    )
     image = models.ImageField(
         verbose_name=_("Изображение"),
         upload_to="history_game_worlds",

@@ -1,4 +1,7 @@
-from user.api.v1.selectors.character import CharacterActualForUserSelector
+from user.api.v1.selectors.character import (
+    CharacterActualForUserSelector,
+    CharacterStatisticsSelector,
+)
 from user.api.v1.selectors.character_artifact import (
     CharacterArtifactDetailSelector,
     CharacterArtifactListOrDetailFilterSerializer,
@@ -28,6 +31,7 @@ from user.api.v1.selectors.character_mission import (
 __all__ = (
     # Character
     "CharacterActualForUserSelector",
+    "CharacterStatisticsSelector",
     # CharacterEvent
     "CharacterEventDetailSelector",
     "CharacterEventUpdateFromCharacterSelector",

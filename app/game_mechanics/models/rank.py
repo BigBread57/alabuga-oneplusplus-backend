@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -19,6 +21,12 @@ class Rank(AbstractBaseModel):
     3) Получение необходимого уровня прокачки конкретных компетенций.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("Используется при генерации объектов через для понимания новый объект или старый"),
+        default=uuid4,
+        unique=True,
+    )
     name = models.CharField(
         verbose_name=_("Название"),
         help_text=_("Название ранга в рамках игрового мира"),
@@ -33,10 +41,8 @@ class Rank(AbstractBaseModel):
     required_experience = models.PositiveIntegerField(
         verbose_name=_("Требуемый опыт"),
         help_text=_(
-            "Количество опыта, которое необходимо получить чтобы полностью "
-            "закрыть ранг и получить новый ранг"
+            "Количество опыта, которое необходимо получить чтобы полностью " "закрыть ранг и получить новый ранг"
         ),
-
     )
     icon = models.ImageField(
         verbose_name=_("Иконка"),

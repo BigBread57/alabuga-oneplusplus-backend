@@ -20,4 +20,5 @@ class MultimediaService(BaseService):
             **validated_data,
         )
 
+
 multimedia_service = MultimediaService()

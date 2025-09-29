@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -13,6 +15,12 @@ class Mission(AbstractBaseModel):
     на предприятии, но также соотноситься с игровым миром.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("Используется при генерации объектов через для понимания новый объект или старый"),
+        default=uuid4,
+        unique=True,
+    )
     name = models.CharField(
         verbose_name=_("Название"),
         help_text=_("Название миссии"),
@@ -21,9 +29,8 @@ class Mission(AbstractBaseModel):
     description = models.TextField(
         verbose_name=_("Описание миссии"),
         help_text=_(
-            "Описание миссии. "
-            "Что должен сделать пользователей в рамках миссии с учетом трудовой деятельности",
-    ),
+            "Описание миссии. " "Что должен сделать пользователей в рамках миссии с учетом трудовой деятельности",
+        ),
     )
     experience = models.PositiveIntegerField(
         verbose_name=_("Награда в опыте"),
@@ -70,7 +77,7 @@ class Mission(AbstractBaseModel):
     branch = models.ForeignKey(
         to="game_world.MissionBranch",
         verbose_name=_("Ветка"),
-        help_text=_("Ветка миссии в рамках которой"),
+        help_text=_("Ветка миссии"),
         on_delete=models.CASCADE,
         related_name="missions",
     )
@@ -96,13 +103,6 @@ class Mission(AbstractBaseModel):
         blank=True,
         help_text=_("Ментор, который может помочь в выполнении миссии"),
     )
-    game_world = models.ForeignKey(
-        to="game_world.GameWorld",
-        on_delete=models.CASCADE,
-        verbose_name=_("Игровой мир"),
-        help_text=_("Игровой мир в рамках которого создается миссия"),
-        related_name="missions",
-    )
     required_missions = models.ManyToManyField(
         to="self",
         verbose_name=_("Необходимые миссии"),
@@ -126,6 +126,13 @@ class Mission(AbstractBaseModel):
         through="game_world.MissionCompetency",
         related_name="missions",
         blank=True,
+    )
+    game_world = models.ForeignKey(
+        to="game_world.GameWorld",
+        on_delete=models.CASCADE,
+        verbose_name=_("Игровой мир"),
+        help_text=_("Игровой мир в рамках которого создается миссия"),
+        related_name="missions",
     )
     game_world_stories = GenericRelation(to="game_world.GameWorldStory")
 

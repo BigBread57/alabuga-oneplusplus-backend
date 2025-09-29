@@ -59,7 +59,7 @@ class UserPurchaseService(BaseService):
                 id=shop_item.id,
             ).update(
                 number=new_number,
-                is_active=False if (new_number == 0 and shop_item.number != 0) else True,
+                is_active=(False if (new_number == 0 and shop_item.number != 0) else True),
             )
 
             user_purchase = UserPurchase.objects.create(

@@ -5,19 +5,24 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission
+from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from game_world.api.v1.selectors import (
-    GameWorldListOrRatingOrStatisticsFilterSerializer,
-    GameWorldListOrRatingOrStatisticsSelector,
+    GameWorldListOrStatisticsOrStatisticsFilterSerializer,
+    GameWorldListOrStatisticsOrStatisticsSelector,
+    GameWorldListWithAllEntitiesSelector,
 )
 from game_world.api.v1.serializers import (
     GameWorldCreateOrUpdateSerializer,
+    GameWorldDataAfterGenerateSerializer,
     GameWorldDetailSerializer,
+    GameWorldGenerateSerializer,
+    GameWorldInfoForGenerateSerializer,
     GameWorldListSerializer,
-    GameWorldRatingSerializer,
+    GameWorldListWithAllEntitiesSerializer,
     GameWorldStatisticsSerializer,
+    GameWorldUpdateOrCreateAllEntitiesSerializer,
 )
 from game_world.api.v1.services import game_world_service
 from game_world.models import GameWorld
@@ -28,13 +33,13 @@ class GameWorldListAPIView(QuerySelectorMixin, GenericAPIView):
     Игровой мир. Список.
     """
 
-    selector = GameWorldListOrRatingOrStatisticsSelector
+    selector = GameWorldListOrStatisticsOrStatisticsSelector
     serializer_class = GameWorldListSerializer
-    filter_params_serializer_class = GameWorldListOrRatingOrStatisticsFilterSerializer
+    filter_params_serializer_class = GameWorldListOrStatisticsOrStatisticsFilterSerializer
     search_fields = ("name",)
 
     @extend_schema(
-        parameters=[GameWorldListOrRatingOrStatisticsFilterSerializer],
+        parameters=[GameWorldListOrStatisticsOrStatisticsFilterSerializer],
         responses={
             status.HTTP_200_OK: GameWorldListSerializer(many=True),
         },
@@ -51,6 +56,35 @@ class GameWorldListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
+class GameWorldListWithAllEntitiesAPIView(QuerySelectorMixin, GenericAPIView):
+    """
+    Игровой мир. Список со всеми элементами.
+    """
+
+    selector = GameWorldListWithAllEntitiesSelector
+    serializer_class = GameWorldListWithAllEntitiesSerializer
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: GameWorldListWithAllEntitiesSerializer,
+        },
+        tags=["game_world:game_world"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Список объектов.
+        """
+        game_world = self.get_object()
+        serializer = self.get_serializer(instance=game_world)
+
+        return Response(
+            data=game_world_service.get_data_for_graph(
+                game_world_data=serializer.data,
+            ),
+            status=status.HTTP_200_OK,
+        )
+
+
 class GameWorldDetailAPIView(GenericAPIView):
     """
     Игровой мир. Детальная информация.
@@ -63,7 +97,7 @@ class GameWorldDetailAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: GameWorldDetailSerializer,
         },
-        tags=["game_world:user_purchase"],
+        tags=["game_world:game_world"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -84,7 +118,7 @@ class GameWorldCreateAPIView(GenericAPIView):
     """
 
     serializer_class = GameWorldCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=GameWorldCreateOrUpdateSerializer,
@@ -117,7 +151,7 @@ class GameWorldUpdateAPIView(GenericAPIView):
 
     queryset = GameWorld.objects.all()
     serializer_class = GameWorldCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=GameWorldCreateOrUpdateSerializer,
@@ -149,13 +183,52 @@ class GameWorldUpdateAPIView(GenericAPIView):
         )
 
 
+class GameWorldUpdateOrCreateAllEntitiesAPIView(GenericAPIView):
+    """
+    Игровой мир. Изменение или создание всех объектов.
+    """
+
+    queryset = GameWorld.objects.all()
+    serializer_class = GameWorldUpdateOrCreateAllEntitiesSerializer
+    permission_classes = (CharacterHrPermission,)
+
+    @extend_schema(
+        request=GameWorldUpdateOrCreateAllEntitiesSerializer,
+        responses={
+            status.HTTP_200_OK: ResponseDetailSerializer,
+        },
+        tags=["game_world:game_world"],
+    )
+    def put(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Изменение объекта.
+        """
+        game_world = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        game_world_service.update_or_create_all_objects(
+            game_world=game_world,
+            validated_data=serializer.validated_data,
+        )
+        if getattr(game_world, "_prefetched_objects_cache", None):
+            game_world._prefetched_objects_cache = {}
+
+        return Response(
+            data=GameWorldDetailSerializer(
+                instance=game_world,
+                context=self.get_serializer_context(),
+            ).data,
+            status=status.HTTP_200_OK,
+        )
+
+
 class GameWorldDeleteAPIView(GenericAPIView):
     """
     Игровой мир. Удаление объекта.
     """
 
     queryset = GameWorld.objects.all()
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={
@@ -176,48 +249,20 @@ class GameWorldDeleteAPIView(GenericAPIView):
         )
 
 
-class GameWorldRatingAPIView(QuerySelectorMixin, GenericAPIView):
-    """
-    Игровой мир. Рейтинг.
-    """
-
-    selector = GameWorldListOrRatingOrStatisticsSelector
-    serializer_class = GameWorldRatingSerializer
-    filter_params_serializer_class = GameWorldListOrRatingOrStatisticsFilterSerializer
-
-    @extend_schema(
-        responses={
-            status.HTTP_200_OK: GameWorldDetailSerializer,
-        },
-        tags=["game_world:user_purchase"],
-    )
-    def get(self, request: Request, *args, **kwargs) -> Response:
-        """
-        Рейтинг.
-        """
-        game_world = self.filter_queryset(queryset=self.get_queryset()).first()
-        serializer = self.get_serializer(game_world_service.rating(game_world=game_world))
-
-        return Response(
-            data=serializer.data,
-            status=status.HTTP_200_OK,
-        )
-
-
 class GameWorldStatisticsAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Игровой мир. Статистика.
     """
 
-    selector = GameWorldListOrRatingOrStatisticsSelector
+    selector = GameWorldListOrStatisticsOrStatisticsSelector
     serializer_class = GameWorldStatisticsSerializer
-    filter_params_serializer_class = GameWorldListOrRatingOrStatisticsFilterSerializer
+    filter_params_serializer_class = GameWorldListOrStatisticsOrStatisticsFilterSerializer
 
     @extend_schema(
         responses={
             status.HTTP_200_OK: GameWorldDetailSerializer,
         },
-        tags=["game_world:user_purchase"],
+        tags=["game_world:game_world"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -229,4 +274,65 @@ class GameWorldStatisticsAPIView(QuerySelectorMixin, GenericAPIView):
         return Response(
             data=serializer.data,
             status=status.HTTP_200_OK,
+        )
+
+
+class GameWorldInfoForGenerateAPIView(GenericAPIView):
+    """
+    Игровой мир. Информация для генерации.
+    """
+
+    queryset = GameWorld.objects.all()
+    serializer_class = GameWorldInfoForGenerateSerializer
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: GameWorldInfoForGenerateSerializer,
+        },
+        tags=["game_world:game_world"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Информация для генерации.
+        """
+        serializer = self.get_serializer(game_world_service.info_for_generate(), many=True)
+
+        return Response(
+            data=serializer.data,
+            status=status.HTTP_200_OK,
+        )
+
+
+class GameWorldGenerateAPIView(GenericAPIView):
+    """
+    Игровой мир. Генерация.
+    """
+
+    queryset = GameWorld.objects.all()
+    serializer_class = GameWorldGenerateSerializer()
+
+    @extend_schema(
+        # responses={
+        #     status.HTTP_200_OK: GameWorldDataAfterGenerateSerializer,
+        # },
+        tags=["game_world:game_world"],
+    )
+    def post(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Генерация.
+        """
+        game_world = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        game_world = game_world_service.generate(
+            game_world=game_world,
+            validated_data=serializer.validated_data,
+        )
+
+        return Response(
+            data=GameWorldDataAfterGenerateSerializer(
+                instance=game_world,
+                context=self.get_serializer_context(),
+            ).data,
+            status=status.HTTP_201_CREATED,
         )

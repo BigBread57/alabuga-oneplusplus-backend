@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -5,8 +7,22 @@ from common.models import AbstractBaseModel
 
 
 class Post(AbstractBaseModel):
-    """Пост."""
+    """
+    Пост.
+    """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("UUID"),
+        default=uuid4,
+        unique=True,
+    )
+    image = models.ImageField(
+        verbose_name=_("Изображение"),
+        upload_to="posts",
+        null=True,
+        blank=True,
+    )
     name = models.TextField(
         verbose_name=_("Название"),
     )
@@ -26,18 +42,10 @@ class Post(AbstractBaseModel):
         related_name="posts",
         db_index=True,
     )
-    parent = models.ForeignKey(
-        to="self",
-        on_delete=models.CASCADE,
-        verbose_name=_("Родительский пост"),
-        related_name="children",
-        null=True,
-        blank=True,
-    )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Пост")
         verbose_name_plural = _("Посты")
 
     def __str__(self):
-        return f"{self.user} - {self.topic}"
+        return f"{self.name} - {self.topic}"

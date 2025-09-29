@@ -16,9 +16,7 @@ class MultimediaAdmin(admin.ModelAdmin):
         "object_id",
     )
     list_filter = ("content_type",)
-    ordering = (
-        "-id",
-    )
+    ordering = ("-id",)
     readonly_fields = ("character",)
 
     def save_model(self, request, obj, form, change) -> None:  # noqa: WPS110

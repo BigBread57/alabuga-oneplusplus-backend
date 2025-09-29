@@ -5,7 +5,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission
+from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from game_world.api.v1.selectors import (
@@ -61,7 +61,7 @@ class ActivityCategoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: ActivityCategoryDetailSerializer,
         },
-        tags=["activity_category:user_purchase"],
+        tags=["activity_category:activity_category"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -82,7 +82,7 @@ class ActivityCategoryCreateAPIView(GenericAPIView):
     """
 
     serializer_class = ActivityCategoryCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=ActivityCategoryCreateOrUpdateSerializer,
@@ -115,7 +115,7 @@ class ActivityCategoryUpdateAPIView(GenericAPIView):
 
     queryset = ActivityCategory.objects.all()
     serializer_class = ActivityCategoryCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=ActivityCategoryCreateOrUpdateSerializer,
@@ -153,7 +153,7 @@ class ActivityCategoryDeleteAPIView(GenericAPIView):
     """
 
     queryset = ActivityCategory.objects.all()
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

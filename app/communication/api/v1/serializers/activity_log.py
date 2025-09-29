@@ -21,7 +21,18 @@ class ActivityLogListSerializer(serializers.ModelSerializer):
             "id",
             "character",
             "text",
+            "is_read",
             "content_type",
             "object_id",
             "created_at",
         )
+
+
+class ActivityLogReadSerializer(serializers.ModelSerializer):
+    """
+    Журнал событий. Изменение.
+    """
+
+    class Meta:
+        model = ActivityLog
+        fields = ("is_read",)

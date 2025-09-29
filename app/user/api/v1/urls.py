@@ -55,14 +55,19 @@ user_urls = [
 
 character_urls = [
     path(
-        route="characters/actual-for-user/",
+        route="characters/actual/",
         view=views.CharacterActualForUserAPIView.as_view(),
-        name="characters-actual-for-user",
+        name="characters-actual",
     ),
     path(
-        route="characters/update/",
-        view=views.CharacterUpdateAPIView.as_view(),
-        name="characters-update",
+        route="characters/<int:pk>/statistics/",
+        view=views.CharacterStatisticsAPIView.as_view(),
+        name="characters-statistics",
+    ),
+    path(
+        route="characters/actual/update/",
+        view=views.CharacterActualUpdateAPIView.as_view(),
+        name="characters-actual-update",
     ),
 ]
 

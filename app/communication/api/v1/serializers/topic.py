@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from communication.models import Topic
+from game_world.api.v1.serializers.nested import GameWorldNestedSerializer
 
 
 class TopicListSerializer(serializers.ModelSerializer):
@@ -19,7 +20,6 @@ class TopicListSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
-            "description",
             "icon",
             "color",
             "post_count",
@@ -32,43 +32,34 @@ class TopicDetailSerializer(serializers.ModelSerializer):
     Тема. Детальная информация.
     """
 
+    game_worlds = GameWorldNestedSerializer(
+        label=_("Игровые миры"),
+        help_text=_("Игровые миры"),
+    )
+
     class Meta:
         model = Topic
         fields = (
             "id",
             "name",
-            "description",
             "icon",
             "color",
+            "game_worlds",
             "created_at",
+            "updated_at",
         )
 
 
-class TopicCreateSerializer(serializers.ModelSerializer):
+class TopicCreateOrUpdateSerializer(serializers.ModelSerializer):
     """
-    Тема. Создание.
+    Тема. Создание и обновление.
     """
 
     class Meta:
         model = Topic
         fields = (
             "name",
-            "description",
             "icon",
             "color",
-        )
-
-
-class TopicUpdateSerializer(serializers.ModelSerializer):
-    """
-    Тема. Изменение.
-    """
-
-    class Meta:
-        model = Topic
-        fields = (
-            "name",
-            "description",
-            "icon",
-            "color",
+            "game_worlds",
         )

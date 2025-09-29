@@ -7,7 +7,7 @@ from game_world.api.v1.serializers.nested import GameWorldStoryNestedSerializer
 
 class RankNestedSerializer(serializers.ModelSerializer):
     """
-    Категория товара в магазине. Вложенный сериалайзер.
+    Ранг. Вложенный сериалайзер.
     """
 
     game_world_stories = GameWorldStoryNestedSerializer(
@@ -46,6 +46,8 @@ class CompetencyNestedSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "description",
+            "level",
+            "required_experience",
             "icon",
             "color",
             "game_world_stories",

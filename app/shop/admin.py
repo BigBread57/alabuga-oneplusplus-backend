@@ -70,7 +70,10 @@ class ShopItemAdmin(admin.ModelAdmin):
 
     def image_preview(self, obj):
         if obj.image:
-            return format_html('<img src="{}" style="max-height: 100px; max-width: 100px;" />', obj.image.url)
+            return format_html(
+                '<img src="{}" style="max-height: 100px; max-width: 100px;" />',
+                obj.image.url,
+            )
         return "-"
 
     image_preview.short_description = "Превью"
@@ -82,7 +85,16 @@ class UserPurchaseAdmin(admin.ModelAdmin):
     Покупки пользователя.
     """
 
-    list_display = ("id", "buyer", "shop_item", "price", "number", "total_sum", "status_with_color", "manager")
+    list_display = (
+        "id",
+        "buyer",
+        "shop_item",
+        "price",
+        "number",
+        "total_sum",
+        "status_with_color",
+        "manager",
+    )
     list_filter = (
         "status",
         "shop_item__category",
@@ -105,7 +117,12 @@ class UserPurchaseAdmin(admin.ModelAdmin):
     )
 
     def status_with_color(self, obj):
-        status_colors = {"PENDING": "gray", "CONFIRMED": "blue", "DELIVERED": "green", "CANCELLED": "red"}
+        status_colors = {
+            "PENDING": "gray",
+            "CONFIRMED": "blue",
+            "DELIVERED": "green",
+            "CANCELLED": "red",
+        }
 
         color = status_colors.get(obj.status, "gray")
         return format_html(

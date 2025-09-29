@@ -12,7 +12,8 @@ REALM_NAME = config("REALM_NAME", default="Django Integration")  # задает�
 KEYCLOAK_URL_BASE = config("KEYCLOAK_URL_BASE", default="http://localhost:8080/auth/")  # базой url Keycloak
 KEYCLOAK_AUDIENCE = config("KEYCLOAK_AUDIENCE", default="account")  # область Client - про это поговорим ниже
 KEYCLOAK_IS_CREATE = config(
-    "KEYCLOAK_IS_CREATE", default=1  # флаг управляет, логикой что если пользователь не найден, то создаем
+    "KEYCLOAK_IS_CREATE",
+    default=1,  # флаг управляет, логикой что если пользователь не найден, то создаем
 )
 
 SOCIALACCOUNT_PROVIDERS = {

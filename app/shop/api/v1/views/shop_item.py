@@ -5,7 +5,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission
+from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from shop.api.v1.selectors import (
@@ -84,7 +84,7 @@ class ShopItemCreateAPIView(GenericAPIView):
     """
 
     serializer_class = ShopItemCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=ShopItemCreateOrUpdateSerializer,
@@ -117,7 +117,7 @@ class ShopItemUpdateAPIView(GenericAPIView):
 
     queryset = ShopItem.objects.all()
     serializer_class = ShopItemCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=ShopItemCreateOrUpdateSerializer,
@@ -155,7 +155,7 @@ class ShopItemDeleteAPIView(GenericAPIView):
     """
 
     queryset = ShopItem.objects.all()
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

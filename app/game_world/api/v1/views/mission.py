@@ -5,10 +5,14 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission
+from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
-from game_world.api.v1.selectors import MissionDetailSelector, MissionListFilterSerializer, MissionListSelector
+from game_world.api.v1.selectors import (
+    MissionDetailSelector,
+    MissionListFilterSerializer,
+    MissionListSelector,
+)
 from game_world.api.v1.serializers import (
     MissionCreateOrUpdateSerializer,
     MissionDetailSerializer,
@@ -57,7 +61,7 @@ class MissionDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionDetailSerializer,
         },
-        tags=["mission:user_purchase"],
+        tags=["game_world:mission"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -78,7 +82,7 @@ class MissionCreateAPIView(GenericAPIView):
     """
 
     serializer_class = MissionCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=MissionCreateOrUpdateSerializer,
@@ -111,7 +115,7 @@ class MissionUpdateAPIView(GenericAPIView):
 
     queryset = Mission.objects.all()
     serializer_class = MissionCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=MissionCreateOrUpdateSerializer,
@@ -149,7 +153,7 @@ class MissionDeleteAPIView(GenericAPIView):
     """
 
     queryset = Mission.objects.all()
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

@@ -1,9 +1,9 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from communication.api.v1.serializers.nested import PostNestedSerializer, TopicNestedSerializer
+from communication.api.v1.serializers.nested import TopicNestedSerializer
 from communication.models import Post
-from user.api.v1.serializers.nested import UserNestedSerializer
+from user.api.v1.serializers.nested import CharacterNestedSerializer
 
 
 class PostListSerializer(serializers.ModelSerializer):
@@ -11,9 +11,9 @@ class PostListSerializer(serializers.ModelSerializer):
     Пост. Список.
     """
 
-    user = UserNestedSerializer(
-        label=_("Пользователь"),
-        help_text=_("Пользователь"),
+    character = CharacterNestedSerializer(
+        label=_("Персонаж"),
+        help_text=_("Персонаж"),
     )
     topic = TopicNestedSerializer(
         label=_("Тема"),
@@ -24,13 +24,12 @@ class PostListSerializer(serializers.ModelSerializer):
         model = Post
         fields = (
             "id",
+            "image",
             "name",
             "text",
-            "parent",
-            "created_at",
-            "updated_at",
-            "user",
+            "character",
             "topic",
+            "created_at",
         )
 
 
@@ -39,13 +38,9 @@ class PostDetailSerializer(serializers.ModelSerializer):
     Пост. Детальная информация.
     """
 
-    user = UserNestedSerializer(
-        label=_("Пользователь"),
-        help_text=_("Пользователь"),
-    )
-    parent = PostNestedSerializer(
-        label=_("Родительский пост"),
-        help_text=_("Родительский пост"),
+    character = CharacterNestedSerializer(
+        label=_("Персонаж"),
+        help_text=_("Персонаж"),
     )
     topic = TopicNestedSerializer(
         label=_("Тема"),
@@ -56,41 +51,26 @@ class PostDetailSerializer(serializers.ModelSerializer):
         model = Post
         fields = (
             "id",
+            "image",
             "name",
             "text",
-            "parent",
+            "character",
+            "topic",
             "created_at",
             "updated_at",
-            "user",
-            "topic",
         )
 
 
-class PostCreateSerializer(serializers.ModelSerializer):
+class PostCreateOrUpdateSerializer(serializers.ModelSerializer):
     """
-    Пост. Создание.
+    Пост. Создание и обновление.
     """
 
     class Meta:
         model = Post
         fields = (
+            "image",
             "name",
             "text",
             "topic",
-            "parent",
-        )
-
-
-class PostUpdateSerializer(serializers.ModelSerializer):
-    """
-    Пост. Изменение.
-    """
-
-    class Meta:
-        model = Post
-        fields = (
-            "name",
-            "text",
-            "topic",
-            "parent",
         )

@@ -10,7 +10,10 @@ from user.api.v1.selectors import (
     CharacterCompetencyListOrDetailFilterSerializer,
     CharacterCompetencyListSelector,
 )
-from user.api.v1.serializers import CharacterCompetencyDetailSerializer, CharacterCompetencyListSerializer
+from user.api.v1.serializers import (
+    CharacterCompetencyDetailSerializer,
+    CharacterCompetencyListSerializer,
+)
 
 
 class CharacterCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):

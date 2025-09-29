@@ -30,7 +30,6 @@ class TopicNestedSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
-            "description",
             "color",
             "icon",
         )

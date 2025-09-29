@@ -4,7 +4,10 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from multimedia.api.v1.serializers import MultimediaCreateSerializer, MultimediaDetailSerializer
+from multimedia.api.v1.serializers import (
+    MultimediaCreateSerializer,
+    MultimediaDetailSerializer,
+)
 from multimedia.api.v1.services import multimedia_service
 
 

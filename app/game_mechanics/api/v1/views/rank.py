@@ -5,11 +5,15 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission
+from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from game_mechanics.api.v1.selectors import RankListFilterSerializer, RankListSelector
-from game_mechanics.api.v1.serializers import RankCreateOrUpdateSerializer, RankDetailSerializer, RankListSerializer
+from game_mechanics.api.v1.serializers import (
+    RankCreateOrUpdateSerializer,
+    RankDetailSerializer,
+    RankListSerializer,
+)
 from game_mechanics.models import Rank
 
 
@@ -47,7 +51,7 @@ class RankCreateAPIView(GenericAPIView):
     """
 
     serializer_class = RankCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=RankCreateOrUpdateSerializer,
@@ -80,7 +84,7 @@ class RankUpdateAPIView(GenericAPIView):
 
     queryset = Rank.objects.all()
     serializer_class = RankCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=RankCreateOrUpdateSerializer,
@@ -118,7 +122,7 @@ class RankDeleteAPIView(GenericAPIView):
     """
 
     queryset = Rank.objects.all()
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

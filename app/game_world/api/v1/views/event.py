@@ -5,10 +5,14 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserHRPermission
+from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
-from game_world.api.v1.selectors import EventDetailSelector, EventListFilterSerializer, EventListSelector
+from game_world.api.v1.selectors import (
+    EventDetailSelector,
+    EventListFilterSerializer,
+    EventListSelector,
+)
 from game_world.api.v1.serializers import (
     EventCreateOrUpdateSerializer,
     EventDetailSerializer,
@@ -57,7 +61,7 @@ class EventDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: EventDetailSerializer,
         },
-        tags=["game_world:user_purchase"],
+        tags=["game_world:event"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -78,7 +82,7 @@ class EventCreateAPIView(GenericAPIView):
     """
 
     serializer_class = EventCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=EventCreateOrUpdateSerializer,
@@ -111,7 +115,7 @@ class EventUpdateAPIView(GenericAPIView):
 
     queryset = Event.objects.all()
     serializer_class = EventCreateOrUpdateSerializer
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=EventCreateOrUpdateSerializer,
@@ -149,7 +153,7 @@ class EventDeleteAPIView(GenericAPIView):
     """
 
     queryset = Event.objects.all()
-    permission_classes = (UserHRPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

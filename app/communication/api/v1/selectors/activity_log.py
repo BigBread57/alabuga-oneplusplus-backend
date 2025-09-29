@@ -1,7 +1,6 @@
 import django_filters
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models import When
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
@@ -9,7 +8,7 @@ from common.selectors import BaseSelector, CurrentCharacterDefault
 from communication.models import ActivityLog
 
 
-class ActivityLogListFilterSerializer(serializers.Serializer):
+class ActivityLogCharacterFilterSerializer(serializers.Serializer):
     """
     Журнал событий. Список. Сериализатор для фильтра.
     """
@@ -19,6 +18,13 @@ class ActivityLogListFilterSerializer(serializers.Serializer):
         help_text=_("Персонаж"),
         default=CurrentCharacterDefault(),
     )
+
+
+class ActivityLogListFilterSerializer(ActivityLogCharacterFilterSerializer):
+    """
+    Журнал событий. Список. Сериализатор для фильтра.
+    """
+
     content_type = serializers.PrimaryKeyRelatedField(
         label=_("Тип содержимого"),
         help_text=_("Тип содержимого"),
@@ -40,6 +46,16 @@ class ActivityLogListFilter(django_filters.FilterSet):
         )
 
 
+class ActivityLogReadFilter(django_filters.FilterSet):
+    """
+    Журнал событий. Изменение. Фильтр.
+    """
+
+    class Meta:
+        model = ActivityLog
+        fields = ("character",)
+
+
 class ActivityLogListSelector(BaseSelector):
     """
     Журнал событий. Список. Селектор.
@@ -50,6 +66,18 @@ class ActivityLogListSelector(BaseSelector):
         "content_type",
     )
     filter_class = ActivityLogListFilter
+
+
+class ActivityLogReadSelector(BaseSelector):
+    """
+    Журнал событий. Изменение. Селектор.
+    """
+
+    queryset = ActivityLog.objects.select_related(
+        "character",
+        "content_type",
+    )
+    filter_class = ActivityLogCharacterFilterSerializer
 
 
 class ActivityLogContentTypeListSelector(BaseSelector):

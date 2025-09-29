@@ -5,8 +5,14 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from game_mechanics.api.v1.serializers.nested import CompetencyNestedSerializer, RankNestedSerializer
-from shop.api.v1.serializers.nested import ShopItemCategoryNestedSerializer, ShopItemNestedSerializer
+from game_mechanics.api.v1.serializers.nested import (
+    CompetencyNestedSerializer,
+    RankNestedSerializer,
+)
+from shop.api.v1.serializers.nested import (
+    ShopItemCategoryNestedSerializer,
+    ShopItemNestedSerializer,
+)
 from shop.models import ShopItem
 
 

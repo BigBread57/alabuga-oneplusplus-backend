@@ -59,3 +59,26 @@ class CharacterUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Character
         fields = ("avatar",)
+
+
+class CharacterStatisticsSerializer(serializers.Serializer):
+    """
+    Персонаж пользователя. Статистика.
+    """
+
+    missions = serializers.DictField(
+        label=_("Статистика по миссиям"),
+        help_text=_("Статистика по миссиям"),
+    )
+    events = serializers.DictField(
+        label=_("Статистика по событиям"),
+        help_text=_("Статистика по событиям"),
+    )
+    artifacts = serializers.DictField(
+        label=_("Статистика по артефактам"),
+        help_text=_("Статистика по артефактам"),
+    )
+    competencies = serializers.DictField(
+        label=_("Статистика по компетенциям"),
+        help_text=_("Статистика по компетенциям"),
+    )

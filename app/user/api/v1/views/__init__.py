@@ -1,6 +1,16 @@
-from user.api.v1.views.character import CharacterActualForUserAPIView, CharacterUpdateAPIView
-from user.api.v1.views.character_artifact import CharacterArtifactDetailAPIView, CharacterArtifactListAPIView
-from user.api.v1.views.character_competency import CharacterCompetencyDetailAPIView, CharacterCompetencyListAPIView
+from user.api.v1.views.character import (
+    CharacterActualForUserAPIView,
+    CharacterActualUpdateAPIView,
+    CharacterStatisticsAPIView,
+)
+from user.api.v1.views.character_artifact import (
+    CharacterArtifactDetailAPIView,
+    CharacterArtifactListAPIView,
+)
+from user.api.v1.views.character_competency import (
+    CharacterCompetencyDetailAPIView,
+    CharacterCompetencyListAPIView,
+)
 from user.api.v1.views.character_event import (
     CharacterEventDetailAPIView,
     CharacterEventListAPIView,
@@ -38,7 +48,8 @@ __all__ = (
     "UserConfirmRegisterAPIView",
     # Character
     "CharacterActualForUserAPIView",
-    "CharacterUpdateAPIView",
+    "CharacterActualUpdateAPIView",
+    "CharacterStatisticsAPIView",
     # CharacterEvent
     "CharacterEventListAPIView",
     "CharacterEventDetailAPIView",

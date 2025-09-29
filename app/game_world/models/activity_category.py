@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -13,6 +15,12 @@ class ActivityCategory(AbstractBaseModel):
     на предприятии, но также соотноситься с игровым миром.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("Используется при генерации объектов через для понимания новый объект или старый"),
+        default=uuid4,
+        unique=True,
+    )
     name = models.CharField(
         verbose_name=_("Название"),
         help_text=_("Название категории активности"),
@@ -41,6 +49,7 @@ class ActivityCategory(AbstractBaseModel):
     color = models.CharField(
         verbose_name=_("Цвет"),
         max_length=256,
+        blank=True,
     )
 
     class Meta(AbstractBaseModel.Meta):

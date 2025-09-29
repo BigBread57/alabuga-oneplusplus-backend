@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -19,11 +21,16 @@ class Competency(AbstractBaseModel):
     на предприятии, но также соотноситься с игровым миром.
     """
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("Используется при генерации объектов через для понимания новый объект или старый"),
+        default=uuid4,
+        unique=True,
+    )
     name = models.CharField(
         verbose_name=_("Название"),
         help_text=_("Название компетенции в рамках игрового мира"),
         max_length=256,
-        unique=True,
     )
     description = models.TextField(
         verbose_name=_("Описание"),
@@ -36,6 +43,11 @@ class Competency(AbstractBaseModel):
             "Количество опыта, которое необходимо получить чтобы полностью "
             "изучить компетенцию и получить новую компетенцию"
         ),
+    )
+    level = models.PositiveIntegerField(
+        verbose_name=_("Уровень компетенции"),
+        help_text=_("Уровень компетенции. Повышается на уровень родительской компетенции + 1"),
+        default=1,
     )
     icon = models.ImageField(
         verbose_name=_("Иконка"),

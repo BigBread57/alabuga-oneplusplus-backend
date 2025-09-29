@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.contenttypes.fields import GenericRelation
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -22,6 +24,12 @@ class Artifact(AbstractBaseModel):
         CURRENCY_GAIN = "CURRENCY_GAIN", _("Прирост валюты")
         SHOP_DISCOUNT = "SHOP_DISCOUNT", _("Скидка в магазине")
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("Используется при генерации объектов через для понимания новый объект или старый"),
+        default=uuid4,
+        unique=True,
+    )
     name = models.CharField(
         verbose_name=_("Название"),
         help_text=_("Название артефакта"),
@@ -46,10 +54,7 @@ class Artifact(AbstractBaseModel):
     )
     modifier = models.CharField(
         verbose_name=_("Модификатор"),
-        help_text=_(
-            "Значение модификатора для артефакта. "
-            "Только некоторые артефакты имеют модификатор"
-        ),
+        help_text=_("Значение модификатора для артефакта. " "Только некоторые артефакты имеют модификатор"),
         max_length=20,
         choices=Modifiers.choices,
         default=Modifiers.DEFAULT,

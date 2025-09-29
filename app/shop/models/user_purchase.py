@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -19,6 +21,12 @@ class UserPurchase(AbstractBaseModel):
         DELIVERED = "DELIVERED", _("Доставлена")
         CANCELLED = "CANCELLED", _("Отменена")
 
+    uuid = models.UUIDField(
+        verbose_name=_("UUID"),
+        help_text=_("UUID"),
+        default=uuid4,
+        unique=True,
+    )
     price = models.PositiveIntegerField(
         verbose_name=_("Цена на момент покупки в валюте"),
     )

@@ -71,7 +71,7 @@ WSGI_APPLICATION = "alabuga.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config("POSTGRES_DB", default="alabuga", cast=str),
+        "NAME": config("POSTGRES_NAME", default="alabuga", cast=str),
         "USER": config("POSTGRES_USER", default="alabuga", cast=str),
         "PASSWORD": config("POSTGRES_PASSWORD", default="alabuga", cast=str),
         "HOST": config("DJANGO_DATABASE_HOST", default="localhost", cast=str),

@@ -9,9 +9,17 @@ from common.services import BaseService
 from communication.models import ActivityLog
 from game_mechanics.models import Competency, Rank, RequiredRankCompetency
 from game_world.models import Mission, MissionArtifact, MissionCompetency
-from user.models import Character, CharacterArtifact, CharacterCompetency, CharacterMission
+from user.models import (
+    Character,
+    CharacterArtifact,
+    CharacterCompetency,
+    CharacterMission,
+)
 from user.models.character_rank import CharacterRank
-from user.tasks import send_mail_about_character_mission_for_character, send_mail_about_character_mission_for_inspector
+from user.tasks import (
+    send_mail_about_character_mission_for_character,
+    send_mail_about_character_mission_for_inspector,
+)
 
 
 class CharacterMissionService(BaseService):
@@ -173,7 +181,9 @@ class CharacterMissionService(BaseService):
                         end_datetime=now_datetime + timedelta(days=mission.time_to_complete),
                     )
                     for mission in Mission.objects.filter(
-                        is_active=True, branch__rank=new_rank, game_world=character.game_world
+                        is_active=True,
+                        branch__rank=new_rank,
+                        game_world=character.game_world,
                     )
                 ]
                 CharacterMission.objects.bulk_create(objs=character_missions)
@@ -219,6 +229,9 @@ class CharacterMissionService(BaseService):
             CharacterMission.objects.filter(
                 id=character_mission.id,
             ).update(
+                final_status_datetime=(
+                    timezone.now() if validated_data["status"] == CharacterEvent.Statuses.COMPLETED else None
+                ),
                 **validated_data,
             )
             character_mission = (
