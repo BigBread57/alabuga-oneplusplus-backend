@@ -17,6 +17,12 @@ if [ "${DJANGO_SUPERUSER_EMAIL:-}" ] && [ "${DJANGO_SUPERUSER_PASSWORD:-}" ]; th
     echo "Creating superuser..."
     poetry run python manage.py shell -c "
 from django.contrib.auth import get_user_model
+from game_mechanics.models import Rank
+from game_world.models import GameWorld
+from user.models import (
+    Character,
+    User,
+)
 User = get_user_model()
 email = '${DJANGO_SUPERUSER_EMAIL}'
 password = '${DJANGO_SUPERUSER_PASSWORD}'
@@ -27,6 +33,16 @@ if not User.objects.filter(email=email).exists():
         password=password
     )
     print('Superuser created.')
+    game_world = GameWorld.objects.first()
+    rank = Rank.objects.filter(game_world=game_world, parent__isnull=True).first()
+    character = Character.objects.create(
+        user=user,
+        game_world=game_world,
+    )
+    character_rank = CharacterRank.objects.create(
+        character=character,
+        rank=rank,
+    )
 else:
     print('Superuser already exists.')
 "
