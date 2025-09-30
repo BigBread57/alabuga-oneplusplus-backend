@@ -45,4 +45,5 @@ exec poetry run gunicorn alabuga.wsgi:application \
     --keep-alive 5 \
     --access-logfile - \
     --error-logfile - \
-    --log-level info
+    --log-level info \
+    --capture-output
