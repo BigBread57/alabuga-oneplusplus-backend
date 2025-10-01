@@ -669,6 +669,7 @@ class GameWorldService(BaseService):
         Преобразует объект игрового мира в формат cells для визуализации графа
         """
         cells = []
+        all_uuid = []
 
         # Конфигурируемые параметры для позиционирования
         config = {
@@ -974,8 +975,15 @@ class GameWorldService(BaseService):
                             game_world_story_node = {
                                 "id": game_world_story_uuid,
                                 "shape": "game_world_story",
-                                "x": artifact_x,
-                                "y": artifact_y,
+                                "position": {
+                                    "x": artifact_x,
+                                    "y": artifact_y,
+                                },
+                                "z_index": 1,
+                                "size": {
+                                    "width": 250,
+                                    "height": 80,
+                                },
                                 "attrs": {
                                     "title": {"text": game_world_story["text"]},
                                 },
@@ -1059,8 +1067,15 @@ class GameWorldService(BaseService):
                             game_world_story_node = {
                                 "id": game_world_story_uuid,
                                 "shape": "game_world_story",
-                                "x": competency_x,
-                                "y": competency_y,
+                                "position": {
+                                    "x": competency_x,
+                                    "y": competency_y,
+                                },
+                                "z_index": 1,
+                                "size": {
+                                    "width": 250,
+                                    "height": 80,
+                                },
                                 "attrs": {
                                     "title": {"text": game_world_story["text"]},
                                 },
@@ -1226,8 +1241,15 @@ class GameWorldService(BaseService):
                     artifact_node = {
                         "id": artifact_uuid,
                         "shape": "artifact",
-                        "x": artifact_x,
-                        "y": artifact_y,
+                        "position": {
+                            "x": artifact_x,
+                            "y": artifact_y,
+                        },
+                        "z_index": 1,
+                        "size": {
+                            "width": 250,
+                            "height": 80,
+                        },
                         "attrs": {
                             "title": {"text": artifact["name"]},
                             "description": {"text": artifact.get("description", "")},
