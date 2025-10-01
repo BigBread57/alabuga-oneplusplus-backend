@@ -546,7 +546,7 @@ class GameWorldService(BaseService):
             model_type = type(entities_to_update[0])
             model_type.objects.bulk_update(entities_to_update, ["parent"])
 
-    def update_or_create_all_entitys(
+    def update_or_create_all_entities(
         self,
         game_world: GameWorld,
         validated_data: dict[str, Any],
@@ -678,7 +678,7 @@ class GameWorldService(BaseService):
         # Обрабатываем ранги
         for rank in game_world_data.get("ranks", []):
             # Создаем узел ранга
-            rank_id = f"rank-{rank['id']}"
+            rank_id = rank['uuid']
             default_rank_y = config["initial_y"] + (rank["id"] - 1) * config["rank_height"]
             rank_x, rank_y = get_coordinates_from_data(rank_id, config["initial_x"], default_rank_y)
 
@@ -708,7 +708,7 @@ class GameWorldService(BaseService):
             # Обрабатываем ветки миссий для этого ранга
             mission_branch_y = rank_y + config["mission_branch_height"]
             for mission_branch in rank.get("mission_branches", []):
-                mission_branch_id = f"mission-branch-{mission_branch['id']}"
+                mission_branch_id = mission_branch['uuid']
                 default_mission_branch_x = 150 + (mission_branch["id"] - 1) * config["horizontal_spacing"]
                 mission_branch_x, mission_branch_y = get_coordinates_from_data(
                     mission_branch_id, default_mission_branch_x, mission_branch_y
@@ -746,7 +746,7 @@ class GameWorldService(BaseService):
                 # Обрабатываем миссии в этой ветке
                 mission_y = mission_branch_y + config["mission_height"]
                 for mission in mission_branch.get("missions", []):
-                    mission_id = f"mission-{mission['id']}"
+                    mission_id = mission['uuid']
                     default_mission_x = 100 + (mission["id"] - 1) * config["horizontal_spacing"]
                     mission_x, mission_y = get_coordinates_from_data(mission_id, default_mission_x, mission_y)
 
@@ -784,7 +784,7 @@ class GameWorldService(BaseService):
                     # Обрабатываем артефакты для этой миссии
                     artifact_y = mission_y + config["artifact_height"]
                     for artifact in mission.get("artifacts", []):
-                        artifact_id = f"artifact-{artifact['id']}"
+                        artifact_id = artifact['uuid']
                         default_artifact_x = 100 + (artifact["id"] - 1) * config["horizontal_spacing"]
                         artifact_x, artifact_y = get_coordinates_from_data(artifact_id, default_artifact_x, artifact_y)
 
@@ -833,7 +833,7 @@ class GameWorldService(BaseService):
 
             # Обрабатываем события для этого ранга
             for event in rank.get("events", []):
-                event_id = f"event-{event['id']}"
+                event_id = event['uuid']
                 event_x, event_y = get_coordinates_from_data(event_id, config["initial_x"], event_y)
 
                 event_node = {

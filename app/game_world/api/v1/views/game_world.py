@@ -21,7 +21,6 @@ from game_world.api.v1.serializers import (
     GameWorldListSerializer,
     GameWorldListWithAllEntitiesSerializer,
     GameWorldStatisticsSerializer,
-    GameWorldUpdateOrCreateAllEntitiesSerializer,
 )
 from game_world.api.v1.services import game_world_service
 from game_world.models import GameWorld
@@ -198,11 +197,9 @@ class GameWorldUpdateOrCreateAllEntitiesAPIView(GenericAPIView):
     """
 
     queryset = GameWorld.objects.defer("data_for_graph")
-    serializer_class = GameWorldUpdateOrCreateAllEntitiesSerializer
     permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
-        request=GameWorldUpdateOrCreateAllEntitiesSerializer,
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
@@ -213,11 +210,9 @@ class GameWorldUpdateOrCreateAllEntitiesAPIView(GenericAPIView):
         Изменение объекта.
         """
         game_world = self.get_object()
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        game_world_service.update_or_create_all_objects(
+        game_world_service.update_or_create_all_entities(
             game_world=game_world,
-            validated_data=serializer.validated_data,
+            validated_data=request.data,
         )
 
         return Response(

@@ -32,7 +32,6 @@ from game_world.api.v1.serializers.game_world import (
     GameWorldInfoForGenerateSerializer,
     GameWorldListSerializer,
     GameWorldStatisticsSerializer,
-    GameWorldUpdateOrCreateAllEntitiesSerializer,
 )
 from game_world.api.v1.serializers.game_world_all_entites import (
     GameWorldListWithAllEntitiesSerializer,
@@ -86,7 +85,6 @@ __all__ = (
     "GameWorldInfoForGenerateSerializer",
     "GameWorldGenerateSerializer",
     "GameWorldDataAfterGenerateSerializer",
-    "GameWorldUpdateOrCreateAllEntitiesSerializer",
     "GameWorldListWithAllEntitiesSerializer",
     # Mission
     "MissionListSerializer",
