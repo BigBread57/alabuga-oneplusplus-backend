@@ -39,5 +39,5 @@ class GameWorldSettings(AbstractBaseModel):
     )
 
     class Meta(AbstractBaseModel.Meta):
-        verbose_name = _("Настройка игрового мира")
-        verbose_name_plural = _("Настройки игровых миров")
+        verbose_name = _("Настройка игрового мира по сущностям")
+        verbose_name_plural = _("Настройки игровых миров по сущностям")

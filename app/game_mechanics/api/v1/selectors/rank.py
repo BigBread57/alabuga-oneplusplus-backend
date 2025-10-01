@@ -26,7 +26,7 @@ class RankListFilterSerializer(serializers.Serializer):
     game_world = serializers.PrimaryKeyRelatedField(
         label=_("Игровой мир"),
         help_text=_("Игровой мир"),
-        queryset=GameWorld.objects.all(),
+        queryset=GameWorld.objects.defer("data_for_graph"),
         required=False,
     )
 

@@ -78,7 +78,10 @@ class GameWorldService(BaseService):
         }:
             for model in app_config.get_models():
                 if model.__name__ in generate_type_info.keys():
-                    generate_object_type = getattr(GenerateObjectType, generate_type_info.get(model.__name__).upper())
+                    generate_object_type = getattr(
+                        GenerateObjectType,
+                        generate_type_info.get(model.__name__).upper(),
+                    )
                     # Указываем модель, тип генерации из GenerateObjectType и поля.
                     content += (
                         f"Для {model.__name__} необходимо {generate_object_type.label}\n"
@@ -164,6 +167,7 @@ class GameWorldService(BaseService):
         Игровой мир. Статистика.
         """
         mission_branches = defaultdict(list)
+        number_mission_branches = defaultdict(int)
 
         for character_mission_branch in (
             CharacterMissionBranch.objects.select_related(
@@ -194,10 +198,11 @@ class GameWorldService(BaseService):
                 )
             )
         ):
-            if mission_branches.get(character_mission_branch.branch.name):
-                mission_branches[character_mission_branch.branch.name].append(character_mission_branch)
-            else:
+            number_mission_branches[character_mission_branch.branch.name] += 1
+            if not mission_branches.get(character_mission_branch.branch.name, None):
                 mission_branches[character_mission_branch.branch.name] = []
+            if character_mission_branch.is_fully_completed:
+                mission_branches[character_mission_branch.branch.name].append(character_mission_branch)
 
         missions = Mission.objects.filter(
             is_active=True,
@@ -294,7 +299,11 @@ class GameWorldService(BaseService):
             "number_of_character_who_closed_the_mission_branch": [
                 {
                     "letter": mission_branch_name,
-                    "frequency": len(character_mission_branches),
+                    "frequency": (
+                        len(character_mission_branches) / number_mission_branches[mission_branch_name]
+                        if len(character_mission_branches) > 0
+                        else 0
+                    )
                 }
                 for mission_branch_name, character_mission_branches in mission_branches.items()
             ],
@@ -615,7 +624,11 @@ class GameWorldService(BaseService):
             )
             maps.update(mission_competency=mission_competencies_map)
 
-    def get_data_for_graph(self, game_world_data):
+    def get_data_for_graph(
+            self,
+            game_world_data: dict[str, Any],
+            data_for_graph: dict[str, Any] | None = None
+    ):
         """
         Преобразует объект игрового мира в формат cells для визуализации графа
         """
@@ -636,21 +649,32 @@ class GameWorldService(BaseService):
             "initial_y": 50,  # начальная позиция по Y для первого ранга
         }
 
+        # Функция для получения координат из data_for_graph
+        def get_coordinates_from_data(node_id, default_x, default_y):
+            if data_for_graph and "cells" in data_for_graph:
+                for cell in data_for_graph["cells"]:
+                    if cell.get("id") == node_id and "x" in cell and "y" in cell:
+                        return cell["x"], cell["y"]
+            return default_x, default_y
+
         # Обрабатываем ранги
         for rank in game_world_data.get("ranks", []):
             # Создаем узел ранга
-            rank_y = config["initial_y"] + (rank["id"] - 1) * config["rank_height"]
+            rank_id = f"rank-{rank['id']}"
+            default_rank_y = config["initial_y"] + (rank["id"] - 1) * config["rank_height"]
+            rank_x, rank_y = get_coordinates_from_data(rank_id, config["initial_x"], default_rank_y)
+
             rank_node = {
-                "id": f"rank-{rank['id']}",
-                "shape": "rang-node",
-                "x": config["initial_x"],
+                "id": rank_id,
+                "shape": "rank-node",
+                "x": rank_x,
                 "y": rank_y,
                 "attrs": {
                     "title": {"text": rank["name"]},
                     "description": {"text": rank["description"]},
                 },
                 "data": {
-                    "type": "rang",
+                    "type": "rank",
                     "name": rank["name"],
                     "description": rank["description"],
                     "required_experience": rank["required_experience"],
@@ -666,10 +690,16 @@ class GameWorldService(BaseService):
             # Обрабатываем ветки миссий для этого ранга
             mission_branch_y = rank_y + config["mission_branch_height"]
             for mission_branch in rank.get("mission_branches", []):
+                mission_branch_id = f"mission-branch-{mission_branch['id']}"
+                default_mission_branch_x = 150 + (mission_branch["id"] - 1) * config["horizontal_spacing"]
+                mission_branch_x, mission_branch_y = get_coordinates_from_data(
+                    mission_branch_id, default_mission_branch_x, mission_branch_y
+                )
+
                 mission_branch_node = {
-                    "id": f"mission-branch-{mission_branch['id']}",
+                    "id": mission_branch_id,
                     "shape": "mission-branch-node",
-                    "x": 150 + (mission_branch["id"] - 1) * config["horizontal_spacing"],
+                    "x": mission_branch_x,
                     "y": mission_branch_y,
                     "attrs": {
                         "title": {"text": mission_branch["name"]},
@@ -698,10 +728,14 @@ class GameWorldService(BaseService):
                 # Обрабатываем миссии в этой ветке
                 mission_y = mission_branch_y + config["mission_height"]
                 for mission in mission_branch.get("missions", []):
+                    mission_id = f"mission-{mission['id']}"
+                    default_mission_x = 100 + (mission["id"] - 1) * config["horizontal_spacing"]
+                    mission_x, mission_y = get_coordinates_from_data(mission_id, default_mission_x, mission_y)
+
                     mission_node = {
-                        "id": f"mission-{mission['id']}",
+                        "id": mission_id,
                         "shape": "mission-node",
-                        "x": 100 + (mission["id"] - 1) * config["horizontal_spacing"],
+                        "x": mission_x,
                         "y": mission_y,
                         "attrs": {
                             "title": {"text": mission["name"]},
@@ -732,10 +766,14 @@ class GameWorldService(BaseService):
                     # Обрабатываем артефакты для этой миссии
                     artifact_y = mission_y + config["artifact_height"]
                     for artifact in mission.get("artifacts", []):
+                        artifact_id = f"artifact-{artifact['id']}"
+                        default_artifact_x = 100 + (artifact["id"] - 1) * config["horizontal_spacing"]
+                        artifact_x, artifact_y = get_coordinates_from_data(artifact_id, default_artifact_x, artifact_y)
+
                         artifact_node = {
-                            "id": f"artifact-{artifact['id']}",
+                            "id": artifact_id,
                             "shape": "artefact-node",
-                            "x": 100 + (artifact["id"] - 1) * config["horizontal_spacing"],
+                            "x": artifact_x,
                             "y": artifact_y,
                             "attrs": {
                                 "title": {"text": artifact["name"]},
@@ -777,10 +815,13 @@ class GameWorldService(BaseService):
 
             # Обрабатываем события для этого ранга
             for event in rank.get("events", []):
+                event_id = f"event-{event['id']}"
+                event_x, event_y = get_coordinates_from_data(event_id, config["initial_x"], event_y)
+
                 event_node = {
-                    "id": f"event-{event['id']}",
+                    "id": event_id,
                     "shape": "event-node",
-                    "x": config["initial_x"],
+                    "x": event_x,
                     "y": event_y,
                     "attrs": {
                         "title": {"text": event["name"]},
@@ -827,175 +868,6 @@ class GameWorldService(BaseService):
             if rank["id"] < len(game_world_data.get("ranks", [])):
                 current_rank_height = event_y - rank_y
                 config["rank_height"] = max(config["rank_height"], current_rank_height + 50)  # добавляем отступ
-
-        return {"cells": cells}
-
-    # Альтернативная версия с более компактным расположением
-    def transform_game_world_compact(self, game_world_data):
-        """
-        Компактная версия преобразования с лучшим расположением элементов
-        """
-        cells = []
-        edge_counter = 1
-
-        # Группируем элементы по рангам
-        for rank_index, rank in enumerate(game_world_data.get("ranks", [])):
-            rank_x = 300
-            rank_y = 100 + rank_index * 700
-
-            # Узел ранга
-            rank_node = {
-                "id": f"rank-{rank['id']}",
-                "shape": "rang-node",
-                "x": rank_x,
-                "y": rank_y,
-                "attrs": {
-                    "title": {"text": rank["name"]},
-                    "description": {"text": rank["description"]},
-                },
-                "data": {
-                    "type": "rang",
-                    "name": rank["name"],
-                    "description": rank["description"],
-                    "required_experience": rank["required_experience"],
-                },
-            }
-            cells.append(rank_node)
-
-            # Обрабатываем ветки миссий
-            for branch_index, mission_branch in enumerate(rank.get("mission_branches", [])):
-                branch_x = 100 + branch_index * 400
-                branch_y = rank_y + 100
-
-                mission_branch_node = {
-                    "id": f"mission-branch-{mission_branch['id']}",
-                    "shape": "mission-branch-node",
-                    "x": branch_x,
-                    "y": branch_y,
-                    "attrs": {
-                        "title": {"text": mission_branch["name"]},
-                        "description": {"text": mission_branch["description"]},
-                    },
-                    "data": {
-                        "type": "missionBranch",
-                        "name": mission_branch["name"],
-                        "description": mission_branch["description"],
-                    },
-                }
-                cells.append(mission_branch_node)
-
-                # Связь: ранг -> ветка миссий
-                cells.append(
-                    {
-                        "id": f"edge-{edge_counter}",
-                        "shape": "entity-edge",
-                        "source": {"cell": f"rank-{rank['id']}"},
-                        "target": {"cell": f"mission-branch-{mission_branch['id']}"},
-                    }
-                )
-                edge_counter += 1
-
-                # Обрабатываем миссии
-                for mission_index, mission in enumerate(mission_branch.get("missions", [])):
-                    mission_x = branch_x - 100 + mission_index * 200
-                    mission_y = branch_y + 100
-
-                    mission_node = {
-                        "id": f"mission-{mission['id']}",
-                        "shape": "mission-node",
-                        "x": mission_x,
-                        "y": mission_y,
-                        "attrs": {
-                            "title": {"text": mission["name"]},
-                            "description": {"text": f"Опыт: {mission['experience']}"},
-                        },
-                        "data": {
-                            "type": "mission",
-                            "name": mission["name"],
-                            "experience": mission["experience"],
-                            "currency": mission["currency"],
-                        },
-                    }
-                    cells.append(mission_node)
-
-                    # Связь: ветка миссий -> миссия
-                    cells.append(
-                        {
-                            "id": f"edge-{edge_counter}",
-                            "shape": "entity-edge",
-                            "source": {"cell": f"mission-branch-{mission_branch['id']}"},
-                            "target": {"cell": f"mission-{mission['id']}"},
-                        }
-                    )
-                    edge_counter += 1
-
-                    # Обрабатываем артефакты
-                    for artifact_index, artifact in enumerate(mission.get("artifacts", [])):
-                        artifact_x = mission_x - 50 + artifact_index * 100
-                        artifact_y = mission_y + 100
-
-                        artifact_node = {
-                            "id": f"artifact-{artifact['id']}",
-                            "shape": "artefact-node",
-                            "x": artifact_x,
-                            "y": artifact_y,
-                            "attrs": {
-                                "title": {"text": artifact["name"]},
-                                "description": {"text": artifact["description"][:50] + "..."},
-                            },
-                            "data": {
-                                "type": "artefact",
-                                "name": artifact["name"],
-                                "description": artifact["description"],
-                                "modifier": artifact["modifier"],
-                            },
-                        }
-                        cells.append(artifact_node)
-
-                        # Связь: миссия -> артефакт
-                        cells.append(
-                            {
-                                "id": f"edge-{edge_counter}",
-                                "shape": "entity-edge",
-                                "source": {"cell": f"mission-{mission['id']}"},
-                                "target": {"cell": f"artifact-{artifact['id']}"},
-                            }
-                        )
-                        edge_counter += 1
-
-            # Обрабатываем события
-            for event_index, event in enumerate(rank.get("events", [])):
-                event_x = rank_x + 200
-                event_y = rank_y + 300 + event_index * 150
-
-                event_node = {
-                    "id": f"event-{event['id']}",
-                    "shape": "event-node",
-                    "x": event_x,
-                    "y": event_y,
-                    "attrs": {
-                        "title": {"text": event["name"]},
-                        "description": {"text": event["description"]},
-                    },
-                    "data": {
-                        "type": "event",
-                        "name": event["name"],
-                        "description": event["description"],
-                        "experience": event["experience"],
-                    },
-                }
-                cells.append(event_node)
-
-                # Связь: ранг -> событие
-                cells.append(
-                    {
-                        "id": f"edge-{edge_counter}",
-                        "shape": "entity-edge",
-                        "source": {"cell": f"rank-{rank['id']}"},
-                        "target": {"cell": f"event-{event['id']}"},
-                    }
-                )
-                edge_counter += 1
 
         return {"cells": cells}
 

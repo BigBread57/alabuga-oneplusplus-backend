@@ -45,6 +45,12 @@ class GameWorld(AbstractBaseModel):
         verbose_name=_("Название валюты"),
         help_text=_("Название валюты"),
     )
+    data_for_graph = models.JSONField(
+        verbose_name=_("Данные для графа"),
+        help_text=_("Данные для графа"),
+        blank=True,
+        null=True,
+    )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Игровой мир")

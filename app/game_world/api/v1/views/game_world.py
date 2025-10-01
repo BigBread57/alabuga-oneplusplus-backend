@@ -79,6 +79,7 @@ class GameWorldListWithAllEntitiesAPIView(QuerySelectorMixin, GenericAPIView):
         return Response(
             data=game_world_service.get_data_for_graph(
                 game_world_data=serializer.data,
+                data_for_graph=game_world.data_for_graph,
             ),
             status=status.HTTP_200_OK,
         )
@@ -89,7 +90,7 @@ class GameWorldDetailAPIView(GenericAPIView):
     Игровой мир. Детальная информация.
     """
 
-    queryset = GameWorld.objects.all()
+    queryset = GameWorld.objects.defer("data_for_graph")
     serializer_class = GameWorldDetailSerializer
 
     @extend_schema(
@@ -148,7 +149,7 @@ class GameWorldUpdateAPIView(GenericAPIView):
     Игровой мир. Изменение.
     """
 
-    queryset = GameWorld.objects.all()
+    queryset = GameWorld.objects.defer("data_for_graph")
     serializer_class = GameWorldCreateOrUpdateSerializer
     permission_classes = (CharacterHrPermission,)
 
@@ -187,7 +188,7 @@ class GameWorldUpdateOrCreateAllEntitiesAPIView(GenericAPIView):
     Игровой мир. Изменение или создание всех объектов.
     """
 
-    queryset = GameWorld.objects.all()
+    queryset = GameWorld.objects.defer("data_for_graph")
     serializer_class = GameWorldUpdateOrCreateAllEntitiesSerializer
     permission_classes = (CharacterHrPermission,)
 
@@ -226,7 +227,7 @@ class GameWorldDeleteAPIView(GenericAPIView):
     Игровой мир. Удаление объекта.
     """
 
-    queryset = GameWorld.objects.all()
+    queryset = GameWorld.objects.defer("data_for_graph")
     permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
@@ -286,7 +287,7 @@ class GameWorldInfoForGenerateAPIView(GenericAPIView):
 
     @extend_schema(
         responses={
-            status.HTTP_200_OK: GameWorldInfoForGenerateSerializer,
+            status.HTTP_200_OK: GameWorldInfoForGenerateSerializer(many=True),
         },
         tags=["game_world:game_world"],
     )
@@ -294,10 +295,10 @@ class GameWorldInfoForGenerateAPIView(GenericAPIView):
         """
         Информация для генерации.
         """
-        # serializer = self.get_serializer(game_world_service.info_for_generate(), many=True)
+        serializer = self.get_serializer(game_world_service.info_for_generate(), many=True)
 
         return Response(
-            data=game_world_service.info_for_generate(),
+            data=serializer.data,
             status=status.HTTP_200_OK,
         )
 

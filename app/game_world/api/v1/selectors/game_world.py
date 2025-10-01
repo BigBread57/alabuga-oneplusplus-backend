@@ -34,7 +34,7 @@ class GameWorldListOrStatisticsOrStatisticsSelector(BaseSelector):
     Игровой мир. Рейтинг. Селектор.
     """
 
-    queryset = GameWorld.objects.all()
+    queryset = GameWorld.objects.defer("data_for_graph")
     filter_class = GameWorldListOrStatisticsOrStatisticsFilter
 
 
@@ -56,5 +56,5 @@ class GameWorldListWithAllEntitiesSelector(BaseSelector):
         "ranks__events__competencies",
         "ranks__events__mentor",
         "ranks__events__category",
-    )
+    ).defer("data_for_graph")
     filter_class = GameWorldListOrStatisticsOrStatisticsFilter
