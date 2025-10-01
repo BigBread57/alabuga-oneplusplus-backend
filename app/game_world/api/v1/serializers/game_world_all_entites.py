@@ -262,6 +262,19 @@ class EventAllInfoNestedSerializer(serializers.ModelSerializer):
             "game_world_stories",
         )
 
+class RankParentNestedSerializer(serializers.ModelSerializer):
+    """
+    Ранг. Вложенный сериалайзер.
+    """
+
+    class Meta:
+        model = Rank
+        fields = (
+            "id",
+            "uuid"
+        )
+
+
 
 class RankAllInfoNestedSerializer(serializers.ModelSerializer):
     """
@@ -282,6 +295,10 @@ class RankAllInfoNestedSerializer(serializers.ModelSerializer):
         label=_("События"),
         help_text=_("События"),
         many=True,
+    )
+    parent = RankParentNestedSerializer(
+        label=_("Родительский ранг"),
+        help_text=_("Родительский ранг"),
     )
 
     class Meta:

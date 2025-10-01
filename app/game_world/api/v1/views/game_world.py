@@ -75,6 +75,10 @@ class GameWorldListWithAllEntitiesAPIView(QuerySelectorMixin, GenericAPIView):
         game_world = self.get_object()
         serializer = self.get_serializer(instance=game_world)
 
+        # return Response(
+        #     data=serializer.data,
+        #     status=status.HTTP_200_OK,
+        # )
         return Response(
             data=game_world_service.get_data_for_graph(
                 game_world_data=serializer.data,
