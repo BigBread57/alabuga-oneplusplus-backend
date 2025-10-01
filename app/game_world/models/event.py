@@ -76,6 +76,12 @@ class Event(AbstractBaseModel):
         verbose_name=_("Количество дней на успешное выполнение события"),
         help_text=_("Количество дней на успешное выполнение события"),
     )
+    qr_code = models.ImageField(
+        verbose_name=_("QR код"),
+        upload_to="qr_code_events",
+        null=True,
+        blank=True,
+    )
     category = models.ForeignKey(
         to="game_world.ActivityCategory",
         verbose_name=_("Категория"),

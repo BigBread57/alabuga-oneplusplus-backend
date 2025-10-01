@@ -15,8 +15,8 @@ class CurrentCharacterDefault:
 
     def __call__(self, serializer_field):
         user = serializer_field.context["request"].user
-        if hasattr(user, "character"):
-            return user.character
+        if hasattr(user, "active_character"):
+            return user.active_character
         return None
 
 

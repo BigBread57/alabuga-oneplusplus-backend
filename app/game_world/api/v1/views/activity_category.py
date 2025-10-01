@@ -36,7 +36,7 @@ class ActivityCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: ActivityCategoryListSerializer(many=True),
         },
-        tags=["activity_category:activity_category"],
+        tags=["game_world:activity_category"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -61,7 +61,7 @@ class ActivityCategoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: ActivityCategoryDetailSerializer,
         },
-        tags=["activity_category:activity_category"],
+        tags=["game_world:activity_category"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -89,7 +89,7 @@ class ActivityCategoryCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: ActivityCategoryDetailSerializer,
         },
-        tags=["activity_category:activity_category"],
+        tags=["game_world:activity_category"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -122,7 +122,7 @@ class ActivityCategoryUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ActivityCategoryDetailSerializer,
         },
-        tags=["activity_category:activity_category"],
+        tags=["game_world:activity_category"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -159,7 +159,7 @@ class ActivityCategoryDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
-        tags=["activity_category:activity_category"],
+        tags=["game_world:activity_category"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:
         """

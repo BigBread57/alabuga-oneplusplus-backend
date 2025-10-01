@@ -36,7 +36,7 @@ class EventListSerializer(serializers.ModelSerializer):
         Дата и время окончания события.
         """
         if event.start_datetime and event.time_to_complete:
-            return event.start_datetime + timedelta(hours=event.time_to_buy)
+            return event.start_datetime + timedelta(hours=event.time_to_complete)
         return None
 
 
@@ -70,7 +70,7 @@ class EventDetailSerializer(serializers.ModelSerializer):
         Дата и время окончания события.
         """
         if event.start_datetime and event.time_to_complete:
-            return event.start_datetime + timedelta(hours=event.time_to_buy)
+            return event.start_datetime + timedelta(hours=event.time_to_complete)
         return None
 
 

@@ -6,9 +6,9 @@ from common.selectors import BaseSelector, CurrentCharacterDefault
 from user.models import CharacterArtifact
 
 
-class CharacterArtifactListOrDetailFilterSerializer(serializers.Serializer):
+class CharacterArtifactForCharacterSerializer(serializers.Serializer):
     """
-    Артефакт персонажа. Список. Сериализатор для фильтра.
+    Артефакт персонажа. Сериализатор для фильтра.
     """
 
     character = serializers.HiddenField(

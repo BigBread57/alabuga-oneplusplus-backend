@@ -4,28 +4,29 @@ from user.api.v1.selectors.character import (
 )
 from user.api.v1.selectors.character_artifact import (
     CharacterArtifactDetailSelector,
-    CharacterArtifactListOrDetailFilterSerializer,
+    CharacterArtifactForCharacterSerializer,
     CharacterArtifactListSelector,
 )
 from user.api.v1.selectors.character_competency import (
     CharacterCompetencyDetailSelector,
-    CharacterCompetencyListOrDetailFilterSerializer,
+    CharacterCompetencyForCharacterFilterSerializer,
     CharacterCompetencyListSelector,
 )
 from user.api.v1.selectors.character_event import (
-    CharacterEventDetailOrUpdateFilterSerializer,
-    CharacterEventDetailSelector,
-    CharacterEventListFilterSerializer,
+    CharacterEventForCharacterFilterSerializer,
+    CharacterEventListForInspectorFilterSerializer,
+    CharacterEventListForInspectorSelector,
     CharacterEventListSelector,
-    CharacterEventUpdateFromCharacterSelector,
-    CharacterEventUpdateFromInspectorSelector,
 )
 from user.api.v1.selectors.character_mission import (
-    CharacterMissionDetailSelector,
     CharacterMissionListFilterSerializer,
+    CharacterMissionListForInspectorFilterSerializer,
+    CharacterMissionListForInspectorSelector,
     CharacterMissionListSelector,
-    CharacterMissionUpdateFromCharacterSelector,
-    CharacterMissionUpdateFromInspectorSelector,
+)
+from user.api.v1.selectors.character_mission_branch import (
+    CharacterMissionBranchListFilterSerializer,
+    CharacterMissionBranchListSelector,
 )
 
 __all__ = (
@@ -33,24 +34,25 @@ __all__ = (
     "CharacterActualForUserSelector",
     "CharacterStatisticsSelector",
     # CharacterEvent
-    "CharacterEventDetailSelector",
-    "CharacterEventUpdateFromCharacterSelector",
-    "CharacterEventUpdateFromInspectorSelector",
-    "CharacterEventListFilterSerializer",
+    "CharacterEventListForInspectorSelector",
+    "CharacterEventListForInspectorFilterSerializer",
+    "CharacterEventForCharacterFilterSerializer",
     "CharacterEventListSelector",
-    "CharacterEventDetailOrUpdateFilterSerializer",
+    "CharacterEventForCharacterFilterSerializer",
     # CharacterMission
-    "CharacterMissionDetailSelector",
-    "CharacterMissionUpdateFromCharacterSelector",
-    "CharacterMissionUpdateFromInspectorSelector",
+    "CharacterMissionListForInspectorSelector",
+    "CharacterMissionListForInspectorFilterSerializer",
     "CharacterMissionListFilterSerializer",
     "CharacterMissionListSelector",
     # CharacterCompetency
-    "CharacterCompetencyListOrDetailFilterSerializer",
+    "CharacterCompetencyForCharacterFilterSerializer",
     "CharacterCompetencyListSelector",
     "CharacterCompetencyDetailSelector",
     # CharacterArtifact
-    "CharacterArtifactListOrDetailFilterSerializer",
+    "CharacterArtifactForCharacterSerializer",
     "CharacterArtifactListSelector",
     "CharacterArtifactDetailSelector",
+    # CharacterMissionBranch
+    "CharacterMissionBranchListFilterSerializer",
+    "CharacterMissionBranchListSelector",
 )

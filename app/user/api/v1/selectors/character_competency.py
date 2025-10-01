@@ -6,9 +6,9 @@ from common.selectors import BaseSelector, CurrentCharacterDefault
 from user.models import CharacterCompetency
 
 
-class CharacterCompetencyListOrDetailFilterSerializer(serializers.Serializer):
+class CharacterCompetencyForCharacterFilterSerializer(serializers.Serializer):
     """
-    Уровень компетенции персонажа. Список. Сериализатор для фильтра.
+    Уровень компетенции персонажа. Сериализатор для фильтра.
     """
 
     character = serializers.HiddenField(
@@ -36,7 +36,7 @@ class CharacterCompetencyListSelector(BaseSelector):
     queryset = CharacterCompetency.objects.select_related(
         "character",
         "competency",
-    )
+    ).order_by("is_received", "-experience", "-competency__level")
     filter_class = CharacterCompetencyOrDetailFilter
 
 

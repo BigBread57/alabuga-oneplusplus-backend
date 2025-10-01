@@ -35,7 +35,7 @@ class MissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionBranchListSerializer(many=True),
         },
-        tags=["mission_branch:mission_branch"],
+        tags=["game_world:mission_branch"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -88,7 +88,7 @@ class MissionBranchCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: MissionBranchDetailSerializer,
         },
-        tags=["mission_branch:mission_branch"],
+        tags=["game_world:mission_branch"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -121,7 +121,7 @@ class MissionBranchUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionBranchDetailSerializer,
         },
-        tags=["mission_branch:mission_branch"],
+        tags=["game_world:mission_branch"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -158,7 +158,7 @@ class MissionBranchDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
-        tags=["mission_branch:mission_branch"],
+        tags=["game_world:mission_branch"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:
         """

@@ -1,3 +1,9 @@
+from shop.api.v1.serializers.character_purchase import (
+    CharacterPurchaseCreateSerializer,
+    CharacterPurchaseDetailSerializer,
+    CharacterPurchaseListSerializer,
+    CharacterPurchaseUpdateStatusSerializer,
+)
 from shop.api.v1.serializers.shop_item import (
     ShopItemBuySerializer,
     ShopItemCreateOrUpdateSerializer,
@@ -10,12 +16,6 @@ from shop.api.v1.serializers.shop_item_category import (
     ShopItemCategoryCreateOrUpdateSerializer,
     ShopItemCategoryDetailSerializer,
     ShopItemCategoryListSerializer,
-)
-from shop.api.v1.serializers.user_purchase import (
-    UserPurchaseCreateSerializer,
-    UserPurchaseDetailSerializer,
-    UserPurchaseListSerializer,
-    UserPurchaseUpdateStatusSerializer,
 )
 
 __all__ = (
@@ -30,9 +30,9 @@ __all__ = (
     "ShopItemBuySerializer",
     "ShopItemListForBuySerializer",
     "ShopItemDetailForBuySerializer",
-    # UserPurchase
-    "UserPurchaseListSerializer",
-    "UserPurchaseDetailSerializer",
-    "UserPurchaseCreateSerializer",
-    "UserPurchaseUpdateStatusSerializer",
+    # CharacterPurchase
+    "CharacterPurchaseListSerializer",
+    "CharacterPurchaseDetailSerializer",
+    "CharacterPurchaseCreateSerializer",
+    "CharacterPurchaseUpdateStatusSerializer",
 )

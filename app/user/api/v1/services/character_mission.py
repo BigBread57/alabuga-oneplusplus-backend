@@ -1,18 +1,20 @@
-from datetime import timedelta
+from datetime import datetime
 from typing import Any
 
 from django.db import models, transaction
-from django.utils.timezone import now
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from common.services import BaseService
 from communication.models import ActivityLog
-from game_mechanics.models import Competency, Rank, RequiredRankCompetency
-from game_world.models import Mission, MissionArtifact, MissionCompetency
+from game_mechanics.models import Competency, Rank
+from game_world.models import MissionArtifact, MissionCompetency
+from user.api.v1.services import character_service
 from user.models import (
     Character,
     CharacterArtifact,
     CharacterCompetency,
+    CharacterEvent,
     CharacterMission,
 )
 from user.models.character_rank import CharacterRank
@@ -28,26 +30,37 @@ class CharacterMissionService(BaseService):
     """
 
     @staticmethod
-    def create_or_update_character_artifacts(
+    def _create_or_update_character_artifacts(
         character: Character,
         mission_artifacts: list[MissionArtifact],
     ) -> None:
         """
         При наличии артефактов добавляем их персонажу
         """
-        character_artifacts = [
+        list_character_artifacts = [
             CharacterArtifact(
                 character=character,
                 artifact=mission_artifact.artifact,
             )
             for mission_artifact in mission_artifacts
         ]
-        CharacterArtifact.objects.bulk_create(objs=character_artifacts)
+        character_artifacts = CharacterArtifact.objects.bulk_create(objs=list_character_artifacts)
+
+        list_activity_logs = [
+            ActivityLog(
+                character=character,
+                text=_(f"Вы успешно завершили миссию {character_artifact.artifact}. Поздравляем!"),
+                content_object=character_artifact,
+            )
+            for character_artifact in character_artifacts
+        ]
+        ActivityLog.objects.bulk_create(list_activity_logs)
 
     @staticmethod
-    def create_or_update_character_competency(
+    def _create_or_update_character_competency(
         character: Character,
         mission_competencies: list[MissionCompetency],
+        now_datetime: datetime,
     ) -> None:
         """
         Получаем все компетенции, которые относятся к выполняемой миссии.
@@ -55,14 +68,14 @@ class CharacterMissionService(BaseService):
         Добавляем опыт к существующим, создаем новые и закрываем выполненные (при этом создаем следующие)
         """
         character_competencies = {
-            character_competency.competency.id: character_competency
+            character_competency.competency.name: character_competency
             for character_competency in CharacterCompetency.objects.select_related("competency").filter(
                 is_received=False
             )
         }
         for mission_competency in mission_competencies:
             competency = mission_competency.competency
-            character_competency = character_competencies.get(mission_competency.competency.id)
+            character_competency = character_competencies.get(mission_competency.competency.name)
             new_experience_for_character_competency = character_competency.experience + mission_competency.experience
             # Если опыта за компетенцию получено меньше, чем нужно для ее повышения, то просто сохраняем опыт.
             if new_experience_for_character_competency < competency.required_experience:
@@ -72,13 +85,16 @@ class CharacterMissionService(BaseService):
             # то сохраняем максимальный опыт и формируем следующую компетенцию.
             else:
                 character_competency.experience = competency.required_experience
+                character_competency.received_datetime = now_datetime
                 character_competency.is_received = True
                 character_competency.save()
-                if new_competence := Competency.objects.filter(parent=character_competency).first():
-                    new_character_competency = CharacterCompetency.objects.create(
+                if new_competence := Competency.objects.filter(parent=character_competency.competency).first():
+                    new_character_competency, created = CharacterCompetency.objects.update_or_create(
                         character=character,
                         competency=new_competence,
-                        experience=new_experience_for_character_competency - competency.required_experience,
+                        defaults={
+                            "experience": new_experience_for_character_competency - competency.required_experience,
+                        },
                     )
                     ActivityLog.objects.create(
                         character=character,
@@ -96,9 +112,10 @@ class CharacterMissionService(BaseService):
                     )
 
     @staticmethod
-    def create_or_update_character_rank(
+    def _create_or_update_character_rank(
         character: Character,
         character_mission: CharacterMission,
+        now_datetime: datetime,
     ) -> None:
         """
         Создать новый ранг или обновить информацию о старом.
@@ -106,6 +123,12 @@ class CharacterMissionService(BaseService):
         character_rank = character.character_ranks.filter(is_received=False).first()
         rank = character_rank.rank
         new_experience_for_character_rank = character_rank.experience + character_mission.mission.experience
+        Character.objects.filter(
+            id=character.id,
+        ).update(
+            experience=models.F("experience") + character_mission.mission.experience,
+            currency=models.F("currency") + character_mission.mission.currency,
+        )
         # Если опыта за ранг получено меньше, чем нужно для его повышения, то просто сохраняем опыт.
         if new_experience_for_character_rank < rank.required_experience:
             character_rank.experience = new_experience_for_character_rank
@@ -113,52 +136,18 @@ class CharacterMissionService(BaseService):
         # Если опыта за ранг получено больше или равно, чем нужно для его повышения,
         # то сохраняем максимальный опыт и формируем следующий ранг.
         else:
+            # Сохраняем опыт.
             character_rank.experience = rank.required_experience
-            character_rank.is_received = True
             character_rank.save()
+            new_rank = Rank.objects.filter(parent=character_rank.rank).first()
 
-            is_required_missions = (
-                Mission.objects.filter(rank=character_rank.rank)
-                .annotate(
-                    required_count=models.Count("required_missions"),
-                    completed_required_count=models.Subquery(
-                        CharacterMission.objects.filter(
-                            character=character,
-                            status=CharacterMission.Statuses.COMPLETED,
-                            mission__rank=character_rank.rank,
-                        )
-                        .values("mission")
-                        .annotate(count=models.Count("pk", distinct=True))
-                        .values("count")[:1]
-                    ),
-                )
-                .filter(required_count=models.F("completed_required_count"))
-                .exists()
-            )
-            is_required_rank_competency = (
-                RequiredRankCompetency.objects.filter(
-                    rank=character_rank.rank,
-                )
-                .annotate(
-                    required_count=models.Count("pk"),
-                    completed_required_count=models.Subquery(
-                        CharacterCompetency.objects.filter(
-                            character=character,
-                            mission__rank=character_rank.rank,
-                            is_received=True,
-                        )
-                        .values("competency")
-                        .annotate(count=models.Count("pk", distinct=True))
-                        .values("count")[:1]
-                    ),
-                )
-                .filter(required_count=models.F("completed_required_count"))
-                .exists()
-            )
-
-            new_rank = Rank.objects.filter(parent=character_rank).first()
-
-            if new_rank and is_required_missions and is_required_rank_competency:
+            if new_rank and character_service.check_condition_for_new_rank(
+                character=character,
+                rank=character_rank.rank,
+            ):
+                character_rank.is_received = True
+                character_rank.received_datetime = now_datetime
+                # TODO. Есть особенность, что опыт который был получен до соблюдения условий сгорает.
                 new_character_rank = CharacterRank.objects.create(
                     character=character,
                     rank=new_rank,
@@ -172,21 +161,20 @@ class CharacterMissionService(BaseService):
                     ),
                     content_object=new_character_rank,
                 )
-                now_datetime = now()
-                character_missions = [
-                    CharacterMission(
-                        character=character,
-                        mission=mission,
-                        start_datetime=now_datetime,
-                        end_datetime=now_datetime + timedelta(days=mission.time_to_complete),
-                    )
-                    for mission in Mission.objects.filter(
-                        is_active=True,
-                        branch__rank=new_rank,
-                        game_world=character.game_world,
-                    )
-                ]
-                CharacterMission.objects.bulk_create(objs=character_missions)
+                game_world = character.game_world
+                character_service.create_new_character_missions(
+                    character=character,
+                    rank=rank,
+                    game_world=game_world,
+                    now_datetime=now_datetime,
+                )
+                character_service.create_character_events(
+                    character=character,
+                    rank=rank,
+                    game_world=game_world,
+                    now_datetime=now_datetime,
+                )
+                character_rank.save()
             else:
                 ActivityLog.objects.create(
                     character=character,
@@ -194,13 +182,45 @@ class CharacterMissionService(BaseService):
                     content_object=character_rank.rank,
                 )
 
+    def action_post_mission_completed(
+        self,
+        character: Character,
+        character_mission: CharacterMission,
+    ):
+        """
+        Действия после завершения миссии.
+        """
+        now_datetime = timezone.now()
+        ActivityLog.objects.create(
+            character=character,
+            text=_(f"Вы успешно завершили миссию {character_mission.mission}. Поздравляем!"),
+            content_object=character_mission,
+        )
+        if mission_artifacts := character_mission.mission.mission_artifacts.all():
+            self._create_or_update_character_artifacts(
+                character=character,
+                mission_artifacts=list(mission_artifacts),
+            )
+        if mission_competencies := character_mission.mission.mission_competencies.select_related("competency").all():
+            self._create_or_update_character_competency(
+                character=character,
+                mission_competencies=list(mission_competencies),
+                now_datetime=now_datetime,
+            )
+        if character_mission.mission.experience > 0:
+            self._create_or_update_character_rank(
+                character=character,
+                character_mission=character_mission,
+                now_datetime=now_datetime,
+            )
+
     def update_from_character(
         self,
         character_mission: CharacterMission,
         validated_data: dict[str, Any],
     ) -> CharacterMission:
         """
-        Создание покупки пользователя.
+        Добавление результата к миссии.
         """
         CharacterMission.objects.filter(
             id=character_mission.id,
@@ -223,7 +243,7 @@ class CharacterMissionService(BaseService):
         validated_data: dict[str, Any],
     ) -> CharacterMission:
         """
-        Создание покупки пользователя.
+        Проверка результата миссии.
         """
         with transaction.atomic():
             CharacterMission.objects.filter(
@@ -250,30 +270,10 @@ class CharacterMissionService(BaseService):
                 .get(id=character_mission.id)
             )
             character = character_mission.character
-            if mission_artifacts := character_mission.mission.mission_artifacts.all():
-                self.create_or_update_character_artifacts(
-                    character=character,
-                    mission_artifacts=list(mission_artifacts),
-                )
             if character_mission.status == CharacterMission.Statuses.COMPLETED:
-                if mission_competencies := character_mission.mission.mission_competencies.select_related(
-                    "competency"
-                ).all():
-                    self.create_or_update_character_competency(
-                        character=character,
-                        mission_competencies=list(mission_competencies),
-                    )
-                if character_mission.mission.experience > 0:
-                    self.create_or_update_character_rank(
-                        character=character,
-                        character_mission=character_mission,
-                    )
-                character.currency = character.currency + character_mission.mission.currency
-                character.save()
-                ActivityLog.objects.create(
+                self.action_post_mission_completed(
                     character=character,
-                    text=_(f"Вы успешно завершили миссию {character_mission.mission}. Поздравляем!"),
-                    content_object=character_mission,
+                    character_mission=character_mission,
                 )
             else:
                 ActivityLog.objects.create(
@@ -284,7 +284,7 @@ class CharacterMissionService(BaseService):
 
         transaction.on_commit(
             lambda: send_mail_about_character_mission_for_character.delay(
-                character_mission=character_mission.id,
+                character_mission_id=character_mission.id,
             ),
         )
         return character_mission

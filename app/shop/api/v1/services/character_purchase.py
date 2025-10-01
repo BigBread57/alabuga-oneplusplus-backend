@@ -1,19 +1,19 @@
 from datetime import timedelta
 from typing import Any
 
-from django.db import transaction
+from django.db import models, transaction
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from rest_framework.exceptions import ValidationError
 
 from common.services import BaseService
 from game_world.models import Artifact
-from shop.models import ShopItem, UserPurchase
-from shop.tasks import send_mail_about_new_user_purchase
+from shop.models import CharacterPurchase, ShopItem
+from shop.tasks import send_mail_about_new_character_purchase
 from user.models import Character, CharacterArtifact, User
 
 
-class UserPurchaseService(BaseService):
+class CharacterPurchaseService(BaseService):
     """
     Покупки пользователя. Сервис.
     """
@@ -22,7 +22,7 @@ class UserPurchaseService(BaseService):
         self,
         validated_data: dict[str, Any],
         buyer: Character,
-    ) -> UserPurchase:
+    ) -> CharacterPurchase:
         """
         Создание покупки пользователя.
         """
@@ -62,55 +62,59 @@ class UserPurchaseService(BaseService):
                 is_active=(False if (new_number == 0 and shop_item.number != 0) else True),
             )
 
-            user_purchase = UserPurchase.objects.create(
+            character_purchase = CharacterPurchase.objects.create(
                 price=shop_item.price,
                 number=validated_data["number"],
                 discount=discount,
                 total_sum=total_sum,
-                status=UserPurchase.Statuses.PENDING,
+                status=CharacterPurchase.Statuses.PENDING,
                 buyer=buyer,
                 shop_item=shop_item,
             )
+            Character.objects.filter(
+                id=character.id,
+            ).update(currency=models.F("currency") - total_sum)
+
         transaction.on_commit(
-            lambda: send_mail_about_new_user_purchase.delay(user_purchase_id=user_purchase.id),
+            lambda: send_mail_about_new_character_purchase.delay(character_purchase_id=character_purchase.id),
         )
 
-        return user_purchase
+        return character_purchase
 
     def update(
         self,
-        user_purchase: UserPurchase,
+        character_purchase: CharacterPurchase,
         validated_data: dict[str, Any],
-    ) -> UserPurchase:
+    ) -> CharacterPurchase:
         """
         Изменение статуса покупки пользователя.
         """
-        UserPurchase.objects.filter(
-            id=user_purchase.id,
+        CharacterPurchase.objects.filter(
+            id=character_purchase.id,
         ).update(
             **validated_data,
         )
         transaction.on_commit(
-            lambda: send_mail_about_new_user_purchase.delay(user_purchase_id=user_purchase.id),
+            lambda: send_mail_about_new_character_purchase.delay(character_purchase_id=character_purchase.id),
         )
-        user_purchase.refresh_from_db()
+        character_purchase.refresh_from_db()
 
-        return user_purchase
+        return character_purchase
 
     def to_work(
         self,
-        user_purchase: UserPurchase,
+        character_purchase: CharacterPurchase,
         manager: User,
     ) -> None:
         """
         Создание покупки пользователя.
         """
-        UserPurchase.objects.filter(
-            id=user_purchase.id,
+        CharacterPurchase.objects.filter(
+            id=character_purchase.id,
         ).update(
             manager=manager,
         )
         return None
 
 
-user_purchase_service = UserPurchaseService()
+character_purchase_service = CharacterPurchaseService()

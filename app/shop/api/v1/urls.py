@@ -66,31 +66,31 @@ shop_item_urls = [
     ),
 ]
 
-user_purchase_urls = [
+character_purchase_urls = [
     path(
-        route="user-purchases/list/",
-        view=views.UserPurchaseListAPIView.as_view(),
-        name="user-purchases-list",
+        route="character-purchases/list/",
+        view=views.CharacterPurchaseListAPIView.as_view(),
+        name="character-purchases-list",
     ),
     path(
-        route="item/<int:pk>/detail/",
-        view=views.UserPurchaseDetailAPIView.as_view(),
-        name="user-purchases-detail",
+        route="character-purchases/<int:pk>/detail/",
+        view=views.CharacterPurchaseDetailAPIView.as_view(),
+        name="character-purchases-purchases-detail",
     ),
     path(
-        route="user-purchases/create/",
-        view=views.UserPurchaseCreateAPIView.as_view(),
-        name="user-purchases-create",
+        route="character-purchases/create/",
+        view=views.CharacterPurchaseCreateAPIView.as_view(),
+        name="character-purchases-create",
     ),
     path(
-        route="user-purchases/<int:pk>/update-status/",
-        view=views.UserPurchaseUpdateStatusAPIView.as_view(),
-        name="user-purchases-update-status",
+        route="character-purchases/<int:pk>/update-status/",
+        view=views.CharacterPurchaseUpdateStatusAPIView.as_view(),
+        name="character-purchases-update-status",
     ),
     path(
-        route="user-purchases/<int:pk>/to-work/",
-        view=views.UserPurchaseToWorkAPIView.as_view(),
-        name="user-purchases-to-work",
+        route="character-purchases/<int:pk>/to-work/",
+        view=views.CharacterPurchaseToWorkAPIView.as_view(),
+        name="character-purchases-to-work",
     ),
 ]
 
@@ -98,5 +98,5 @@ user_purchase_urls = [
 urlpatterns = [
     *shop_item_category_urls,
     *shop_item_urls,
-    *user_purchase_urls,
+    *character_purchase_urls,
 ]

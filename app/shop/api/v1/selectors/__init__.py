@@ -1,3 +1,8 @@
+from shop.api.v1.selectors.character_purchase import (
+    CharacterPurchaseDetailSelector,
+    CharacterPurchaseListFilterSerializer,
+    CharacterPurchaseListSelector,
+)
 from shop.api.v1.selectors.shop_item import (
     ShopItemDetailForBuySelector,
     ShopItemDetailSelector,
@@ -8,11 +13,6 @@ from shop.api.v1.selectors.shop_item import (
 from shop.api.v1.selectors.shop_item_category import (
     ShopItemCategoryListFilterSerializer,
     ShopItemCategoryListSelector,
-)
-from shop.api.v1.selectors.user_purchase import (
-    UserPurchaseDetailSelector,
-    UserPurchaseListFilterSerializer,
-    UserPurchaseListSelector,
 )
 
 __all__ = (
@@ -26,8 +26,8 @@ __all__ = (
     "ShopItemListFilterSerializer",
     "ShopItemListForBuySelector",
     "ShopItemDetailForBuySelector",
-    # UserPurchase
-    "UserPurchaseListSelector",
-    "UserPurchaseListFilterSerializer",
-    "UserPurchaseDetailSelector",
+    # CharacterPurchase
+    "CharacterPurchaseListSelector",
+    "CharacterPurchaseListFilterSerializer",
+    "CharacterPurchaseDetailSelector",
 )

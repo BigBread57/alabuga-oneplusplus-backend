@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import ShopItem, ShopItemCategory, UserPurchase
+from .models import CharacterPurchase, ShopItem, ShopItemCategory
 
 
 @admin.register(ShopItemCategory)
@@ -79,8 +79,8 @@ class ShopItemAdmin(admin.ModelAdmin):
     image_preview.short_description = "Превью"
 
 
-@admin.register(UserPurchase)
-class UserPurchaseAdmin(admin.ModelAdmin):
+@admin.register(CharacterPurchase)
+class CharacterPurchaseAdmin(admin.ModelAdmin):
     """
     Покупки пользователя.
     """

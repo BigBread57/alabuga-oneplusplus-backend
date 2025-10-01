@@ -47,7 +47,7 @@ class CompetencyAllInfoNestedSerializer(serializers.ModelSerializer):
             "game_world_stories",
         )
 
-    def get_parent(self, competency: Competency):
+    def get_parent(self, competency: Competency) -> "CompetencyAllInfoNestedSerializer":
         """Рекурсивно получаем всю цепочку родителей"""
         if competency.parent:
             return CompetencyAllInfoNestedSerializer(instance=competency.parent, context=self.context).data

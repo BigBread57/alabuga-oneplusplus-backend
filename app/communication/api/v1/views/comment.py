@@ -23,6 +23,8 @@ from communication.models import Comment
 class CommentListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Комментарий. Список.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = CommentListSelector
@@ -36,6 +38,7 @@ class CommentListAPIView(QuerySelectorMixin, GenericAPIView):
             status.HTTP_200_OK: CommentListSerializer(many=True),
         },
         tags=["communication:comment"],
+        exclude=True,
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -83,6 +86,8 @@ class CommentCreateAPIView(GenericAPIView):
 class CommentUpdateAPIView(GenericAPIView):
     """
     Комментарий. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Comment.objects.all()
@@ -95,6 +100,7 @@ class CommentUpdateAPIView(GenericAPIView):
             status.HTTP_200_OK: CommentDetailSerializer,
         },
         tags=["communication:comment"],
+        exclude=True,
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -122,6 +128,8 @@ class CommentUpdateAPIView(GenericAPIView):
 class CommentDeleteAPIView(GenericAPIView):
     """
     Комментарий. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Comment.objects.all()
@@ -132,6 +140,7 @@ class CommentDeleteAPIView(GenericAPIView):
             status.HTTP_204_NO_CONTENT: None,
         },
         tags=["communication:comment"],
+        exclude=True,
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:
         """

@@ -18,6 +18,7 @@ from game_world.api.v1.serializers import (
     EventDetailSerializer,
     EventListSerializer,
 )
+from game_world.api.v1.services import event_service
 from game_world.models import Event
 
 
@@ -170,5 +171,31 @@ class EventDeleteAPIView(GenericAPIView):
 
         return Response(
             data=ResponseDetailSerializer({"detail": _("Объект успешно удален")}).data,
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
+
+class EventCheckQrCodeAPIView(GenericAPIView):
+    """
+    Проверка qr кода. Удаление объекта.
+    """
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: ResponseDetailSerializer,
+        },
+        tags=["game_world:event"],
+    )
+    def delete(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Проверка qr кода.
+        """
+        event_service.check_qr_code(
+            character=request.user.active_character,
+            query_params=request.query_params,
+        )
+
+        return Response(
+            data=ResponseDetailSerializer({"detail": _("Qr code успешно считан")}).data,
             status=status.HTTP_204_NO_CONTENT,
         )

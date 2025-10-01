@@ -44,7 +44,7 @@ class Mission(AbstractBaseModel):
     )
     icon = models.ImageField(
         verbose_name=_("Иконка"),
-        upload_to="events",
+        upload_to="missions",
         null=True,
         blank=True,
     )
@@ -71,6 +71,12 @@ class Mission(AbstractBaseModel):
     time_to_complete = models.PositiveIntegerField(
         verbose_name=_("Количество дней на успешное выполнение миссии"),
         help_text=_("Количество дней на успешное выполнение миссии"),
+        null=True,
+        blank=True,
+    )
+    qr_code = models.ImageField(
+        verbose_name=_("QR код"),
+        upload_to="qr_code_missions",
         null=True,
         blank=True,
     )

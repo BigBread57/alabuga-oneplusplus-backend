@@ -52,6 +52,8 @@ class TopicListAPIView(QuerySelectorMixin, GenericAPIView):
 class TopicDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Тема. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = TopicDetailSelector
@@ -63,6 +65,7 @@ class TopicDetailAPIView(QuerySelectorMixin, GenericAPIView):
             status.HTTP_200_OK: TopicDetailSerializer,
         },
         tags=["communication:topic"],
+        exclude=True,
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -80,6 +83,8 @@ class TopicDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class TopicCreateAPIView(GenericAPIView):
     """
     Тема. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = TopicCreateOrUpdateSerializer
@@ -91,6 +96,7 @@ class TopicCreateAPIView(GenericAPIView):
             status.HTTP_201_CREATED: TopicDetailSerializer,
         },
         tags=["communication:topic"],
+        exclude=True,
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -112,6 +118,8 @@ class TopicCreateAPIView(GenericAPIView):
 class TopicUpdateAPIView(GenericAPIView):
     """
     Тема. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Topic.objects.all()
@@ -124,6 +132,7 @@ class TopicUpdateAPIView(GenericAPIView):
             status.HTTP_200_OK: TopicDetailSerializer,
         },
         tags=["communication:topic"],
+        exclude=True,
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -151,6 +160,8 @@ class TopicUpdateAPIView(GenericAPIView):
 class TopicDeleteAPIView(GenericAPIView):
     """
     Тема. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Topic.objects.all()
@@ -161,6 +172,7 @@ class TopicDeleteAPIView(GenericAPIView):
             status.HTTP_204_NO_CONTENT: None,
         },
         tags=["communication:topic"],
+        exclude=True,
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:
         """

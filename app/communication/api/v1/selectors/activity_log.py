@@ -8,9 +8,9 @@ from common.selectors import BaseSelector, CurrentCharacterDefault
 from communication.models import ActivityLog
 
 
-class ActivityLogCharacterFilterSerializer(serializers.Serializer):
+class ActivityLogForCharacterFilterSerializer(serializers.Serializer):
     """
-    Журнал событий. Список. Сериализатор для фильтра.
+    Журнал событий. Сериализатор для фильтра.
     """
 
     character = serializers.HiddenField(
@@ -20,7 +20,7 @@ class ActivityLogCharacterFilterSerializer(serializers.Serializer):
     )
 
 
-class ActivityLogListFilterSerializer(ActivityLogCharacterFilterSerializer):
+class ActivityLogListFilterSerializer(ActivityLogForCharacterFilterSerializer):
     """
     Журнал событий. Список. Сериализатор для фильтра.
     """
@@ -77,7 +77,7 @@ class ActivityLogReadSelector(BaseSelector):
         "character",
         "content_type",
     )
-    filter_class = ActivityLogCharacterFilterSerializer
+    filter_class = ActivityLogForCharacterFilterSerializer
 
 
 class ActivityLogContentTypeListSelector(BaseSelector):

@@ -10,7 +10,7 @@ class TopicListSerializer(serializers.ModelSerializer):
     Тема. Список.
     """
 
-    post_count = serializers.IntegerField(
+    number_post = serializers.IntegerField(
         label=_("Количество постов"),
         help_text=_("Количество постов"),
     )
@@ -22,7 +22,7 @@ class TopicListSerializer(serializers.ModelSerializer):
             "name",
             "icon",
             "color",
-            "post_count",
+            "number_post",
             "created_at",
         )
 

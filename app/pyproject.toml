@@ -32,6 +32,7 @@ locust = "^2.40"
 drf-standardized-errors = "^0.15.0"
 pillow = "^11.3.0"
 llama-index = "^0.14.3"
+qrcode = "^8.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24"  # https://github.com/psf/black

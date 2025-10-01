@@ -5,13 +5,13 @@ from typing import Any
 from uuid import UUID
 
 from django.apps import apps
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
-from django.db.models import Count
+from django.db.models.functions import DenseRank
 from django.utils.translation import gettext_lazy as _
 from llama_index.core import Settings
-from llama_index.core.llms import ChatMessage
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.openai import OpenAI
 
@@ -35,7 +35,7 @@ from game_world.models import (
 )
 from user.models import Character, CharacterMission, CharacterMissionBranch
 
-llm = OpenAI(model="gpt-4o")
+llm = OpenAI(model="gpt-4o", api_key=settings.OPENAI_API_KEY)
 embed_model = OpenAIEmbedding(model="text-embedding-3-small")
 Settings.llm = llm
 Settings.embed_model = embed_model
@@ -43,7 +43,7 @@ Settings.embed_model = embed_model
 
 class GameWorldService(BaseService):
     """
-    Покупки пользователя. Сервис.
+    Игровой мир. Сервис.
     """
 
     @staticmethod
@@ -53,13 +53,23 @@ class GameWorldService(BaseService):
         """
         content_type_info = {content_type.model: content_type.id for content_type in ContentType.objects.all()}
         # Из поля в GameWorldGenerateSerializer получаем названия модели.
-        model_info = {
+        generate_type_info = {
             name_field.replace("_generate_type", "").replace("_", " ").title().replace(" ", ""): value
             for name_field, value in validated_data.items()
+            if name_field.find("_generate_type") >= 0
+        }
+        generate_number_info = {
+            name_field.replace("_number", "").replace("_", " ").title().replace(" ", ""): value
+            for name_field, value in validated_data.items()
+            if name_field.find("_number") >= 0
         }
         content = (
             f"Необходимо сформировать объекты для игрового мира {game_world.name}\n (uuid={game_world.uuid})"
             f"{game_world.description}\n\n"
+            "Все объекты должны соответствовать этому сеттингу и быть основаны на реальных трудовых "
+            "компетенциях и событиях. Общие правила генерации. Все описания реальны, но стилизованы под игровой мир. "
+            "Компетенции, события, миссии и артефакты должны быть выполнимыми в реальной профессиональной деятельности."
+            "Задача: Сгенерировать JSON-объекты для следующих сущностей:"
         )
         # Идем по моделям, дял которых нужно что-то сформировать и создаем content.
         for app_config in {
@@ -67,23 +77,70 @@ class GameWorldService(BaseService):
             apps.get_app_config(app_label="game_world"),
         }:
             for model in app_config.get_models():
-                if model.__name__ in model_info.keys():
-                    generate_object_type = model_info.get(model.__name__).upper()
+                if model.__name__ in generate_type_info.keys():
+                    generate_object_type = getattr(GenerateObjectType, generate_type_info.get(model.__name__).upper())
                     # Указываем модель, тип генерации из GenerateObjectType и поля.
                     content += (
-                        f"Для {model.__name__} необходимо {getattr(GenerateObjectType, generate_object_type)}\n"
+                        f"Для {model.__name__} необходимо {generate_object_type.label}\n"
+                        f"Количество: {generate_number_info.get(model.__name__.lower())}\n"
                         f"{model.__doc__}\n\n"
+                        f"content_type_id={content_type_info.get(model.__name__.lower())}"
                     )
                     for field in model._meta.get_fields():
                         if getattr(field, "help_text", ""):
-                            content += (
-                                f"{field.name} - {str(getattr(field, 'help_text', ''))}\n"
-                                f"content_type_id={content_type_info.get(model.__name__.lower())}"
-                            )
+                            content += f"{field.name} - {str(getattr(field, 'help_text', ''))}\n"
 
                     # Обогащаем имеющимися данными.
                     if generate_object_type == GenerateObjectType.ADVICE:
-                        queryset = list(model.objects.filter(game_world=game_world).values())
+                        match model.__name__.lower():
+                            case "activitycategory":
+                                filters = models.Q()
+                            case "missionlevel":
+                                filters = models.Q()
+                            case "requiredrankcompetency":
+                                filters = models.Q(
+                                    rank__game_world=game_world,
+                                    competency__game_world=game_world,
+                                )
+                            case "eventartifact":
+                                filters = models.Q(
+                                    event__game_world=game_world,
+                                    artifact__game_world=game_world,
+                                )
+                            case "eventcompetency":
+                                filters = models.Q(
+                                    event__game_world=game_world,
+                                    competency__game_world=game_world,
+                                )
+                            case "missionartifact":
+                                filters = models.Q(
+                                    mission__game_world=game_world,
+                                    artifact__game_world=game_world,
+                                )
+                            case "missioncompetency":
+                                filters = models.Q(
+                                    mission__game_world=game_world,
+                                    competency__game_world=game_world,
+                                )
+                            case _:
+                                filters = models.Q(game_world=game_world)
+
+                        all_fields = [
+                            field.name
+                            for field in model._meta.get_fields()
+                            if isinstance(field, models.Field)
+                            and field.name
+                            not in [
+                                "color",
+                                "icon",
+                                "image",
+                                "content_object",
+                                "created_at",
+                                "updated_at",
+                            ]
+                        ]
+
+                        queryset = list(model.objects.filter(filters).values(*all_fields))
                         content += (
                             "Существующие объекты:\n"
                             f"{json.dumps(queryset, cls=DjangoJSONEncoder, indent=2, ensure_ascii=False)}"
@@ -111,10 +168,12 @@ class GameWorldService(BaseService):
         for character_mission_branch in (
             CharacterMissionBranch.objects.select_related(
                 "branch",
-            ).filter(
+            )
+            .filter(
                 branch__is_active=True,
                 branch__game_world=game_world,
-            ).annotate(
+            )
+            .annotate(
                 total_missions=models.Count("branch__missions", distinct=True),
                 completed_character_missions=models.Count(
                     "character_missions",
@@ -123,11 +182,12 @@ class GameWorldService(BaseService):
                     ),
                     distinct=True,
                 ),
-            ).annotate(
+            )
+            .annotate(
                 is_fully_completed=models.Case(
                     models.When(
                         total_missions=models.F("completed_character_missions"),
-                        then=True
+                        then=True,
                     ),
                     default=False,
                     output_field=models.BooleanField(),
@@ -139,36 +199,36 @@ class GameWorldService(BaseService):
             else:
                 mission_branches[character_mission_branch.branch.name] = []
 
-        missions = (
-            Mission.objects.filter(
-                is_active=True,
-                game_world=game_world,
-            )
-            .annotate(
-                total_character_missions=models.Count("character_missions", distinct=True),
-                completed_character_missions=models.Count(
-                    "character_missions",
-                    filter=models.Q(character_missions__status=CharacterMission.Statuses.COMPLETED),
-                    distinct=True,
-                ),
-            )
+        missions = Mission.objects.filter(
+            is_active=True,
+            game_world=game_world,
+        ).annotate(
+            total_character_missions=models.Count("character_missions", distinct=True),
+            completed_character_missions=models.Count(
+                "character_missions",
+                filter=models.Q(character_missions__status=CharacterMission.Statuses.COMPLETED),
+                distinct=True,
+            ),
         )
 
         completed_or_failed_character_missions = [
             [
                 {
-                    "date": character_mission.final_status_date,
-                    "value": character_mission.completed,
+                    "date": character_mission["final_status_date"],
+                    "value": character_mission["completed"],
                     "type": "Выполнено",
                 },
                 {
-                    "date": character_mission.final_status_date,
-                    "value": character_mission.failed,
+                    "date": character_mission["final_status_date"],
+                    "value": character_mission["failed"],
                     "type": "Провалено",
                 },
             ]
             for character_mission in CharacterMission.objects.filter(
-                status__in={CharacterMission.Statuses.COMPLETED, CharacterMission.Statuses.FAILED},
+                status__in={
+                    CharacterMission.Statuses.COMPLETED,
+                    CharacterMission.Statuses.FAILED,
+                },
             )
             .values(
                 "final_status_datetime__date",
@@ -180,15 +240,57 @@ class GameWorldService(BaseService):
             )
         ]
 
+        characters = (
+            Character.objects.select_related("user")
+            .annotate(
+                character_missions_number=models.Count("character_missions", distinct=True),
+                character_events_number=models.Count("character_events", distinct=True),
+                character_artifacts_number=models.Count("character_artifacts", distinct=True),
+                character_competencies_number=models.Count("character_competencies", distinct=True),
+            )
+            .annotate(
+                character_missions_place=models.Window(
+                    expression=DenseRank(),
+                    order_by=models.F("character_missions_number").desc(),
+                ),
+                character_events_place=models.Window(
+                    expression=DenseRank(),
+                    order_by=models.F("character_events_number").desc(),
+                ),
+                character_artifacts_place=models.Window(
+                    expression=DenseRank(),
+                    order_by=models.F("character_artifacts_number").desc(),
+                ),
+                character_competencies_place=models.Window(
+                    expression=DenseRank(),
+                    order_by=models.F("character_competencies_number").desc(),
+                ),
+            )
+        )
+
         return {
-            # https://ant-design-charts.antgroup.com/examples/statistics/radial-bar#background
-            "grouping_character_by_ranks": [
-                {"name": rank.name, "star": rank.characters_count}
-                for rank in Rank.objects.filter(game_world=game_world).annotate(
-                    characters_count=models.Count("characters"),
-                )
+            "top_characters": [
+                {
+                    "character_missions_place": character.character_missions_place,
+                    "character_missions_number": character.character_missions_number,
+                    "character_events_place": character.character_events_place,
+                    "character_events_number": character.character_events_number,
+                    "character_artifacts_place": character.character_artifacts_place,
+                    "character_artifacts_number": character.character_artifacts_number,
+                    "character_competencies_place": character.character_competencies_place,
+                    "character_competencies_number": character.character_competencies_number,
+                    "character_name": character.user.full_name,
+                }
+                for character in characters
             ],
-            # https://ant-design-charts.antgroup.com/examples/statistics/bar/#bar
+            "grouping_character_by_ranks": [
+                {"name": rank.name, "star": rank.characters_number}
+                for rank in Rank.objects.filter(game_world=game_world)
+                .annotate(
+                    characters_number=models.Count("characters"),
+                )
+                .order_by("-parent")
+            ],
             "number_of_character_who_closed_the_mission_branch": [
                 {
                     "letter": mission_branch_name,
@@ -196,7 +298,6 @@ class GameWorldService(BaseService):
                 }
                 for mission_branch_name, character_mission_branches in mission_branches.items()
             ],
-            # https://ant-design-charts.antgroup.com/examples/statistics/bar/#bar
             "number_of_character_who_closed_the_mission": [
                 {
                     "letter": mission.name,
@@ -208,7 +309,6 @@ class GameWorldService(BaseService):
                 }
                 for mission in missions
             ],
-            # https://ant-design-charts.antgroup.com/examples/statistics/column/#annotation-label
             "completed_or_failed_character_missions": list(chain(*completed_or_failed_character_missions)),
         }
 
@@ -278,6 +378,20 @@ class GameWorldService(BaseService):
             },
         ]
 
+    @staticmethod
+    def transform_ai_response_to_dict(ai_data):
+        """Преобразует данные от ИИ в словарь для GameDataModel"""
+        result = {}
+        for section_name, items in ai_data:
+            transformed_items = []
+            for item in items:
+                item_dict = {}
+                for key, value in item:
+                    item_dict[key] = value
+                transformed_items.append(item_dict)
+            result[section_name] = transformed_items
+        return result
+
     def generate(
         self,
         game_world: GameWorld,
@@ -286,14 +400,17 @@ class GameWorldService(BaseService):
         """
         Игровой мир. Генерация.
         """
-        sllm = llm.as_structured_llm(output_cls=GameDataModel)
-        input_msg = ChatMessage.from_str(
-            content=self.get_content_for_model(
-                game_world=game_world,
-                validated_data=validated_data,
-            )
+        # prompt = content=self.get_content_for_model(
+        #     game_world=game_world,
+        #     validated_data=validated_data,
+        # )
+        game_data = (
+            llm.as_structured_llm(output_cls=GameDataModel)
+            .complete(prompt="Сформируй мне по 1 объекту для класса, переданного в output_cls")
+            .raw
         )
-        return sllm.chat([input_msg])
+        transformed_game_data = self.transform_ai_response_to_dict(game_data)
+        return GameDataModel(**transformed_game_data).model_dump()
 
     def create_or_update_entities_optimized(
         self,

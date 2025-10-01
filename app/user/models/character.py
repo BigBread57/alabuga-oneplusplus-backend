@@ -28,6 +28,10 @@ class Character(AbstractBaseModel):
         verbose_name=_("Валюта"),
         default=0,
     )
+    experience = models.PositiveIntegerField(
+        verbose_name=_("Опыт"),
+        default=0,
+    )
     is_active = models.BooleanField(
         verbose_name=_("Активный персонаж или нет"),
         default=True,

@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from common.views import QuerySelectorMixin
 from user.api.v1.selectors import (
     CharacterCompetencyDetailSelector,
-    CharacterCompetencyListOrDetailFilterSerializer,
+    CharacterCompetencyForCharacterFilterSerializer,
     CharacterCompetencyListSelector,
 )
 from user.api.v1.serializers import (
@@ -23,7 +23,7 @@ class CharacterCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
 
     selector = CharacterCompetencyListSelector
     serializer_class = CharacterCompetencyListSerializer
-    filter_params_serializer_class = CharacterCompetencyListOrDetailFilterSerializer
+    filter_params_serializer_class = CharacterCompetencyForCharacterFilterSerializer
     search_fields = ("name",)
 
     @extend_schema(
@@ -46,17 +46,20 @@ class CharacterCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
 class CharacterCompetencyDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Уровень компетенции персонажа. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = CharacterCompetencyDetailSelector
     serializer_class = CharacterCompetencyDetailSerializer
-    filter_params_serializer_class = CharacterCompetencyListOrDetailFilterSerializer
+    filter_params_serializer_class = CharacterCompetencyForCharacterFilterSerializer
 
     @extend_schema(
         responses={
             status.HTTP_200_OK: CharacterCompetencyDetailSerializer,
         },
         tags=["user:character_competency"],
+        exclude=True,
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """

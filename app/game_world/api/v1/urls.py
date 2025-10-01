@@ -54,6 +54,11 @@ event_urls = [
         view=views.EventDeleteAPIView.as_view(),
         name="events-delete",
     ),
+    path(
+        route="events/check-qr-code/",
+        view=views.EventCheckQrCodeAPIView.as_view(),
+        name="events-check-qr-code",
+    ),
 ]
 
 game_world_urls = [
@@ -83,12 +88,17 @@ game_world_urls = [
         name="game-worlds-delete",
     ),
     path(
-        route="game-worlds/<int:pk>info-for-generate/",
+        route="game-worlds/<int:pk>/info-for-generate/",
         view=views.GameWorldInfoForGenerateAPIView.as_view(),
         name="game-worlds-info-for-generate",
     ),
     path(
-        route="game-worlds/<int:pk>statistics/",
+        route="game-worlds/<int:pk>/generate/",
+        view=views.GameWorldGenerateAPIView.as_view(),
+        name="game-worlds-generate",
+    ),
+    path(
+        route="game-worlds/<int:pk>/statistics/",
         view=views.GameWorldStatisticsAPIView.as_view(),
         name="game-worlds-statistics",
     ),

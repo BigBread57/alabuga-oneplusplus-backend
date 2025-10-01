@@ -78,6 +78,11 @@ class GameWorldStatisticsSerializer(serializers.Serializer):
     Игровой мир. Статистика.
     """
 
+    top_characters = serializers.ListSerializer(
+        child=serializers.DictField(),
+        label=_("Топ персонажей"),
+        help_text=_("Топ персонажей"),
+    )
     grouping_character_by_ranks = serializers.ListSerializer(
         child=serializers.DictField(),
         label=_("Группировка персонажей по рангам"),
@@ -110,70 +115,140 @@ class GameWorldGenerateSerializer(serializers.Serializer):
         help_text=_("Тип генерации рангов"),
         choices=GenerateObjectType.choices,
     )
+    rank_generate_number = serializers.IntegerField(
+        label=_("Количество рангов"),
+        help_text=_("Количество рангов"),
+        default=1,
+    )
     competency_generate_type = serializers.ChoiceField(
         label=_("Тип генерации компетенций"),
         help_text=_("Тип генерации компетенций"),
         choices=GenerateObjectType.choices,
+    )
+    competency_number = serializers.IntegerField(
+        label=_("Количество компетенций"),
+        help_text=_("Количество компетенций"),
+        default=1,
     )
     required_rank_competency_generate_type = serializers.ChoiceField(
         label=_("Тип генерации требований к компетенциям"),
         help_text=_("Тип генерации требований к компетенциям"),
         choices=GenerateObjectType.choices,
     )
+    required_rank_competency_number = serializers.IntegerField(
+        label=_("Количество требований к компетенциям"),
+        help_text=_("Количество требований к компетенциям"),
+        default=1,
+    )
     activity_category_competency_generate_type = serializers.ChoiceField(
         label=_("Тип генерации категорий активности"),
         help_text=_("Тип генерации категорий активности"),
         choices=GenerateObjectType.choices,
     )
+    activity_category_number = serializers.IntegerField(
+        label=_("Количество категорий активности"),
+        help_text=_("Количество категорий активности"),
+        default=1,
+    )
     artifact_generate_type = serializers.ChoiceField(
-        label=_("Тип генерации артефакта"),
-        help_text=_("Тип генерации артефакта"),
+        label=_("Тип генерации артефактов"),
+        help_text=_("Тип генерации артефактов"),
         choices=GenerateObjectType.choices,
+    )
+    artifact_number = serializers.IntegerField(
+        label=_("Количество артефактов"),
+        help_text=_("Количество артефактов"),
+        default=1,
     )
     event_generate_type = serializers.ChoiceField(
         label=_("Тип генерации событий"),
         help_text=_("Тип генерации событий"),
         choices=GenerateObjectType.choices,
     )
+    event_number = serializers.IntegerField(
+        label=_("Количество событий"),
+        help_text=_("Количество событий"),
+        default=1,
+    )
     event_artifact_generate_type = serializers.ChoiceField(
         label=_("Тип генерации артефактов событий"),
         help_text=_("Тип генерации артефактов событий"),
         choices=GenerateObjectType.choices,
+    )
+    event_artifact_number = serializers.IntegerField(
+        label=_("Количество артефактов событий"),
+        help_text=_("Количество артефактов событий"),
+        default=1,
     )
     event_competency_generate_type = serializers.ChoiceField(
         label=_("Тип генерации компетенций событий"),
         help_text=_("Тип генерации компетенций событий"),
         choices=GenerateObjectType.choices,
     )
+    event_competency_number = serializers.IntegerField(
+        label=_("Количество компетенций событий"),
+        help_text=_("Количество компетенций событий"),
+        default=1,
+    )
     game_world_story_generate_type = serializers.ChoiceField(
         label=_("Тип генерации историй игрового мира"),
         help_text=_("Тип генерации историй игрового мира"),
         choices=GenerateObjectType.choices,
+    )
+    game_world_story_number = serializers.IntegerField(
+        label=_("Количество историй игрового мира"),
+        help_text=_("Количество историй игрового мира"),
+        default=1,
     )
     mission_generate_type = serializers.ChoiceField(
         label=_("Тип генерации миссий"),
         help_text=_("Тип генерации миссий"),
         choices=GenerateObjectType.choices,
     )
+    mission_number = serializers.IntegerField(
+        label=_("Количество миссий"),
+        help_text=_("Количество миссий"),
+        default=1,
+    )
     mission_artifact_generate_type = serializers.ChoiceField(
         label=_("Тип генерации артефактов миссий"),
         help_text=_("Тип генерации артефактов миссий"),
         choices=GenerateObjectType.choices,
+    )
+    mission_artifact_number = serializers.IntegerField(
+        label=_("Количество артефактов миссий"),
+        help_text=_("Количество артефактов миссий"),
+        default=1,
     )
     mission_competency_generate_type = serializers.ChoiceField(
         label=_("Тип генерации компетенций миссий"),
         help_text=_("Тип генерации компетенций миссий"),
         choices=GenerateObjectType.choices,
     )
+    mission_competency_number = serializers.IntegerField(
+        label=_("Количество компетенций миссий"),
+        help_text=_("Количество компетенций миссий"),
+        default=1,
+    )
     mission_branch_generate_type = serializers.ChoiceField(
         label=_("Тип генерации веток миссий"),
         help_text=_("Тип генерации веток миссий"),
         choices=GenerateObjectType.choices,
     )
+    mission_branch_number = serializers.IntegerField(
+        label=_("Количество веток миссий"),
+        help_text=_("Количество веток миссий"),
+        default=1,
+    )
     mission_level_generate_type = serializers.ChoiceField(
         label=_("Тип генерации уровней сложности миссий"),
         help_text=_("Тип генерации уровней сложности миссий"),
         choices=GenerateObjectType.choices,
+    )
+    mission_level_number = serializers.IntegerField(
+        label=_("Количество уровней сложности"),
+        help_text=_("Количество уровней сложности"),
+        default=1,
     )
 
 

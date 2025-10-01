@@ -100,7 +100,7 @@ class CharacterMissionUpdateFromCharacterSerializer(serializers.ModelSerializer)
         fields = ("result",)
 
 
-class CharacterMissionUpdateFromInspectorSerializer(serializers.ModelSerializer):
+class CharacterMissionUpdateForInspectorSerializer(serializers.ModelSerializer):
     """
     Событие персонажа. Изменение со стороны персонажа.
     """

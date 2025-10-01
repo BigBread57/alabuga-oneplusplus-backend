@@ -1,11 +1,26 @@
+from datetime import datetime, timedelta
 from typing import Any
 
 from django.db import models
+from django.utils.timezone import now
 
 from common.services import BaseService
-from game_mechanics.models import Competency
-from game_world.models import Artifact, Event, Mission, MissionLevel
-from user.models import Character, CharacterCompetency, CharacterEvent, CharacterMission
+from game_mechanics.models import Competency, Rank, RequiredRankCompetency
+from game_world.models import (
+    Artifact,
+    Event,
+    GameWorld,
+    Mission,
+    MissionBranch,
+    MissionLevel,
+)
+from user.models import (
+    Character,
+    CharacterCompetency,
+    CharacterEvent,
+    CharacterMission,
+    CharacterMissionBranch,
+)
 
 
 class CharacterService(BaseService):
@@ -13,8 +28,8 @@ class CharacterService(BaseService):
     Персонаж пользователя. Сервис.
     """
 
+    @staticmethod
     def statistics(
-        self,
         character: Character,
     ) -> dict[str, Any]:
         """
@@ -29,9 +44,7 @@ class CharacterService(BaseService):
             )
             for mission_level_name in mission_level_names
         }
-        character_mission_level_statistics = character.character_missions.filter(mission__isnull=False).aggregate(
-            **filters
-        )
+        character_mission_level_statistics = character.character_missions.aggregate(**filters)
 
         game_world_statistics = {
             "total_missions": Mission.objects.filter(game_world=character.game_world, is_active=True).count(),
@@ -159,6 +172,111 @@ class CharacterService(BaseService):
                 ],
             },
         }
+
+    @staticmethod
+    def create_new_character_missions(
+        character: Character,
+        rank: Rank,
+        game_world: GameWorld,
+        now_datetime: datetime = now(),
+    ) -> None:
+        """
+        Создать миссии для персонажа.
+        """
+        character_missions = []
+        for mission_branch in MissionBranch.objects.filter(is_active=True, rank=rank, game_world=game_world):
+            character_mission_branch = CharacterMissionBranch.objects.create(
+                character=character,
+                branch=mission_branch,
+                start_datetime=now_datetime,
+                end_datetime=now_datetime + timedelta(days=mission_branch.time_to_complete),
+                mentor=mission_branch.mentor,
+            )
+            character_missions = [
+                CharacterMission(
+                    character=character,
+                    mission=mission,
+                    branch=character_mission_branch,
+                    start_datetime=now_datetime,
+                    end_datetime=now_datetime + timedelta(days=mission.time_to_complete),
+                    mentor=(mission.mentor if mission.mentor else character_mission_branch.mentor),
+                )
+                for mission in Mission.objects.filter(is_active=True, branch=mission_branch, game_world=game_world)
+            ]
+
+        CharacterMission.objects.bulk_create(objs=character_missions)
+        return None
+
+    @staticmethod
+    def create_character_events(
+        character: Character,
+        rank: Rank,
+        game_world: GameWorld,
+        now_datetime: datetime = now(),
+    ) -> None:
+        """
+        Создать события для персонажа.
+        """
+        character_events = [
+            CharacterEvent(
+                character=character,
+                event=event,
+                start_datetime=now_datetime,
+                end_datetime=now_datetime + timedelta(days=event.time_to_complete),
+                mentor=event.mentor,
+            )
+            for event in Event.objects.filter(is_active=True, rank=rank, game_world=game_world)
+        ]
+        CharacterEvent.objects.bulk_create(objs=character_events)
+        return None
+
+    @staticmethod
+    def create_character_competencies(
+        character: Character,
+        game_world: GameWorld,
+    ) -> None:
+        """
+        Создать компетенции для персонажа.
+        """
+        character_competencies = [
+            CharacterCompetency(
+                character=character,
+                competency=competency,
+            )
+            for competency in Competency.objects.filter(
+                game_world=game_world,
+                parent__isnull=True,
+            )
+        ]
+
+        CharacterCompetency.objects.bulk_create(objs=character_competencies)
+        return None
+
+    @staticmethod
+    def check_condition_for_new_rank(
+        character: Character,
+        rank: Rank,
+    ) -> bool:
+        """
+        Проверить условия для повышения ранга.
+        """
+        required_missions = Mission.objects.filter(branch__rank=rank, is_key_mission=True).count()
+        completed_required_character_missions = CharacterMission.objects.filter(
+            character=character,
+            status=CharacterMission.Statuses.COMPLETED,
+            mission__branch__rank=rank,
+            mission__is_key_mission=True,
+        ).count()
+        required_rank_competency = RequiredRankCompetency.objects.filter(
+            rank=rank,
+        ).values_list("competency", flat=True)
+        completed_required_character_rank_competency = CharacterCompetency.objects.filter(
+            character=character,
+            is_received=True,
+        ).values_list("competency__id", flat=True)
+        return required_missions == completed_required_character_missions and set(required_rank_competency).issubset(
+            set(completed_required_character_rank_competency)
+        )
 
 
 character_service = CharacterService()

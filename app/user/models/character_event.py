@@ -20,7 +20,7 @@ class CharacterEvent(AbstractBaseModel):
         """
 
         IN_PROGRESS = "IN_PROGRESS", _("В процессе")
-        COMPLETED = "COMPLETED", _("Выполнена")
+        COMPLETED = "COMPLETED", _("Завершена")
         NEED_IMPROVEMENT = "NEED_IMPROVEMENT", _("Требует доработки")
         PENDING_REVIEW = "PENDING_REVIEW", _("На проверке")
         FAILED = "FAILED", _("Провалена")
@@ -38,7 +38,7 @@ class CharacterEvent(AbstractBaseModel):
         default=Statuses.IN_PROGRESS,
     )
     start_datetime = models.DateTimeField(
-        verbose_name=_("Дата и время когда задача получена"),
+        verbose_name=_("Дата и время, когда задача получена"),
         null=True,
         blank=True,
     )

@@ -35,7 +35,7 @@ class TopicListSelector(BaseSelector):
     """
 
     queryset = Topic.objects.annotate(
-        post_count=models.Count("posts"),
+        number_post=models.Count("posts"),
     )
     filter_class = TopicListFilter
 

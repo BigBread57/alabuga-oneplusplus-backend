@@ -5,23 +5,21 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserInspectorForObjectPermission
 from common.views import QuerySelectorMixin
 from user.api.v1.selectors import (
-    CharacterMissionDetailSelector,
     CharacterMissionListFilterSerializer,
+    CharacterMissionListForInspectorFilterSerializer,
+    CharacterMissionListForInspectorSelector,
     CharacterMissionListSelector,
-    CharacterMissionUpdateFromCharacterSelector,
-    CharacterMissionUpdateFromInspectorSelector,
 )
-# from user.api.v1.selectors.character_mission import CharacterMissionBranchListSelector
 from user.api.v1.serializers import (
     CharacterMissionDetailSerializer,
     CharacterMissionListSerializer,
+    CharacterMissionUpdateForInspectorSerializer,
     CharacterMissionUpdateFromCharacterSerializer,
-    CharacterMissionUpdateFromInspectorSerializer,
 )
 from user.api.v1.services import character_mission_service
+from user.models import CharacterMission
 
 
 class CharacterMissionListAPIView(QuerySelectorMixin, GenericAPIView):
@@ -51,41 +49,17 @@ class CharacterMissionListAPIView(QuerySelectorMixin, GenericAPIView):
 
         return self.get_paginated_response(data=serializer.data)
 
-#
-# class CharacterMissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):
-#     """
-#     Ветка миссии персонажа. Список.
-#     """
-#
-#     selector = CharacterMissionBranchListSelector
-#     serializer_class = CharacterMissionListSerializer
-#     filter_params_serializer_class = CharacterMissionListFilterSerializer
-#     search_fields = ("name",)
-#
-#     @extend_schema(
-#         parameters=[CharacterMissionListFilterSerializer],
-#         responses={
-#             status.HTTP_200_OK: CharacterMissionListSerializer(many=True),
-#         },
-#         tags=["user:character_mission"],
-#     )
-#     def get(self, request: Request, *args, **kwargs) -> Response:
-#         """
-#         Список объектов.
-#         """
-#         queryset = self.filter_queryset(queryset=self.get_queryset())
-#         page = self.paginate_queryset(queryset=queryset)
-#         serializer = self.get_serializer(page, many=True)
-#
-#         return self.get_paginated_response(data=serializer.data)
 
-
-class CharacterMissionDetailAPIView(QuerySelectorMixin, GenericAPIView):
+class CharacterMissionDetailAPIView(GenericAPIView):
     """
     Миссия персонажа. Детальная информация.
     """
 
-    selector = CharacterMissionDetailSelector
+    queryset = CharacterMission.objects.select_related(
+        "character",
+        "mission",
+        "inspector",
+    )
     serializer_class = CharacterMissionDetailSerializer
 
     @extend_schema(
@@ -107,12 +81,16 @@ class CharacterMissionDetailAPIView(QuerySelectorMixin, GenericAPIView):
         )
 
 
-class CharacterMissionUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIView):
+class CharacterMissionUpdateFromCharacterAPIView(GenericAPIView):
     """
     Миссия персонажа. Изменение со стороны персонажа.
     """
 
-    selector = CharacterMissionUpdateFromCharacterSelector
+    queryset = CharacterMission.objects.select_related(
+        "character",
+        "mission",
+        "inspector",
+    )
     serializer_class = CharacterMissionUpdateFromCharacterSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -148,18 +126,22 @@ class CharacterMissionUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIV
         )
 
 
-class CharacterMissionUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIView):
+class CharacterMissionUpdateForInspectorAPIView(GenericAPIView):
     """
     Миссия персонажа. Изменение со стороны проверяющего.
     """
 
-    selector = CharacterMissionUpdateFromInspectorSelector
-    serializer_class = CharacterMissionUpdateFromInspectorSerializer
-    permission_classes = (UserInspectorForObjectPermission,)
+    queryset = CharacterMission.objects.select_related(
+        "character",
+        "mission",
+        "inspector",
+    )
+    serializer_class = CharacterMissionUpdateForInspectorSerializer
+    # permission_classes = (UserInspectorForObjectPermission,)
 
     @extend_schema(
         responses={
-            status.HTTP_200_OK: CharacterMissionUpdateFromInspectorSerializer,
+            status.HTTP_200_OK: CharacterMissionUpdateForInspectorSerializer,
         },
         tags=["user:character_mission"],
     )
@@ -173,7 +155,10 @@ class CharacterMissionUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIV
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        character_mission = character_mission_service.update_from_inspector(character_mission)
+        character_mission = character_mission_service.update_from_inspector(
+            character_mission=character_mission,
+            validated_data=serializer.validated_data,
+        )
         if getattr(character_mission, "_prefetched_objects_cache", None):
             character_mission._prefetched_objects_cache = {}
 
@@ -184,3 +169,32 @@ class CharacterMissionUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIV
             ).data,
             status=status.HTTP_200_OK,
         )
+
+
+class CharacterMissionListForInspectorAPIView(QuerySelectorMixin, GenericAPIView):
+    """
+    Миссия персонажа для проверяющего. Список.
+    """
+
+    selector = CharacterMissionListForInspectorSelector
+    serializer_class = CharacterMissionListSerializer
+    filter_params_serializer_class = CharacterMissionListForInspectorFilterSerializer
+    search_fields = ("name",)
+    # permission_classes = (UserInspectorForObjectPermission,)
+
+    @extend_schema(
+        parameters=[CharacterMissionListForInspectorFilterSerializer],
+        responses={
+            status.HTTP_200_OK: CharacterMissionListSerializer(many=True),
+        },
+        tags=["user:character_mission"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Список объектов.
+        """
+        queryset = self.filter_queryset(queryset=self.get_queryset())
+        page = self.paginate_queryset(queryset=queryset)
+        serializer = self.get_serializer(page, many=True)
+
+        return self.get_paginated_response(data=serializer.data)

@@ -6,9 +6,9 @@ from django.utils.translation import gettext_lazy as _
 from common.models import AbstractBaseModel
 
 
-class UserPurchase(AbstractBaseModel):
+class CharacterPurchase(AbstractBaseModel):
     """
-    Покупки пользователя.
+    Покупки персонажа.
     """
 
     class Statuses(models.TextChoices):
@@ -18,8 +18,8 @@ class UserPurchase(AbstractBaseModel):
 
         PENDING = "PENDING", _("В обработке")
         CONFIRMED = "CONFIRMED", _("Подтверждена")
+        SENT = "SENT", _("Отправлена")
         DELIVERED = "DELIVERED", _("Доставлена")
-        CANCELLED = "CANCELLED", _("Отменена")
 
     uuid = models.UUIDField(
         verbose_name=_("UUID"),

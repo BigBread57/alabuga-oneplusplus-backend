@@ -64,3 +64,12 @@ class FieldNameForGenerate:
         MISSION_BRANCH_GENERATE_TYPE,
         MISSION_LEVEL_GENERATE_TYPE,
     }
+
+
+class QrCodeTypes:
+    """
+    Тип Qr code.
+    """
+
+    CREATE = "CREATE", _("Создать")
+    COMPLETE = "COMPLETE", _("Завершить")

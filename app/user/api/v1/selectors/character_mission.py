@@ -1,12 +1,23 @@
 import django_filters
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-from rest_framework.fields import CurrentUserDefault
 
-from common.constants import CharacterRoles
 from common.selectors import BaseSelector, CurrentCharacterDefault
 from game_world.models import MissionBranch
-from user.models import CharacterMission, User
+from user.models import Character, CharacterMission
+
+
+class CharacterMissionForCharacterFilterSerializer(serializers.Serializer):
+    """
+    Миссия персонажа. Сериализатор для фильтра.
+    """
+
+    character = serializers.HiddenField(
+        label=_("Персонаж"),
+        help_text=_("Персонаж"),
+        default=CurrentCharacterDefault(),
+    )
 
 
 class CharacterMissionListFilterSerializer(serializers.Serializer):
@@ -14,40 +25,41 @@ class CharacterMissionListFilterSerializer(serializers.Serializer):
     Миссия персонажа. Список. Сериализатор для фильтра.
     """
 
+    character = serializers.HiddenField(
+        label=_("Персонаж"),
+        help_text=_("Персонаж"),
+        default=CurrentCharacterDefault(),
+    )
     status = serializers.ChoiceField(
         label=_("Статус"),
         help_text=_("Статус"),
         choices=CharacterMission.Statuses.choices,
         required=True,
     )
-    character = serializers.HiddenField(
+
+
+class CharacterMissionListForInspectorFilterSerializer(serializers.Serializer):
+    """
+    Миссия персонажа для проверябщего. Сериализатор для фильтра.
+    """
+
+    character = serializers.PrimaryKeyRelatedField(
         label=_("Персонаж"),
         help_text=_("Персонаж"),
-        default=CurrentCharacterDefault(),
+        queryset=Character.objects.all(),
+        required=False,
     )
-
-
-class CharacterMissionDetailOrUpdateFilterSerializer(serializers.Serializer):
-    """
-    Миссия персонажа. Детальная информация/изменение со стороны персонажа. Сериализатор для фильтра.
-    """
-
-    character = serializers.HiddenField(
+    status = serializers.ChoiceField(
+        label=_("Статус"),
+        help_text=_("Статус"),
+        choices=CharacterMission.Statuses.choices,
+        required=True,
+    )
+    branch = serializers.PrimaryKeyRelatedField(
         label=_("Персонаж"),
         help_text=_("Персонаж"),
-        default=CurrentCharacterDefault(),
-    )
-
-
-class CharacterMissionForInspectorFilterSerializer(serializers.Serializer):
-    """
-    Миссия персонажа. Детальная информация/изменение со стороны проверяющего. Сериализатор для фильтра.
-    """
-
-    inspector = serializers.HiddenField(
-        label=_("Проверяющий"),
-        help_text=_("Проверяющий"),
-        default=CurrentUserDefault(),
+        queryset=MissionBranch.objects.all(),
+        required=False,
     )
 
 
@@ -58,42 +70,11 @@ class CharacterMissionListFilter(django_filters.FilterSet):
 
     class Meta:
         model = CharacterMission
-        fields = ("status", "character")
-
-
-class CharacterMissionDetailOrUpdateFilter(django_filters.FilterSet):
-    """
-    Миссия персонажа. Детальная информация/изменение со стороны персонажа. Фильтр.
-    """
-
-    class Meta:
-        model = CharacterMission
-        fields = ("character",)
-
-
-class CharacterMissionDetailForInspectorFilter(django_filters.FilterSet):
-    """
-    Миссия персонажа. Детальная информация/изменение со стороны проверяющего. Фильтр.
-    """
-
-    inspector = django_filters.ModelChoiceFilter(
-        queryset=User.objects.all(),
-        label=_("Проверяющий"),
-        help_text=_("Проверяющий"),
-        method="inspector_filter",
-    )
-
-    class Meta:
-        model = CharacterMission
-        fields = ("inspector",)
-
-    def inspector_filter(self, queryset, name, value):
-        """
-        Фильтр по проверяющему.
-        """
-        if getattr(value, "role", None) == CharacterRoles.HR:
-            return queryset.all()
-        return queryset.filter(inspector=value)
+        fields = (
+            "status",
+            "character",
+            "branch",
+        )
 
 
 class CharacterMissionListSelector(BaseSelector):
@@ -109,42 +90,19 @@ class CharacterMissionListSelector(BaseSelector):
     filter_class = CharacterMissionListFilter
 
 
-class CharacterMissionBranchListSelector(BaseSelector):
+class CharacterMissionListForInspectorSelector(BaseSelector):
     """
-    Ветка миссии персонаж. Список. Селектор.
-    """
-
-    queryset = MissionBranch.objects.select_related(
-        "missions__character_missions",
-    )
-
-
-class CharacterMissionDetailSelector(BaseSelector):
-    """
-    Миссия персонажа. Детальная информация. Селектор.
+    Событие персонажа для проверяющего. Селектор.
     """
 
-    queryset = CharacterMission.objects.select_related(
-        "character",
-        "mission",
-        "inspector",
-    )
-    filter_class = CharacterMissionDetailOrUpdateFilter
+    filter_class = CharacterMissionListFilter
 
-
-class CharacterMissionUpdateFromCharacterSelector(BaseSelector):
-    """
-    Миссия персонажа. Изменение со стороны персонажа. Селектор.
-    """
-
-    queryset = CharacterMission.objects.all()
-    filter_class = CharacterMissionDetailOrUpdateFilter
-
-
-class CharacterMissionUpdateFromInspectorSelector(BaseSelector):
-    """
-    Миссия персонажа. Изменение со стороны проверяющего. Селектор.
-    """
-
-    queryset = CharacterMission.objects.all()
-    filter_class = CharacterMissionDetailOrUpdateFilter
+    def get_queryset(self, **kwargs) -> models.QuerySet:
+        active_character = self.request.user.active_character
+        return CharacterMission.objects.select_related(
+            "character",
+            "mission",
+            "inspector",
+        ).exclude(
+            character=active_character,
+        )

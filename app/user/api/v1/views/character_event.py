@@ -5,23 +5,23 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from common.permissions import UserInspectorForObjectPermission
 from common.views import QuerySelectorMixin
 from user.api.v1.selectors import (
-    CharacterEventDetailOrUpdateFilterSerializer,
-    CharacterEventDetailSelector,
-    CharacterEventListFilterSerializer,
     CharacterEventListSelector,
-    CharacterEventUpdateFromCharacterSelector,
-    CharacterEventUpdateFromInspectorSelector,
+)
+from user.api.v1.selectors.character_event import (
+    CharacterEventListFilterSerializer,
+    CharacterEventListForInspectorFilterSerializer,
+    CharacterEventListForInspectorSelector,
 )
 from user.api.v1.serializers import (
     CharacterEventDetailSerializer,
     CharacterEventListSerializer,
+    CharacterEventUpdateForInspectorSerializer,
     CharacterEventUpdateFromCharacterSerializer,
-    CharacterEventUpdateFromInspectorSerializer,
 )
 from user.api.v1.services import character_event_service
+from user.models import CharacterEvent
 
 
 class CharacterEventListAPIView(QuerySelectorMixin, GenericAPIView):
@@ -52,14 +52,17 @@ class CharacterEventListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-class CharacterEventDetailAPIView(QuerySelectorMixin, GenericAPIView):
+class CharacterEventDetailAPIView(GenericAPIView):
     """
     Событие персонажа. Детальная информация.
     """
 
-    selector = CharacterEventDetailSelector
+    queryset = CharacterEvent.objects.select_related(
+        "character",
+        "event",
+        "inspector",
+    )
     serializer_class = CharacterEventDetailSerializer
-    filter_params_serializer_class = CharacterEventDetailOrUpdateFilterSerializer
 
     @extend_schema(
         responses={
@@ -80,12 +83,12 @@ class CharacterEventDetailAPIView(QuerySelectorMixin, GenericAPIView):
         )
 
 
-class CharacterEventUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIView):
+class CharacterEventUpdateFromCharacterAPIView(GenericAPIView):
     """
     Событие персонажа. Изменение со стороны персонажа.
     """
 
-    selector = CharacterEventUpdateFromCharacterSelector
+    queryset = CharacterEvent.objects.all()
     serializer_class = CharacterEventUpdateFromCharacterSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -121,18 +124,18 @@ class CharacterEventUpdateFromCharacterAPIView(QuerySelectorMixin, GenericAPIVie
         )
 
 
-class CharacterEventUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIView):
+class CharacterEventUpdateForInspectorAPIView(GenericAPIView):
     """
     Событие персонажа. Изменение со стороны проверяющего.
     """
 
-    selector = CharacterEventUpdateFromInspectorSelector
-    serializer_class = CharacterEventUpdateFromInspectorSerializer
-    permission_classes = (UserInspectorForObjectPermission,)
+    queryset = CharacterEvent.objects.all()
+    serializer_class = CharacterEventUpdateForInspectorSerializer
+    # permission_classes = (UserInspectorForObjectPermission,)
 
     @extend_schema(
         responses={
-            status.HTTP_200_OK: CharacterEventUpdateFromInspectorSerializer,
+            status.HTTP_200_OK: CharacterEventUpdateForInspectorSerializer,
         },
         tags=["user:character_event"],
     )
@@ -146,7 +149,10 @@ class CharacterEventUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIVie
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        character_event = character_event_service.update_from_inspector(character_event)
+        character_event = character_event_service.update_from_inspector(
+            character_event=character_event,
+            validated_data=serializer.validated_data,
+        )
         if getattr(character_event, "_prefetched_objects_cache", None):
             character_event._prefetched_objects_cache = {}
 
@@ -157,3 +163,32 @@ class CharacterEventUpdateFromInspectorAPIView(QuerySelectorMixin, GenericAPIVie
             ).data,
             status=status.HTTP_200_OK,
         )
+
+
+class CharacterEventListForInspectorAPIView(QuerySelectorMixin, GenericAPIView):
+    """
+    Событие персонажа для проверяющего. Список.
+    """
+
+    selector = CharacterEventListForInspectorSelector
+    serializer_class = CharacterEventListSerializer
+    filter_params_serializer_class = CharacterEventListForInspectorFilterSerializer
+    search_fields = ("name",)
+    # permission_classes = (UserInspectorForObjectPermission,)
+
+    @extend_schema(
+        parameters=[CharacterEventListForInspectorFilterSerializer],
+        responses={
+            status.HTTP_200_OK: CharacterEventListSerializer(many=True),
+        },
+        tags=["user:character_event"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Список объектов.
+        """
+        queryset = self.filter_queryset(queryset=self.get_queryset())
+        page = self.paginate_queryset(queryset=queryset)
+        serializer = self.get_serializer(page, many=True)
+
+        return self.get_paginated_response(data=serializer.data)

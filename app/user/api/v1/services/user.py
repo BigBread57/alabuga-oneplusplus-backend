@@ -1,5 +1,4 @@
 import re
-from datetime import timedelta
 from typing import Any
 
 from allauth.account.forms import default_token_generator
@@ -21,16 +20,13 @@ from rest_framework.request import Request
 
 from common.services import BaseService
 from communication.models import ActivityLog
-from game_mechanics.models import Competency, Rank
-from game_world.models import Event, GameWorld, Mission, MissionBranch
+from game_mechanics.models import Rank
+from game_world.models import GameWorld
+from user.api.v1.services import character_service
 from user.models import (
     Character,
-    CharacterCompetency,
-    CharacterEvent,
-    CharacterMission,
     User,
 )
-from user.models.character_mission_branch import CharacterMissionBranch
 from user.models.character_rank import CharacterRank
 
 
@@ -254,61 +250,36 @@ class UserService(BaseService):
             user=user,
             game_world=game_world,
         )
+        character_rank = CharacterRank.objects.create(
+            character=character,
+            rank=rank,
+        )
         ActivityLog.objects.create(
             character=character,
             text=_(
                 f"Добро пожаловать. Вам присвоен ранг: {rank}. "
                 f"Выполняйте миссии для его повышения и получения новых наград"
             ),
-            content_object=rank,
-        )
-        CharacterRank.objects.create(
-            character=character,
-            rank=rank,
+            content_object=character_rank,
         )
         now_datetime = now()
-        for mission_branch in MissionBranch.objects.filter(is_active=True, rank=rank, game_world=game_world):
-            character_mission_branch = CharacterMissionBranch.objects.create(
-                character=character,
-                branch=mission_branch,
-                start_datetime=now_datetime,
-                end_datetime=now_datetime + timedelta(days=mission_branch.time_to_complete),
-                mentor=mission_branch.mentor,
-            )
-            character_missions = [
-                CharacterMission(
-                    character=character,
-                    mission=mission,
-                    branch=character_mission_branch,
-                    start_datetime=now_datetime,
-                    end_datetime=now_datetime + timedelta(days=mission.time_to_complete),
-                    mentor=(mission.mentor if mission.mentor else character_mission_branch.mentor),
-                )
-                for mission in Mission.objects.filter(is_active=True, branch__rank=rank, game_world=game_world)
-            ]
-        character_events = [
-            CharacterEvent(
-                character=character,
-                event=event,
-                start_datetime=now_datetime,
-                end_datetime=now_datetime + timedelta(days=event.time_to_complete),
-            )
-            for event in Event.objects.filter(is_active=True, rank=rank, game_world=game_world)
-        ]
-        character_competencies = [
-            CharacterCompetency(
-                character=character,
-                competency=competency,
-            )
-            for competency in Competency.objects.filter(
-                game_world=game_world,
-                parent__isnull=True,
-            )
-        ]
+        character_service.create_new_character_missions(
+            character=character,
+            rank=rank,
+            game_world=game_world,
+            now_datetime=now_datetime,
+        )
+        character_service.create_character_events(
+            character=character,
+            rank=rank,
+            game_world=game_world,
+            now_datetime=now_datetime,
+        )
+        character_service.create_character_competencies(
+            character=character,
+            game_world=game_world,
+        )
 
-        CharacterMission.objects.bulk_create(objs=character_missions)
-        CharacterEvent.objects.bulk_create(objs=character_events)
-        CharacterCompetency.objects.bulk_create(objs=character_competencies)
         return {"detail": _("Подтверждение почты прошло успешно")}
 
 

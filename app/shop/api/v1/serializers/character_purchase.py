@@ -4,10 +4,10 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from shop.api.v1.serializers.nested import ShopItemNestedSerializer
-from shop.models import ShopItem, UserPurchase
+from shop.models import CharacterPurchase, ShopItem
 
 
-class UserPurchaseListSerializer(serializers.ModelSerializer):
+class CharacterPurchaseListSerializer(serializers.ModelSerializer):
     """
     Покупки пользователя. Список.
     """
@@ -15,15 +15,15 @@ class UserPurchaseListSerializer(serializers.ModelSerializer):
     shop_item = ShopItemNestedSerializer(
         label=_("Товар"),
         help_text=_("Товар"),
-        many=True,
     )
 
     class Meta:
-        model = UserPurchase
+        model = CharacterPurchase
         fields = (
             "id",
             "price",
             "number",
+            "discount",
             "total_sum",
             "status",
             "additional_info",
@@ -32,7 +32,7 @@ class UserPurchaseListSerializer(serializers.ModelSerializer):
         )
 
 
-class UserPurchaseDetailSerializer(serializers.ModelSerializer):
+class CharacterPurchaseDetailSerializer(serializers.ModelSerializer):
     """
     Покупки пользователя. Детальная информация.
     """
@@ -52,7 +52,7 @@ class UserPurchaseDetailSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = UserPurchase
+        model = CharacterPurchase
         fields = (
             "id",
             "price",
@@ -66,31 +66,31 @@ class UserPurchaseDetailSerializer(serializers.ModelSerializer):
             "next_statuses",
         )
 
-    def get_status_display_name(self, user_purchase: UserPurchase) -> str:
+    def get_status_display_name(self, character_purchase: CharacterPurchase) -> str:
         """
         Название статуса.
         """
-        return user_purchase.get_status_display()
+        return character_purchase.get_status_display()
 
-    def get_next_statuses(self, user_purchase: UserPurchase) -> list[str]:
+    def get_next_statuses(self, character_purchase: CharacterPurchase) -> list[str]:
         """
         Следующие доступные статусы.
         """
-        match user_purchase.status:
-            case UserPurchase.Statuses.PENDING:
+        match character_purchase.status:
+            case CharacterPurchase.Statuses.PENDING:
                 return [
-                    UserPurchase.Statuses.CONFIRMED,
-                    UserPurchase.Statuses.CANCELLED,
+                    CharacterPurchase.Statuses.CONFIRMED,
+                    CharacterPurchase.Statuses.CANCELLED,
                 ]
-            case UserPurchase.Statuses.CONFIRMED:
+            case CharacterPurchase.Statuses.CONFIRMED:
                 return [
-                    UserPurchase.Statuses.DELIVERED,
+                    CharacterPurchase.Statuses.DELIVERED,
                 ]
             case _:
                 return []
 
 
-class UserPurchaseCreateSerializer(serializers.ModelSerializer):
+class CharacterPurchaseCreateSerializer(serializers.ModelSerializer):
     """
     Покупки пользователя. Создать.
     """
@@ -103,7 +103,7 @@ class UserPurchaseCreateSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = UserPurchase
+        model = CharacterPurchase
         fields = (
             "id",
             "number",
@@ -123,13 +123,13 @@ class UserPurchaseCreateSerializer(serializers.ModelSerializer):
         return attrs
 
 
-class UserPurchaseUpdateStatusSerializer(serializers.ModelSerializer):
+class CharacterPurchaseUpdateStatusSerializer(serializers.ModelSerializer):
     """
     Покупки пользователя. Изменить.
     """
 
     class Meta:
-        model = UserPurchase
+        model = CharacterPurchase
         fields = (
             "id",
             "additional_info",

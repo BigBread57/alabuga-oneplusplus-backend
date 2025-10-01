@@ -27,7 +27,7 @@ class CharacterCompetencyListSerializer(serializers.ModelSerializer):
             "experience",
             "is_received",
             "content_type_id",
-            "created_at",
+            "received_datetime",
         )
 
 
@@ -53,5 +53,5 @@ class CharacterCompetencyDetailSerializer(serializers.ModelSerializer):
             "experience",
             "is_received",
             "content_type_id",
-            "created_at",
+            "received_datetime",
         )

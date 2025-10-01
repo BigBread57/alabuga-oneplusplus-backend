@@ -160,4 +160,3 @@ class ShopItemDetailSelector(BaseSelector):
             parent__isnull=True,
         )
     )
-    filter_class = ShopItemListFilter

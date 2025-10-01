@@ -14,14 +14,17 @@ from user.api.v1.serializers.character_competency import (
 from user.api.v1.serializers.character_event import (
     CharacterEventDetailSerializer,
     CharacterEventListSerializer,
+    CharacterEventUpdateForInspectorSerializer,
     CharacterEventUpdateFromCharacterSerializer,
-    CharacterEventUpdateFromInspectorSerializer,
 )
 from user.api.v1.serializers.character_mission import (
     CharacterMissionDetailSerializer,
     CharacterMissionListSerializer,
+    CharacterMissionUpdateForInspectorSerializer,
     CharacterMissionUpdateFromCharacterSerializer,
-    CharacterMissionUpdateFromInspectorSerializer,
+)
+from user.api.v1.serializers.character_mission_branch import (
+    CharacterMissionBranchListSerializer,
 )
 from user.api.v1.serializers.user import (
     UserConfirmResetPasswordSerializer,
@@ -36,14 +39,16 @@ from user.api.v1.serializers.user import (
 __all__ = (
     # CharacterEvent
     "CharacterEventUpdateFromCharacterSerializer",
-    "CharacterEventUpdateFromInspectorSerializer",
+    "CharacterEventUpdateForInspectorSerializer",
     "CharacterEventDetailSerializer",
     "CharacterEventListSerializer",
     # CharacterMission
     "CharacterMissionUpdateFromCharacterSerializer",
-    "CharacterMissionUpdateFromInspectorSerializer",
+    "CharacterMissionUpdateForInspectorSerializer",
     "CharacterMissionDetailSerializer",
     "CharacterMissionListSerializer",
+    # CharacterMissionBranch
+    "CharacterMissionBranchListSerializer",
     # User
     "UserLoginSerializer",
     "UserConfirmResetPasswordSerializer",

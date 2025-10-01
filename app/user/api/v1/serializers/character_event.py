@@ -99,7 +99,7 @@ class CharacterEventUpdateFromCharacterSerializer(serializers.ModelSerializer):
         fields = ("result",)
 
 
-class CharacterEventUpdateFromInspectorSerializer(serializers.ModelSerializer):
+class CharacterEventUpdateForInspectorSerializer(serializers.ModelSerializer):
     """
     Миссия персонажа. Изменение со стороны персонажа.
     """

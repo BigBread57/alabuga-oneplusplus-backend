@@ -14,7 +14,9 @@ class Migration(migrations.Migration):
             model_name="charactermission",
             name="end_datetime",
             field=models.DateTimeField(
-                blank=True, null=True, verbose_name="Крайняя дата и время задачи, когда она должна быть выполнена"
+                blank=True,
+                null=True,
+                verbose_name="Крайняя дата и время задачи, когда она должна быть выполнена",
             ),
         ),
         migrations.AlterField(

@@ -14,15 +14,18 @@ from user.api.v1.views.character_competency import (
 from user.api.v1.views.character_event import (
     CharacterEventDetailAPIView,
     CharacterEventListAPIView,
+    CharacterEventListForInspectorAPIView,
+    CharacterEventUpdateForInspectorAPIView,
     CharacterEventUpdateFromCharacterAPIView,
-    CharacterEventUpdateFromInspectorAPIView,
 )
 from user.api.v1.views.character_mission import (
     CharacterMissionDetailAPIView,
     CharacterMissionListAPIView,
+    CharacterMissionListForInspectorAPIView,
+    CharacterMissionUpdateForInspectorAPIView,
     CharacterMissionUpdateFromCharacterAPIView,
-    CharacterMissionUpdateFromInspectorAPIView,
 )
+from user.api.v1.views.character_mission_branch import CharacterMissionBranchListAPIView
 from user.api.v1.views.user import (
     UserConfirmRegisterAPIView,
     UserConfirmResetPasswordAPIView,
@@ -54,12 +57,16 @@ __all__ = (
     "CharacterEventListAPIView",
     "CharacterEventDetailAPIView",
     "CharacterEventUpdateFromCharacterAPIView",
-    "CharacterEventUpdateFromInspectorAPIView",
+    "CharacterEventUpdateForInspectorAPIView",
+    "CharacterEventListForInspectorAPIView",
     # CharacterMission
     "CharacterMissionListAPIView",
     "CharacterMissionDetailAPIView",
     "CharacterMissionUpdateFromCharacterAPIView",
-    "CharacterMissionUpdateFromInspectorAPIView",
+    "CharacterMissionUpdateForInspectorAPIView",
+    "CharacterMissionListForInspectorAPIView",
+    # CharacterMissionBranch
+    "CharacterMissionBranchListAPIView",
     # CharacterCompetency
     "CharacterCompetencyListAPIView",
     "CharacterCompetencyDetailAPIView",

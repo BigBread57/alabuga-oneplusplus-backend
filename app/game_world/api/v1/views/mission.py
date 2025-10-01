@@ -36,7 +36,7 @@ class MissionListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionListSerializer(many=True),
         },
-        tags=["mission:mission"],
+        tags=["game_world:mission"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -89,7 +89,7 @@ class MissionCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: MissionDetailSerializer,
         },
-        tags=["mission:mission"],
+        tags=["game_world:mission"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -122,7 +122,7 @@ class MissionUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionDetailSerializer,
         },
-        tags=["mission:mission"],
+        tags=["game_world:mission"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -159,7 +159,7 @@ class MissionDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
-        tags=["mission:mission"],
+        tags=["game_world:mission"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:
         """

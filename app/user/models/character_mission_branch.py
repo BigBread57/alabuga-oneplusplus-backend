@@ -19,6 +19,16 @@ class CharacterMissionBranch(AbstractBaseModel):
         default=uuid4,
         unique=True,
     )
+    start_datetime = models.DateTimeField(
+        verbose_name=_("Дата и время, когда задача получена"),
+        null=True,
+        blank=True,
+    )
+    end_datetime = models.DateTimeField(
+        verbose_name=_("Крайняя дата и время задачи, когда она должна быть выполнена"),
+        null=True,
+        blank=True,
+    )
     character = models.ForeignKey(
         to="user.Character",
         verbose_name=_("Персонаж"),
@@ -31,16 +41,6 @@ class CharacterMissionBranch(AbstractBaseModel):
         help_text=_("Ветка миссии"),
         on_delete=models.CASCADE,
         related_name="character_mission_branches",
-    )
-    start_datetime = models.DateTimeField(
-        verbose_name=_("Начата"),
-        null=True,
-        blank=True,
-    )
-    end_datetime = models.DateTimeField(
-        verbose_name=_("Завершена"),
-        null=True,
-        blank=True,
     )
     mentor = models.ForeignKey(
         to="user.Character",

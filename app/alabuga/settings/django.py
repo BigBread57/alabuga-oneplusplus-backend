@@ -5,8 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from alabuga.settings import BASE_DIR, config
 
 SECRET_KEY = config("DJANGO_SECRET_KEY")
-DOMAIN_NAME = config("DOMAIN_NAME")
-DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
+DOMAIN_NAME = config("DOMAIN_NAME", cast=str, default="")
+DEBUG = config("DEBUG", cast=bool, default=False)
 SITE_ID = 1
 
 BASE_INSTALLED_APPS: list[str] = [
@@ -71,9 +71,9 @@ WSGI_APPLICATION = "alabuga.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config("POSTGRES_NAME", default="alabuga", cast=str),
-        "USER": config("POSTGRES_USER", default="alabuga", cast=str),
-        "PASSWORD": config("POSTGRES_PASSWORD", default="alabuga", cast=str),
+        "NAME": config("DJANGO_DATABASE_NAME", default="alabuga", cast=str),
+        "USER": config("DJANGO_DATABASE_USER", default="alabuga", cast=str),
+        "PASSWORD": config("DJANGO_DATABASE_PASSWORD", default="alabuga", cast=str),
         "HOST": config("DJANGO_DATABASE_HOST", default="localhost", cast=str),
         "PORT": config("DJANGO_DATABASE_PORT", default=5432, cast=int),
         "CONN_MAX_AGE": config("CONN_MAX_AGE", default=60, cast=int),
@@ -157,6 +157,6 @@ AUTH_USER_MODEL = "user.User"
 
 ALLOWED_HOSTS = config(
     "DJANGO_ALLOWED_HOSTS",
-    cast=lambda v: [s.strip() for s in v.split(',')],
-    default="localhost,127.0.0.1,alabuga.star-vim.online"
+    cast=lambda v: [s.strip() for s in v.split(",")],
+    default="localhost,127.0.0.1,alabuga.star-vim.online",
 )

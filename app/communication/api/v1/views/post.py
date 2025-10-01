@@ -52,16 +52,20 @@ class PostListAPIView(QuerySelectorMixin, GenericAPIView):
 class PostDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Пост. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = PostDetailSelector
     serializer_class = PostDetailSerializer
+    permission_classes = (CharacterContentManagerPermission,)
 
     @extend_schema(
         responses={
             status.HTTP_200_OK: PostDetailSerializer,
         },
         tags=["communication:post"],
+        exclude=True,
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -79,6 +83,8 @@ class PostDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class PostCreateAPIView(GenericAPIView):
     """
     Пост. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = PostCreateOrUpdateSerializer
@@ -90,6 +96,7 @@ class PostCreateAPIView(GenericAPIView):
             status.HTTP_201_CREATED: PostDetailSerializer,
         },
         tags=["communication:post"],
+        exclude=True,
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -111,6 +118,8 @@ class PostCreateAPIView(GenericAPIView):
 class PostUpdateAPIView(GenericAPIView):
     """
     Пост. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Post.objects.all()
@@ -123,6 +132,7 @@ class PostUpdateAPIView(GenericAPIView):
             status.HTTP_200_OK: PostDetailSerializer,
         },
         tags=["communication:post"],
+        exclude=True,
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -150,6 +160,8 @@ class PostUpdateAPIView(GenericAPIView):
 class PostDeleteAPIView(GenericAPIView):
     """
     Пост. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Post.objects.all()
@@ -160,6 +172,7 @@ class PostDeleteAPIView(GenericAPIView):
             status.HTTP_204_NO_CONTENT: None,
         },
         tags=["communication:post"],
+        exclude=True,
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:
         """

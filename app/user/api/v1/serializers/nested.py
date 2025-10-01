@@ -70,7 +70,7 @@ class CharacterNestedSerializer(serializers.ModelSerializer):
             "role_display_name",
         )
 
-    def get_role_display_name(self, character: Character):
+    def get_role_display_name(self, character: Character) -> str:
         return character.get_role_display()
 
 

@@ -3,9 +3,8 @@ version: "3.8"
 
 # Base configuration for local development
 services:
-  # PostgreSQL Database
-  postgres:
-    image: postgres:16-alpine
+  db:
+    image: postgres:17-alpine
     restart: unless-stopped
     volumes:
       - pgdata:/var/lib/postgresql/data

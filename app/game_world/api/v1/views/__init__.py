@@ -12,6 +12,7 @@ from game_world.api.v1.views.artifact import (
     ArtifactUpdateAPIView,
 )
 from game_world.api.v1.views.event import (
+    EventCheckQrCodeAPIView,
     EventCreateAPIView,
     EventDeleteAPIView,
     EventDetailAPIView,
@@ -98,6 +99,7 @@ __all__ = (
     "EventCreateAPIView",
     "EventUpdateAPIView",
     "EventDeleteAPIView",
+    "EventCheckQrCodeAPIView",
     # GameWorld
     "GameWorldListAPIView",
     "GameWorldDetailAPIView",

@@ -39,6 +39,11 @@ class CharacterCompetency(AbstractBaseModel):
         verbose_name=_("Получена компетенция или нет"),
         default=False,
     )
+    received_datetime = models.DateTimeField(
+        verbose_name=_("Дата и время получения"),
+        null=True,
+        blank=True,
+    )
 
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Компетенция персонажа")

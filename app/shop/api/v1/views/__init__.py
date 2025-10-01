@@ -1,3 +1,10 @@
+from shop.api.v1.views.character_purchase import (
+    CharacterPurchaseCreateAPIView,
+    CharacterPurchaseDetailAPIView,
+    CharacterPurchaseListAPIView,
+    CharacterPurchaseToWorkAPIView,
+    CharacterPurchaseUpdateStatusAPIView,
+)
 from shop.api.v1.views.shop_item import (
     ShopItemCreateAPIView,
     ShopItemDeleteAPIView,
@@ -12,13 +19,6 @@ from shop.api.v1.views.shop_item_category import (
     ShopItemCategoryDeleteAPIView,
     ShopItemCategoryListAPIView,
     ShopItemCategoryUpdateAPIView,
-)
-from shop.api.v1.views.user_purchase import (
-    UserPurchaseCreateAPIView,
-    UserPurchaseDetailAPIView,
-    UserPurchaseListAPIView,
-    UserPurchaseToWorkAPIView,
-    UserPurchaseUpdateStatusAPIView,
 )
 
 __all__ = (
@@ -35,10 +35,10 @@ __all__ = (
     "ShopItemDetailAPIView",
     "ShopItemListForBuyAPIView",
     "ShopItemDetailForBuyAPIView",
-    # UserPurchase
-    "UserPurchaseListAPIView",
-    "UserPurchaseCreateAPIView",
-    "UserPurchaseUpdateStatusAPIView",
-    "UserPurchaseToWorkAPIView",
-    "UserPurchaseDetailAPIView",
+    # CharacterPurchase
+    "CharacterPurchaseListAPIView",
+    "CharacterPurchaseCreateAPIView",
+    "CharacterPurchaseUpdateStatusAPIView",
+    "CharacterPurchaseToWorkAPIView",
+    "CharacterPurchaseDetailAPIView",
 )

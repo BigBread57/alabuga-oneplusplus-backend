@@ -15,7 +15,6 @@ from game_world.api.v1.selectors import (
 )
 from game_world.api.v1.serializers import (
     GameWorldCreateOrUpdateSerializer,
-    GameWorldDataAfterGenerateSerializer,
     GameWorldDetailSerializer,
     GameWorldGenerateSerializer,
     GameWorldInfoForGenerateSerializer,
@@ -295,10 +294,10 @@ class GameWorldInfoForGenerateAPIView(GenericAPIView):
         """
         Информация для генерации.
         """
-        serializer = self.get_serializer(game_world_service.info_for_generate(), many=True)
+        # serializer = self.get_serializer(game_world_service.info_for_generate(), many=True)
 
         return Response(
-            data=serializer.data,
+            data=game_world_service.info_for_generate(),
             status=status.HTTP_200_OK,
         )
 
@@ -309,7 +308,7 @@ class GameWorldGenerateAPIView(GenericAPIView):
     """
 
     queryset = GameWorld.objects.all()
-    serializer_class = GameWorldGenerateSerializer()
+    serializer_class = GameWorldGenerateSerializer
 
     @extend_schema(
         # responses={
@@ -330,9 +329,6 @@ class GameWorldGenerateAPIView(GenericAPIView):
         )
 
         return Response(
-            data=GameWorldDataAfterGenerateSerializer(
-                instance=game_world,
-                context=self.get_serializer_context(),
-            ).data,
+            data=game_world,
             status=status.HTTP_201_CREATED,
         )

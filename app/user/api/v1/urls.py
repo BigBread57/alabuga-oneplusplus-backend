@@ -105,18 +105,23 @@ character_event_urls = [
         name="character-events-list",
     ),
     path(
+        route="character-events/for-inspector/list/",
+        view=views.CharacterEventListForInspectorAPIView.as_view(),
+        name="character-events-for-inspector-list",
+    ),
+    path(
         route="character-events/<int:pk>/detail/",
         view=views.CharacterEventDetailAPIView.as_view(),
         name="character-events-detail",
     ),
     path(
-        route="character-events/<int:pk>/update-for-character/",
+        route="character-events/<int:pk>/update/for-character/",
         view=views.CharacterEventUpdateFromCharacterAPIView.as_view(),
         name="character-events-update-for-character",
     ),
     path(
-        route="character-events/<int:pk>/update-for-inspector/",
-        view=views.CharacterEventUpdateFromInspectorAPIView.as_view(),
+        route="character-events/<int:pk>/update/for-inspector/",
+        view=views.CharacterEventUpdateForInspectorAPIView.as_view(),
         name="character-events-update-for-inspector",
     ),
 ]
@@ -128,21 +133,35 @@ character_mission_urls = [
         name="character-missions-list",
     ),
     path(
+        route="character-missions/for-inspector/list/",
+        view=views.CharacterMissionListForInspectorAPIView.as_view(),
+        name="character-missions-for-inspector-list",
+    ),
+    path(
         route="character-missions/<int:pk>/detail/",
         view=views.CharacterMissionDetailAPIView.as_view(),
         name="character-missions-detail",
     ),
     path(
-        route="character-missions/<int:pk>/update-for-character/",
+        route="character-missions/<int:pk>/update/for-character/",
         view=views.CharacterMissionUpdateFromCharacterAPIView.as_view(),
         name="character-missions-update-for-character",
     ),
     path(
-        route="character-missions/<int:pk>/update-for-inspector/",
-        view=views.CharacterMissionUpdateFromInspectorAPIView.as_view(),
+        route="character-missions/<int:pk>/update/for-inspector/",
+        view=views.CharacterMissionUpdateForInspectorAPIView.as_view(),
         name="character-missions-update-for-inspector",
     ),
 ]
+
+character_mission_branch_urls = [
+    path(
+        route="character-mission-branches/list/",
+        view=views.CharacterMissionBranchListAPIView.as_view(),
+        name="character-mission-branches-list",
+    ),
+]
+
 
 urlpatterns = [
     *user_urls,
@@ -151,4 +170,5 @@ urlpatterns = [
     *character_competency_urls,
     *character_artifact_urls,
     *character_mission_urls,
+    *character_mission_branch_urls,
 ]

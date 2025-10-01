@@ -1,14 +1,25 @@
 import django_filters
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-from rest_framework.fields import CurrentUserDefault
 
-from common.constants import CharacterRoles
 from common.selectors import BaseSelector, CurrentCharacterDefault
-from user.models import CharacterEvent, User
+from user.models import Character, CharacterEvent
 
 
-class CharacterEventListFilterSerializer(serializers.Serializer):
+class CharacterEventForCharacterFilterSerializer(serializers.Serializer):
+    """
+    Событие персонажа. Сериализатор для фильтра.
+    """
+
+    character = serializers.HiddenField(
+        label=_("Персонаж"),
+        help_text=_("Персонаж"),
+        default=CurrentCharacterDefault(),
+    )
+
+
+class CharacterEventListFilterSerializer(CharacterEventForCharacterFilterSerializer):
     """
     Событие персонажа. Список. Сериализатор для фильтра.
     """
@@ -19,34 +30,24 @@ class CharacterEventListFilterSerializer(serializers.Serializer):
         choices=CharacterEvent.Statuses.choices,
         required=True,
     )
-    character = serializers.HiddenField(
+
+
+class CharacterEventListForInspectorFilterSerializer(serializers.Serializer):
+    """
+    Событие персонажа для проверяющего. Сериализатор для фильтра.
+    """
+
+    character = serializers.PrimaryKeyRelatedField(
         label=_("Персонаж"),
         help_text=_("Персонаж"),
-        default=CurrentCharacterDefault(),
+        queryset=Character.objects.all(),
+        required=False,
     )
-
-
-class CharacterEventDetailOrUpdateFilterSerializer(serializers.Serializer):
-    """
-    Событие персонажа. Детальная информация/изменение со стороны персонажа. Сериализатор для фильтра.
-    """
-
-    character = serializers.HiddenField(
-        label=_("Персонаж"),
-        help_text=_("Персонаж"),
-        default=CurrentCharacterDefault(),
-    )
-
-
-class CharacterEventForInspectorFilterSerializer(serializers.Serializer):
-    """
-    Событие персонажа. Детальная информация/изменение со стороны проверяющего. Сериализатор для фильтра.
-    """
-
-    inspector = serializers.HiddenField(
-        label=_("Проверяющий"),
-        help_text=_("Проверяющий"),
-        default=CurrentUserDefault(),
+    status = serializers.ChoiceField(
+        label=_("Статус"),
+        help_text=_("Статус"),
+        choices=CharacterEvent.Statuses.choices,
+        required=True,
     )
 
 
@@ -63,41 +64,6 @@ class CharacterEventListFilter(django_filters.FilterSet):
         )
 
 
-class CharacterEventDetailOrUpdateFilter(django_filters.FilterSet):
-    """
-    Событие персонажа. Детальная информация/изменение со стороны персонажа. Фильтр.
-    """
-
-    class Meta:
-        model = CharacterEvent
-        fields = ("character",)
-
-
-class CharacterEventDetailForInspectorFilter(django_filters.FilterSet):
-    """
-    Событие персонажа. Детальная информация/изменение со стороны проверяющего. Фильтр.
-    """
-
-    inspector = django_filters.ModelChoiceFilter(
-        queryset=User.objects.all(),
-        label=_("Проверяющий"),
-        help_text=_("Проверяющий"),
-        method="inspector_filter",
-    )
-
-    class Meta:
-        model = CharacterEvent
-        fields = ("inspector",)
-
-    def inspector_filter(self, queryset, name, value):
-        """
-        Фильтр по проверяющему.
-        """
-        if getattr(value, "role", None) == CharacterRoles.HR:
-            return queryset.all()
-        return queryset.filter(inspector=value)
-
-
 class CharacterEventListSelector(BaseSelector):
     """
     Событие персонажа. Список. Селектор.
@@ -111,32 +77,19 @@ class CharacterEventListSelector(BaseSelector):
     filter_class = CharacterEventListFilter
 
 
-class CharacterEventDetailSelector(BaseSelector):
+class CharacterEventListForInspectorSelector(BaseSelector):
     """
-    Событие персонажа. Детальная информация. Селектор.
-    """
-
-    queryset = CharacterEvent.objects.select_related(
-        "character",
-        "event",
-        "inspector",
-    )
-    filter_class = CharacterEventDetailOrUpdateFilter
-
-
-class CharacterEventUpdateFromCharacterSelector(BaseSelector):
-    """
-    Событие персонажа. Изменение со стороны персонажа. Селектор.
+    Событие персонажа для проверяющего. Селектор.
     """
 
-    queryset = CharacterEvent.objects.all()
-    filter_class = CharacterEventDetailOrUpdateFilter
+    filter_class = CharacterEventListFilter
 
-
-class CharacterEventUpdateFromInspectorSelector(BaseSelector):
-    """
-    Событие персонажа. Изменение со стороны проверяющего. Селектор.
-    """
-
-    queryset = CharacterEvent.objects.all()
-    filter_class = CharacterEventDetailOrUpdateFilter
+    def get_queryset(self, **kwargs) -> models.QuerySet:
+        active_character = self.request.user.active_character
+        return CharacterEvent.objects.select_related(
+            "character",
+            "event",
+            "inspector",
+        ).exclude(
+            character=active_character,
+        )

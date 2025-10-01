@@ -13,36 +13,36 @@ from common.permissions import (
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from shop.api.v1.selectors import (
-    UserPurchaseDetailSelector,
-    UserPurchaseListFilterSerializer,
-    UserPurchaseListSelector,
+    CharacterPurchaseDetailSelector,
+    CharacterPurchaseListFilterSerializer,
+    CharacterPurchaseListSelector,
 )
 from shop.api.v1.serializers import (
-    UserPurchaseCreateSerializer,
-    UserPurchaseDetailSerializer,
-    UserPurchaseListSerializer,
-    UserPurchaseUpdateStatusSerializer,
+    CharacterPurchaseCreateSerializer,
+    CharacterPurchaseDetailSerializer,
+    CharacterPurchaseListSerializer,
+    CharacterPurchaseUpdateStatusSerializer,
 )
-from shop.api.v1.services import user_purchase_service
-from shop.models import UserPurchase
+from shop.api.v1.services import character_purchase_service
+from shop.models import CharacterPurchase
 
 
-class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):
+class CharacterPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Покупки пользователя. Список.
     """
 
-    selector = UserPurchaseListSelector
-    serializer_class = UserPurchaseListSerializer
-    filter_params_serializer_class = UserPurchaseListFilterSerializer
+    selector = CharacterPurchaseListSelector
+    serializer_class = CharacterPurchaseListSerializer
+    filter_params_serializer_class = CharacterPurchaseListFilterSerializer
     search_fields = ("name",)
 
     @extend_schema(
-        parameters=[UserPurchaseListFilterSerializer],
+        parameters=[CharacterPurchaseListFilterSerializer],
         responses={
-            status.HTTP_200_OK: UserPurchaseListSerializer(many=True),
+            status.HTTP_200_OK: CharacterPurchaseListSerializer(many=True),
         },
-        tags=["shop:user_purchase"],
+        tags=["shop:character_purchase"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -55,26 +55,26 @@ class UserPurchaseListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-class UserPurchaseDetailAPIView(QuerySelectorMixin, GenericAPIView):
+class CharacterPurchaseDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Покупки пользователя. Детальная информация.
     """
 
-    selector = UserPurchaseDetailSelector
-    serializer_class = UserPurchaseDetailSerializer
+    selector = CharacterPurchaseDetailSelector
+    serializer_class = CharacterPurchaseDetailSerializer
 
     @extend_schema(
         responses={
-            status.HTTP_200_OK: UserPurchaseDetailSerializer,
+            status.HTTP_200_OK: CharacterPurchaseDetailSerializer,
         },
-        tags=["shop:user_purchase"],
+        tags=["shop:character_purchase"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
         Детальная информация.
         """
-        user_purchase = self.get_object()
-        serializer = self.get_serializer(instance=user_purchase)
+        character_purchase = self.get_object()
+        serializer = self.get_serializer(instance=character_purchase)
 
         return Response(
             data=serializer.data,
@@ -82,20 +82,20 @@ class UserPurchaseDetailAPIView(QuerySelectorMixin, GenericAPIView):
         )
 
 
-class UserPurchaseCreateAPIView(GenericAPIView):
+class CharacterPurchaseCreateAPIView(GenericAPIView):
     """
     Покупки пользователя. Создание.
     """
 
-    serializer_class = UserPurchaseCreateSerializer
+    serializer_class = CharacterPurchaseCreateSerializer
     permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
-        request=UserPurchaseCreateSerializer,
+        request=CharacterPurchaseCreateSerializer,
         responses={
-            status.HTTP_201_CREATED: UserPurchaseDetailSerializer,
+            status.HTTP_201_CREATED: CharacterPurchaseDetailSerializer,
         },
-        tags=["shop:user_purchase"],
+        tags=["shop:character_purchase"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
         """
@@ -103,84 +103,84 @@ class UserPurchaseCreateAPIView(GenericAPIView):
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user_purchase = user_purchase_service.create(
+        character_purchase = character_purchase_service.create(
             validated_data=serializer.validated_data,
             buyer=request.user.active_character,
         )
 
         return Response(
-            data=UserPurchaseDetailSerializer(
-                instance=user_purchase,
+            data=CharacterPurchaseDetailSerializer(
+                instance=character_purchase,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_201_CREATED,
         )
 
 
-class UserPurchaseUpdateStatusAPIView(GenericAPIView):
+class CharacterPurchaseUpdateStatusAPIView(GenericAPIView):
     """
     Покупки пользователя. Изменение.
     """
 
-    queryset = UserPurchase.objects.all()
-    serializer_class = UserPurchaseUpdateStatusSerializer
+    queryset = CharacterPurchase.objects.all()
+    serializer_class = CharacterPurchaseUpdateStatusSerializer
     permission_classes = (UserManagerForObjectPermission,)
 
     @extend_schema(
-        request=UserPurchaseUpdateStatusSerializer,
+        request=CharacterPurchaseUpdateStatusSerializer,
         responses={
-            status.HTTP_200_OK: UserPurchaseDetailSerializer,
+            status.HTTP_200_OK: CharacterPurchaseDetailSerializer,
         },
-        tags=["shop:user_purchase"],
+        tags=["shop:character_purchase"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
         """
         Изменение объекта.
         """
-        user_purchase = self.get_object()
+        character_purchase = self.get_object()
         serializer = self.get_serializer(
-            instance=user_purchase,
+            instance=character_purchase,
             data=request.data,
         )
         serializer.is_valid(raise_exception=True)
-        user_purchase = user_purchase_service.update(
-            user_purchase=user_purchase,
+        character_purchase = character_purchase_service.update(
+            character_purchase=character_purchase,
             validated_data=serializer.validated_data,
         )
 
-        if getattr(user_purchase, "_prefetched_objects_cache", None):
-            user_purchase._prefetched_objects_cache = {}
+        if getattr(character_purchase, "_prefetched_objects_cache", None):
+            character_purchase._prefetched_objects_cache = {}
 
         return Response(
-            data=UserPurchaseDetailSerializer(
-                instance=user_purchase,
+            data=CharacterPurchaseDetailSerializer(
+                instance=character_purchase,
                 context=self.get_serializer_context(),
             ).data,
             status=status.HTTP_200_OK,
         )
 
 
-class UserPurchaseToWorkAPIView(GenericAPIView):
+class CharacterPurchaseToWorkAPIView(GenericAPIView):
     """
     Покупки пользователя. Взять в работу.
     """
 
-    queryset = UserPurchase.objects.all()
+    queryset = CharacterPurchase.objects.all()
     permission_classes = (UserManagerPermission,)
 
     @extend_schema(
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
-        tags=["shop:user_purchase"],
+        tags=["shop:character_purchase"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
         Взять в работу.
         """
-        user_purchase = self.get_object()
-        user_purchase_service.to_work(
-            user_purchase=user_purchase,
+        character_purchase = self.get_object()
+        character_purchase_service.to_work(
+            character_purchase=character_purchase,
             manager=request.user,
         )
         return Response(

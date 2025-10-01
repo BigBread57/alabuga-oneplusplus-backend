@@ -244,6 +244,14 @@ class UserInfoSerializer(serializers.ModelSerializer):
         label=_("Активный персонаж"),
         help_text=_("Активный персонаж"),
     )
+    active_character_role = serializers.SerializerMethodField(
+        label=_("Роль активного персонажа"),
+        help_text=_("Роль активного персонажа"),
+    )
+    active_game_world = serializers.SerializerMethodField(
+        label=_("Активный персонаж"),
+        help_text=_("Активный персонаж"),
+    )
 
     class Meta:
         model = User
@@ -258,7 +266,21 @@ class UserInfoSerializer(serializers.ModelSerializer):
             "full_name",
             "is_active",
             "active_character",
+            "active_character_role",
+            "active_game_world",
         )
 
-    def get_active_character(self, user: User) -> int:
-        return user.active_character.id
+    def get_active_character(self, user: User) -> int | None:
+        if getattr(user, "active_character", None):
+            return user.active_character.id
+        return None
+
+    def get_active_character_role(self, user: User) -> int | None:
+        if getattr(user, "active_character", None):
+            return user.active_character.role
+        return None
+
+    def get_active_game_world(self, user: User) -> int | None:
+        if getattr(user, "active_character", None):
+            return user.active_character.game_world.id
+        return None

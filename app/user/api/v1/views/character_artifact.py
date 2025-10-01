@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from common.views import QuerySelectorMixin
 from user.api.v1.selectors import (
     CharacterArtifactDetailSelector,
-    CharacterArtifactListOrDetailFilterSerializer,
+    CharacterArtifactForCharacterSerializer,
     CharacterArtifactListSelector,
 )
 from user.api.v1.serializers import (
@@ -23,7 +23,7 @@ class CharacterArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
 
     selector = CharacterArtifactListSelector
     serializer_class = CharacterArtifactListSerializer
-    filter_params_serializer_class = CharacterArtifactListOrDetailFilterSerializer
+    filter_params_serializer_class = CharacterArtifactForCharacterSerializer
     search_fields = ("name",)
 
     @extend_schema(
@@ -46,17 +46,20 @@ class CharacterArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
 class CharacterArtifactDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Событие персонажа. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = CharacterArtifactDetailSelector
     serializer_class = CharacterArtifactDetailSerializer
-    filter_params_serializer_class = CharacterArtifactListOrDetailFilterSerializer
+    filter_params_serializer_class = CharacterArtifactForCharacterSerializer
 
     @extend_schema(
         responses={
             status.HTTP_200_OK: CharacterArtifactDetailSerializer,
         },
         tags=["user:character_artifact"],
+        exclude=True,
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         """
