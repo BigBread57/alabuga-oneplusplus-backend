@@ -1,7 +1,9 @@
 ---
 version: "3.8"
 
-# Base configuration for local development
+# Quick start configuration with pre-built images
+# Run with: docker-compose -f docker-compose.quickstart.yml up -d
+
 services:
   # PostgreSQL Database
   postgres:
@@ -10,14 +12,12 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-alabuga_db}
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: alabuga_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_HOST_AUTH_METHOD: trust
-    ports:
-      - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -30,8 +30,6 @@ services:
     restart: unless-stopped
     volumes:
       - redis_data:/data
-    ports:
-      - "6379:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -40,45 +38,54 @@ services:
     networks:
       - main
 
-  # Django Backend
+  # Django Backend (pre-built image)
   backend:
-    build:
-      context: .
-      dockerfile: docker/django/Dockerfile
-      target: development_build
+    image: ghcr.io/abat-voix/alabuga-oneplusplus-backend:latest
+    restart: unless-stopped
     volumes:
-      - ./app:/app
       - django_static:/app/alabuga/static
       - django_media:/app/alabuga/media
     ports:
       - "8000:8000"
-    env_file: .env
     environment:
+      DJANGO_SECRET_KEY: your-secret-key-for-demo
+      DEBUG: "True"
       DJANGO_DATABASE_HOST: postgres
+      DJANGO_DATABASE_PORT: 5432
+      POSTGRES_DB: alabuga_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      DJANGO_DATABASE_USER: postgres
+      DJANGO_DATABASE_PASSWORD: postgres
+      POSTGRES_NAME: alabuga_db
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      DEBUG: "True"
+      DJANGO_SUPERUSER_EMAIL: admin@example.com
+      DJANGO_SUPERUSER_PASSWORD: admin
+      DOMAIN_NAME: localhost
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
-    command: poetry run python manage.py runserver 0.0.0.0:8000
+    command: /usr/local/bin/start-web-server
     networks:
       - main
 
   # Celery Worker
   celery-worker:
-    build:
-      context: .
-      dockerfile: docker/django/Dockerfile
-      target: development_build
-    volumes:
-      - ./app:/app
-    env_file: .env
+    image: ghcr.io/abat-voix/alabuga-oneplusplus-backend:latest
+    restart: unless-stopped
     environment:
       DJANGO_DATABASE_HOST: postgres
+      DJANGO_DATABASE_PORT: 5432
+      POSTGRES_DB: alabuga_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      DJANGO_DATABASE_USER: postgres
+      DJANGO_DATABASE_PASSWORD: postgres
+      POSTGRES_NAME: alabuga_db
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
@@ -93,15 +100,17 @@ services:
 
   # Celery Beat
   celery-beat:
-    build:
-      context: .
-      dockerfile: docker/django/Dockerfile
-      target: development_build
-    volumes:
-      - ./app:/app
-    env_file: .env
+    image: ghcr.io/abat-voix/alabuga-oneplusplus-backend:latest
+    restart: unless-stopped
     environment:
       DJANGO_DATABASE_HOST: postgres
+      DJANGO_DATABASE_PORT: 5432
+      POSTGRES_DB: alabuga_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      DJANGO_DATABASE_USER: postgres
+      DJANGO_DATABASE_PASSWORD: postgres
+      POSTGRES_NAME: alabuga_db
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
@@ -116,15 +125,10 @@ services:
 
   # Flower (Celery monitoring)
   flower:
-    build:
-      context: .
-      dockerfile: docker/django/Dockerfile
-      target: development_build
-    volumes:
-      - ./app:/app
+    image: ghcr.io/abat-voix/alabuga-oneplusplus-backend:latest
+    restart: unless-stopped
     ports:
       - "5555:5555"
-    env_file: .env
     environment:
       DJANGO_DATABASE_HOST: postgres
       REDIS_URL: redis://redis:6379/0

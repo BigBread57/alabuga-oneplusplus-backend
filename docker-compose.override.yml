@@ -1,0 +1,30 @@
+---
+version: "3.8"
+
+# Override configuration for local development
+# This file is automatically used by docker-compose and allows developers
+# to customize services without modifying the base docker-compose.yml
+
+services:
+  # Backend overrides for development
+  backend:
+    environment:
+      DEBUG: "True"
+      DJANGO_LOG_LEVEL: DEBUG
+    # Uncomment to enable auto-reload on code changes
+    # command: poetry run python manage.py runserver 0.0.0.0:8000 --noreload
+
+  # Celery worker overrides for development
+  celery-worker:
+    # Use solo pool for easier debugging
+     command: poetry run celery -A alabuga.celery worker --pool=solo --loglevel=debug
+
+  # Celery beat overrides for development
+  celery-beat:
+    # Enable debug logging
+     command: poetry run celery -A alabuga.celery beat --loglevel=debug
+
+  # Flower overrides for development
+  flower:
+    environment:
+      FLOWER_BASIC_AUTH: ""  # Disable authentication in dev
