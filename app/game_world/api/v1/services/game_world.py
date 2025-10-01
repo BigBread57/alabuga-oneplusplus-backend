@@ -466,7 +466,7 @@ class GameWorldService(BaseService):
                 self._process_mission_branch(cell, game_world_data, uuid_to_id_map)
             elif cell_type == "mission":
                 self._process_mission(cell, game_world_data, uuid_to_id_map)
-            elif cell_type == "artefact":
+            elif cell_type == "artifact":
                 self._process_artifact(cell, game_world_data, uuid_to_id_map)
             elif cell_type == "event":
                 self._process_event(cell, game_world_data, uuid_to_id_map)
@@ -838,7 +838,7 @@ class GameWorldService(BaseService):
                     "name": rank.get("name"),
                     "description": rank.get("description", ""),
                     "required_experience": rank.get("required_experience"),
-                    "icon": rank.get("icon", ""),
+                    "icon": rank.get("icon", None),
                     "color": rank.get("color", ""),
                     "parent": rank.get("parent", None),
                         "game_world": mission_branch.get("game_world"),
@@ -881,7 +881,7 @@ class GameWorldService(BaseService):
                         "type": "missionBranch",
                         "name": mission_branch.get("name"),
                         "description": mission_branch.get("description", ""),
-                        "icon": mission_branch.get("icon", ""),
+                        "icon": mission_branch.get("icon", None),
                         "color": mission_branch.get("color", ""),
                         "is_active": mission_branch.get("is_active"),
                         "start_datetime": mission_branch.get("start_datetime", None),
@@ -925,10 +925,17 @@ class GameWorldService(BaseService):
                             "description": mission.get("description", ""),
                             "experience": mission.get('experience'),
                             "currency": mission.get('currency'),
-                            "experience": mission.get("experience"),
-                            "currency": mission.get("currency"),
-                            "level": mission.get("level", {}).get("name"),
+                            "icon": mission.get("icon", None),
+                            "color": mission.get("color", ""),
+                            "order": mission.get("order"),
                             "is_key_mission": mission.get("is_key_mission"),
+                            "is_active": mission.get("is_active"),
+                            "time_to_complete": mission.get("time_to_complete"),
+                            "qr_code": mission.get("qr_code", None),
+                            "branch": mission.get("branch"),
+                            "level": mission.get("level"),
+                            "category": mission.get("category"),
+                            "mentor": mission.get("mentor"),
                         },
                     }
                     cells.append(mission_node)
@@ -951,19 +958,22 @@ class GameWorldService(BaseService):
 
                         artifact_node = {
                             "id": artifact_id,
-                            "shape": "artefact|node",
+                            "shape": "artifact|node",
                             "x": artifact_x,
                             "y": artifact_y,
                             "attrs": {
-                                "title": {"text": artifact["name"]},
-                                "description": {"text": artifact["description"]},
+                                "title": {"text": artifact.get("name")},
+                                "description": {"text": artifact.get("description", "")},
                             },
                             "data": {
-                                "type": "artefact",
-                                "name": artifact["name"],
-                                "description": artifact["description"],
-                                "modifier": artifact["modifier"],
-                                "modifier_value": artifact["modifier_value"],
+                                "type": "artifact",
+                                "name": artifact.get("name"),
+                                "description": artifact.get("description", ""),
+                                "icon": artifact.get("icon", None),
+                                "color": artifact.get("color", ""),
+                                "modifier": artifact.get("modifier"),
+                                "modifier_value": artifact.get("modifier_value"),
+                                "game_world": artifact.get("game_world"),
                             },
                         }
                         cells.append(artifact_node)
@@ -1107,7 +1117,7 @@ class GameWorldService(BaseService):
 
                     artifact_node = {
                         "id": artifact_id,
-                        "shape": "artefact|node",
+                        "shape": "artifact|node",
                         "x": artifact_x,
                         "y": event_artifact_y,
                         "attrs": {
@@ -1115,7 +1125,7 @@ class GameWorldService(BaseService):
                             "description": {"text": artifact["description"]},
                         },
                         "data": {
-                            "type": "artefact",
+                            "type": "artifact",
                             "name": artifact["name"],
                             "description": artifact["description"],
                             "modifier": artifact["modifier"],
