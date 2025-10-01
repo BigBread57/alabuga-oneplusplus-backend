@@ -466,7 +466,7 @@ class GameWorldService(BaseService):
                 self._process_mission_branch(cell, game_world_data, uuid_to_id_map)
             elif cell_type == "mission":
                 self._process_mission(cell, game_world_data, uuid_to_id_map)
-            elif cell_type == "artefact":
+            elif cell_type == "artifact":
                 self._process_artifact(cell, game_world_data, uuid_to_id_map)
             elif cell_type == "event":
                 self._process_event(cell, game_world_data, uuid_to_id_map)
@@ -958,7 +958,7 @@ class GameWorldService(BaseService):
 
                         artifact_node = {
                             "id": artifact_id,
-                            "shape": "artefact|node",
+                            "shape": "artifact|node",
                             "x": artifact_x,
                             "y": artifact_y,
                             "attrs": {
@@ -966,13 +966,14 @@ class GameWorldService(BaseService):
                                 "description": {"text": artifact.get("description", "")},
                             },
                             "data": {
-                                "type": "artefact",
+                                "type": "artifact",
                                 "name": artifact.get("name"),
                                 "description": artifact.get("description", ""),
                                 "icon": artifact.get("icon", None),
                                 "color": artifact.get("color", ""),
-                                "modifier": artifact["modifier"],
-                                "modifier_value": artifact["modifier_value"],
+                                "modifier": artifact.get("modifier"),
+                                "modifier_value": artifact.get("modifier_value"),
+                                "game_world": artifact.get("game_world"),
                             },
                         }
                         cells.append(artifact_node)
@@ -1116,7 +1117,7 @@ class GameWorldService(BaseService):
 
                     artifact_node = {
                         "id": artifact_id,
-                        "shape": "artefact|node",
+                        "shape": "artifact|node",
                         "x": artifact_x,
                         "y": event_artifact_y,
                         "attrs": {
@@ -1124,7 +1125,7 @@ class GameWorldService(BaseService):
                             "description": {"text": artifact["description"]},
                         },
                         "data": {
-                            "type": "artefact",
+                            "type": "artifact",
                             "name": artifact["name"],
                             "description": artifact["description"],
                             "modifier": artifact["modifier"],

@@ -252,7 +252,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
         label=_("Активный персонаж"),
         help_text=_("Активный персонаж"),
     )
-    active_game_world_currency = serializers.SerializerMethodField(
+    active_game_world_currency_name = serializers.SerializerMethodField(
         label=_("Активная валюта"),
         help_text=_("Активная валюта"),
     )
@@ -272,7 +272,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
             "active_character",
             "active_character_role",
             "active_game_world",
-            "active_game_world_currency",
+            "active_game_world_currency_name",
         )
 
     def get_active_character(self, user: User) -> int | None:
@@ -290,7 +290,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
             return user.active_character.game_world.id
         return None
 
-    def get_active_game_world_currency(self, user: User) -> int | None:
+    def get_active_game_world_currency_name(self, user: User) -> int | None:
         if getattr(user, "active_character", None):
-            return user.active_character.game_world.currency
+            return user.active_character.game_world.currency_name
         return None
