@@ -8,7 +8,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.21.141:8080",
     "http://backend:8000",
     "https://alabuga.star-vim.online",
-    "localhost",
+    "http://localhost",
 ]
 CORS_ALLOW_METHODS = [
     "DELETE",
