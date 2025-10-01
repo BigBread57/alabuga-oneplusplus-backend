@@ -49,8 +49,11 @@ class CharacterPurchaseService(BaseService):
                     artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
                 ).values_list("artifact__modifier_value", flat=True)
             )
-            discount = (100 - sum(character_artifacts_shop_discount)) / 100
-            total_sum = number * shop_item.price * discount
+            discount = sum(character_artifacts_shop_discount)
+            if discount == 0:
+                total_sum = number * shop_item.price
+            else:
+                total_sum = number * shop_item.price - (number * shop_item.price * discount / 100)
             if buyer.currency < total_sum:
                 raise ValidationError(_("У вас не достаточно денег для покупки"))
 
