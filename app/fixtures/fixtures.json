@@ -11,7 +11,4169 @@
       "standard_currency": 50,
       "currency_name": "звездные кредиты",
       "created_at": "2025-09-24T14:58:24.186615+00:00",
-      "updated_at": "2025-09-24T14:58:24.186615+00:00"
+      "updated_at": "2025-09-24T14:58:24.186615+00:00",
+      "data_for_graph": {
+        "cells": [
+          {
+            "id": "f67e7585-f61e-4c97-8fbd-55eebcb6ff87",
+            "shape": "rank-node",
+            "x": 300,
+            "y": 2750,
+            "attrs": {
+              "title": {
+                "text": "Властелин"
+              },
+              "description": {
+                "text": "Высший ранг, символ абсолютного превосходства"
+              }
+            },
+            "data": {
+              "type": "rank",
+              "name": "Властелин",
+              "description": "Высший ранг, символ абсолютного превосходства",
+              "required_experience": 4500,
+              "color": "#00BCD4"
+            }
+          },
+          {
+            "id": "6d7d7c2d-7162-4cf1-9d5b-4908f03a871f",
+            "shape": "rank-node",
+            "x": 300,
+            "y": 2450,
+            "attrs": {
+              "title": {
+                "text": "Чемпион"
+              },
+              "description": {
+                "text": "Абсолютный пик игрового совершенства"
+              }
+            },
+            "data": {
+              "type": "rank",
+              "name": "Чемпион",
+              "description": "Абсолютный пик игрового совершенства",
+              "required_experience": 3600,
+              "color": "#3F51B5"
+            }
+          },
+          {
+            "id": "53993c7e-20a1-4f70-9463-d58b2f94e055",
+            "shape": "rank-node",
+            "x": 300,
+            "y": 2150,
+            "attrs": {
+              "title": {
+                "text": "Легенда"
+              },
+              "description": {
+                "text": "Мифический статус, достижимый лишь единицами"
+              }
+            },
+            "data": {
+              "type": "rank",
+              "name": "Легенда",
+              "description": "Мифический статус, достижимый лишь единицами",
+              "required_experience": 2800,
+              "color": "#E91E63"
+            }
+          },
+          {
+            "id": "c3d7b6f1-2a2b-3b7c-f0c4-7b5e8d9a6f40",
+            "shape": "event-node",
+            "x": 300,
+            "y": 2250,
+            "attrs": {
+              "title": {
+                "text": "Разработка системы лояльности"
+              },
+              "description": {
+                "text": "Создание комплексной программы удержания талантов в межзвёздной корпорации."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Разработка системы лояльности",
+              "description": "Создание комплексной программы удержания талантов в межзвёздной корпорации.",
+              "experience": 1200,
+              "currency": 900,
+              "category": "Процессы и аналитика",
+              "required_number": 1
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567015",
+            "shape": "competency-node",
+            "x": 3740,
+            "y": 2320,
+            "attrs": {
+              "title": {
+                "text": "Базовая экономика"
+              },
+              "description": {
+                "text": "Основные понятия экономики и финансов"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Базовая экономика",
+              "description": "Основные понятия экономики и финансов",
+              "level": 1,
+              "required_experience": 90,
+              "color": "#795548"
+            }
+          },
+          {
+            "id": "edge-1",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c3d7b6f1-2a2b-3b7c-f0c4-7b5e8d9a6f40"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567015"
+            }
+          },
+          {
+            "id": "edge-2",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "53993c7e-20a1-4f70-9463-d58b2f94e055"
+            },
+            "target": {
+              "cell": "c3d7b6f1-2a2b-3b7c-f0c4-7b5e8d9a6f40"
+            }
+          },
+          {
+            "id": "0d88c8b0-4560-4438-8fa5-d8c88489c88f",
+            "shape": "rank-node",
+            "x": 300,
+            "y": 1850,
+            "attrs": {
+              "title": {
+                "text": "Грандмастер"
+              },
+              "description": {
+                "text": "Легендарный уровень мастерства"
+              }
+            },
+            "data": {
+              "type": "rank",
+              "name": "Грандмастер",
+              "description": "Легендарный уровень мастерства",
+              "required_experience": 2100,
+              "color": "#FFD700"
+            }
+          },
+          {
+            "id": "e9f3e2c7-8c8d-9d3b-b6f0-3b1c5a6a4c54",
+            "shape": "mission-branch-node",
+            "x": 3010,
+            "y": 1970,
+            "attrs": {
+              "title": {
+                "text": "Галактический HR-бренд"
+              },
+              "description": {
+                "text": "Элитная ветка миссий по построению межзвёздного бренда работодателя."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Галактический HR-бренд",
+              "description": "Элитная ветка миссий по построению межзвёздного бренда работодателя.",
+              "category": "Бренд работодателя",
+              "time_to_complete": 120
+            }
+          },
+          {
+            "id": "edge-3",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "0d88c8b0-4560-4438-8fa5-d8c88489c88f"
+            },
+            "target": {
+              "cell": "e9f3e2c7-8c8d-9d3b-b6f0-3b1c5a6a4c54"
+            }
+          },
+          {
+            "id": "f8a2f1f6-7e7f-8f2d-c5a9-2d0e4e5e3d73",
+            "shape": "mission-node",
+            "x": 6340,
+            "y": 2120,
+            "attrs": {
+              "title": {
+                "text": "Галактическая PR-кампания"
+              },
+              "description": {
+                "text": "Опыт: 700, Валюта: 560"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Галактическая PR-кампания",
+              "description": "Опыт: 700, Валюта: 560",
+              "experience": 700,
+              "currency": 560,
+              "level": "Легендарный",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-4",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "e9f3e2c7-8c8d-9d3b-b6f0-3b1c5a6a4c54"
+            },
+            "target": {
+              "cell": "f8a2f1f6-7e7f-8f2d-c5a9-2d0e4e5e3d73"
+            }
+          },
+          {
+            "id": "e7f1e0e5-6d6e-7e1c-b4f8-1c9d3d4d2c72",
+            "shape": "mission-node",
+            "x": 6080,
+            "y": 2120,
+            "attrs": {
+              "title": {
+                "text": "Создание виртуального HR-амбассадора"
+              },
+              "description": {
+                "text": "Опыт: 800, Валюта: 640"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Создание виртуального HR-амбассадора",
+              "description": "Опыт: 800, Валюта: 640",
+              "experience": 800,
+              "currency": 640,
+              "level": "Легендарный",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-5",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "e9f3e2c7-8c8d-9d3b-b6f0-3b1c5a6a4c54"
+            },
+            "target": {
+              "cell": "e7f1e0e5-6d6e-7e1c-b4f8-1c9d3d4d2c72"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567013",
+            "shape": "competency-node",
+            "x": 3220,
+            "y": 2190,
+            "attrs": {
+              "title": {
+                "text": "Трёхмерное мышление"
+              },
+              "description": {
+                "text": "Базовые навыки пространственного мышления"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Трёхмерное мышление",
+              "description": "Базовые навыки пространственного мышления",
+              "level": 1,
+              "required_experience": 180,
+              "color": "#009688"
+            }
+          },
+          {
+            "id": "edge-6",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "e7f1e0e5-6d6e-7e1c-b4f8-1c9d3d4d2c72"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567013"
+            }
+          },
+          {
+            "id": "a1b5f4d9-0e0f-1f5a-d8a2-5f3c6b7e4d38",
+            "shape": "event-node",
+            "x": 300,
+            "y": 2290,
+            "attrs": {
+              "title": {
+                "text": "Глобальная HR-конференция"
+              },
+              "description": {
+                "text": "Ежегодная конференция с участием лучших HR-специалистов всех секторов Альянса."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Глобальная HR-конференция",
+              "description": "Ежегодная конференция с участием лучших HR-специалистов всех секторов Альянса.",
+              "experience": 1000,
+              "currency": 800,
+              "category": "Бренд работодателя",
+              "required_number": 1
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567009",
+            "shape": "competency-node",
+            "x": 2180,
+            "y": 2360,
+            "attrs": {
+              "title": {
+                "text": "Командование"
+              },
+              "description": {
+                "text": "Базовые навыки управления командой"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Командование",
+              "description": "Базовые навыки управления командой",
+              "level": 1,
+              "required_experience": 200,
+              "color": "#F44336"
+            }
+          },
+          {
+            "id": "edge-7",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a1b5f4d9-0e0f-1f5a-d8a2-5f3c6b7e4d38"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567009"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440011",
+            "shape": "artefact-node",
+            "x": 2700,
+            "y": 2370,
+            "attrs": {
+              "title": {
+                "text": "Медальон перемирия с Конкордиатом Сириуса"
+              },
+              "description": {
+                "text": "Символ дипломатического соглашения между Альянсом и могущественной инопланетной расой. Ношение медальона гарантирует безопасный проход через их пространство и доступ к их дипломатическим миссиям."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Медальон перемирия с Конкордиатом Сириуса",
+              "description": "Символ дипломатического соглашения между Альянсом и могущественной инопланетной расой. Ношение медальона гарантирует безопасный проход через их пространство и доступ к их дипломатическим миссиям.",
+              "modifier": "DEFAULT",
+              "modifier_value": 0
+            }
+          },
+          {
+            "id": "edge-8",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a1b5f4d9-0e0f-1f5a-d8a2-5f3c6b7e4d38"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440011"
+            }
+          },
+          {
+            "id": "edge-9",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "0d88c8b0-4560-4438-8fa5-d8c88489c88f"
+            },
+            "target": {
+              "cell": "a1b5f4d9-0e0f-1f5a-d8a2-5f3c6b7e4d38"
+            }
+          },
+          {
+            "id": "cbe4b202-3ea6-4a2d-ae6f-42d063da36fc",
+            "shape": "rank-node",
+            "x": 300,
+            "y": 3000,
+            "attrs": {
+              "title": {
+                "text": "Мастер"
+              },
+              "description": {
+                "text": "Виртуозное владение игровыми механиками"
+              }
+            },
+            "data": {
+              "type": "rank",
+              "name": "Мастер",
+              "description": "Виртуозное владение игровыми механиками",
+              "required_experience": 1500,
+              "color": "#F44336"
+            }
+          },
+          {
+            "id": "c7d1c0a5-6a6b-7b1f-f4d8-1f9a3e4e2a52",
+            "shape": "mission-branch-node",
+            "x": 2490,
+            "y": 3120,
+            "attrs": {
+              "title": {
+                "text": "Межпланетный рекрутинг"
+              },
+              "description": {
+                "text": "Продвинутая ветка миссий по поиску и привлечению талантов из разных секторов галактики."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Межпланетный рекрутинг",
+              "description": "Продвинутая ветка миссий по поиску и привлечению талантов из разных секторов галактики.",
+              "category": "Рекрутинг",
+              "time_to_complete": 90
+            }
+          },
+          {
+            "id": "edge-10",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "cbe4b202-3ea6-4a2d-ae6f-42d063da36fc"
+            },
+            "target": {
+              "cell": "c7d1c0a5-6a6b-7b1f-f4d8-1f9a3e4e2a52"
+            }
+          },
+          {
+            "id": "b4c8b7b2-3a3b-4b8c-e1c5-8f6e0a1a9f69",
+            "shape": "mission-node",
+            "x": 5300,
+            "y": 3270,
+            "attrs": {
+              "title": {
+                "text": "Межпланетный нетворкинг"
+              },
+              "description": {
+                "text": "Опыт: 500, Валюта: 400"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Межпланетный нетворкинг",
+              "description": "Опыт: 500, Валюта: 400",
+              "experience": 500,
+              "currency": 400,
+              "level": "Экспертный",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-11",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c7d1c0a5-6a6b-7b1f-f4d8-1f9a3e4e2a52"
+            },
+            "target": {
+              "cell": "b4c8b7b2-3a3b-4b8c-e1c5-8f6e0a1a9f69"
+            }
+          },
+          {
+            "id": "a3b7a6a1-2f2a-3a7b-d0b4-7e5d9f0f8e68",
+            "shape": "mission-node",
+            "x": 5040,
+            "y": 3270,
+            "attrs": {
+              "title": {
+                "text": "Поиск талантов на Марсе"
+              },
+              "description": {
+                "text": "Опыт: 600, Валюта: 480"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Поиск талантов на Марсе",
+              "description": "Опыт: 600, Валюта: 480",
+              "experience": 600,
+              "currency": 480,
+              "level": "Легендарный",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-12",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c7d1c0a5-6a6b-7b1f-f4d8-1f9a3e4e2a52"
+            },
+            "target": {
+              "cell": "a3b7a6a1-2f2a-3a7b-d0b4-7e5d9f0f8e68"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440005",
+            "shape": "artefact-node",
+            "x": 1140,
+            "y": 3350,
+            "attrs": {
+              "title": {
+                "text": "Карта тайных грузов Пояса Астероидов"
+              },
+              "description": {
+                "text": "Зашифрованная карта, ведущая к заброшенным тайникам контрабандистов и местам крушений кораблей с ценными грузами. Постоянно обновляется с учетом гравитационных сдвигов в Поясе."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Карта тайных грузов Пояса Астероидов",
+              "description": "Зашифрованная карта, ведущая к заброшенным тайникам контрабандистов и местам крушений кораблей с ценными грузами. Постоянно обновляется с учетом гравитационных сдвигов в Поясе.",
+              "modifier": "CURRENCY_GAIN",
+              "modifier_value": 25
+            }
+          },
+          {
+            "id": "edge-13",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a3b7a6a1-2f2a-3a7b-d0b4-7e5d9f0f8e68"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440005"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567017",
+            "shape": "competency-node",
+            "x": 4260,
+            "y": 3340,
+            "attrs": {
+              "title": {
+                "text": "Основы аэронавигации"
+              },
+              "description": {
+                "text": "Базовые принципы навигации в воздушном пространстве"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Основы аэронавигации",
+              "description": "Базовые принципы навигации в воздушном пространстве",
+              "level": 1,
+              "required_experience": 250,
+              "color": "#607D8B"
+            }
+          },
+          {
+            "id": "edge-14",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a3b7a6a1-2f2a-3a7b-d0b4-7e5d9f0f8e68"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567017"
+            }
+          },
+          {
+            "id": "d8e2c1a6-7b7c-8c2f-a5d9-2c0f3e4b1a35",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3450,
+            "attrs": {
+              "title": {
+                "text": "Экспертная оценка межпланетных проектов"
+              },
+              "description": {
+                "text": "Участие в жюри конкурса инновационных HR-проектов галактического масштаба."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Экспертная оценка межпланетных проектов",
+              "description": "Участие в жюри конкурса инновационных HR-проектов галактического масштаба.",
+              "experience": 900,
+              "currency": 700,
+              "category": "Оценка",
+              "required_number": 2
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "shape": "competency-node",
+            "x": 1660,
+            "y": 3520,
+            "attrs": {
+              "title": {
+                "text": "Аналитика"
+              },
+              "description": {
+                "text": "Базовые навыки анализа информации и принятия решений"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Аналитика",
+              "description": "Базовые навыки анализа информации и принятия решений",
+              "level": 1,
+              "required_experience": 120,
+              "color": "#9C27B0"
+            }
+          },
+          {
+            "id": "edge-15",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "d8e2c1a6-7b7c-8c2f-a5d9-2c0f3e4b1a35"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567007"
+            }
+          },
+          {
+            "id": "edge-16",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440005"
+            },
+            "target": {
+              "cell": "d8e2c1a6-7b7c-8c2f-a5d9-2c0f3e4b1a35"
+            }
+          },
+          {
+            "id": "edge-17",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "cbe4b202-3ea6-4a2d-ae6f-42d063da36fc"
+            },
+            "target": {
+              "cell": "d8e2c1a6-7b7c-8c2f-a5d9-2c0f3e4b1a35"
+            }
+          },
+          {
+            "id": "6482ff6f-7f48-4f8f-bf11-b57d09c47b39",
+            "shape": "rank-node",
+            "x": 300,
+            "y": 2450,
+            "attrs": {
+              "title": {
+                "text": "Эксперт"
+              },
+              "description": {
+                "text": "Высокий уровень мастерства"
+              }
+            },
+            "data": {
+              "type": "rank",
+              "name": "Эксперт",
+              "description": "Высокий уровень мастерства",
+              "required_experience": 1000,
+              "color": "#9C27B0"
+            }
+          },
+          {
+            "id": "d8e2d1b6-7b7c-8c2a-a5e9-2a0b4f5f3b53",
+            "shape": "mission-branch-node",
+            "x": 2750,
+            "y": 2570,
+            "attrs": {
+              "title": {
+                "text": "Образовательная платформа"
+              },
+              "description": {
+                "text": "Ветка миссий по созданию и развитию внутренней образовательной экосистемы."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Образовательная платформа",
+              "description": "Ветка миссий по созданию и развитию внутренней образовательной экосистемы.",
+              "category": "Лекторий",
+              "time_to_complete": 70
+            }
+          },
+          {
+            "id": "edge-18",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "6482ff6f-7f48-4f8f-bf11-b57d09c47b39"
+            },
+            "target": {
+              "cell": "d8e2d1b6-7b7c-8c2a-a5e9-2a0b4f5f3b53"
+            }
+          },
+          {
+            "id": "d6e0d9d4-5c5d-6d0b-a3e7-0b8c2c3c1b71",
+            "shape": "mission-node",
+            "x": 5820,
+            "y": 2720,
+            "attrs": {
+              "title": {
+                "text": "Запуск менторской программы"
+              },
+              "description": {
+                "text": "Опыт: 380, Валюта: 300"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Запуск менторской программы",
+              "description": "Опыт: 380, Валюта: 300",
+              "experience": 380,
+              "currency": 300,
+              "level": "Сложный",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-19",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "d8e2d1b6-7b7c-8c2a-a5e9-2a0b4f5f3b53"
+            },
+            "target": {
+              "cell": "d6e0d9d4-5c5d-6d0b-a3e7-0b8c2c3c1b71"
+            }
+          },
+          {
+            "id": "c5d9c8c3-4b4c-5c9d-f2d6-9a7f1b2b0a70",
+            "shape": "mission-node",
+            "x": 5560,
+            "y": 2720,
+            "attrs": {
+              "title": {
+                "text": "Создание учебного портала"
+              },
+              "description": {
+                "text": "Опыт: 450, Валюта: 360"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Создание учебного портала",
+              "description": "Опыт: 450, Валюта: 360",
+              "experience": 450,
+              "currency": 360,
+              "level": "Экспертный",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-20",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "d8e2d1b6-7b7c-8c2a-a5e9-2a0b4f5f3b53"
+            },
+            "target": {
+              "cell": "c5d9c8c3-4b4c-5c9d-f2d6-9a7f1b2b0a70"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-21",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c5d9c8c3-4b4c-5c9d-f2d6-9a7f1b2b0a70"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "e3f7e6b1-2c2d-3d7b-b0f4-7b5c9a0a8c48",
+            "shape": "mission-branch-node",
+            "x": 1450,
+            "y": 2690,
+            "attrs": {
+              "title": {
+                "text": "Развитие лидерства"
+              },
+              "description": {
+                "text": "Ветка миссий по выявлению и развитию лидерского потенциала среди сотрудников корпорации."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Развитие лидерства",
+              "description": "Ветка миссий по выявлению и развитию лидерского потенциала среди сотрудников корпорации.",
+              "category": "Развитие",
+              "time_to_complete": 60
+            }
+          },
+          {
+            "id": "edge-22",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "6482ff6f-7f48-4f8f-bf11-b57d09c47b39"
+            },
+            "target": {
+              "cell": "e3f7e6b1-2c2d-3d7b-b0f4-7b5c9a0a8c48"
+            }
+          },
+          {
+            "id": "f6a0f9e4-5e5f-6f0a-c3a7-0f8c2b3e1d61",
+            "shape": "mission-node",
+            "x": 3220,
+            "y": 2840,
+            "attrs": {
+              "title": {
+                "text": "Менторская программа для лидеров"
+              },
+              "description": {
+                "text": "Опыт: 400, Валюта: 320"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Менторская программа для лидеров",
+              "description": "Опыт: 400, Валюта: 320",
+              "experience": 400,
+              "currency": 320,
+              "level": "Экспертный",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-23",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "e3f7e6b1-2c2d-3d7b-b0f4-7b5c9a0a8c48"
+            },
+            "target": {
+              "cell": "f6a0f9e4-5e5f-6f0a-c3a7-0f8c2b3e1d61"
+            }
+          },
+          {
+            "id": "e5f9e8d3-4d4e-5e9d-b2f6-9e7b1a2d0c60",
+            "shape": "mission-node",
+            "x": 2960,
+            "y": 2840,
+            "attrs": {
+              "title": {
+                "text": "Выявление будущих лидеров"
+              },
+              "description": {
+                "text": "Опыт: 350, Валюта: 280"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Выявление будущих лидеров",
+              "description": "Опыт: 350, Валюта: 280",
+              "experience": 350,
+              "currency": 280,
+              "level": "Экспертный",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-24",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "e3f7e6b1-2c2d-3d7b-b0f4-7b5c9a0a8c48"
+            },
+            "target": {
+              "cell": "e5f9e8d3-4d4e-5e9d-b2f6-9e7b1a2d0c60"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440007",
+            "shape": "artefact-node",
+            "x": 1660,
+            "y": 2920,
+            "attrs": {
+              "title": {
+                "text": "Дипломатическая печать Альянса \"Платина\""
+              },
+              "description": {
+                "text": "Высшая степень доверия, выдаваемая пилотам, оказавшим неоценимые услуги Альянсу. Предоставляет доступ к закрытым правительственным аукционам и складам с передовым оборудованием по себестоимости."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Дипломатическая печать Альянса \"Платина\"",
+              "description": "Высшая степень доверия, выдаваемая пилотам, оказавшим неоценимые услуги Альянсу. Предоставляет доступ к закрытым правительственным аукционам и складам с передовым оборудованием по себестоимости.",
+              "modifier": "SHOP_DISCOUNT",
+              "modifier_value": 20
+            }
+          },
+          {
+            "id": "edge-25",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "e5f9e8d3-4d4e-5e9d-b2f6-9e7b1a2d0c60"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440007"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567009",
+            "shape": "competency-node",
+            "x": 2180,
+            "y": 2360,
+            "attrs": {
+              "title": {
+                "text": "Командование"
+              },
+              "description": {
+                "text": "Базовые навыки управления командой"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Командование",
+              "description": "Базовые навыки управления командой",
+              "level": 1,
+              "required_experience": 200,
+              "color": "#F44336"
+            }
+          },
+          {
+            "id": "edge-26",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "e5f9e8d3-4d4e-5e9d-b2f6-9e7b1a2d0c60"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567009"
+            }
+          },
+          {
+            "id": "b6c0a9e4-5f5a-6a0d-e3b7-0a8d1a2c9e33",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3020,
+            "attrs": {
+              "title": {
+                "text": "Создание голографического HR-портала"
+              },
+              "description": {
+                "text": "Разработка интерактивного портала для кандидатов с полным погружением."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Создание голографического HR-портала",
+              "description": "Разработка интерактивного портала для кандидатов с полным погружением.",
+              "experience": 650,
+              "currency": 550,
+              "category": "Бренд работодателя",
+              "required_number": 4
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440010",
+            "shape": "artefact-node",
+            "x": 2440,
+            "y": 3100,
+            "attrs": {
+              "title": {
+                "text": "Сертификат аккредитации пилота-первопроходца"
+              },
+              "description": {
+                "text": "Официальный документ, дающий право претендовать на первопроходческие миссии по картографированию новых систем и право давать имена открытым объектам. Символ статуса и доверия Альянса."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Сертификат аккредитации пилота-первопроходца",
+              "description": "Официальный документ, дающий право претендовать на первопроходческие миссии по картографированию новых систем и право давать имена открытым объектам. Символ статуса и доверия Альянса.",
+              "modifier": "DEFAULT",
+              "modifier_value": 0
+            }
+          },
+          {
+            "id": "edge-27",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "b6c0a9e4-5f5a-6a0d-e3b7-0a8d1a2c9e33"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440010"
+            }
+          },
+          {
+            "id": "edge-28",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440007"
+            },
+            "target": {
+              "cell": "b6c0a9e4-5f5a-6a0d-e3b7-0a8d1a2c9e33"
+            }
+          },
+          {
+            "id": "edge-29",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "6482ff6f-7f48-4f8f-bf11-b57d09c47b39"
+            },
+            "target": {
+              "cell": "b6c0a9e4-5f5a-6a0d-e3b7-0a8d1a2c9e33"
+            }
+          },
+          {
+            "id": "d2e6c5a0-1b1c-2c6f-a9d3-6b4f7c8e5a29",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3120,
+            "attrs": {
+              "title": {
+                "text": "Коучинг для космических лидеров"
+              },
+              "description": {
+                "text": "Индивидуальные сессии развития лидерских качеств для управления межпланетными командами."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Коучинг для космических лидеров",
+              "description": "Индивидуальные сессии развития лидерских качеств для управления межпланетными командами.",
+              "experience": 700,
+              "currency": 500,
+              "category": "Развитие",
+              "required_number": 3
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567009",
+            "shape": "competency-node",
+            "x": 2180,
+            "y": 2360,
+            "attrs": {
+              "title": {
+                "text": "Командование"
+              },
+              "description": {
+                "text": "Базовые навыки управления командой"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Командование",
+              "description": "Базовые навыки управления командой",
+              "level": 1,
+              "required_experience": 200,
+              "color": "#F44336"
+            }
+          },
+          {
+            "id": "edge-30",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "d2e6c5a0-1b1c-2c6f-a9d3-6b4f7c8e5a29"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567009"
+            }
+          },
+          {
+            "id": "edge-31",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440007"
+            },
+            "target": {
+              "cell": "d2e6c5a0-1b1c-2c6f-a9d3-6b4f7c8e5a29"
+            }
+          },
+          {
+            "id": "edge-32",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "6482ff6f-7f48-4f8f-bf11-b57d09c47b39"
+            },
+            "target": {
+              "cell": "d2e6c5a0-1b1c-2c6f-a9d3-6b4f7c8e5a29"
+            }
+          },
+          {
+            "id": "a9b3f2c7-8d8e-9f3c-d6a0-3e1c4f5b2d26",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3220,
+            "attrs": {
+              "title": {
+                "text": "Квантовый анализ талантов"
+              },
+              "description": {
+                "text": "Внедрение квантовых алгоритмов для прогнозирования успешности кандидатов."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Квантовый анализ талантов",
+              "description": "Внедрение квантовых алгоритмов для прогнозирования успешности кандидатов.",
+              "experience": 800,
+              "currency": 600,
+              "category": "Процессы и аналитика",
+              "required_number": 2
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "shape": "competency-node",
+            "x": 1660,
+            "y": 3520,
+            "attrs": {
+              "title": {
+                "text": "Аналитика"
+              },
+              "description": {
+                "text": "Базовые навыки анализа информации и принятия решений"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Аналитика",
+              "description": "Базовые навыки анализа информации и принятия решений",
+              "level": 1,
+              "required_experience": 120,
+              "color": "#9C27B0"
+            }
+          },
+          {
+            "id": "edge-33",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a9b3f2c7-8d8e-9f3c-d6a0-3e1c4f5b2d26"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567007"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440003",
+            "shape": "artefact-node",
+            "x": 620,
+            "y": 3300,
+            "attrs": {
+              "title": {
+                "text": "Кристалл памяти Кс'арратхов"
+              },
+              "description": {
+                "text": "Артефакт загадочной инопланетной расы Кс'арратхов, способный хранить и передавать ментальные импринты навыков. При контакте дарует пользователю фрагменты чуждого, но невероятно продвинутого знания."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Кристалл памяти Кс'арратхов",
+              "description": "Артефакт загадочной инопланетной расы Кс'арратхов, способный хранить и передавать ментальные импринты навыков. При контакте дарует пользователю фрагменты чуждого, но невероятно продвинутого знания.",
+              "modifier": "EXPERIENCE_GAIN",
+              "modifier_value": 20
+            }
+          },
+          {
+            "id": "edge-34",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a9b3f2c7-8d8e-9f3c-d6a0-3e1c4f5b2d26"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440003"
+            }
+          },
+          {
+            "id": "edge-35",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440007"
+            },
+            "target": {
+              "cell": "a9b3f2c7-8d8e-9f3c-d6a0-3e1c4f5b2d26"
+            }
+          },
+          {
+            "id": "edge-36",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "6482ff6f-7f48-4f8f-bf11-b57d09c47b39"
+            },
+            "target": {
+              "cell": "a9b3f2c7-8d8e-9f3c-d6a0-3e1c4f5b2d26"
+            }
+          },
+          {
+            "id": "c6103b75-1622-4b9a-8b0c-0efc9be95157",
+            "shape": "rank-node",
+            "x": 300,
+            "y": 2810,
+            "attrs": {
+              "title": {
+                "text": "Специалист"
+              },
+              "description": {
+                "text": "Углубленные знания в конкретных областях"
+              }
+            },
+            "data": {
+              "type": "rank",
+              "name": "Специалист",
+              "description": "Углубленные знания в конкретных областях",
+              "required_experience": 600,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "f0a4f3d8-9d9e-0e4a-c7a1-4c2d6b7b5d55",
+            "shape": "mission-branch-node",
+            "x": 3270,
+            "y": 2930,
+            "attrs": {
+              "title": {
+                "text": "Космическая адаптация"
+              },
+              "description": {
+                "text": "Специализированная ветка по адаптации персонала к работе в экстремальных условиях космоса."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Космическая адаптация",
+              "description": "Специализированная ветка по адаптации персонала к работе в экстремальных условиях космоса.",
+              "category": "Адаптация",
+              "time_to_complete": 42
+            }
+          },
+          {
+            "id": "edge-37",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c6103b75-1622-4b9a-8b0c-0efc9be95157"
+            },
+            "target": {
+              "cell": "f0a4f3d8-9d9e-0e4a-c7a1-4c2d6b7b5d55"
+            }
+          },
+          {
+            "id": "b0c4b3b8-9a9b-0b4d-e7d1-4f2a6a7a5f75",
+            "shape": "mission-node",
+            "x": 6860,
+            "y": 3080,
+            "attrs": {
+              "title": {
+                "text": "Психологическая адаптация к изоляции"
+              },
+              "description": {
+                "text": "Опыт: 320, Валюта: 260"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Психологическая адаптация к изоляции",
+              "description": "Опыт: 320, Валюта: 260",
+              "experience": 320,
+              "currency": 260,
+              "level": "Сложный",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-38",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "f0a4f3d8-9d9e-0e4a-c7a1-4c2d6b7b5d55"
+            },
+            "target": {
+              "cell": "b0c4b3b8-9a9b-0b4d-e7d1-4f2a6a7a5f75"
+            }
+          },
+          {
+            "id": "a9b3a2a7-8f8a-9a3d-d6c0-3e1f5f6f4e74",
+            "shape": "mission-node",
+            "x": 6600,
+            "y": 3080,
+            "attrs": {
+              "title": {
+                "text": "Подготовка к работе в невесомости"
+              },
+              "description": {
+                "text": "Опыт: 280, Валюта: 220"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Подготовка к работе в невесомости",
+              "description": "Опыт: 280, Валюта: 220",
+              "experience": 280,
+              "currency": 220,
+              "level": "Сложный",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-39",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "f0a4f3d8-9d9e-0e4a-c7a1-4c2d6b7b5d55"
+            },
+            "target": {
+              "cell": "a9b3a2a7-8f8a-9a3d-d6c0-3e1f5f6f4e74"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567017",
+            "shape": "competency-node",
+            "x": 4260,
+            "y": 3340,
+            "attrs": {
+              "title": {
+                "text": "Основы аэронавигации"
+              },
+              "description": {
+                "text": "Базовые принципы навигации в воздушном пространстве"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Основы аэронавигации",
+              "description": "Базовые принципы навигации в воздушном пространстве",
+              "level": 1,
+              "required_experience": 250,
+              "color": "#607D8B"
+            }
+          },
+          {
+            "id": "edge-40",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a9b3a2a7-8f8a-9a3d-d6c0-3e1f5f6f4e74"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567017"
+            }
+          },
+          {
+            "id": "a5b9a8d3-4e4f-5f9d-d2b6-9d7e1c2c0e50",
+            "shape": "mission-branch-node",
+            "x": 1970,
+            "y": 3050,
+            "attrs": {
+              "title": {
+                "text": "HR-аналитика и метрики"
+              },
+              "description": {
+                "text": "Ветка миссий по внедрению аналитических инструментов и работе с HR-метриками."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "HR-аналитика и метрики",
+              "description": "Ветка миссий по внедрению аналитических инструментов и работе с HR-метриками.",
+              "category": "Процессы и аналитика",
+              "time_to_complete": 50
+            }
+          },
+          {
+            "id": "edge-41",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c6103b75-1622-4b9a-8b0c-0efc9be95157"
+            },
+            "target": {
+              "cell": "a5b9a8d3-4e4f-5f9d-d2b6-9d7e1c2c0e50"
+            }
+          },
+          {
+            "id": "d0e4d3d8-9c9d-0d4e-a7e1-4c2a6c7c5b65",
+            "shape": "mission-node",
+            "x": 4260,
+            "y": 3200,
+            "attrs": {
+              "title": {
+                "text": "Анализ текучести кадров"
+              },
+              "description": {
+                "text": "Опыт: 250, Валюта: 200"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Анализ текучести кадров",
+              "description": "Опыт: 250, Валюта: 200",
+              "experience": 250,
+              "currency": 200,
+              "level": "Сложный",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-42",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a5b9a8d3-4e4f-5f9d-d2b6-9d7e1c2c0e50"
+            },
+            "target": {
+              "cell": "d0e4d3d8-9c9d-0d4e-a7e1-4c2a6c7c5b65"
+            }
+          },
+          {
+            "id": "c9d3c2c7-8b8c-9c3d-f6d0-3c1f5b6b4a64",
+            "shape": "mission-node",
+            "x": 4000,
+            "y": 3200,
+            "attrs": {
+              "title": {
+                "text": "Внедрение HR-дашборда"
+              },
+              "description": {
+                "text": "Опыт: 300, Валюта: 240"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Внедрение HR-дашборда",
+              "description": "Опыт: 300, Валюта: 240",
+              "experience": 300,
+              "currency": 240,
+              "level": "Сложный",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-43",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a5b9a8d3-4e4f-5f9d-d2b6-9d7e1c2c0e50"
+            },
+            "target": {
+              "cell": "c9d3c2c7-8b8c-9c3d-f6d0-3c1f5b6b4a64"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440003",
+            "shape": "artefact-node",
+            "x": 620,
+            "y": 3300,
+            "attrs": {
+              "title": {
+                "text": "Кристалл памяти Кс'арратхов"
+              },
+              "description": {
+                "text": "Артефакт загадочной инопланетной расы Кс'арратхов, способный хранить и передавать ментальные импринты навыков. При контакте дарует пользователю фрагменты чуждого, но невероятно продвинутого знания."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Кристалл памяти Кс'арратхов",
+              "description": "Артефакт загадочной инопланетной расы Кс'арратхов, способный хранить и передавать ментальные импринты навыков. При контакте дарует пользователю фрагменты чуждого, но невероятно продвинутого знания.",
+              "modifier": "EXPERIENCE_GAIN",
+              "modifier_value": 20
+            }
+          },
+          {
+            "id": "edge-44",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c9d3c2c7-8b8c-9c3d-f6d0-3c1f5b6b4a64"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440003"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "shape": "competency-node",
+            "x": 1660,
+            "y": 3520,
+            "attrs": {
+              "title": {
+                "text": "Аналитика"
+              },
+              "description": {
+                "text": "Базовые навыки анализа информации и принятия решений"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Аналитика",
+              "description": "Базовые навыки анализа информации и принятия решений",
+              "level": 1,
+              "required_experience": 120,
+              "color": "#9C27B0"
+            }
+          },
+          {
+            "id": "edge-45",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c9d3c2c7-8b8c-9c3d-f6d0-3c1f5b6b4a64"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567007"
+            }
+          },
+          {
+            "id": "c1d5c4f9-0a0b-1b5f-f8d2-5f3a7d8e6a46",
+            "shape": "mission-branch-node",
+            "x": 930,
+            "y": 3170,
+            "attrs": {
+              "title": {
+                "text": "Оценка и развитие талантов"
+              },
+              "description": {
+                "text": "Ветка миссий по созданию систем оценки компетенций и развитию потенциала сотрудников."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Оценка и развитие талантов",
+              "description": "Ветка миссий по созданию систем оценки компетенций и развитию потенциала сотрудников.",
+              "category": "Оценка",
+              "time_to_complete": 40
+            }
+          },
+          {
+            "id": "edge-46",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c6103b75-1622-4b9a-8b0c-0efc9be95157"
+            },
+            "target": {
+              "cell": "c1d5c4f9-0a0b-1b5f-f8d2-5f3a7d8e6a46"
+            }
+          },
+          {
+            "id": "b2c6b5a0-1a1b-2b6a-e9c3-6b4e8d9a7f57",
+            "shape": "mission-node",
+            "x": 2180,
+            "y": 3320,
+            "attrs": {
+              "title": {
+                "text": "Проведение 360-градусной оценки"
+              },
+              "description": {
+                "text": "Опыт: 280, Валюта: 220"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Проведение 360-градусной оценки",
+              "description": "Опыт: 280, Валюта: 220",
+              "experience": 280,
+              "currency": 220,
+              "level": "Сложный",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-47",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c1d5c4f9-0a0b-1b5f-f8d2-5f3a7d8e6a46"
+            },
+            "target": {
+              "cell": "b2c6b5a0-1a1b-2b6a-e9c3-6b4e8d9a7f57"
+            }
+          },
+          {
+            "id": "a1b5a4e9-0f0a-1a5f-d8b2-5a3d7c8f6e56",
+            "shape": "mission-node",
+            "x": 1920,
+            "y": 3320,
+            "attrs": {
+              "title": {
+                "text": "Разработка матрицы компетенций"
+              },
+              "description": {
+                "text": "Опыт: 220, Валюта: 180"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Разработка матрицы компетенций",
+              "description": "Опыт: 220, Валюта: 180",
+              "experience": 220,
+              "currency": 180,
+              "level": "Сложный",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-48",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c1d5c4f9-0a0b-1b5f-f8d2-5f3a7d8e6a46"
+            },
+            "target": {
+              "cell": "a1b5a4e9-0f0a-1a5f-d8b2-5a3d7c8f6e56"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "shape": "competency-node",
+            "x": 1660,
+            "y": 3520,
+            "attrs": {
+              "title": {
+                "text": "Аналитика"
+              },
+              "description": {
+                "text": "Базовые навыки анализа информации и принятия решений"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Аналитика",
+              "description": "Базовые навыки анализа информации и принятия решений",
+              "level": 1,
+              "required_experience": 120,
+              "color": "#9C27B0"
+            }
+          },
+          {
+            "id": "edge-49",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a1b5a4e9-0f0a-1a5f-d8b2-5a3d7c8f6e56"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567007"
+            }
+          },
+          {
+            "id": "e9f3d2b7-8c8d-9d3a-b6e0-3d1a4f5c2b36",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3490,
+            "attrs": {
+              "title": {
+                "text": "Симулятор первого контакта"
+              },
+              "description": {
+                "text": "Тренинг по рекрутингу представителей новооткрытых цивилизаций."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Симулятор первого контакта",
+              "description": "Тренинг по рекрутингу представителей новооткрытых цивилизаций.",
+              "experience": 400,
+              "currency": 320,
+              "category": "Симулятор",
+              "required_number": 6
+            }
+          },
+          {
+            "id": "edge-50",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440003"
+            },
+            "target": {
+              "cell": "e9f3d2b7-8c8d-9d3a-b6e0-3d1a4f5c2b36"
+            }
+          },
+          {
+            "id": "edge-51",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c6103b75-1622-4b9a-8b0c-0efc9be95157"
+            },
+            "target": {
+              "cell": "e9f3d2b7-8c8d-9d3a-b6e0-3d1a4f5c2b36"
+            }
+          },
+          {
+            "id": "e3f7d6b1-2c2d-3d7a-b0e4-7c5a8d9f6b30",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3590,
+            "attrs": {
+              "title": {
+                "text": "Хакатон HR-инноваций"
+              },
+              "description": {
+                "text": "48-часовой марафон по созданию революционных HR-решений для космической эры."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Хакатон HR-инноваций",
+              "description": "48-часовой марафон по созданию революционных HR-решений для космической эры.",
+              "experience": 550,
+              "currency": 450,
+              "category": "Процессы и аналитика",
+              "required_number": 5
+            }
+          },
+          {
+            "id": "edge-52",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440003"
+            },
+            "target": {
+              "cell": "e3f7d6b1-2c2d-3d7a-b0e4-7c5a8d9f6b30"
+            }
+          },
+          {
+            "id": "edge-53",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c6103b75-1622-4b9a-8b0c-0efc9be95157"
+            },
+            "target": {
+              "cell": "e3f7d6b1-2c2d-3d7a-b0e4-7c5a8d9f6b30"
+            }
+          },
+          {
+            "id": "c1d5b4e9-0a0b-1b5e-f8c2-5a3e6b7d4f28",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3690,
+            "attrs": {
+              "title": {
+                "text": "Межпланетная ярмарка вакансий"
+              },
+              "description": {
+                "text": "Крупнейшее событие по привлечению талантов со всех планет Альянса."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Межпланетная ярмарка вакансий",
+              "description": "Крупнейшее событие по привлечению талантов со всех планет Альянса.",
+              "experience": 450,
+              "currency": 400,
+              "category": "Рекрутинг",
+              "required_number": 7
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440004",
+            "shape": "artefact-node",
+            "x": 880,
+            "y": 3770,
+            "attrs": {
+              "title": {
+                "text": "Квантовый трейдер \"Удача Звездного Кита\""
+              },
+              "description": {
+                "text": "Портативное устройство, использующее квантовую запутанность для анализа межпланетных бирж за доли секунды до обновления котировок. Позволяет находить самые выгодные торговые арбитражные возможности."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Квантовый трейдер \"Удача Звездного Кита\"",
+              "description": "Портативное устройство, использующее квантовую запутанность для анализа межпланетных бирж за доли секунды до обновления котировок. Позволяет находить самые выгодные торговые арбитражные возможности.",
+              "modifier": "CURRENCY_GAIN",
+              "modifier_value": 15
+            }
+          },
+          {
+            "id": "edge-54",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c1d5b4e9-0a0b-1b5e-f8c2-5a3e6b7d4f28"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440004"
+            }
+          },
+          {
+            "id": "edge-55",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440003"
+            },
+            "target": {
+              "cell": "c1d5b4e9-0a0b-1b5e-f8c2-5a3e6b7d4f28"
+            }
+          },
+          {
+            "id": "edge-56",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c6103b75-1622-4b9a-8b0c-0efc9be95157"
+            },
+            "target": {
+              "cell": "c1d5b4e9-0a0b-1b5e-f8c2-5a3e6b7d4f28"
+            }
+          },
+          {
+            "id": "c5d9b8e3-4f4a-5b9e-f2b6-9a7e0b1d8f22",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3790,
+            "attrs": {
+              "title": {
+                "text": "Марафон проектных презентаций"
+              },
+              "description": {
+                "text": "Защита инновационных HR-проектов перед советом директоров корпорации."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Марафон проектных презентаций",
+              "description": "Защита инновационных HR-проектов перед советом директоров корпорации.",
+              "experience": 500,
+              "currency": 350,
+              "category": "Развитие",
+              "required_number": 4
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567009",
+            "shape": "competency-node",
+            "x": 2180,
+            "y": 2360,
+            "attrs": {
+              "title": {
+                "text": "Командование"
+              },
+              "description": {
+                "text": "Базовые навыки управления командой"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Командование",
+              "description": "Базовые навыки управления командой",
+              "level": 1,
+              "required_experience": 200,
+              "color": "#F44336"
+            }
+          },
+          {
+            "id": "edge-57",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c5d9b8e3-4f4a-5b9e-f2b6-9a7e0b1d8f22"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567009"
+            }
+          },
+          {
+            "id": "edge-58",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440003"
+            },
+            "target": {
+              "cell": "c5d9b8e3-4f4a-5b9e-f2b6-9a7e0b1d8f22"
+            }
+          },
+          {
+            "id": "edge-59",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c6103b75-1622-4b9a-8b0c-0efc9be95157"
+            },
+            "target": {
+              "cell": "c5d9b8e3-4f4a-5b9e-f2b6-9a7e0b1d8f22"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440031",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3890,
+            "attrs": {
+              "title": {
+                "text": "HR-аналитика: сбор и обработка метрик отбора"
+              },
+              "description": {
+                "text": "Масштабный проект по анализу эффективности рекрутинговых процессов. Сбор данных, построение отчетов и выработка рекомендаций по оптимизации."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "HR-аналитика: сбор и обработка метрик отбора",
+              "description": "Масштабный проект по анализу эффективности рекрутинговых процессов. Сбор данных, построение отчетов и выработка рекомендаций по оптимизации.",
+              "experience": 600,
+              "currency": 400,
+              "category": "Процессы и аналитика",
+              "required_number": 3
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567015",
+            "shape": "competency-node",
+            "x": 3740,
+            "y": 2320,
+            "attrs": {
+              "title": {
+                "text": "Базовая экономика"
+              },
+              "description": {
+                "text": "Основные понятия экономики и финансов"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Базовая экономика",
+              "description": "Основные понятия экономики и финансов",
+              "level": 1,
+              "required_experience": 90,
+              "color": "#795548"
+            }
+          },
+          {
+            "id": "edge-60",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440031"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567015"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "shape": "competency-node",
+            "x": 1660,
+            "y": 3520,
+            "attrs": {
+              "title": {
+                "text": "Аналитика"
+              },
+              "description": {
+                "text": "Базовые навыки анализа информации и принятия решений"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Аналитика",
+              "description": "Базовые навыки анализа информации и принятия решений",
+              "level": 1,
+              "required_experience": 120,
+              "color": "#9C27B0"
+            }
+          },
+          {
+            "id": "edge-61",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440031"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567007"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440003",
+            "shape": "artefact-node",
+            "x": 620,
+            "y": 3300,
+            "attrs": {
+              "title": {
+                "text": "Кристалл памяти Кс'арратхов"
+              },
+              "description": {
+                "text": "Артефакт загадочной инопланетной расы Кс'арратхов, способный хранить и передавать ментальные импринты навыков. При контакте дарует пользователю фрагменты чуждого, но невероятно продвинутого знания."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Кристалл памяти Кс'арратхов",
+              "description": "Артефакт загадочной инопланетной расы Кс'арратхов, способный хранить и передавать ментальные импринты навыков. При контакте дарует пользователю фрагменты чуждого, но невероятно продвинутого знания.",
+              "modifier": "EXPERIENCE_GAIN",
+              "modifier_value": 20
+            }
+          },
+          {
+            "id": "edge-62",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440031"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440003"
+            }
+          },
+          {
+            "id": "edge-63",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440003"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440031"
+            }
+          },
+          {
+            "id": "edge-64",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c6103b75-1622-4b9a-8b0c-0efc9be95157"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440031"
+            }
+          },
+          {
+            "id": "4f14c510-e388-42f3-b47a-70e2f281be87",
+            "shape": "rank-node",
+            "x": 300,
+            "y": 2510,
+            "attrs": {
+              "title": {
+                "text": "Опытный"
+              },
+              "description": {
+                "text": "Уверенно владеет основными навыками"
+              }
+            },
+            "data": {
+              "type": "rank",
+              "name": "Опытный",
+              "description": "Уверенно владеет основными навыками",
+              "required_experience": 300,
+              "color": "#2196F3"
+            }
+          },
+          {
+            "id": "f4a8f7c2-3d3e-4e8c-c1a5-8c6d0b1b9d49",
+            "shape": "mission-branch-node",
+            "x": 1710,
+            "y": 2630,
+            "attrs": {
+              "title": {
+                "text": "Командообразование"
+              },
+              "description": {
+                "text": "Ветка миссий по укреплению командного духа и развитию синергии между отделами."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Командообразование",
+              "description": "Ветка миссий по укреплению командного духа и развитию синергии между отделами.",
+              "category": "Тимбилдинг",
+              "time_to_complete": 35
+            }
+          },
+          {
+            "id": "edge-65",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "4f14c510-e388-42f3-b47a-70e2f281be87"
+            },
+            "target": {
+              "cell": "f4a8f7c2-3d3e-4e8c-c1a5-8c6d0b1b9d49"
+            }
+          },
+          {
+            "id": "b8c2b1b6-7a7b-8b2c-e5c9-2b0e4d5a3f63",
+            "shape": "mission-node",
+            "x": 3740,
+            "y": 2780,
+            "attrs": {
+              "title": {
+                "text": "Космический тимбилдинг"
+              },
+              "description": {
+                "text": "Опыт: 180, Валюта: 150"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Космический тимбилдинг",
+              "description": "Опыт: 180, Валюта: 150",
+              "experience": 180,
+              "currency": 150,
+              "level": "Сложный",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-66",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "f4a8f7c2-3d3e-4e8c-c1a5-8c6d0b1b9d49"
+            },
+            "target": {
+              "cell": "b8c2b1b6-7a7b-8b2c-e5c9-2b0e4d5a3f63"
+            }
+          },
+          {
+            "id": "a7b1a0a5-6f6a-7a1b-d4b8-1a9d3c4f2e62",
+            "shape": "mission-node",
+            "x": 3480,
+            "y": 2780,
+            "attrs": {
+              "title": {
+                "text": "Организация квеста для команды"
+              },
+              "description": {
+                "text": "Опыт: 140, Валюта: 110"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Организация квеста для команды",
+              "description": "Опыт: 140, Валюта: 110",
+              "experience": 140,
+              "currency": 110,
+              "level": "Средний",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-67",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "f4a8f7c2-3d3e-4e8c-c1a5-8c6d0b1b9d49"
+            },
+            "target": {
+              "cell": "a7b1a0a5-6f6a-7a1b-d4b8-1a9d3c4f2e62"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-68",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "a7b1a0a5-6f6a-7a1b-d4b8-1a9d3c4f2e62"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "d2e6d5a0-1b1c-2c6a-a9e3-6a4b8e9f7b47",
+            "shape": "mission-branch-node",
+            "x": 1190,
+            "y": 2750,
+            "attrs": {
+              "title": {
+                "text": "Симуляторы и тренинги"
+              },
+              "description": {
+                "text": "Ветка миссий по разработке и проведению обучающих симуляций для различных HR-ситуаций."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Симуляторы и тренинги",
+              "description": "Ветка миссий по разработке и проведению обучающих симуляций для различных HR-ситуаций.",
+              "category": "Симулятор",
+              "time_to_complete": 25
+            }
+          },
+          {
+            "id": "edge-69",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "4f14c510-e388-42f3-b47a-70e2f281be87"
+            },
+            "target": {
+              "cell": "d2e6d5a0-1b1c-2c6a-a9e3-6a4b8e9f7b47"
+            }
+          },
+          {
+            "id": "d4e8d7c2-3c3d-4d8c-a1e5-8d6a0f1c9b59",
+            "shape": "mission-node",
+            "x": 2700,
+            "y": 2900,
+            "attrs": {
+              "title": {
+                "text": "Проведение симуляции переговоров"
+              },
+              "description": {
+                "text": "Опыт: 150, Валюта: 120"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Проведение симуляции переговоров",
+              "description": "Опыт: 150, Валюта: 120",
+              "experience": 150,
+              "currency": 120,
+              "level": "Средний",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-70",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "d2e6d5a0-1b1c-2c6a-a9e3-6a4b8e9f7b47"
+            },
+            "target": {
+              "cell": "d4e8d7c2-3c3d-4d8c-a1e5-8d6a0f1c9b59"
+            }
+          },
+          {
+            "id": "c3d7c6b1-2b2c-3c7b-f0d4-7c5f9e0b8a58",
+            "shape": "mission-node",
+            "x": 2440,
+            "y": 2900,
+            "attrs": {
+              "title": {
+                "text": "Создание симулятора космического кризиса"
+              },
+              "description": {
+                "text": "Опыт: 200, Валюта: 160"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Создание симулятора космического кризиса",
+              "description": "Опыт: 200, Валюта: 160",
+              "experience": 200,
+              "currency": 160,
+              "level": "Средний",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-71",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "d2e6d5a0-1b1c-2c6a-a9e3-6a4b8e9f7b47"
+            },
+            "target": {
+              "cell": "c3d7c6b1-2b2c-3c7b-f0d4-7c5f9e0b8a58"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567013",
+            "shape": "competency-node",
+            "x": 3220,
+            "y": 2190,
+            "attrs": {
+              "title": {
+                "text": "Трёхмерное мышление"
+              },
+              "description": {
+                "text": "Базовые навыки пространственного мышления"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Трёхмерное мышление",
+              "description": "Базовые навыки пространственного мышления",
+              "level": 1,
+              "required_experience": 180,
+              "color": "#009688"
+            }
+          },
+          {
+            "id": "edge-72",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "c3d7c6b1-2b2c-3c7b-f0d4-7c5f9e0b8a58"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567013"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440045",
+            "shape": "mission-branch-node",
+            "x": 670,
+            "y": 2870,
+            "attrs": {
+              "title": {
+                "text": "HR-бренд и коммуникации"
+              },
+              "description": {
+                "text": "Ветка миссий по развитию HR-бренда компании и улучшению внутренних коммуникаций."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "HR-бренд и коммуникации",
+              "description": "Ветка миссий по развитию HR-бренда компании и улучшению внутренних коммуникаций.",
+              "category": "Бренд работодателя",
+              "time_to_complete": 45
+            }
+          },
+          {
+            "id": "edge-73",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "4f14c510-e388-42f3-b47a-70e2f281be87"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440045"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440052",
+            "shape": "mission-node",
+            "x": 1660,
+            "y": 3020,
+            "attrs": {
+              "title": {
+                "text": "Подготовка контента для HR-блога"
+              },
+              "description": {
+                "text": "Опыт: 180, Валюта: 150"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Подготовка контента для HR-блога",
+              "description": "Опыт: 180, Валюта: 150",
+              "experience": 180,
+              "currency": 150,
+              "level": "Средний",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-74",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440045"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440052"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567009",
+            "shape": "competency-node",
+            "x": 2180,
+            "y": 2360,
+            "attrs": {
+              "title": {
+                "text": "Командование"
+              },
+              "description": {
+                "text": "Базовые навыки управления командой"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Командование",
+              "description": "Базовые навыки управления командой",
+              "level": 1,
+              "required_experience": 200,
+              "color": "#F44336"
+            }
+          },
+          {
+            "id": "edge-75",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440052"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567009"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-76",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440052"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440051",
+            "shape": "mission-node",
+            "x": 1400,
+            "y": 3020,
+            "attrs": {
+              "title": {
+                "text": "Написание отзыва о компании на порталах"
+              },
+              "description": {
+                "text": "Опыт: 90, Валюта: 70"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Написание отзыва о компании на порталах",
+              "description": "Опыт: 90, Валюта: 70",
+              "experience": 90,
+              "currency": 70,
+              "level": "Простой",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-77",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440045"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440051"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-78",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440051"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "b2c6a5e0-1f1a-2a6b-e9b3-6a4d7c8f5e39",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3260,
+            "attrs": {
+              "title": {
+                "text": "Менторская программа для новичков"
+              },
+              "description": {
+                "text": "Становление наставником для молодых HR-специалистов корпорации."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Менторская программа для новичков",
+              "description": "Становление наставником для молодых HR-специалистов корпорации.",
+              "experience": 320,
+              "currency": 260,
+              "category": "Развитие",
+              "required_number": 5
+            }
+          },
+          {
+            "id": "edge-79",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "4f14c510-e388-42f3-b47a-70e2f281be87"
+            },
+            "target": {
+              "cell": "b2c6a5e0-1f1a-2a6b-e9b3-6a4d7c8f5e39"
+            }
+          },
+          {
+            "id": "c7d1b0f5-6a6b-7b1e-f4c8-1b9e2d3a0f34",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3360,
+            "attrs": {
+              "title": {
+                "text": "Тимбилдинг на орбитальной станции"
+              },
+              "description": {
+                "text": "Уникальное командообразующее мероприятие в условиях невесомости."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Тимбилдинг на орбитальной станции",
+              "description": "Уникальное командообразующее мероприятие в условиях невесомости.",
+              "experience": 280,
+              "currency": 250,
+              "category": "Тимбилдинг",
+              "required_number": 12
+            }
+          },
+          {
+            "id": "edge-80",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "4f14c510-e388-42f3-b47a-70e2f281be87"
+            },
+            "target": {
+              "cell": "c7d1b0f5-6a6b-7b1e-f4c8-1b9e2d3a0f34"
+            }
+          },
+          {
+            "id": "f8a2e1b6-7c7d-8e2b-c5e9-2d0b3e4a1c25",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3460,
+            "attrs": {
+              "title": {
+                "text": "Воркшоп по работе с инопланетными культурами"
+              },
+              "description": {
+                "text": "Изучение особенностей рекрутинга представителей различных планетарных цивилизаций."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Воркшоп по работе с инопланетными культурами",
+              "description": "Изучение особенностей рекрутинга представителей различных планетарных цивилизаций.",
+              "experience": 300,
+              "currency": 220,
+              "category": "Лекторий",
+              "required_number": 12
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-81",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "f8a2e1b6-7c7d-8e2b-c5e9-2d0b3e4a1c25"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "edge-82",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "4f14c510-e388-42f3-b47a-70e2f281be87"
+            },
+            "target": {
+              "cell": "f8a2e1b6-7c7d-8e2b-c5e9-2d0b3e4a1c25"
+            }
+          },
+          {
+            "id": "e7f1d0a5-6b6c-7d1a-b4d8-1c9a2d3f0b24",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3560,
+            "attrs": {
+              "title": {
+                "text": "Симуляция кризисного найма"
+              },
+              "description": {
+                "text": "Отработка навыков экстренного подбора персонала в условиях космической аварии."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Симуляция кризисного найма",
+              "description": "Отработка навыков экстренного подбора персонала в условиях космической аварии.",
+              "experience": 350,
+              "currency": 280,
+              "category": "Симулятор",
+              "required_number": 8
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567003",
+            "shape": "competency-node",
+            "x": 620,
+            "y": 3630,
+            "attrs": {
+              "title": {
+                "text": "Стремление к большему"
+              },
+              "description": {
+                "text": "Базовое желание развиваться и достигать новых высот"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Стремление к большему",
+              "description": "Базовое желание развиваться и достигать новых высот",
+              "level": 1,
+              "required_experience": 75,
+              "color": "#2196F3"
+            }
+          },
+          {
+            "id": "edge-83",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "e7f1d0a5-6b6c-7d1a-b4d8-1c9a2d3f0b24"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567003"
+            }
+          },
+          {
+            "id": "edge-84",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "4f14c510-e388-42f3-b47a-70e2f281be87"
+            },
+            "target": {
+              "cell": "e7f1d0a5-6b6c-7d1a-b4d8-1c9a2d3f0b24"
+            }
+          },
+          {
+            "id": "b4c8a7d2-3e3f-4a8d-e1a5-8f6d9a0c7e21",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3660,
+            "attrs": {
+              "title": {
+                "text": "Космический ассессмент-центр"
+              },
+              "description": {
+                "text": "Комплексная оценка компетенций кандидатов с использованием VR-симуляторов и нейроинтерфейсов."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Космический ассессмент-центр",
+              "description": "Комплексная оценка компетенций кандидатов с использованием VR-симуляторов и нейроинтерфейсов.",
+              "experience": 400,
+              "currency": 300,
+              "category": "Оценка",
+              "required_number": 6
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "shape": "competency-node",
+            "x": 1660,
+            "y": 3520,
+            "attrs": {
+              "title": {
+                "text": "Аналитика"
+              },
+              "description": {
+                "text": "Базовые навыки анализа информации и принятия решений"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Аналитика",
+              "description": "Базовые навыки анализа информации и принятия решений",
+              "level": 1,
+              "required_experience": 120,
+              "color": "#9C27B0"
+            }
+          },
+          {
+            "id": "edge-85",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "b4c8a7d2-3e3f-4a8d-e1a5-8f6d9a0c7e21"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567007"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-86",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "b4c8a7d2-3e3f-4a8d-e1a5-8f6d9a0c7e21"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440007",
+            "shape": "artefact-node",
+            "x": 1660,
+            "y": 2920,
+            "attrs": {
+              "title": {
+                "text": "Дипломатическая печать Альянса \"Платина\""
+              },
+              "description": {
+                "text": "Высшая степень доверия, выдаваемая пилотам, оказавшим неоценимые услуги Альянсу. Предоставляет доступ к закрытым правительственным аукционам и складам с передовым оборудованием по себестоимости."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Дипломатическая печать Альянса \"Платина\"",
+              "description": "Высшая степень доверия, выдаваемая пилотам, оказавшим неоценимые услуги Альянсу. Предоставляет доступ к закрытым правительственным аукционам и складам с передовым оборудованием по себестоимости.",
+              "modifier": "SHOP_DISCOUNT",
+              "modifier_value": 20
+            }
+          },
+          {
+            "id": "edge-87",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "b4c8a7d2-3e3f-4a8d-e1a5-8f6d9a0c7e21"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440007"
+            }
+          },
+          {
+            "id": "edge-88",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "4f14c510-e388-42f3-b47a-70e2f281be87"
+            },
+            "target": {
+              "cell": "b4c8a7d2-3e3f-4a8d-e1a5-8f6d9a0c7e21"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440029",
+            "shape": "event-node",
+            "x": 300,
+            "y": 3760,
+            "attrs": {
+              "title": {
+                "text": "Серия мастер-классов по проведению собеседований"
+              },
+              "description": {
+                "text": "Цикл обучающих мероприятий для сотрудников, участвующих в процессе рекрутинга. Практические занятия по техникам интервью и оценке кандидатов."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Серия мастер-классов по проведению собеседований",
+              "description": "Цикл обучающих мероприятий для сотрудников, участвующих в процессе рекрутинга. Практические занятия по техникам интервью и оценке кандидатов.",
+              "experience": 350,
+              "currency": 250,
+              "category": "Лекторий",
+              "required_number": 8
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-89",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440029"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-90",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440029"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440001",
+            "shape": "artefact-node",
+            "x": 100,
+            "y": 3840,
+            "attrs": {
+              "title": {
+                "text": "Ядро нейронного интерфейса \"Прометей\""
+              },
+              "description": {
+                "text": "Древний, но превосходно сохранившийся чип, разработанный в первых колониальных экспедициях. Синхронизируется с кортикальной системой пилота, ускоряя обработку сенсорных данных и усвоение навыков в стрессовых ситуациях."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Ядро нейронного интерфейса \"Прометей\"",
+              "description": "Древний, но превосходно сохранившийся чип, разработанный в первых колониальных экспедициях. Синхронизируется с кортикальной системой пилота, ускоряя обработку сенсорных данных и усвоение навыков в стрессовых ситуациях.",
+              "modifier": "EXPERIENCE_GAIN",
+              "modifier_value": 15
+            }
+          },
+          {
+            "id": "edge-91",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440029"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440001"
+            }
+          },
+          {
+            "id": "edge-92",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "4f14c510-e388-42f3-b47a-70e2f281be87"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440029"
+            }
+          },
+          {
+            "id": "fa96cf2a-4b30-4d25-befc-7e47434bc0f2",
+            "shape": "rank-node",
+            "x": 300,
+            "y": 1450,
+            "attrs": {
+              "title": {
+                "text": "Ученик"
+              },
+              "description": {
+                "text": "Освоивший базовые механики игры"
+              }
+            },
+            "data": {
+              "type": "rank",
+              "name": "Ученик",
+              "description": "Освоивший базовые механики игры",
+              "required_experience": 100,
+              "color": "#4CAF50"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440044",
+            "shape": "mission-branch-node",
+            "x": 410,
+            "y": 1570,
+            "attrs": {
+              "title": {
+                "text": "Адаптация и онбординг"
+              },
+              "description": {
+                "text": "Ветка миссий по интеграции новых сотрудников в компанию и созданию комфортной рабочей среды."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Адаптация и онбординг",
+              "description": "Ветка миссий по интеграции новых сотрудников в компанию и созданию комфортной рабочей среды.",
+              "category": "Адаптация",
+              "time_to_complete": 21
+            }
+          },
+          {
+            "id": "edge-93",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "fa96cf2a-4b30-4d25-befc-7e47434bc0f2"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440044"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440050",
+            "shape": "mission-node",
+            "x": 1140,
+            "y": 1720,
+            "attrs": {
+              "title": {
+                "text": "Проведение ознакомительной экскурсии"
+              },
+              "description": {
+                "text": "Опыт: 60, Валюта: 50"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Проведение ознакомительной экскурсии",
+              "description": "Опыт: 60, Валюта: 50",
+              "experience": 60,
+              "currency": 50,
+              "level": "Простой",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-94",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440044"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440050"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-95",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440050"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440049",
+            "shape": "mission-node",
+            "x": 880,
+            "y": 1720,
+            "attrs": {
+              "title": {
+                "text": "Подготовка welcome-пакета для новичка"
+              },
+              "description": {
+                "text": "Опыт: 80, Валюта: 60"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Подготовка welcome-пакета для новичка",
+              "description": "Опыт: 80, Валюта: 60",
+              "experience": 80,
+              "currency": 60,
+              "level": "Простой",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-96",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440044"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440049"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567001",
+            "shape": "competency-node",
+            "x": 100,
+            "y": 1790,
+            "attrs": {
+              "title": {
+                "text": "Вера в дело"
+              },
+              "description": {
+                "text": "Базовая уверенность в правильности выбранного пути"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Вера в дело",
+              "description": "Базовая уверенность в правильности выбранного пути",
+              "level": 1,
+              "required_experience": 50,
+              "color": "#4CAF50"
+            }
+          },
+          {
+            "id": "edge-97",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440049"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567001"
+            }
+          },
+          {
+            "id": "a5b9f8d3-4e4f-5f9c-d2a6-9e7c0f1b8d32",
+            "shape": "event-node",
+            "x": 300,
+            "y": 1890,
+            "attrs": {
+              "title": {
+                "text": "Онбординг в условиях гипердрайва"
+              },
+              "description": {
+                "text": "Специальная программа адаптации для сотрудников межзвёздных экспедиций."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Онбординг в условиях гипердрайва",
+              "description": "Специальная программа адаптации для сотрудников межзвёздных экспедиций.",
+              "experience": 220,
+              "currency": 180,
+              "category": "Адаптация",
+              "required_number": 8
+            }
+          },
+          {
+            "id": "edge-98",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "fa96cf2a-4b30-4d25-befc-7e47434bc0f2"
+            },
+            "target": {
+              "cell": "a5b9f8d3-4e4f-5f9c-d2a6-9e7c0f1b8d32"
+            }
+          },
+          {
+            "id": "f4a8e7c2-3d3e-4e8b-c1f5-8d6b9e0a7c31",
+            "shape": "event-node",
+            "x": 300,
+            "y": 1990,
+            "attrs": {
+              "title": {
+                "text": "Базовый курс космической психологии"
+              },
+              "description": {
+                "text": "Основы работы с психологическими особенностями экипажей дальних экспедиций."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Базовый курс космической психологии",
+              "description": "Основы работы с психологическими особенностями экипажей дальних экспедиций.",
+              "experience": 180,
+              "currency": 140,
+              "category": "Лекторий",
+              "required_number": 10
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-99",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "f4a8e7c2-3d3e-4e8b-c1f5-8d6b9e0a7c31"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "edge-100",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "fa96cf2a-4b30-4d25-befc-7e47434bc0f2"
+            },
+            "target": {
+              "cell": "f4a8e7c2-3d3e-4e8b-c1f5-8d6b9e0a7c31"
+            }
+          },
+          {
+            "id": "d6e0c9f4-5a5b-6c0f-a3c7-0b8f1c2e9a23",
+            "shape": "event-node",
+            "x": 300,
+            "y": 2090,
+            "attrs": {
+              "title": {
+                "text": "Галактический митап рекрутеров"
+              },
+              "description": {
+                "text": "Нетворкинг-событие для обмена опытом между рекрутерами разных планетарных офисов."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Галактический митап рекрутеров",
+              "description": "Нетворкинг-событие для обмена опытом между рекрутерами разных планетарных офисов.",
+              "experience": 250,
+              "currency": 200,
+              "category": "Тимбилдинг",
+              "required_number": 15
+            }
+          },
+          {
+            "id": "edge-101",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "fa96cf2a-4b30-4d25-befc-7e47434bc0f2"
+            },
+            "target": {
+              "cell": "d6e0c9f4-5a5b-6c0f-a3c7-0b8f1c2e9a23"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440028",
+            "shape": "event-node",
+            "x": 300,
+            "y": 2190,
+            "attrs": {
+              "title": {
+                "text": "День открытых дверей для кандидатов"
+              },
+              "description": {
+                "text": "Организация и проведение дня открытых дверей для потенциальных кандидатов. Включает презентацию компании, экскурсию по офису и неформальное общение с командой."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "День открытых дверей для кандидатов",
+              "description": "Организация и проведение дня открытых дверей для потенциальных кандидатов. Включает презентацию компании, экскурсию по офису и неформальное общение с командой.",
+              "experience": 200,
+              "currency": 150,
+              "category": "Бренд работодателя",
+              "required_number": 5
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-102",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440028"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-103",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440028"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440002",
+            "shape": "artefact-node",
+            "x": 360,
+            "y": 2270,
+            "attrs": {
+              "title": {
+                "text": "Голографический дневник капитана Элизы Рейн"
+              },
+              "description": {
+                "text": "Личные записи легендарного капитана-первопроходца, содержащие не только хроники открытий, но и детальный разбор тактических маневров, переговоров и инженерных решений. Позволяет учиться на ошибках и успехах великого исследователя."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Голографический дневник капитана Элизы Рейн",
+              "description": "Личные записи легендарного капитана-первопроходца, содержащие не только хроники открытий, но и детальный разбор тактических маневров, переговоров и инженерных решений. Позволяет учиться на ошибках и успехах великого исследователя.",
+              "modifier": "EXPERIENCE_GAIN",
+              "modifier_value": 10
+            }
+          },
+          {
+            "id": "edge-104",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440028"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440002"
+            }
+          },
+          {
+            "id": "edge-105",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "fa96cf2a-4b30-4d25-befc-7e47434bc0f2"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440028"
+            }
+          },
+          {
+            "id": "9b27408d-01d2-4d02-bf12-1098c88842e3",
+            "shape": "rank-node",
+            "x": 300,
+            "y": 50,
+            "attrs": {
+              "title": {
+                "text": "Новичок"
+              },
+              "description": {
+                "text": "Начальный ранг, первые шаги в игре"
+              }
+            },
+            "data": {
+              "type": "rank",
+              "name": "Новичок",
+              "description": "Начальный ранг, первые шаги в игре",
+              "required_experience": 0,
+              "color": "#9E9E9E"
+            }
+          },
+          {
+            "id": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51",
+            "shape": "mission-branch-node",
+            "x": 2230,
+            "y": 170,
+            "attrs": {
+              "title": {
+                "text": "Квестовая линия новичка"
+              },
+              "description": {
+                "text": "Специальная ветка миссий для полного погружения новых сотрудников в культуру компании."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Квестовая линия новичка",
+              "description": "Специальная ветка миссий для полного погружения новых сотрудников в культуру компании.",
+              "category": "Квест",
+              "time_to_complete": 14
+            }
+          },
+          {
+            "id": "edge-106",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "9b27408d-01d2-4d02-bf12-1098c88842e3"
+            },
+            "target": {
+              "cell": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51"
+            }
+          },
+          {
+            "id": "f2a6f5f0-1e1f-2f6a-c9a3-6d4c8e9e7d67",
+            "shape": "mission-node",
+            "x": 4780,
+            "y": 320,
+            "attrs": {
+              "title": {
+                "text": "Знакомство с командой"
+              },
+              "description": {
+                "text": "Опыт: 70, Валюта: 55"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Знакомство с командой",
+              "description": "Опыт: 70, Валюта: 55",
+              "experience": 70,
+              "currency": 55,
+              "level": "Простой",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-107",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51"
+            },
+            "target": {
+              "cell": "f2a6f5f0-1e1f-2f6a-c9a3-6d4c8e9e7d67"
+            }
+          },
+          {
+            "id": "e1f5e4e9-0d0e-1e5f-b8f2-5d3b7d8d6c66",
+            "shape": "mission-node",
+            "x": 4520,
+            "y": 320,
+            "attrs": {
+              "title": {
+                "text": "Первый день в корпорации"
+              },
+              "description": {
+                "text": "Опыт: 50, Валюта: 40"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Первый день в корпорации",
+              "description": "Опыт: 50, Валюта: 40",
+              "experience": 50,
+              "currency": 40,
+              "level": "Простой",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-108",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51"
+            },
+            "target": {
+              "cell": "e1f5e4e9-0d0e-1e5f-b8f2-5d3b7d8d6c66"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567001",
+            "shape": "competency-node",
+            "x": 100,
+            "y": 1790,
+            "attrs": {
+              "title": {
+                "text": "Вера в дело"
+              },
+              "description": {
+                "text": "Базовая уверенность в правильности выбранного пути"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Вера в дело",
+              "description": "Базовая уверенность в правильности выбранного пути",
+              "level": 1,
+              "required_experience": 50,
+              "color": "#4CAF50"
+            }
+          },
+          {
+            "id": "edge-109",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "e1f5e4e9-0d0e-1e5f-b8f2-5d3b7d8d6c66"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567001"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440043",
+            "shape": "mission-branch-node",
+            "x": 150,
+            "y": 290,
+            "attrs": {
+              "title": {
+                "text": "Основы рекрутинга"
+              },
+              "description": {
+                "text": "Ветка миссий для освоения базовых навыков подбора персонала: от поиска кандидатов до проведения первых собеседований."
+              }
+            },
+            "data": {
+              "type": "missionBranch",
+              "name": "Основы рекрутинга",
+              "description": "Ветка миссий для освоения базовых навыков подбора персонала: от поиска кандидатов до проведения первых собеседований.",
+              "category": "Рекрутинг",
+              "time_to_complete": 30
+            }
+          },
+          {
+            "id": "edge-110",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "9b27408d-01d2-4d02-bf12-1098c88842e3"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440043"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440048",
+            "shape": "mission-node",
+            "x": 620,
+            "y": 440,
+            "attrs": {
+              "title": {
+                "text": "Проведение телефонного интервью"
+              },
+              "description": {
+                "text": "Опыт: 150, Валюта: 120"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Проведение телефонного интервью",
+              "description": "Опыт: 150, Валюта: 120",
+              "experience": 150,
+              "currency": 120,
+              "level": "Средний",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-111",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440043"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440048"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440008",
+            "shape": "artefact-node",
+            "x": 1920,
+            "y": 520,
+            "attrs": {
+              "title": {
+                "text": "Членская карта Гильдии торговцев \"Зеро-Г\""
+              },
+              "description": {
+                "text": "Золотая карта элитной гильдии торговцев. Ее владельцы получают эксклюзивные скидки у всех поставщиков, аффилированных с Гильдией, по всей освоенной территории."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Членская карта Гильдии торговцев \"Зеро-Г\"",
+              "description": "Золотая карта элитной гильдии торговцев. Ее владельцы получают эксклюзивные скидки у всех поставщиков, аффилированных с Гильдией, по всей освоенной территории.",
+              "modifier": "SHOP_DISCOUNT",
+              "modifier_value": 15
+            }
+          },
+          {
+            "id": "edge-112",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440048"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440008"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "shape": "competency-node",
+            "x": 1660,
+            "y": 3520,
+            "attrs": {
+              "title": {
+                "text": "Аналитика"
+              },
+              "description": {
+                "text": "Базовые навыки анализа информации и принятия решений"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Аналитика",
+              "description": "Базовые навыки анализа информации и принятия решений",
+              "level": 1,
+              "required_experience": 120,
+              "color": "#9C27B0"
+            }
+          },
+          {
+            "id": "edge-113",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440048"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567007"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-114",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440048"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440047",
+            "shape": "mission-node",
+            "x": 360,
+            "y": 440,
+            "attrs": {
+              "title": {
+                "text": "Поиск кандидатов в профессиональных соцсетях"
+              },
+              "description": {
+                "text": "Опыт: 120, Валюта: 100"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Поиск кандидатов в профессиональных соцсетях",
+              "description": "Опыт: 120, Валюта: 100",
+              "experience": 120,
+              "currency": 100,
+              "level": "Простой",
+              "is_key_mission": false
+            }
+          },
+          {
+            "id": "edge-115",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440043"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440047"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440009",
+            "shape": "artefact-node",
+            "x": 2180,
+            "y": 520,
+            "attrs": {
+              "title": {
+                "text": "Ключ доступа к сети \"Бартер-Сеть\""
+              },
+              "description": {
+                "text": "Нелегальный децентрализованный чип, который подключается к теневой сети обмена между пилотами, ремонтниками и торговцами. Позволяет находить уникальные предложения и торговаться без лишних наценок."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Ключ доступа к сети \"Бартер-Сеть\"",
+              "description": "Нелегальный децентрализованный чип, который подключается к теневой сети обмена между пилотами, ремонтниками и торговцами. Позволяет находить уникальные предложения и торговаться без лишних наценок.",
+              "modifier": "SHOP_DISCOUNT",
+              "modifier_value": 10
+            }
+          },
+          {
+            "id": "edge-116",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440047"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440009"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-117",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440047"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440046",
+            "shape": "mission-node",
+            "x": 100,
+            "y": 440,
+            "attrs": {
+              "title": {
+                "text": "Составление профиля идеального кандидата"
+              },
+              "description": {
+                "text": "Опыт: 100, Валюта: 80"
+              }
+            },
+            "data": {
+              "type": "mission",
+              "name": "Составление профиля идеального кандидата",
+              "description": "Опыт: 100, Валюта: 80",
+              "experience": 100,
+              "currency": 80,
+              "level": "Простой",
+              "is_key_mission": true
+            }
+          },
+          {
+            "id": "edge-118",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440043"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440046"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440010",
+            "shape": "artefact-node",
+            "x": 2440,
+            "y": 3100,
+            "attrs": {
+              "title": {
+                "text": "Сертификат аккредитации пилота-первопроходца"
+              },
+              "description": {
+                "text": "Официальный документ, дающий право претендовать на первопроходческие миссии по картографированию новых систем и право давать имена открытым объектам. Символ статуса и доверия Альянса."
+              }
+            },
+            "data": {
+              "type": "artefact",
+              "name": "Сертификат аккредитации пилота-первопроходца",
+              "description": "Официальный документ, дающий право претендовать на первопроходческие миссии по картографированию новых систем и право давать имена открытым объектам. Символ статуса и доверия Альянса.",
+              "modifier": "DEFAULT",
+              "modifier_value": 0
+            }
+          },
+          {
+            "id": "edge-119",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440046"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440010"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "shape": "competency-node",
+            "x": 1660,
+            "y": 3520,
+            "attrs": {
+              "title": {
+                "text": "Аналитика"
+              },
+              "description": {
+                "text": "Базовые навыки анализа информации и принятия решений"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Аналитика",
+              "description": "Базовые навыки анализа информации и принятия решений",
+              "level": 1,
+              "required_experience": 120,
+              "color": "#9C27B0"
+            }
+          },
+          {
+            "id": "edge-120",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440046"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567007"
+            }
+          },
+          {
+            "id": "f0a4e3c8-9d9e-0e4f-c7f1-4e2b5a6d3c37",
+            "shape": "event-node",
+            "x": 300,
+            "y": 680,
+            "attrs": {
+              "title": {
+                "text": "Введение в квантовый рекрутинг"
+              },
+              "description": {
+                "text": "Базовый курс по использованию квантовых вычислений в подборе персонала."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Введение в квантовый рекрутинг",
+              "description": "Базовый курс по использованию квантовых вычислений в подборе персонала.",
+              "experience": 100,
+              "currency": 80,
+              "category": "Квест",
+              "required_number": 25
+            }
+          },
+          {
+            "id": "edge-121",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440008"
+            },
+            "target": {
+              "cell": "f0a4e3c8-9d9e-0e4f-c7f1-4e2b5a6d3c37"
+            }
+          },
+          {
+            "id": "edge-122",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440009"
+            },
+            "target": {
+              "cell": "f0a4e3c8-9d9e-0e4f-c7f1-4e2b5a6d3c37"
+            }
+          },
+          {
+            "id": "edge-123",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440010"
+            },
+            "target": {
+              "cell": "f0a4e3c8-9d9e-0e4f-c7f1-4e2b5a6d3c37"
+            }
+          },
+          {
+            "id": "edge-124",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "9b27408d-01d2-4d02-bf12-1098c88842e3"
+            },
+            "target": {
+              "cell": "f0a4e3c8-9d9e-0e4f-c7f1-4e2b5a6d3c37"
+            }
+          },
+          {
+            "id": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27",
+            "shape": "event-node",
+            "x": 300,
+            "y": 780,
+            "attrs": {
+              "title": {
+                "text": "Стажировка в секторе Альфа"
+              },
+              "description": {
+                "text": "Программа обмена опытом с лучшими HR-специалистами сектора Альфа Центавра."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Стажировка в секторе Альфа",
+              "description": "Программа обмена опытом с лучшими HR-специалистами сектора Альфа Центавра.",
+              "experience": 120,
+              "currency": 90,
+              "category": "Квест",
+              "required_number": 20
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567001",
+            "shape": "competency-node",
+            "x": 100,
+            "y": 1790,
+            "attrs": {
+              "title": {
+                "text": "Вера в дело"
+              },
+              "description": {
+                "text": "Базовая уверенность в правильности выбранного пути"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Вера в дело",
+              "description": "Базовая уверенность в правильности выбранного пути",
+              "level": 1,
+              "required_experience": 50,
+              "color": "#4CAF50"
+            }
+          },
+          {
+            "id": "edge-125",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567001"
+            }
+          },
+          {
+            "id": "edge-126",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440008"
+            },
+            "target": {
+              "cell": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27"
+            }
+          },
+          {
+            "id": "edge-127",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440009"
+            },
+            "target": {
+              "cell": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27"
+            }
+          },
+          {
+            "id": "edge-128",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440010"
+            },
+            "target": {
+              "cell": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27"
+            }
+          },
+          {
+            "id": "edge-129",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "9b27408d-01d2-4d02-bf12-1098c88842e3"
+            },
+            "target": {
+              "cell": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27"
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440030",
+            "shape": "event-node",
+            "x": 300,
+            "y": 880,
+            "attrs": {
+              "title": {
+                "text": "Неделя адаптации новых сотрудников"
+              },
+              "description": {
+                "text": "Комплекс мероприятий по интеграции новых членов команды: воркшопы, знакомство с процессами, менторские сессии и тимбилдинг."
+              }
+            },
+            "data": {
+              "type": "event",
+              "name": "Неделя адаптации новых сотрудников",
+              "description": "Комплекс мероприятий по интеграции новых членов команды: воркшопы, знакомство с процессами, менторские сессии и тимбилдинг.",
+              "experience": 150,
+              "currency": 100,
+              "category": "Адаптация",
+              "required_number": 10
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-130",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440030"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+            "shape": "competency-node",
+            "x": 1140,
+            "y": 2790,
+            "attrs": {
+              "title": {
+                "text": "Общение"
+              },
+              "description": {
+                "text": "Базовые навыки коммуникации с другими людьми"
+              }
+            },
+            "data": {
+              "type": "competency",
+              "name": "Общение",
+              "description": "Базовые навыки коммуникации с другими людьми",
+              "level": 1,
+              "required_experience": 60,
+              "color": "#FF9800"
+            }
+          },
+          {
+            "id": "edge-131",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440030"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567005"
+            }
+          },
+          {
+            "id": "edge-132",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440008"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440030"
+            }
+          },
+          {
+            "id": "edge-133",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440009"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440030"
+            }
+          },
+          {
+            "id": "edge-134",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440010"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440030"
+            }
+          },
+          {
+            "id": "edge-135",
+            "shape": "entity-edge",
+            "source": {
+              "cell": "9b27408d-01d2-4d02-bf12-1098c88842e3"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440030"
+            }
+          }
+        ]
+      }
     }
   },
   {
@@ -1927,7 +6089,7 @@
     "model": "shop.ShopItemCategory",
     "pk": 1,
     "fields": {
-      "uuid":"1e90516a-6a8f-465c-aae1-0c300e465306",
+      "uuid": "1e90516a-6a8f-465c-aae1-0c300e465306",
       "name": "Мерч",
       "description": "Фирменный мерч",
       "icon": null,
@@ -1940,7 +6102,7 @@
     "model": "shop.ShopItemCategory",
     "pk": 2,
     "fields": {
-      "uuid":"58fe52c2-9f21-4dc5-9033-3711c54ef51e",
+      "uuid": "58fe52c2-9f21-4dc5-9033-3711c54ef51e",
       "name": "Билет",
       "description": "Билет на концерт",
       "icon": null,
@@ -1953,7 +6115,7 @@
     "model": "shop.ShopItemCategory",
     "pk": 3,
     "fields": {
-      "uuid":"36f65f85-c829-445d-b7a6-abe406799446",
+      "uuid": "36f65f85-c829-445d-b7a6-abe406799446",
       "name": "Бонус",
       "description": "Бонус на покупку бытовой техники в М.Видео",
       "icon": null,
@@ -1966,7 +6128,7 @@
     "model": "shop.ShopItemCategory",
     "pk": 4,
     "fields": {
-      "uuid":"df2ee589-3ff2-414f-ad7a-4c8f39147206",
+      "uuid": "df2ee589-3ff2-414f-ad7a-4c8f39147206",
       "name": "Крусы",
       "description": "Любой курс в ИТ",
       "icon": null,
@@ -1979,7 +6141,7 @@
     "model": "shop.ShopItem",
     "pk": 1,
     "fields": {
-      "uuid":"8a10047f-036e-40a2-bf06-1d9c33245f4e",
+      "uuid": "8a10047f-036e-40a2-bf06-1d9c33245f4e",
       "name": "Футболка 'Кодер'",
       "description": "Стильная хлопковая футболка с принтом кода на спине",
       "category": 1,
@@ -1998,7 +6160,7 @@
     "model": "shop.ShopItem",
     "pk": 2,
     "fields": {
-      "uuid":"f6ac12cc-7f97-4e05-a1ee-c9298f30dcb0",
+      "uuid": "f6ac12cc-7f97-4e05-a1ee-c9298f30dcb0",
       "name": "Билет на концерт Imagine Dragons",
       "description": "Билет на концерт в Лужниках, сектор A, ряд 5",
       "category": 2,
@@ -2017,7 +6179,7 @@
     "model": "shop.ShopItem",
     "pk": 3,
     "fields": {
-      "uuid":"c1dc3570-defc-4570-afdd-4543ded0602c",
+      "uuid": "c1dc3570-defc-4570-afdd-4543ded0602c",
       "name": "Скидка 20% в М.Видео",
       "description": "Скидка на всю бытовую технику в магазинах М.Видео",
       "category": 3,
@@ -2036,7 +6198,7 @@
     "model": "shop.ShopItem",
     "pk": 4,
     "fields": {
-      "uuid":"0a324a7d-8b3d-43ff-bf34-dcd18ecb1c82",
+      "uuid": "0a324a7d-8b3d-43ff-bf34-dcd18ecb1c82",
       "name": "Курс Python для начинающих",
       "description": "Базовый курс по программированию на Python",
       "category": 4,
@@ -2055,7 +6217,7 @@
     "model": "shop.ShopItem",
     "pk": 5,
     "fields": {
-      "uuid":"be582bd1-6f1f-4c22-ab5a-7ac54a654592",
+      "uuid": "be582bd1-6f1f-4c22-ab5a-7ac54a654592",
       "name": "Младший разработчик (Уровень 1)",
       "description": "Начальный уровень разработчика с базовыми навыками",
       "category": 4,
@@ -2074,7 +6236,7 @@
     "model": "shop.ShopItem",
     "pk": 6,
     "fields": {
-      "uuid":"b79f2b30-46cc-466b-9ac8-65d1119247fd",
+      "uuid": "b79f2b30-46cc-466b-9ac8-65d1119247fd",
       "name": "Разработчик (Уровень 2)",
       "description": "Продвинутый уровень разработчика с углубленными знаниями",
       "category": 4,
@@ -2093,7 +6255,7 @@
     "model": "shop.ShopItem",
     "pk": 7,
     "fields": {
-      "uuid":"a8495f82-6d31-4a65-b6df-fdf70838009e",
+      "uuid": "a8495f82-6d31-4a65-b6df-fdf70838009e",
       "name": "Старший разработчик (Уровень 3)",
       "description": "Экспертный уровень с лидерскими качествами",
       "category": 4,
@@ -2112,7 +6274,7 @@
     "model": "shop.ShopItem",
     "pk": 8,
     "fields": {
-      "uuid":"658e3e70-39a4-42d0-baee-a904874d2cdc",
+      "uuid": "658e3e70-39a4-42d0-baee-a904874d2cdc",
       "name": "Тимлид (Уровень 4)",
       "description": "Уровень управления командой разработки",
       "category": 4,
@@ -2131,7 +6293,7 @@
     "model": "shop.ShopItem",
     "pk": 9,
     "fields": {
-      "uuid":"b63b17d5-e4f3-4d4b-95f1-cb5291fe1f98",
+      "uuid": "b63b17d5-e4f3-4d4b-95f1-cb5291fe1f98",
       "name": "Базовые алгоритмы",
       "description": "Основные алгоритмы и структуры данных",
       "category": 4,
@@ -2150,7 +6312,7 @@
     "model": "shop.ShopItem",
     "pk": 10,
     "fields": {
-      "uuid":"1823a9cf-6198-4fce-880a-ea70ddebcb5d",
+      "uuid": "1823a9cf-6198-4fce-880a-ea70ddebcb5d",
       "name": "Продвинутые алгоритмы",
       "description": "Сложные алгоритмы и оптимизация",
       "category": 4,
@@ -2169,7 +6331,7 @@
     "model": "shop.ShopItem",
     "pk": 11,
     "fields": {
-      "uuid":"b81fc13e-a8ce-498c-afd2-c7dae0384083",
+      "uuid": "b81fc13e-a8ce-498c-afd2-c7dae0384083",
       "name": "Кепка 'Программист'",
       "description": "Стильная кепка с логотипом языка программирования",
       "category": 1,
@@ -2188,7 +6350,7 @@
     "model": "shop.ShopItem",
     "pk": 12,
     "fields": {
-      "uuid":"1c50013a-d1bf-4f7f-abd1-10b6e24a915e",
+      "uuid": "1c50013a-d1bf-4f7f-abd1-10b6e24a915e",
       "name": "Билет на IT-конференцию",
       "description": "Билет на годовую IT-конференцию с участием топ-спикеров",
       "category": 2,
@@ -2207,7 +6369,7 @@
     "model": "shop.ShopItem",
     "pk": 13,
     "fields": {
-      "uuid":"44a83882-1a1d-4703-b307-3d7f95b550d6",
+      "uuid": "44a83882-1a1d-4703-b307-3d7f95b550d6",
       "name": "Скидка 15% на технику Apple",
       "description": "Скидка на всю технику Apple в М.Видео",
       "category": 3,
@@ -2226,7 +6388,7 @@
     "model": "shop.ShopItem",
     "pk": 14,
     "fields": {
-      "uuid":"b5b42d6c-e684-4cae-aef0-be93673224b0",
+      "uuid": "b5b42d6c-e684-4cae-aef0-be93673224b0",
       "name": "Архитектор систем (Уровень 5)",
       "description": "Уровень проектирования сложных систем",
       "category": 4,

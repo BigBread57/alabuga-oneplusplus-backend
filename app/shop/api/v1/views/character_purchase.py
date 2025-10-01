@@ -88,7 +88,6 @@ class CharacterPurchaseCreateAPIView(GenericAPIView):
     """
 
     serializer_class = CharacterPurchaseCreateSerializer
-    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         request=CharacterPurchaseCreateSerializer,
@@ -124,7 +123,6 @@ class CharacterPurchaseUpdateStatusAPIView(GenericAPIView):
 
     queryset = CharacterPurchase.objects.all()
     serializer_class = CharacterPurchaseUpdateStatusSerializer
-    permission_classes = (UserManagerForObjectPermission,)
 
     @extend_schema(
         request=CharacterPurchaseUpdateStatusSerializer,
