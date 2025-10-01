@@ -1,0 +1,25 @@
+apiVersion: v1
+data:
+  API_URL: https://your-domain.com/api/v1
+  CELERY_BROKER_URL: redis://redis:6379/0
+  CELERY_RESULT_BACKEND: redis://redis:6379/0
+  DEBUG: "False"
+  DJANGO_DATABASE_HOST: postgres
+  DJANGO_DATABASE_PASSWORD: CHANGE-THIS-STRONG-PASSWORD
+  DJANGO_DATABASE_PORT: "5432"
+  DJANGO_DATABASE_USER: postgres
+  DJANGO_SECRET_KEY: CHANGE-THIS-TO-RANDOM-SECRET-KEY-IN-PRODUCTION
+  DJANGO_SUPERUSER_EMAIL: admin@your-domain.com
+  DJANGO_SUPERUSER_PASSWORD: CHANGE-THIS-SECURE-ADMIN-PASSWORD
+  DOMAIN_NAME: your-domain.com
+  NEXT_PUBLIC_API_BASE_URL: https://your-domain.com
+  POSTGRES_DB: alabuga_db
+  POSTGRES_NAME: alabuga_db
+  POSTGRES_PASSWORD: CHANGE-THIS-STRONG-PASSWORD
+  POSTGRES_USER: postgres
+  REDIS_URL: redis://redis:6379/0
+kind: ConfigMap
+metadata:
+  labels:
+    io.kompose.service: backend-env
+  name: env

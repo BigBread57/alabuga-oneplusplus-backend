@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert -f docker-compose.production.yml
+    kompose.version: 1.37.0 (fb0539e64)
+  labels:
+    io.kompose.service: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert -f docker-compose.production.yml
+        kompose.version: 1.37.0 (fb0539e64)
+      labels:
+        io.kompose.service: nginx
+    spec:
+      containers:
+        - env:
+            - name: LETSENCRYPT_HOST
+              value: your-domain.com
+            - name: VIRTUAL_HOST
+              value: your-domain.com
+            - name: VIRTUAL_PORT
+              value: "80"
+          image: nginx:1.25-alpine
+          name: nginx
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: nginx-claim0
+              readOnly: true
+            - mountPath: /var/www/django/static
+              name: django-static
+              readOnly: true
+            - mountPath: /var/www/django/media
+              name: django-media
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: nginx-claim0
+          persistentVolumeClaim:
+            claimName: nginx-claim0
+            readOnly: true
+        - name: django-static
+          persistentVolumeClaim:
+            claimName: django-static
+            readOnly: true
+        - name: django-media
+          persistentVolumeClaim:
+            claimName: django-media
+            readOnly: true
