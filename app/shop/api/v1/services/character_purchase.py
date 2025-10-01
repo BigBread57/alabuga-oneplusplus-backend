@@ -47,7 +47,7 @@ class CharacterPurchaseService(BaseService):
                 CharacterArtifact.objects.filter(
                     character=buyer,
                     artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
-                ).values_list("artifact__modifier_value")
+                ).values_list("artifact__modifier_value", flat=True)
             )
             discount = (100 - sum(character_artifacts_shop_discount)) / 100
             total_sum = number * shop_item.price * discount
