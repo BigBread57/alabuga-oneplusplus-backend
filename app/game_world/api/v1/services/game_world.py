@@ -917,12 +917,14 @@ class GameWorldService(BaseService):
                         "y": mission_y,
                         "attrs": {
                             "title": {"text": mission.get("name")},
-                            "description": {"text": f"Опыт: {mission.get('experience')}, Валюта: {mission.get('currency')}"},
+                            "description": {"text": mission.get("description", "")},
                         },
                         "data": {
                             "type": "mission",
                             "name": mission.get("name"),
-                            "description": f"Опыт: {mission.get('experience')}, Валюта: {mission.get('currency')}",
+                            "description": mission.get("description", ""),
+                            "experience": mission.get('experience'),
+                            "currency": mission.get('currency'),
                             "experience": mission.get("experience"),
                             "currency": mission.get("currency"),
                             "level": mission.get("level", {}).get("name"),
