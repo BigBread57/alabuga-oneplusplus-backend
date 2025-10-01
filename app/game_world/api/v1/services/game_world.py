@@ -874,8 +874,8 @@ class GameWorldService(BaseService):
                     "x": mission_branch_x,
                     "y": mission_branch_y,
                     "attrs": {
-                        "title": {"text": mission_branch["name"]},
-                        "description": {"text": mission_branch["description"]},
+                        "title": {"text": mission_branch.get("name")},
+                        "description": {"text": mission_branch.get("description", "")},
                     },
                     "data": {
                         "type": "missionBranch",
@@ -916,17 +916,17 @@ class GameWorldService(BaseService):
                         "x": mission_x,
                         "y": mission_y,
                         "attrs": {
-                            "title": {"text": mission["name"]},
-                            "description": {"text": f"Опыт: {mission['experience']}, Валюта: {mission['currency']}"},
+                            "title": {"text": mission.get("name")},
+                            "description": {"text": f"Опыт: {mission.get('experience')}, Валюта: {mission.get('currency')}"},
                         },
                         "data": {
                             "type": "mission",
-                            "name": mission["name"],
-                            "description": f"Опыт: {mission['experience']}, Валюта: {mission['currency']}",
-                            "experience": mission["experience"],
-                            "currency": mission["currency"],
-                            "level": mission["level"]["name"],
-                            "is_key_mission": mission["is_key_mission"],
+                            "name": mission.get("name"),
+                            "description": f"Опыт: {mission.get('experience')}, Валюта: {mission.get('currency')}",
+                            "experience": mission.get("experience"),
+                            "currency": mission.get("currency"),
+                            "level": mission.get("level", {}).get("name"),
+                            "is_key_mission": mission.get("is_key_mission"),
                         },
                     }
                     cells.append(mission_node)
