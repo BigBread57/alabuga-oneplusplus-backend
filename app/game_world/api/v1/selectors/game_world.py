@@ -47,12 +47,12 @@ class GameWorldListWithAllEntitiesSelector(BaseSelector):
     """
 
     filter_class = GameWorldListOrStatisticsOrStatisticsFilter
+
     def get_queryset(self, **kwargs) -> QuerySet[T]:
         return GameWorld.objects.prefetch_related(
             "ranks__mission_branches__missions__game_world_stories",
             "ranks__mission_branches__missions__artifacts__game_world_stories",
             "ranks__mission_branches__missions__competencies__game_world_stories",
-            "ranks__mission_branches__missions__required_missions",
             "ranks__mission_branches__missions__mentor",
             "ranks__mission_branches__missions__category",
             "ranks__mission_branches__missions__level",

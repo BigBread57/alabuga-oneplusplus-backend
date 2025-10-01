@@ -95,6 +95,7 @@ class Event(AbstractBaseModel):
         help_text=_("В рамках какого ранга это событие доступно для выполнения"),
         on_delete=models.PROTECT,
         related_name="events",
+        null=True,
     )
     artifacts = models.ManyToManyField(
         to="game_world.Artifact",

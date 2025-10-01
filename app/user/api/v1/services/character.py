@@ -205,7 +205,7 @@ class CharacterService(BaseService):
                 for mission in Mission.objects.filter(is_active=True, branch=mission_branch, game_world=game_world)
             ]
 
-        CharacterMission.objects.bulk_create(objs=character_missions)
+        CharacterMission.objects.bulk_create(objs=character_missions, ignore_conflicts=True)
         return None
 
     @staticmethod
@@ -229,7 +229,7 @@ class CharacterService(BaseService):
             )
             for event in Event.objects.filter(is_active=True, rank=rank, game_world=game_world)
         ]
-        CharacterEvent.objects.bulk_create(objs=character_events)
+        CharacterEvent.objects.bulk_create(objs=character_events, ignore_conflicts=True)
         return None
 
     @staticmethod
@@ -251,7 +251,7 @@ class CharacterService(BaseService):
             )
         ]
 
-        CharacterCompetency.objects.bulk_create(objs=character_competencies)
+        CharacterCompetency.objects.bulk_create(objs=character_competencies, ignore_conflicts=True)
         return None
 
     @staticmethod
@@ -262,7 +262,7 @@ class CharacterService(BaseService):
         """
         Проверить условия для повышения ранга.
         """
-        required_missions = Mission.objects.filter(branch__rank=rank, is_key_mission=True).count()
+        key_missions = Mission.objects.filter(branch__rank=rank, is_key_mission=True).count()
         completed_required_character_missions = CharacterMission.objects.filter(
             character=character,
             status=CharacterMission.Statuses.COMPLETED,
@@ -276,7 +276,7 @@ class CharacterService(BaseService):
             character=character,
             is_received=True,
         ).values_list("competency__id", flat=True)
-        return required_missions == completed_required_character_missions and set(required_rank_competency).issubset(
+        return key_missions == completed_required_character_missions and set(required_rank_competency).issubset(
             set(completed_required_character_rank_competency)
         )
 

@@ -68,6 +68,7 @@ class MissionBranch(AbstractBaseModel):
         on_delete=models.PROTECT,
         related_name="mission_branches",
         help_text=_("В рамках какого ранга эта ветка событий доступно для выполнения"),
+        null=True,
     )
     category = models.ForeignKey(
         to="game_world.ActivityCategory",

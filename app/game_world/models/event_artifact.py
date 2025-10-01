@@ -35,6 +35,12 @@ class EventArtifact(AbstractBaseModel):
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Артефакт события")
         verbose_name_plural = _("Артефакты событий")
+        constraints = [
+            models.UniqueConstraint(
+                name="unique_event_and_artifact",
+                fields=("event", "artifact"),
+            )
+        ]
 
     def __str__(self):
         return f"{self.event.name} - {self.artifact.name}"

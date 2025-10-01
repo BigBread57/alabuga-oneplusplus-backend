@@ -443,348 +443,227 @@ class GameWorldService(BaseService):
         transformed_game_data = self.transform_ai_response_to_dict(game_data)
         return GameDataModel(**transformed_game_data).model_dump()
 
-
-    def update_or_create_all_entities(self, game_world_data: dict[str, Any], cells_data: dict[str, Any]):
+    def update_or_create_all_entities(
+        self,
+        game_world: int,
+        cells_data: dict[str, Any],
+    ):
         """
         Обновляет существующие сущности в БД или создает новые на основе данных графа
         """
-        # Словари для хранения соответствий UUID и ID сущностей
-        uuid_to_id_map = {}
+        game_world_id = game_world.id
+        game_world.data_for_graph = cells_data
+        game_world.save()
 
-        # Обрабатываем клетки графа
+        # Обрабатываем fk связи. Ключ - название связи, значения - словарь, где ключ и значение это uuid.
+        relationship_fk_maps = defaultdict(dict)
+
+        # Обрабатываем m2m связи. Ключ - название связи, значения - словарь, где ключ и значение это uuid.
+        relationship_m2m_maps = defaultdict(lambda: defaultdict(list))
+
         for cell in cells_data.get("cells", []):
-            cell_id = cell.get("id")
-            cell_type = cell.get("data", {}).get("type")
-
-            if not cell_id or not cell_type:
-                continue
-
-            # Обрабатываем разные типы сущностей
-            if cell_type == "rank":
-                self._process_rank(cell, game_world_data, uuid_to_id_map)
-            elif cell_type == "missionBranch":
-                self._process_mission_branch(cell, game_world_data, uuid_to_id_map)
-            elif cell_type == "mission":
-                self._process_mission(cell, game_world_data, uuid_to_id_map)
-            elif cell_type == "artefact":
-                self._process_artifact(cell, game_world_data, uuid_to_id_map)
-            elif cell_type == "event":
-                self._process_event(cell, game_world_data, uuid_to_id_map)
-            elif cell_type == "competency":
-                self._process_competency(cell, game_world_data, uuid_to_id_map)
-
-        # Обрабатываем связи после создания всех сущностей
-        self._process_relationships(cells_data, uuid_to_id_map)
-
-    def _process_rank(self, cell, game_world_data, uuid_to_id_map):
-        """Обрабатывает ранг"""
-        rank_data = cell["data"]
-        uuid = cell["id"]
-
-        # Ищем ранг в исходных данных
-        original_rank = self._find_entity_by_uuid(game_world_data["ranks"], uuid)
-
-        rank_data_to_save = {
-            "uuid": uuid,
-            "name": rank_data["name"],
-            "description": rank_data["description"],
-            "required_experience": rank_data["required_experience"],
-            "color": rank_data["color"],
-            "x": cell.get("x", 0),
-            "y": cell.get("y", 0)
-        }
-
-        if original_rank:
-            # Обновляем существующий ранг
-            rank_id = self._update_rank(original_rank["id"], rank_data_to_save)
-        else:
-            # Создаем новый ранг
-            rank_id = self._create_rank(rank_data_to_save)
-
-        uuid_to_id_map[f"rank-{uuid}"] = rank_id
-
-    def _process_mission_branch(self, cell, game_world_data, uuid_to_id_map):
-        """Обрабатывает ветку миссий"""
-        branch_data = cell["data"]
-        uuid = cell["id"]
-
-        # Ищем ветку в исходных данных
-        original_branch = None
-        for rank in game_world_data["ranks"]:
-            original_branch = self._find_entity_by_uuid(rank.get("mission_branches", []), uuid)
-            if original_branch:
-                break
-
-        branch_data_to_save = {
-            "uuid": uuid,
-            "name": branch_data["name"],
-            "description": branch_data["description"],
-            "category_name": branch_data["category"],
-            "time_to_complete": branch_data["time_to_complete"],
-            "x": cell.get("x", 0),
-            "y": cell.get("y", 0)
-        }
-
-        if original_branch:
-            branch_id = self._update_mission_branch(original_branch["id"], branch_data_to_save)
-        else:
-            branch_id = self._create_mission_branch(branch_data_to_save)
-
-        uuid_to_id_map[f"mission-branch-{uuid}"] = branch_id
-
-    def _process_mission(self, cell, game_world_data, uuid_to_id_map):
-        """Обрабатывает миссию"""
-        mission_data = cell["data"]
-        uuid = cell["id"]
-
-        # Ищем миссию в исходных данных
-        original_mission = None
-        for rank in game_world_data["ranks"]:
-            for branch in rank.get("mission_branches", []):
-                original_mission = self._find_entity_by_uuid(branch.get("missions", []), uuid)
-                if original_mission:
-                    break
-            if original_mission:
-                break
-
-        mission_data_to_save = {
-            "uuid": uuid,
-            "name": mission_data["name"],
-            "description": mission_data["description"],
-            "experience": mission_data["experience"],
-            "currency": mission_data["currency"],
-            "level_name": mission_data["level"],
-            "is_key_mission": mission_data["is_key_mission"],
-            "time_to_complete": mission_data.get("time_to_complete", 0),
-            "order": mission_data.get("order", 0),
-            "x": cell.get("x", 0),
-            "y": cell.get("y", 0)
-        }
-
-        if original_mission:
-            mission_id = self._update_mission(original_mission["id"], mission_data_to_save)
-        else:
-            mission_id = self._create_mission(mission_data_to_save)
-
-        uuid_to_id_map[f"mission-{uuid}"] = mission_id
-
-    def _process_artifact(self, cell, game_world_data, uuid_to_id_map):
-        """Обрабатывает артефакт"""
-        artifact_data = cell["data"]
-        uuid = cell["id"]
-
-        # Ищем артефакт в исходных данных
-        original_artifact = self._find_artifact_in_data(game_world_data, uuid)
-
-        artifact_data_to_save = {
-            "uuid": uuid,
-            "name": artifact_data["name"],
-            "description": artifact_data["description"],
-            "modifier": artifact_data["modifier"],
-            "modifier_value": artifact_data["modifier_value"],
-            "color": artifact_data.get("color", ""),
-            "x": cell.get("x", 0),
-            "y": cell.get("y", 0)
-        }
-
-        if original_artifact:
-            artifact_id = self._update_artifact(original_artifact["id"], artifact_data_to_save)
-        else:
-            artifact_id = self._create_artifact(artifact_data_to_save)
-
-        uuid_to_id_map[f"artifact-{uuid}"] = artifact_id
-
-    def _process_event(self, cell, game_world_data, uuid_to_id_map):
-        """Обрабатывает событие"""
-        event_data = cell["data"]
-        uuid = cell["id"]
-
-        # Ищем событие в исходных данных
-        original_event = None
-        for rank in game_world_data["ranks"]:
-            original_event = self._find_entity_by_uuid(rank.get("events", []), uuid)
-            if original_event:
-                break
-
-        event_data_to_save = {
-            "uuid": uuid,
-            "name": event_data["name"],
-            "description": event_data["description"],
-            "experience": event_data["experience"],
-            "currency": event_data["currency"],
-            "category_name": event_data["category"],
-            "required_number": event_data["required_number"],
-            "is_active": event_data.get("is_active", True),
-            "start_datetime": event_data.get("start_datetime"),
-            "time_to_complete": event_data.get("time_to_complete", 0),
-            "x": cell.get("x", 0),
-            "y": cell.get("y", 0)
-        }
-
-        if original_event:
-            event_id = self._update_event(original_event["id"], event_data_to_save)
-        else:
-            event_id = self._create_event(event_data_to_save)
-
-        uuid_to_id_map[f"event-{uuid}"] = event_id
-
-    def _process_competency(self, cell, game_world_data, uuid_to_id_map):
-        """Обрабатывает компетенцию"""
-        competency_data = cell["data"]
-        uuid = cell["id"]
-
-        # Ищем компетенцию в исходных данных
-        original_competency = self._find_competency_in_data(game_world_data, uuid)
-
-        competency_data_to_save = {
-            "uuid": uuid,
-            "name": competency_data["name"],
-            "description": competency_data["description"],
-            "level": competency_data["level"],
-            "required_experience": competency_data["required_experience"],
-            "color": competency_data["color"],
-            "x": cell.get("x", 0),
-            "y": cell.get("y", 0)
-        }
-
-        if original_competency:
-            competency_id = self._update_competency(original_competency["id"], competency_data_to_save)
-        else:
-            competency_id = self._create_competency(competency_data_to_save)
-
-        uuid_to_id_map[f"competency-{uuid}"] = competency_id
-
-    def _process_relationships(self, cells_data, uuid_to_id_map):
-        """Обрабатывает связи между сущностями"""
-        for cell in cells_data.get("cells", []):
-            if cell.get("shape") == "entity-edge":
-                self._process_edge_relationship(cell, uuid_to_id_map)
-
-    def _process_edge_relationship(self, edge, uuid_to_id_map):
-        """Обрабатывает связь между двумя сущностями"""
-        source_cell = edge.get("source", {}).get("cell", "")
-        target_cell = edge.get("target", {}).get("cell", "")
-
-        if not source_cell or not target_cell:
-            return
-
-        # Получаем ID сущностей из маппинга
-        source_id = uuid_to_id_map.get(source_cell)
-        target_id = uuid_to_id_map.get(target_cell)
-
-        if not source_id or not target_id:
-            return
-
-        # Определяем тип связи и создаем/обновляем ее
-        self._create_or_update_relationship(source_cell, target_cell, source_id, target_id)
-
-    def _find_entity_by_uuid(self, entities_list, uuid):
-        """Ищет сущность по UUID в списке"""
-        if not entities_list:
-            return None
-        return next((entity for entity in entities_list if entity.get("uuid") == uuid), None)
-
-    def _find_artifact_in_data(self, game_world_data, uuid):
-        """Ищет артефакт по UUID во всех сущностях"""
-        # Ищем в миссиях
-        for rank in game_world_data["ranks"]:
-            for branch in rank.get("mission_branches", []):
-                for mission in branch.get("missions", []):
-                    artifact = self._find_entity_by_uuid(mission.get("artifacts", []), uuid)
-                    if artifact:
-                        return artifact
-
-        # Ищем в событиях
-        for rank in game_world_data["ranks"]:
-            for event in rank.get("events", []):
-                artifact = self._find_entity_by_uuid(event.get("artifacts", []), uuid)
-                if artifact:
-                    return artifact
-
-        return None
-
-    def _find_competency_in_data(self, game_world_data, uuid):
-        """Ищет компетенцию по UUID во всех сущностях"""
-        # Ищем в миссиях
-        for rank in game_world_data["ranks"]:
-            for branch in rank.get("mission_branches", []):
-                for mission in branch.get("missions", []):
-                    competency = self._find_entity_by_uuid(mission.get("competencies", []), uuid)
-                    if competency:
-                        return competency
-
-        # Ищем в событиях
-        for rank in game_world_data["ranks"]:
-            for event in rank.get("events", []):
-                competency = self._find_entity_by_uuid(event.get("competencies", []), uuid)
-                if competency:
-                    return competency
-
-        # Ищем в required_rank_competencies
-        for rank in game_world_data["ranks"]:
-            competency = self._find_entity_by_uuid(rank.get("required_rank_competencies", []), uuid)
-            if competency:
-                return competency
-
-        return None
-
-    # Методы для работы с БД (заглушки - нужно реализовать под вашу ORM)
-    def _update_rank(self, rank_id, data):
-        """Обновляет ранг в БД"""
-        # Реализация обновления ранга
-        return rank_id
-
-    def _create_rank(self, data):
-        """Создает новый ранг в БД"""
-        # Реализация создания ранга
-        return 1  # возвращаем новый ID
-
-    def _update_mission_branch(self, branch_id, data):
-        """Обновляет ветку миссий в БД"""
-        # Реализация обновления ветки миссий
-        return branch_id
-
-    def _create_mission_branch(self, data):
-        """Создает новую ветку миссий в БД"""
-        # Реализация создания ветки миссий
-        return 1  # возвращаем новый ID
-
-    # Аналогичные методы для других сущностей...
-    def _update_mission(self, mission_id, data):
-        return mission_id
-
-    def _create_mission(self, data):
-        return 1
-
-    def _update_artifact(self, artifact_id, data):
-        return artifact_id
-
-    def _create_artifact(self, data):
-        return 1
-
-    def _update_event(self, event_id, data):
-        return event_id
-
-    def _create_event(self, data):
-        return 1
-
-    def _update_competency(self, competency_id, data):
-        return competency_id
-
-    def _create_competency(self, data):
-        return 1
-
-    def _create_or_update_relationship(self, source_type, target_type, source_id, target_id):
-        """Создает или обновляет связь между сущностями"""
-        # Реализация создания/обновления связей в БД
-        # В зависимости от source_type и target_type определяем тип связи
-        # и создаем соответствующую запись в таблице связей
-        pass
-
-
-
-
-
+            cell_shape = cell["shape"]
+            cell_data = cell["data"]
+
+            # Создание или обновление Rank.
+            if cell_shape == "rank":
+                Rank.objects.update_or_create(
+                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                )
+            # Создание или обновление MissionBranch.
+            if cell_shape == "mission_branch":
+                MissionBranch.objects.update_or_create(
+                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                )
+
+            # Создание или обновление Mission.
+            if cell_shape == "mission":
+                Mission.objects.update_or_create(
+                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                )
+
+            # Создание или обновление Artifact.
+            if cell_shape == "artifact":
+                Artifact.objects.update_or_create(
+                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                )
+
+            # Создание или обновление Competency.
+            if cell_shape == "competency":
+                Competency.objects.update_or_create(
+                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                )
+
+            # Создание или обновление Competency.
+            if cell_shape == "event":
+                Event.objects.update_or_create(
+                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                )
+
+            # Создание или обновление Competency.
+            if cell_shape == "game_world_story":
+                GameWorldStory.objects.update_or_create(
+                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                )
+
+            # Формирование связей.
+            if cell_shape == "edge":
+                if cell_data["source_type"] == cell_data["target_type"]:
+                    relationship_fk_maps[cell_data["source_type"]].update(
+                        {cell["source"]["cell"]: cell["target"]["cell"]},
+                    )
+                elif cell_data["source_type"] == "mission" and cell_data["target_type"] == "artifact":
+                    key = f"{cell_data["source_type"]}|{cell["target_type"]}"
+                    relationship_m2m_maps[key][cell["source"]["cell"]].append(cell["target"]["cell"])
+                else:
+                    key = f"{cell_data["source_type"]}|{cell["target_type"]}"
+                    relationship_fk_maps[key].update(
+                        {cell["source"]["cell"]: cell["target"]["cell"]},
+                    )
+
+        # Установка связей.
+        for relationship_name, relationships in relationship_fk_maps.items():
+            # Ранг.
+            if relationship_name == "rank":
+                rank_for_update = []
+                for rank in Rank.objects.filter(uuid__in=relationships.keys()):
+                    rank.parent = relationships.get(rank.uuid)
+                Rank.objects.bulk_update(rank_for_update, fields=("parent",))
+
+            # Истории игрового мира и ранг.
+            if relationship_name == "rank|game_world_story":
+                game_world_stories_for_update = []
+                game_world_stories_map = {
+                    game_world_story.uuid: game_world_story
+                    for game_world_story in GameWorldStory.objects.filter(uuid__in=relationships.values())
+                }
+                for rank in Rank.objects.filter(uuid__in=relationships.keys()):
+                    game_world_story = game_world_stories_map.get(relationships.get(rank.uuid))
+                    game_world_story.content_object = rank
+                    game_world_stories_for_update.append(game_world_story)
+                GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
+
+            # Истории игрового мира и артефакт.
+            if relationship_name == "artifact|game_world_story":
+                game_world_stories_for_update = []
+                game_world_stories_map = {
+                    game_world_story.uuid: game_world_story
+                    for game_world_story in GameWorldStory.objects.filter(uuid__in=relationships.values())
+                }
+                for artifact in Artifact.objects.filter(uuid__in=relationships.keys()):
+                    game_world_story = game_world_stories_map.get(relationships.get(artifact.uuid))
+                    game_world_story.content_object = artifact
+                    game_world_stories_for_update.append(game_world_story)
+                GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
+
+            # Истории игрового мира и компетенция.
+            if relationship_name == "artifact|game_world_story":
+                game_world_stories_for_update = []
+                game_world_stories_map = {
+                    game_world_story.uuid: game_world_story
+                    for game_world_story in GameWorldStory.objects.filter(uuid__in=relationships.values())
+                }
+                for competency in Competency.objects.filter(uuid__in=relationships.keys()):
+                    game_world_story = game_world_stories_map.get(relationships.get(competency.uuid))
+                    game_world_story.content_object = competency
+                    game_world_stories_for_update.append(game_world_story)
+                GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
+
+            # Ветка миссии и ранг.
+            if relationship_name == "rank|mission_branch":
+                mission_branches_for_update = []
+                mission_branches_map = {
+                    mission_branch.uuid: mission_branch
+                    for mission_branch in MissionBranch.objects.filter(uuid__in=relationships.values())
+                }
+                for rank in Rank.objects.filter(uuid__in=relationships.keys()):
+                    mission_branch = mission_branches_map.get(relationships.get(rank.uuid))
+                    mission_branch.rank = rank
+                    mission_branches_for_update.append(mission_branch)
+                MissionBranch.objects.bulk_update(mission_branches_for_update, fields=("rank",))
+
+            # Ветка миссии и миссия.
+            if relationship_name == "mission_branch|mission":
+                missions_for_update = []
+                missions_map = {
+                    mission.uuid: mission for mission in Mission.objects.filter(uuid__in=relationships.values())
+                }
+                for mission_branch in MissionBranch.objects.filter(uuid__in=relationships.keys()):
+                    mission = missions_map.get(relationships.get(rank.uuid))
+                    mission.branch = mission_branch
+                Mission.objects.bulk_update(missions_for_update, fields=("mission_branch",))
+
+        for relationship_name, relationships in relationship_m2m_maps.items():
+            # Миссия и артефакт.
+            if relationship_name == "mission|artifact":
+                for mission_uuid, artifacts in relationships.items():
+                    mission = Mission.objects.get(uuid=mission_uuid)
+                    mission_artifact_for_create = [
+                        MissionArtifact(
+                            mission=mission,
+                            artifact=artifact,
+                        )
+                        for artifact in Artifact.objects.filter(uuid__in=artifacts)
+                    ]
+                    MissionArtifact.objects.bulk_create(
+                        mission_artifact_for_create,
+                        ignore_conflicts=True,
+                    )
+
+        for relationship_name, relationships in relationship_m2m_maps.items():
+            # Миссия и компетенция.
+            if relationship_name == "mission|competency":
+                for mission_uuid, competencies in relationships.items():
+                    mission = Mission.objects.get(uuid=mission_uuid)
+                    mission_artifact_for_create = [
+                        MissionCompetency(
+                            mission=mission,
+                            competency=competency,
+                            # TODO: Временное решение.
+                            experience=50,
+                        )
+                        for competency in Competency.objects.filter(uuid__in=competencies)
+                    ]
+                    MissionCompetency.objects.bulk_create(
+                        mission_artifact_for_create,
+                        ignore_conflicts=True,
+                    )
+
+        for relationship_name, relationships in relationship_m2m_maps.items():
+            # Событие и артефакт.
+            if relationship_name == "event|artifact":
+                for event_uuid, artifacts in relationships.items():
+                    event = Mission.objects.get(uuid=event_uuid)
+                    event_artifact_for_create = [
+                        EventArtifact(
+                            event=event,
+                            artifact=artifact,
+                        )
+                        for artifact in Artifact.objects.filter(uuid__in=artifacts)
+                    ]
+                    EventArtifact.objects.bulk_create(
+                        event_artifact_for_create,
+                        ignore_conflicts=True,
+                    )
+
+        for relationship_name, relationships in relationship_m2m_maps.items():
+            # Событие и компетенция.
+            if relationship_name == "event|competency":
+                for event_uuid, competencies in relationships.items():
+                    event = Event.objects.get(uuid=event_uuid)
+                    event_artifact_for_create = [
+                        EventCompetency(
+                            event=event,
+                            competency=competency,
+                            # TODO: Временное решение.
+                            experience=50,
+                        )
+                        for competency in Competency.objects.filter(uuid__in=competencies)
+                    ]
+                    EventCompetency.objects.bulk_create(
+                        event_artifact_for_create,
+                        ignore_conflicts=True,
+                    )
 
     def get_data_for_graph(self, game_world_data: dict[str, Any], data_for_graph: dict[str, Any] | None = None):
         """
@@ -820,37 +699,67 @@ class GameWorldService(BaseService):
         # Обрабатываем ранги
         for rank in game_world_data.get("ranks", []):
             # Создаем узел ранга
-            rank_id = rank['uuid']
+            rank_uuid = rank["uuid"]
             default_rank_y = config["initial_y"] + (rank["id"] - 1) * config["rank_height"]
-            rank_x, rank_y = get_coordinates_from_data(rank_id, config["initial_x"], default_rank_y)
+            rank_x, rank_y = get_coordinates_from_data(rank_uuid, config["initial_x"], default_rank_y)
 
             rank_node = {
-                "id": rank_id,
-                "shape": "rank|node",
+                "id": rank_uuid,
+                "shape": "rank",
                 "x": rank_x,
                 "y": rank_y,
                 "attrs": {
                     "title": {"text": rank["name"]},
-                    "description": {"text": rank["description"]},
+                    "description": {"text": rank.get("description", "")},
                 },
                 "data": {
-                    "type": "rank",
-                    "name": rank.get("name"),
+                    "name": rank["name"],
                     "description": rank.get("description", ""),
-                    "required_experience": rank.get("required_experience"),
+                    "required_experience": rank["required_experience"],
                     "icon": rank.get("icon", None),
                     "color": rank.get("color", ""),
-                    "parent": rank.get("parent", None),
-                        "game_world": mission_branch.get("game_world"),
                 },
             }
             cells.append(rank_node)
             if rank.get("parent"):
                 edge = {
-                    "id": f"{rank['uuid']}|{rank['parent']['uuid']}",
-                    "shape": "rank|rank|edge",
-                    "source": {"cell": rank['uuid']},
-                    "target": {"cell": rank['parent']['uuid']}
+                    "id": f"{rank_uuid}|{rank['parent']['uuid']}",
+                    "shape": "edge",
+                    "source": {"cell": rank_uuid},
+                    "target": {"cell": rank["parent"]["uuid"]},
+                    "data": {
+                        "source_type": "rank",
+                        "target_type": "rank",
+                    },
+                }
+                cells.append(edge)
+
+            for game_world_story in rank.get("game_world_story", []):
+                game_world_story_uuid = game_world_story["uuid"]
+                game_world_story_node = {
+                    "id": game_world_story_uuid,
+                    "shape": "game_world_story",
+                    "x": rank_x,
+                    "y": rank_y,
+                    "attrs": {
+                        "title": {"text": game_world_story["text"]},
+                    },
+                    "data": {
+                        "image": game_world_story.get("image", None),
+                        "text": game_world_story["text"],
+                    },
+                }
+                cells.append(game_world_story_node)
+                game_world_story_uuid =game_world_story["uuid"]
+                edge = {
+                    "id": f"{rank_uuid}|{game_world_story_uuid}",
+                    "shape": "edge",
+                    "source": {"cell": rank_uuid},
+                    "target": {"cell": game_world_story_uuid},
+                    "data": {
+                        "source_type": "rank",
+                        "target_type": "game_world_story",
+                    },
                 }
                 cells.append(edge)
 
@@ -862,15 +771,17 @@ class GameWorldService(BaseService):
             # Обрабатываем ветки миссий для этого ранга
             mission_branch_y = rank_y + config["mission_branch_height"]
             for mission_branch in rank.get("mission_branches", []):
-                mission_branch_id = mission_branch['uuid']
+                mission_branch_uuid = mission_branch["uuid"]
                 default_mission_branch_x = 150 + (mission_branch["id"] - 1) * config["horizontal_spacing"]
                 mission_branch_x, mission_branch_y = get_coordinates_from_data(
-                    mission_branch_id, default_mission_branch_x, mission_branch_y,
+                    mission_branch_uuid,
+                    default_mission_branch_x,
+                    mission_branch_y,
                 )
 
                 mission_branch_node = {
-                    "id": mission_branch_id,
-                    "shape": "missionbranch|node",
+                    "id": mission_branch_uuid,
+                    "shape": "mission_branch",
                     "x": mission_branch_x,
                     "y": mission_branch_y,
                     "attrs": {
@@ -878,96 +789,130 @@ class GameWorldService(BaseService):
                         "description": {"text": mission_branch.get("description", "")},
                     },
                     "data": {
-                        "type": "missionBranch",
-                        "name": mission_branch.get("name"),
+                        "name": mission_branch["name"],
                         "description": mission_branch.get("description", ""),
                         "icon": mission_branch.get("icon", None),
                         "color": mission_branch.get("color", ""),
-                        "is_active": mission_branch.get("is_active"),
+                        "is_active": mission_branch["is_active"],
                         "start_datetime": mission_branch.get("start_datetime", None),
                         "time_to_complete": mission_branch.get("time_to_complete", None),
-                        "rank": mission_branch.get("rank"),
-                        "category": mission_branch.get("category"),
-                        "mentor": mission_branch.get("mentor"),
-                        "game_world": mission_branch.get("game_world"),
+                        "category": mission_branch["category"],
+                        "mentor": mission_branch.get("mentor", None),
                     },
                 }
                 cells.append(mission_branch_node)
 
                 # Создаем связь от ранга к ветке миссий
                 edge = {
-                    "id": f"{rank['uuid']}|{mission_branch['uuid']}",
-                    "shape": "rank|missionbranch|edge",
-                    "source": {"cell": rank['uuid']},
-                    "target": {"cell": mission_branch['uuid']}
+                    "id": f"{rank_uuid}|{mission_branch_uuid}",
+                    "shape": "edge",
+                    "source": {"cell": rank_uuid},
+                    "target": {"cell": mission_branch_uuid},
+                    "data": {
+                        "source_type": "rank",
+                        "target_type": "mission_branch",
+                    },
                 }
                 cells.append(edge)
 
                 # Обрабатываем миссии в этой ветке
                 mission_y = mission_branch_y + config["mission_height"]
                 for mission in mission_branch.get("missions", []):
-                    mission_id = mission['uuid']
+                    mission_uuid = mission["uuid"]
                     default_mission_x = 100 + (mission["id"] - 1) * config["horizontal_spacing"]
-                    mission_x, mission_y = get_coordinates_from_data(mission_id, default_mission_x, mission_y)
+                    mission_x, mission_y = get_coordinates_from_data(mission_uuid, default_mission_x, mission_y)
 
                     mission_node = {
-                        "id": mission_id,
-                        "shape": "mission|node",
+                        "id": mission_uuid,
+                        "shape": "mission",
                         "x": mission_x,
                         "y": mission_y,
                         "attrs": {
-                            "title": {"text": mission.get("name")},
-                            "description": {"text": mission.get("description", "")},
+                            "title": {"text": mission["name"]},
+                            "description": {"text": mission["description"]},
                         },
                         "data": {
-                            "type": "mission",
-                            "name": mission.get("name"),
-                            "description": mission.get("description", ""),
-                            "experience": mission.get('experience'),
-                            "currency": mission.get('currency'),
+                            "name": mission["name"],
+                            "description": mission["description"],
+                            "experience": mission["experience"],
+                            "currency": mission["currency"],
                             "icon": mission.get("icon", None),
                             "color": mission.get("color", ""),
-                            "order": mission.get("order"),
-                            "is_key_mission": mission.get("is_key_mission"),
-                            "is_active": mission.get("is_active"),
-                            "time_to_complete": mission.get("time_to_complete"),
+                            "order": mission["order"],
+                            "is_key_mission": mission["is_key_mission"],
+                            "is_active": mission["is_active"],
+                            "time_to_complete": mission.get("time_to_complete", None),
                             "qr_code": mission.get("qr_code", None),
-                            "branch": mission.get("branch"),
                             "level": mission.get("level"),
                             "category": mission.get("category"),
-                            "mentor": mission.get("mentor"),
+                            "mentor": mission.get("mentor", None),
                         },
                     }
                     cells.append(mission_node)
 
+                    # Истории игрового мира.
+                    for game_world_story in mission.get("game_world_story", []):
+                        game_world_story_uuid = game_world_story["uuid"]
+                        game_world_story_node = {
+                            "id": game_world_story_uuid,
+                            "shape": "game_world_story",
+                            "x": mission_x,
+                            "y": mission_y,
+                            "attrs": {
+                                "title": {"text": game_world_story["text"]},
+                            },
+                            "data": {
+                                "image": game_world_story.get("image", None),
+                                "text": game_world_story["text"],
+                            },
+                        }
+                        cells.append(game_world_story_node)
+
+                        edge = {
+                            "id": f"{mission_uuid}|{game_world_story_uuid}",
+                            "shape": "edge",
+                            "source": {"cell": mission_uuid},
+                            "target": {"cell": game_world_story_uuid},
+                            "data": {
+                                "source_type": "mission",
+                                "target_type": "game_world_story",
+                            },
+                        }
+                        cells.append(edge)
+
                     # Создаем связь от ветки миссий к миссии
                     edge = {
-                        "id": f"{mission_branch['uuid']}|{mission['uuid']}",
-                        "shape": "missionbranch|mission|edge",
-                        "source": {"cell": mission_branch['uuid']},
-                        "target": {"cell": mission['uuid']},
+                        "id": f"{mission_branch_uuid}|{mission_uuid}",
+                        "shape": "edge",
+                        "source": {"cell": mission_branch_uuid},
+                        "target": {"cell": mission_uuid},
+                        "data": {
+                            "source_type": "mission_branch",
+                            "target_type": "mission",
+                        },
                     }
                     cells.append(edge)
 
                     # Обрабатываем артефакты для этой миссии
                     artifact_y = mission_y + config["artifact_height"]
                     for artifact in mission.get("artifacts", []):
-                        artifact_id = artifact['uuid']
+                        artifact_uuid = artifact["uuid"]
                         default_artifact_x = 100 + (artifact["id"] - 1) * config["horizontal_spacing"]
-                        artifact_x, artifact_y = get_coordinates_from_data(artifact_id, default_artifact_x, artifact_y)
+                        artifact_x, artifact_y = get_coordinates_from_data(
+                            artifact_uuid, default_artifact_x, artifact_y
+                        )
 
                         artifact_node = {
-                            "id": artifact_id,
-                            "shape": "artefact|node",
+                            "id": artifact_uuid,
+                            "shape": "artifact",
                             "x": artifact_x,
                             "y": artifact_y,
                             "attrs": {
-                                "title": {"text": artifact.get("name")},
+                                "title": {"text": artifact["name"]},
                                 "description": {"text": artifact.get("description", "")},
                             },
                             "data": {
-                                "type": "artefact",
-                                "name": artifact.get("name"),
+                                "name": artifact["name"],
                                 "description": artifact.get("description", ""),
                                 "icon": artifact.get("icon", None),
                                 "color": artifact.get("color", ""),
@@ -977,12 +922,46 @@ class GameWorldService(BaseService):
                         }
                         cells.append(artifact_node)
 
+                        # Истории игрового мира.
+                        for game_world_story in artifact.get("game_world_story", []):
+                            game_world_story_uuid = game_world_story["uuid"]
+                            game_world_story_node = {
+                                "id": game_world_story_uuid,
+                                "shape": "game_world_story",
+                                "x": artifact_x,
+                                "y": artifact_y,
+                                "attrs": {
+                                    "title": {"text": game_world_story["text"]},
+                                },
+                                "data": {
+                                    "image": game_world_story.get("image", None),
+                                    "text": game_world_story["text"],
+                                },
+                            }
+                            cells.append(game_world_story_node)
+
+                            edge = {
+                                "id": f"{artifact_uuid}|{game_world_story_uuid}",
+                                "shape": "edge",
+                                "source": {"cell": artifact_uuid},
+                                "target": {"cell": game_world_story_uuid},
+                                "data": {
+                                    "source_type": "artifact",
+                                    "target_type": "game_world_story",
+                                },
+                            }
+                            cells.append(edge)
+
                         # Создаем связь от миссии к артефакту
                         edge = {
-                            "id": f"{mission['uuid']}|{artifact['uuid']}",
-                            "shape": "mission|artifact|edge",
-                            "source": {"cell": mission['uuid']},
-                            "target": {"cell": artifact['uuid']}
+                            "id": f"{mission_uuid}|{artifact_uuid}",
+                            "shape": "edge",
+                            "source": {"cell": mission_uuid},
+                            "target": {"cell": artifact_uuid},
+                            "data": {
+                                "source_type": "mission",
+                                "target_type": "artifact",
+                            },
                         }
                         cells.append(edge)
 
@@ -993,37 +972,84 @@ class GameWorldService(BaseService):
                     # Обрабатываем компетенции для этой миссии
                     competency_y = mission_y + config["competency_height"]
                     for competency in mission.get("competencies", []):
-                        competency_id = competency['uuid']
+                        competency_uuid = competency["uuid"]
                         default_competency_x = 100 + (competency["id"] - 1) * config["horizontal_spacing"]
-                        competency_x, competency_y = get_coordinates_from_data(competency_id, default_competency_x,
-                                                                               competency_y)
+                        competency_x, competency_y = get_coordinates_from_data(
+                            competency_uuid, default_competency_x, competency_y
+                        )
 
                         competency_node = {
-                            "id": competency_id,
-                            "shape": "competency|node",
+                            "id": competency_uuid,
+                            "shape": "competency",
                             "x": competency_x,
                             "y": competency_y,
                             "attrs": {
                                 "title": {"text": competency["name"]},
-                                "description": {"text": competency["description"]},
+                                "description": {"text": competency.get("description", "")},
                             },
                             "data": {
-                                "type": "competency",
                                 "name": competency["name"],
-                                "description": competency["description"],
-                                "level": competency["level"],
+                                "description": competency.get("description", ""),
                                 "required_experience": competency["required_experience"],
-                                "color": competency["color"],
+                                "level": competency["level"],
+                                "icon": competency.get("icon", None),
+                                "color": competency.get("color", ""),
                             },
                         }
                         cells.append(competency_node)
 
+                        # Истории игрового мира.
+                        for game_world_story in competency.get("game_world_story", []):
+                            game_world_story_uuid = game_world_story["uuid"]
+                            game_world_story_node = {
+                                "id": game_world_story_uuid,
+                                "shape": "game_world_story",
+                                "x": competency_x,
+                                "y": competency_y,
+                                "attrs": {
+                                    "title": {"text": game_world_story["text"]},
+                                },
+                                "data": {
+                                    "image": game_world_story.get("image", None),
+                                    "text": game_world_story["text"],
+                                },
+                            }
+                            cells.append(game_world_story_node)
+                            edge = {
+                                "id": f"{competency_uuid}|{game_world_story_uuid}",
+                                "shape": "edge",
+                                "source": {"cell": competency_uuid},
+                                "target": {"cell": game_world_story_uuid},
+                                "data": {
+                                    "source_type": "competency",
+                                    "target_type": "game_world_story",
+                                },
+                            }
+                            cells.append(edge)
+
+                        if competency.get("parent"):
+                            edge = {
+                                "id": f"{competency_uuid}|{competency['parent']['uuid']}",
+                                "shape": "edge",
+                                "source": {"cell": competency_uuid},
+                                "target": {"cell": competency["parent"]["uuid"]},
+                                "data": {
+                                    "source_type": "competency",
+                                    "target_type": "competency",
+                                },
+                            }
+                            cells.append(edge)
+
                         # Создаем связь от миссии к компетенции
                         edge = {
-                            "id": f"{mission['uuid']}|{competency['uuid']}",
-                            "shape": "mission|competency",
-                            "source": {"cell": mission['uuid']},
-                            "target": {"cell": competency['uuid']},
+                            "id": f"{mission_uuid}|{competency_uuid}",
+                            "shape": "edge",
+                            "source": {"cell": mission_uuid},
+                            "target": {"cell": competency_uuid},
+                            "data": {
+                                "source_type": "mission",
+                                "target_type": "competency",
+                            },
                         }
                         cells.append(edge)
 
@@ -1043,17 +1069,17 @@ class GameWorldService(BaseService):
 
             # Обрабатываем события для этого ранга
             for event in rank.get("events", []):
-                event_id = event['uuid']
-                event_x, event_y = get_coordinates_from_data(event_id, config["initial_x"], event_y)
+                event_uuid = event["uuid"]
+                event_x, event_y = get_coordinates_from_data(event_uuid, config["initial_x"], event_y)
 
                 event_node = {
-                    "id": event_id,
-                    "shape": "event|node",
+                    "id": event_uuid,
+                    "shape": "event",
                     "x": event_x,
                     "y": event_y,
                     "attrs": {
-                        "title": {"text": event["name"]},
-                        "description": {"text": event["description"]},
+                        "title": {"text": event.get("name")},
+                        "description": {"text": event.get("description", "")},
                     },
                     "data": {
                         "type": "event",
@@ -1061,109 +1087,221 @@ class GameWorldService(BaseService):
                         "description": event["description"],
                         "experience": event["experience"],
                         "currency": event["currency"],
-                        "category": event["category"]["name"],
+                        "icon": event.get("icon", None),
+                        "color": event.get("color", ""),
                         "required_number": event["required_number"],
+                        "is_active": event["is_active"],
+                        "start_datetime": event.get("start_datetime", None),
+                        "time_to_complete": event.get("time_to_complete", None),
+                        "qr_code": event.get("qr_code", None),
+                        "category": event.get("category"),
+                        "mentor": event.get("mentor", None),
                     },
                 }
                 cells.append(event_node)
 
-                # Обрабатываем компетенции для этого события
-                event_competency_y = event_y + config["competency_height"]
-                for competency in event.get("competencies", []):
-                    competency_id = competency['uuid']
-                    default_competency_x = 100 + (competency["id"] - 1) * config["horizontal_spacing"]
-                    competency_x, event_competency_y = get_coordinates_from_data(competency_id, default_competency_x,
-                                                                                 event_competency_y)
-
-                    competency_node = {
-                        "id": competency_id,
-                        "shape": "competency|node",
-                        "x": competency_x,
-                        "y": event_competency_y,
+                # Истории игрового мира.
+                for game_world_story in event.get("game_world_story", []):
+                    game_world_story_uuid = game_world_story["uuid"]
+                    game_world_story_node = {
+                        "id": game_world_story_uuid,
+                        "shape": "game_world_story",
+                        "x": event_x,
+                        "y": event_y,
                         "attrs": {
-                            "title": {"text": competency["name"]},
-                            "description": {"text": competency["description"]},
+                            "title": {"text": game_world_story["text"]},
                         },
                         "data": {
-                            "type": "competency",
-                            "name": competency["name"],
-                            "description": competency["description"],
-                            "level": competency["level"],
-                            "required_experience": competency["required_experience"],
-                            "color": competency["color"],
+                            "image": game_world_story.get("image", None),
+                            "text": game_world_story["text"],
                         },
                     }
-                    cells.append(competency_node)
-
-                    # Создаем связь от события к компетенции
+                    cells.append(game_world_story_node)
                     edge = {
-                        "id": f"{event['uuid']}-{competency['uuid']}",
-                        "shape": "event|competency|edge",
-                        "source": {"cell": event['uuid']},
-                        "target": {"cell": competency['uuid']},
+                        "id": f"{event_uuid}|{game_world_story_uuid}",
+                        "shape": "edge",
+                        "source": {"cell": event_uuid},
+                        "target": {"cell": game_world_story_uuid},
+                        "data": {
+                            "source_type": "event",
+                            "target_type": "game_world_story",
+                        },
                     }
                     cells.append(edge)
 
-                    event_competency_y += config["competency_height"]
+                # Создаем связь от ранга к ветке миссий
+                edge = {
+                    "id": f"{rank_uuid}|{event_uuid}",
+                    "shape": "edge",
+                    "source": {"cell": rank_uuid},
+                    "target": {"cell": event_uuid},
+                    "data": {
+                        "source_type": "rank",
+                        "target_type": "event",
+                    },
+                }
+                cells.append(edge)
 
-                # Обрабатываем артефакты для этого события
-                event_artifact_y = event_y + config["artifact_height"]
+                # Обрабатываем артефакты для этой миссии
+                artifact_y = event_y + config["artifact_height"]
                 for artifact in event.get("artifacts", []):
-                    artifact_id = artifact['uuid']
+                    artifact_uuid = artifact["uuid"]
                     default_artifact_x = 100 + (artifact["id"] - 1) * config["horizontal_spacing"]
-                    artifact_x, event_artifact_y = get_coordinates_from_data(artifact_id, default_artifact_x,
-                                                                             event_artifact_y)
+                    artifact_x, artifact_y = get_coordinates_from_data(artifact_uuid, default_artifact_x, artifact_y)
 
                     artifact_node = {
-                        "id": artifact_id,
-                        "shape": "artefact|node",
+                        "id": artifact_uuid,
+                        "shape": "artifact",
                         "x": artifact_x,
-                        "y": event_artifact_y,
+                        "y": artifact_y,
                         "attrs": {
                             "title": {"text": artifact["name"]},
-                            "description": {"text": artifact["description"]},
+                            "description": {"text": artifact.get("description", "")},
                         },
                         "data": {
-                            "type": "artefact",
                             "name": artifact["name"],
-                            "description": artifact["description"],
+                            "description": artifact.get("description", ""),
+                            "icon": artifact.get("icon", None),
+                            "color": artifact.get("color", ""),
                             "modifier": artifact["modifier"],
                             "modifier_value": artifact["modifier_value"],
                         },
                     }
                     cells.append(artifact_node)
 
-                    # Создаем связь от события к артефакту
+                    # Истории игрового мира.
+                    for game_world_story in artifact.get("game_world_story", []):
+                        game_world_story_uuid = game_world_story["uuid"]
+                        game_world_story_node = {
+                            "id": game_world_story_uuid,
+                            "shape": "game_world_story",
+                            "x": artifact_x,
+                            "y": artifact_y,
+                            "attrs": {
+                                "title": {"text": game_world_story["text"]},
+                            },
+                            "data": {
+                                "image": game_world_story.get("image", None),
+                                "text": game_world_story["text"],
+                            },
+                        }
+                        cells.append(game_world_story_node)
+                        edge = {
+                            "id": f"{artifact_uuid}|{game_world_story_uuid}",
+                            "shape": "edge",
+                            "source": {"cell": artifact_uuid},
+                            "target": {"cell": game_world_story_uuid},
+                            "data": {
+                                "source_type": "artifact",
+                                "target_type": "game_world_story",
+                            },
+                        }
+                        cells.append(edge)
+
+                    # Создаем связь от миссии к артефакту
                     edge = {
-                        "id": f"{event['uuid']}|{artifact['uuid']}",
-                        "shape": "event|artifact|edge",
-                        "source": {"cell": event['uuid']},
-                        "target": {"cell": artifact['uuid']},
+                        "id": f"{event_uuid}|{artifact_uuid}",
+                        "shape": "edge",
+                        "source": {"cell": event_uuid},
+                        "target": {"cell": artifact_uuid},
+                        "data": {
+                            "source_type": "event",
+                            "target_type": "artifact",
+                        },
                     }
                     cells.append(edge)
 
-                    event_artifact_y += config["artifact_height"]
+                    # Обновляем максимальную высоту артефактов
+                    max_artifact_y = max(max_artifact_y, artifact_y)
+                    artifact_y += config["artifact_height"]
 
-                # Создаем связи от всех артефактов к событию
-                for mission_branch in rank.get("mission_branches", []):
-                    for mission in mission_branch.get("missions", []):
-                        for artifact in mission.get("artifacts", []):
-                            edge = {
-                                "id": f"{artifact['uuid']}|{event['uuid']}",
-                                "shape": "artifact|event|edge",
-                                "source": {"cell": artifact['uuid']},
-                                "target": {"cell": event['uuid']},
-                            }
-                            cells.append(edge)
+                # Обрабатываем компетенции для этой миссии
+                competency_y = event_y + config["competency_height"]
+                for competency in event.get("competencies", []):
+                    competency_uuid = competency["uuid"]
+                    default_competency_x = 100 + (competency["id"] - 1) * config["horizontal_spacing"]
+                    competency_x, competency_y = get_coordinates_from_data(
+                        competency_uuid, default_competency_x, competency_y
+                    )
 
-                # Также создаем связь от ранга к событию
-                edge = {
-                    "id": f"{rank['uuid']}-{event['uuid']}",
-                    "shape": "rank|event|edge",
-                    "source": {"cell": rank['uuid']},
-                    "target": {"cell": event['uuid']},
-                }
-                cells.append(edge)
+                    competency_node = {
+                        "id": competency_uuid,
+                        "shape": "competency",
+                        "x": competency_x,
+                        "y": competency_y,
+                        "attrs": {
+                            "title": {"text": competency["name"]},
+                            "description": {"text": competency.get("description", "")},
+                        },
+                        "data": {
+                            "name": competency["name"],
+                            "description": competency.get("description", ""),
+                            "required_experience": competency["required_experience"],
+                            "level": competency["level"],
+                            "icon": competency.get("icon", None),
+                            "color": competency.get("color", ""),
+                        },
+                    }
+                    cells.append(competency_node)
+
+                    # Истории игрового мира.
+                    for game_world_story in competency.get("game_world_story", []):
+                        game_world_story_uuid = game_world_story["uuid"]
+                        game_world_story_node = {
+                            "id": game_world_story_uuid,
+                            "shape": "game_world_story",
+                            "x": competency_x,
+                            "y": competency_y,
+                            "attrs": {
+                                "title": {"text": game_world_story["text"]},
+                            },
+                            "data": {
+                                "image": game_world_story.get("image", None),
+                                "text": game_world_story["text"],
+                            },
+                        }
+                        cells.append(game_world_story_node)
+                        edge = {
+                            "id": f"{competency_uuid}|{game_world_story_uuid}",
+                            "shape": "edge",
+                            "source": {"cell": competency_uuid},
+                            "target": {"cell": game_world_story_uuid},
+                            "data": {
+                                "source_type": "competency",
+                                "target_type": "game_world_story",
+                            },
+                        }
+                        cells.append(edge)
+
+                    if competency.get("parent"):
+                        edge = {
+                            "id": f"{competency_uuid}|{competency['parent']['uuid']}",
+                            "shape": "edge",
+                            "source": {"cell": competency_uuid},
+                            "target": {"cell": competency["parent"]["uuid"]},
+                            "data": {
+                                "source_type": "competency",
+                                "target_type": "competency",
+                            },
+                        }
+                        cells.append(edge)
+
+                    # Создаем связь от миссии к компетенции
+                    edge = {
+                        "id": f"{event_uuid}|{competency_uuid}",
+                        "shape": "edge",
+                        "source": {"cell": event_uuid},
+                        "target": {"cell": competency_uuid},
+                        "data": {
+                            "source_type": "event",
+                            "target_type": "competency",
+                        },
+                    }
+                    cells.append(edge)
+
+                    # Обновляем максимальную высоту компетенций
+                    max_competency_y = max(max_competency_y, competency_y)
+                    competency_y += config["competency_height"]
 
                 event_y += config["event_height"]
 

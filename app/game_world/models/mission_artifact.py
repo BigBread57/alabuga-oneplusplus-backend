@@ -35,6 +35,12 @@ class MissionArtifact(AbstractBaseModel):
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Артефакт миссии")
         verbose_name_plural = _("Артефакты миссий")
+        constraints = [
+            models.UniqueConstraint(
+                name="unique_mission_and_artifact",
+                fields=("mission", "artifact"),
+            )
+        ]
 
     def __str__(self):
         return f"{self.mission.name} - {self.artifact.name}"

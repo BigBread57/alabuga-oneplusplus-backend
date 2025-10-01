@@ -43,7 +43,9 @@ class CharacterEventService(BaseService):
             )
             for event_artifact in event_artifacts
         ]
-        character_artifacts = CharacterArtifact.objects.bulk_create(objs=list_character_artifacts)
+        character_artifacts = CharacterArtifact.objects.bulk_create(
+            objs=list_character_artifacts, ignore_conflicts=True
+        )
 
         list_activity_logs = [
             ActivityLog(

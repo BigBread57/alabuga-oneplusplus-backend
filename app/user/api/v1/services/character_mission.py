@@ -44,7 +44,9 @@ class CharacterMissionService(BaseService):
             )
             for mission_artifact in mission_artifacts
         ]
-        character_artifacts = CharacterArtifact.objects.bulk_create(objs=list_character_artifacts)
+        character_artifacts = CharacterArtifact.objects.bulk_create(
+            objs=list_character_artifacts, ignore_conflicts=True
+        )
 
         list_activity_logs = [
             ActivityLog(

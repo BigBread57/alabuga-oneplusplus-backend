@@ -2,9 +2,6 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from game_mechanics.models import Competency, Rank
-from game_world.api.v1.serializers.nested import (
-    GameWorldStoryNestedSerializer,
-)
 from game_world.models import (
     ActivityCategory,
     Artifact,
@@ -13,8 +10,24 @@ from game_world.models import (
     Mission,
     MissionBranch,
     MissionLevel,
+    GameWorldStory,
 )
 from user.api.v1.serializers.nested import CharacterNestedSerializer
+
+
+class GameWorldStoryAllInfoNestedSerializer(serializers.ModelSerializer):
+    """
+    Игровая история мира. Вложенный сериалайзер.
+    """
+
+    class Meta:
+        model = GameWorldStory
+        fields = (
+            "id",
+            "uuid",
+            "image",
+            "text",
+        )
 
 
 class CompetencyAllInfoNestedSerializer(serializers.ModelSerializer):
@@ -22,7 +35,7 @@ class CompetencyAllInfoNestedSerializer(serializers.ModelSerializer):
     Компетенция. Полная информация. Вложенный сериалайзер.
     """
 
-    game_world_stories = GameWorldStoryNestedSerializer(
+    game_world_stories = GameWorldStoryAllInfoNestedSerializer(
         label=_("История игрового мира"),
         help_text=_("История игрового мира"),
         many=True,
@@ -59,7 +72,7 @@ class ArtifactAllInfoNestedSerializer(serializers.ModelSerializer):
     Артефакт. Полная информация. Вложенный сериалайзер.
     """
 
-    game_world_stories = GameWorldStoryNestedSerializer(
+    game_world_stories = GameWorldStoryAllInfoNestedSerializer(
         label=_("История игрового мира"),
         help_text=_("История игрового мира"),
         many=True,
@@ -131,7 +144,7 @@ class MissionAllInfoNestedSerializer(serializers.ModelSerializer):
         help_text=_("Компетенции"),
         many=True,
     )
-    game_world_stories = GameWorldStoryNestedSerializer(
+    game_world_stories = GameWorldStoryAllInfoNestedSerializer(
         label=_("История игрового мира"),
         help_text=_("История игрового мира"),
         many=True,
@@ -155,7 +168,7 @@ class MissionAllInfoNestedSerializer(serializers.ModelSerializer):
             "id",
             "uuid",
             "name",
-            # "description",
+            "description",
             "experience",
             "currency",
             "icon",
@@ -167,7 +180,6 @@ class MissionAllInfoNestedSerializer(serializers.ModelSerializer):
             "level",
             "category",
             "mentor",
-            "required_missions",
             "artifacts",
             "competencies",
             "game_world_stories",
@@ -230,7 +242,7 @@ class EventAllInfoNestedSerializer(serializers.ModelSerializer):
         help_text=_("Компетенции"),
         many=True,
     )
-    game_world_stories = GameWorldStoryNestedSerializer(
+    game_world_stories = GameWorldStoryAllInfoNestedSerializer(
         label=_("История игрового мира"),
         help_text=_("История игрового мира"),
         many=True,
@@ -262,6 +274,7 @@ class EventAllInfoNestedSerializer(serializers.ModelSerializer):
             "game_world_stories",
         )
 
+
 class RankParentNestedSerializer(serializers.ModelSerializer):
     """
     Ранг. Вложенный сериалайзер.
@@ -269,11 +282,7 @@ class RankParentNestedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rank
-        fields = (
-            "id",
-            "uuid"
-        )
-
+        fields = ("id", "uuid")
 
 
 class RankAllInfoNestedSerializer(serializers.ModelSerializer):
@@ -281,7 +290,7 @@ class RankAllInfoNestedSerializer(serializers.ModelSerializer):
     Ранг. Полная информация. Вложенный сериалайзер.
     """
 
-    game_world_stories = GameWorldStoryNestedSerializer(
+    game_world_stories = GameWorldStoryAllInfoNestedSerializer(
         label=_("История игрового мира"),
         help_text=_("История игрового мира"),
         many=True,

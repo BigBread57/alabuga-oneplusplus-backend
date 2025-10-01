@@ -41,6 +41,12 @@ class MissionCompetency(AbstractBaseModel):
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Компетенция миссии")
         verbose_name_plural = _("Компетенции миссий")
+        constraints = [
+            models.UniqueConstraint(
+                name="unique_mission_and_competency",
+                fields=("mission", "competency"),
+            )
+        ]
 
     def __str__(self):
         return f"{self.mission.name} - {self.competency.name}: +{self.experience}"

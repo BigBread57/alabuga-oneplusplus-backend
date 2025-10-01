@@ -86,6 +86,7 @@ class Mission(AbstractBaseModel):
         help_text=_("Ветка миссии"),
         on_delete=models.CASCADE,
         related_name="missions",
+        null=True,
     )
     level = models.ForeignKey(
         to="game_world.MissionLevel",
@@ -108,14 +109,6 @@ class Mission(AbstractBaseModel):
         null=True,
         blank=True,
         help_text=_("Ментор, который может помочь в выполнении миссии"),
-    )
-    required_missions = models.ManyToManyField(
-        to="self",
-        verbose_name=_("Необходимые миссии"),
-        symmetrical=False,
-        related_name="unlocks_missions",
-        blank=True,
-        help_text=_("Миссии, которые нужно выполнить для доступа к этой миссии"),
     )
     artifacts = models.ManyToManyField(
         to="game_world.Artifact",

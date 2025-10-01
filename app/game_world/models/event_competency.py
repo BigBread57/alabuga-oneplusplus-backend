@@ -41,6 +41,12 @@ class EventCompetency(AbstractBaseModel):
     class Meta(AbstractBaseModel.Meta):
         verbose_name = _("Компетенция события")
         verbose_name_plural = _("Компетенции событий")
+        constraints = [
+            models.UniqueConstraint(
+                name="unique_event_and_competency",
+                fields=("event", "competency"),
+            )
+        ]
 
     def __str__(self):
         return f"{self.event.name} - {self.competency.name}: +{self.experience}"
