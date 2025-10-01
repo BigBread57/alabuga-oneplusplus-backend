@@ -3,7 +3,7 @@ version: "3.8"
 
 # Base configuration for local development
 services:
-  db:
+  postgres:
     image: postgres:17-alpine
     restart: unless-stopped
     volumes:
