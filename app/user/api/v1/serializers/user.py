@@ -252,6 +252,10 @@ class UserInfoSerializer(serializers.ModelSerializer):
         label=_("Активный персонаж"),
         help_text=_("Активный персонаж"),
     )
+    active_game_world_currency = serializers.SerializerMethodField(
+        label=_("Активная валюта"),
+        help_text=_("Активная валюта"),
+    )
 
     class Meta:
         model = User
