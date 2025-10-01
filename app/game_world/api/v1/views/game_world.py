@@ -216,7 +216,7 @@ class GameWorldUpdateOrCreateAllEntitiesAPIView(GenericAPIView):
         game_world = self.get_object()
         game_world_service.update_or_create_all_entities(
             game_world=game_world,
-            validated_data=request.data,
+            cells_data=request.data,
         )
 
         return Response(

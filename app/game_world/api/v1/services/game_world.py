@@ -74,7 +74,6 @@ class GameWorldService(BaseService):
         )
 
         for model_for_default_use in [RequiredRankCompetency, ActivityCategory, MissionLevel]:
-
             all_fields = [
                 field.name
                 for field in model_for_default_use._meta.get_fields()
@@ -706,8 +705,15 @@ class GameWorldService(BaseService):
             rank_node = {
                 "id": rank_uuid,
                 "shape": "rank",
-                "x": rank_x,
-                "y": rank_y,
+                "position": {
+                    "x": rank_x,
+                    "y": rank_y,
+                },
+                "z_index": 1,
+                "size": {
+                    "width": 250,
+                    "height": 80,
+                },
                 "attrs": {
                     "title": {"text": rank["name"]},
                     "description": {"text": rank.get("description", "")},
@@ -727,6 +733,7 @@ class GameWorldService(BaseService):
                     "shape": "edge",
                     "source": {"cell": rank_uuid},
                     "target": {"cell": rank["parent"]["uuid"]},
+                    "z_index": -1,
                     "data": {
                         "source_type": "rank",
                         "target_type": "rank",
@@ -739,8 +746,15 @@ class GameWorldService(BaseService):
                 game_world_story_node = {
                     "id": game_world_story_uuid,
                     "shape": "game_world_story",
-                    "x": rank_x,
-                    "y": rank_y,
+                    "position": {
+                        "x": rank_x,
+                        "y": rank_y,
+                    },
+                    "z_index": 1,
+                    "size": {
+                        "width": 250,
+                        "height": 80,
+                    },
                     "attrs": {
                         "title": {"text": game_world_story["text"]},
                     },
@@ -756,6 +770,7 @@ class GameWorldService(BaseService):
                     "shape": "edge",
                     "source": {"cell": rank_uuid},
                     "target": {"cell": game_world_story_uuid},
+                    "z_index": -1,
                     "data": {
                         "source_type": "rank",
                         "target_type": "game_world_story",
@@ -782,8 +797,15 @@ class GameWorldService(BaseService):
                 mission_branch_node = {
                     "id": mission_branch_uuid,
                     "shape": "mission_branch",
-                    "x": mission_branch_x,
-                    "y": mission_branch_y,
+                    "position": {
+                        "x": mission_branch_x,
+                        "y": mission_branch_y,
+                    },
+                    "z_index": 1,
+                    "size": {
+                        "width": 250,
+                        "height": 80,
+                    },
                     "attrs": {
                         "title": {"text": mission_branch.get("name")},
                         "description": {"text": mission_branch.get("description", "")},
@@ -808,6 +830,7 @@ class GameWorldService(BaseService):
                     "shape": "edge",
                     "source": {"cell": rank_uuid},
                     "target": {"cell": mission_branch_uuid},
+                    "z_index": -1,
                     "data": {
                         "source_type": "rank",
                         "target_type": "mission_branch",
@@ -825,8 +848,15 @@ class GameWorldService(BaseService):
                     mission_node = {
                         "id": mission_uuid,
                         "shape": "mission",
-                        "x": mission_x,
-                        "y": mission_y,
+                        "position": {
+                            "x": mission_x,
+                            "y": mission_y,
+                        },
+                        "z_index": 1,
+                        "size": {
+                            "width": 250,
+                            "height": 80,
+                        },
                         "attrs": {
                             "title": {"text": mission["name"]},
                             "description": {"text": mission["description"]},
@@ -856,8 +886,15 @@ class GameWorldService(BaseService):
                         game_world_story_node = {
                             "id": game_world_story_uuid,
                             "shape": "game_world_story",
-                            "x": mission_x,
-                            "y": mission_y,
+                            "position": {
+                                "x": mission_x,
+                                "y": mission_y,
+                            },
+                            "z_index": 1,
+                            "size": {
+                                "width": 250,
+                                "height": 80,
+                            },
                             "attrs": {
                                 "title": {"text": game_world_story["text"]},
                             },
@@ -873,6 +910,7 @@ class GameWorldService(BaseService):
                             "shape": "edge",
                             "source": {"cell": mission_uuid},
                             "target": {"cell": game_world_story_uuid},
+                            "z_index": -1,
                             "data": {
                                 "source_type": "mission",
                                 "target_type": "game_world_story",
@@ -886,6 +924,7 @@ class GameWorldService(BaseService):
                         "shape": "edge",
                         "source": {"cell": mission_branch_uuid},
                         "target": {"cell": mission_uuid},
+                        "z_index": -1,
                         "data": {
                             "source_type": "mission_branch",
                             "target_type": "mission",
@@ -905,8 +944,15 @@ class GameWorldService(BaseService):
                         artifact_node = {
                             "id": artifact_uuid,
                             "shape": "artifact",
-                            "x": artifact_x,
-                            "y": artifact_y,
+                            "position": {
+                                "x": artifact_x,
+                                "y": artifact_y,
+                            },
+                            "z_index": 1,
+                            "size": {
+                                "width": 250,
+                                "height": 80,
+                            },
                             "attrs": {
                                 "title": {"text": artifact["name"]},
                                 "description": {"text": artifact.get("description", "")},
@@ -945,6 +991,7 @@ class GameWorldService(BaseService):
                                 "shape": "edge",
                                 "source": {"cell": artifact_uuid},
                                 "target": {"cell": game_world_story_uuid},
+                                "z_index": -1,
                                 "data": {
                                     "source_type": "artifact",
                                     "target_type": "game_world_story",
@@ -958,6 +1005,7 @@ class GameWorldService(BaseService):
                             "shape": "edge",
                             "source": {"cell": mission_uuid},
                             "target": {"cell": artifact_uuid},
+                            "z_index": -1,
                             "data": {
                                 "source_type": "mission",
                                 "target_type": "artifact",
@@ -981,8 +1029,15 @@ class GameWorldService(BaseService):
                         competency_node = {
                             "id": competency_uuid,
                             "shape": "competency",
-                            "x": competency_x,
-                            "y": competency_y,
+                            "position": {
+                                "x": competency_x,
+                                "y": competency_y,
+                            },
+                            "z_index": 1,
+                            "size": {
+                                "width": 250,
+                                "height": 80,
+                            },
                             "attrs": {
                                 "title": {"text": competency["name"]},
                                 "description": {"text": competency.get("description", "")},
@@ -1020,6 +1075,7 @@ class GameWorldService(BaseService):
                                 "shape": "edge",
                                 "source": {"cell": competency_uuid},
                                 "target": {"cell": game_world_story_uuid},
+                                "z_index": -1,
                                 "data": {
                                     "source_type": "competency",
                                     "target_type": "game_world_story",
@@ -1033,6 +1089,7 @@ class GameWorldService(BaseService):
                                 "shape": "edge",
                                 "source": {"cell": competency_uuid},
                                 "target": {"cell": competency["parent"]["uuid"]},
+                                "z_index": -1,
                                 "data": {
                                     "source_type": "competency",
                                     "target_type": "competency",
@@ -1046,6 +1103,7 @@ class GameWorldService(BaseService):
                             "shape": "edge",
                             "source": {"cell": mission_uuid},
                             "target": {"cell": competency_uuid},
+                            "z_index": -1,
                             "data": {
                                 "source_type": "mission",
                                 "target_type": "competency",
@@ -1075,8 +1133,15 @@ class GameWorldService(BaseService):
                 event_node = {
                     "id": event_uuid,
                     "shape": "event",
-                    "x": event_x,
-                    "y": event_y,
+                    "position": {
+                        "x": event_x,
+                        "y": event_y,
+                    },
+                    "z_index": 1,
+                    "size": {
+                        "width": 250,
+                        "height": 80,
+                    },
                     "attrs": {
                         "title": {"text": event.get("name")},
                         "description": {"text": event.get("description", "")},
@@ -1106,8 +1171,15 @@ class GameWorldService(BaseService):
                     game_world_story_node = {
                         "id": game_world_story_uuid,
                         "shape": "game_world_story",
-                        "x": event_x,
-                        "y": event_y,
+                        "position": {
+                            "x": event_x,
+                            "y": event_y,
+                        },
+                        "z_index": 1,
+                        "size": {
+                            "width": 250,
+                            "height": 80,
+                        },
                         "attrs": {
                             "title": {"text": game_world_story["text"]},
                         },
@@ -1122,6 +1194,7 @@ class GameWorldService(BaseService):
                         "shape": "edge",
                         "source": {"cell": event_uuid},
                         "target": {"cell": game_world_story_uuid},
+                        "z_index": -1,
                         "data": {
                             "source_type": "event",
                             "target_type": "game_world_story",
@@ -1135,6 +1208,7 @@ class GameWorldService(BaseService):
                     "shape": "edge",
                     "source": {"cell": rank_uuid},
                     "target": {"cell": event_uuid},
+                    "z_index": -1,
                     "data": {
                         "source_type": "rank",
                         "target_type": "event",
@@ -1175,8 +1249,15 @@ class GameWorldService(BaseService):
                         game_world_story_node = {
                             "id": game_world_story_uuid,
                             "shape": "game_world_story",
-                            "x": artifact_x,
-                            "y": artifact_y,
+                            "position": {
+                                "x": artifact_x,
+                                "y": artifact_y,
+                            },
+                            "z_index": 1,
+                            "size": {
+                                "width": 250,
+                                "height": 80,
+                            },
                             "attrs": {
                                 "title": {"text": game_world_story["text"]},
                             },
@@ -1191,6 +1272,7 @@ class GameWorldService(BaseService):
                             "shape": "edge",
                             "source": {"cell": artifact_uuid},
                             "target": {"cell": game_world_story_uuid},
+                            "z_index": -1,
                             "data": {
                                 "source_type": "artifact",
                                 "target_type": "game_world_story",
@@ -1204,6 +1286,7 @@ class GameWorldService(BaseService):
                         "shape": "edge",
                         "source": {"cell": event_uuid},
                         "target": {"cell": artifact_uuid},
+                        "z_index": -1,
                         "data": {
                             "source_type": "event",
                             "target_type": "artifact",
@@ -1227,8 +1310,15 @@ class GameWorldService(BaseService):
                     competency_node = {
                         "id": competency_uuid,
                         "shape": "competency",
-                        "x": competency_x,
-                        "y": competency_y,
+                        "position": {
+                            "x": competency_x,
+                            "y": competency_y,
+                        },
+                        "z_index": 1,
+                        "size": {
+                            "width": 250,
+                            "height": 80,
+                        },
                         "attrs": {
                             "title": {"text": competency["name"]},
                             "description": {"text": competency.get("description", "")},
@@ -1266,6 +1356,7 @@ class GameWorldService(BaseService):
                             "shape": "edge",
                             "source": {"cell": competency_uuid},
                             "target": {"cell": game_world_story_uuid},
+                            "z_index": -1,
                             "data": {
                                 "source_type": "competency",
                                 "target_type": "game_world_story",
@@ -1279,6 +1370,7 @@ class GameWorldService(BaseService):
                             "shape": "edge",
                             "source": {"cell": competency_uuid},
                             "target": {"cell": competency["parent"]["uuid"]},
+                            "z_index": -1,
                             "data": {
                                 "source_type": "competency",
                                 "target_type": "competency",
@@ -1292,6 +1384,7 @@ class GameWorldService(BaseService):
                         "shape": "edge",
                         "source": {"cell": event_uuid},
                         "target": {"cell": competency_uuid},
+                        "z_index": -1,
                         "data": {
                             "source_type": "event",
                             "target_type": "competency",
