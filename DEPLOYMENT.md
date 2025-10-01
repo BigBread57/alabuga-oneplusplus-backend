@@ -38,17 +38,17 @@ DJANGO_SUPERUSER_EMAIL=admin@your-domain.com
 ### 3. Запуск
 
 ```bash
-docker-compose -f docker-compose.production.yml up -d
+docker compose -f docker-compose.production.yml up -d
 ```
 
 ### 4. Проверка
 
 ```bash
 # Проверить статус сервисов
-docker-compose -f docker-compose.production.yml ps
+docker compose -f docker-compose.production.yml ps
 
 # Посмотреть логи
-docker-compose -f docker-compose.production.yml logs -f backend
+docker compose -f docker-compose.production.yml logs -f backend
 ```
 
 ---
@@ -99,28 +99,28 @@ Nginx автоматически:
 
 ```bash
 # Скачать новые образы
-docker-compose -f docker-compose.production.yml pull
+docker compose -f docker-compose.production.yml pull
 
 # Пересоздать контейнеры
-docker-compose -f docker-compose.production.yml up -d
+docker compose -f docker-compose.production.yml up -d
 
 # Применить миграции (если нужно)
-docker-compose -f docker-compose.production.yml exec backend poetry run python manage.py migrate
+docker compose -f docker-compose.production.yml exec backend poetry run python manage.py migrate
 ```
 
 ### Zero-downtime обновление
 
 ```bash
 # Скачать новые образы
-docker-compose -f docker-compose.production.yml pull backend celery-worker celery-beat
+docker compose -f docker-compose.production.yml pull backend celery-worker celery-beat
 
 # Обновить Celery
-docker-compose -f docker-compose.production.yml up -d celery-worker celery-beat
+docker compose -f docker-compose.production.yml up -d celery-worker celery-beat
 
 # Обновить Backend с масштабированием
-docker-compose -f docker-compose.production.yml up -d --no-deps --scale backend=2 backend
+docker compose -f docker-compose.production.yml up -d --no-deps --scale backend=2 backend
 sleep 10
-docker-compose -f docker-compose.production.yml up -d --no-deps --scale backend=1 backend
+docker compose -f docker-compose.production.yml up -d --no-deps --scale backend=1 backend
 ```
 
 ---
@@ -131,10 +131,10 @@ docker-compose -f docker-compose.production.yml up -d --no-deps --scale backend=
 
 ```bash
 # Создать backup
-docker-compose -f docker-compose.production.yml exec postgres pg_dump -U postgres alabuga_db > backup_$(date +%Y%m%d).sql
+docker compose -f docker-compose.production.yml exec postgres pg_dump -U postgres alabuga_db > backup_$(date +%Y%m%d).sql
 
 # Восстановить backup
-docker-compose -f docker-compose.production.yml exec -T postgres psql -U postgres alabuga_db < backup_20240101.sql
+docker compose -f docker-compose.production.yml exec -T postgres psql -U postgres alabuga_db < backup_20240101.sql
 ```
 
 ### Медиа файлы
@@ -155,20 +155,20 @@ docker run --rm -v $(pwd)/django_media:/data -v $(pwd):/backup alpine tar xzf /b
 
 ```bash
 # Все сервисы
-docker-compose -f docker-compose.production.yml logs -f
+docker compose -f docker-compose.production.yml logs -f
 
 # Только backend
-docker-compose -f docker-compose.production.yml logs -f backend
+docker compose -f docker-compose.production.yml logs -f backend
 
 # Последние 100 строк
-docker-compose -f docker-compose.production.yml logs --tail=100 backend
+docker compose -f docker-compose.production.yml logs --tail=100 backend
 ```
 
 ### Статус сервисов
 
 ```bash
 # Проверить работающие контейнеры
-docker-compose -f docker-compose.production.yml ps
+docker compose -f docker-compose.production.yml ps
 
 # Проверить использование ресурсов
 docker stats
@@ -191,7 +191,7 @@ docker stats
 
 ```bash
 # /etc/cron.d/alabuga-backup
-0 2 * * * root cd /path/to/project && docker-compose -f docker-compose.production.yml exec postgres pg_dump -U postgres alabuga_db > /backups/backup_$(date +\%Y\%m\%d).sql
+0 2 * * * root cd /path/to/project && docker compose -f docker-compose.production.yml exec postgres pg_dump -U postgres alabuga_db > /backups/backup_$(date +\%Y\%m\%d).sql
 ```
 
 ### Настройка Sentry

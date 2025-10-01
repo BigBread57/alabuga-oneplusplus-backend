@@ -37,7 +37,7 @@ case $choice in
         echo ""
         echo "🚀 Starting in Quick Start mode..."
         echo ""
-        docker-compose -f docker-compose.quickstart.yml up -d
+        docker compose -f docker-compose.quickstart.yml up -d
         compose_file="docker-compose.quickstart.yml"
         ;;
     2)
@@ -72,7 +72,7 @@ case $choice in
         echo ""
         echo "🚢 Starting in Production mode..."
         echo ""
-        docker-compose -f docker-compose.production.yml up -d
+        docker compose -f docker-compose.production.yml up -d
         compose_file="docker-compose.production.yml"
         ;;
     *)
@@ -89,7 +89,7 @@ echo ""
 echo "✅ Services started successfully!"
 echo ""
 echo "📋 Service Status:"
-docker-compose -f "$compose_file" ps
+docker compose -f "$compose_file" ps
 echo ""
 
 if [ "$choice" == "1" ] || [ "$choice" == "2" ]; then
@@ -114,9 +114,9 @@ elif [ "$choice" == "3" ]; then
 fi
 
 echo "📚 Useful commands:"
-echo "   • View logs:          docker-compose -f $compose_file logs -f"
-echo "   • Stop services:      docker-compose -f $compose_file down"
-echo "   • Restart services:   docker-compose -f $compose_file restart"
+echo "   • View logs:          docker compose -f $compose_file logs -f"
+echo "   • Stop services:      docker compose -f $compose_file down"
+echo "   • Restart services:   docker compose -f $compose_file restart"
 echo ""
 echo "📖 For more information, see:"
 echo "   • QUICKSTART.md - Quick start guide"

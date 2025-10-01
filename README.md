@@ -16,7 +16,7 @@
 ### Один клик для запуска всего проекта:
 
 ```bash
-docker-compose -f docker-compose.quickstart.yml up -d
+docker compose -f docker-compose.quickstart.yml up -d
 ```
 
 **Готово!** Проект запущен на:

@@ -1,10 +1,27 @@
----
-version: "3.8"
-
 # Quick start configuration with pre-built images
-# Run with: docker-compose -f docker-compose.quickstart.yml up -d
+# Run with: docker compose -f docker-compose.quickstart.yml up -d
+# Frontend: http://localhost
+# Backend API: http://localhost/api
+# Admin: http://localhost/admin
+# Flower: http://localhost:5555
 
 services:
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:1.25-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.quickstart.conf:/etc/nginx/nginx.conf:ro
+      - django_static:/var/www/django/static:ro
+      - django_media:/var/www/django/media:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - main
+
   # PostgreSQL Database
   postgres:
     image: postgres:16-alpine
@@ -16,11 +33,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_HOST_AUTH_METHOD: trust
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
     networks:
       - main
 
@@ -30,25 +42,21 @@ services:
     restart: unless-stopped
     volumes:
       - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
     networks:
       - main
 
-  # Django Backend (pre-built image)
+  # Django Backend
   backend:
     image: ghcr.io/abat-voix/alabuga-oneplusplus-backend:latest
+    platform: linux/amd64
     restart: unless-stopped
     volumes:
       - django_static:/app/alabuga/static
       - django_media:/app/alabuga/media
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     environment:
-      DJANGO_SECRET_KEY: your-secret-key-for-demo
+      DJANGO_SECRET_KEY: secret-key-for-demo
       DEBUG: "True"
       DJANGO_DATABASE_HOST: postgres
       DJANGO_DATABASE_PORT: 5432
@@ -65,17 +73,33 @@ services:
       DJANGO_SUPERUSER_PASSWORD: admin
       DOMAIN_NAME: localhost
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - postgres
+      - redis
     command: /usr/local/bin/start-web-server
+    networks:
+      - main
+
+  # Next.js Frontend
+  frontend:
+    image: ghcr.io/abat-voix/alabuga-oneplusplus-frontend:latest
+    platform: linux/amd64
+    restart: unless-stopped
+    expose:
+      - "8080"
+    environment:
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: 1
+      NEXT_PUBLIC_API_BASE_URL: http://localhost/api/v1
+      API_URL: http://backend:8000/api/v1
+    depends_on:
+      - backend
     networks:
       - main
 
   # Celery Worker
   celery-worker:
     image: ghcr.io/abat-voix/alabuga-oneplusplus-backend:latest
+    platform: linux/amd64
     restart: unless-stopped
     environment:
       DJANGO_DATABASE_HOST: postgres
@@ -90,10 +114,8 @@ services:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - postgres
+      - redis
     command: poetry run celery -A alabuga.celery worker --pool=threads --loglevel=info
     networks:
       - main
@@ -101,6 +123,7 @@ services:
   # Celery Beat
   celery-beat:
     image: ghcr.io/abat-voix/alabuga-oneplusplus-backend:latest
+    platform: linux/amd64
     restart: unless-stopped
     environment:
       DJANGO_DATABASE_HOST: postgres
@@ -115,10 +138,8 @@ services:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - postgres
+      - redis
     command: poetry run celery -A alabuga.celery beat --loglevel=info
     networks:
       - main
@@ -126,6 +147,7 @@ services:
   # Flower (Celery monitoring)
   flower:
     image: ghcr.io/abat-voix/alabuga-oneplusplus-backend:latest
+    platform: linux/amd64
     restart: unless-stopped
     ports:
       - "5555:5555"
