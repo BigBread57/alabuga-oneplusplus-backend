@@ -51,6 +51,8 @@ class CompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
 class CompetencyCreateAPIView(GenericAPIView):
     """
     Компетенция. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = CompetencyCreateOrUpdateSerializer
@@ -61,6 +63,7 @@ class CompetencyCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: CompetencyDetailSerializer,
         },
+        exclude=True,
         tags=["game_mechanics:competency"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -83,6 +86,8 @@ class CompetencyCreateAPIView(GenericAPIView):
 class CompetencyUpdateAPIView(GenericAPIView):
     """
     Компетенция. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Competency.objects.all()
@@ -94,6 +99,7 @@ class CompetencyUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: CompetencyDetailSerializer,
         },
+        exclude=True,
         tags=["game_mechanics:competency"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -122,6 +128,8 @@ class CompetencyUpdateAPIView(GenericAPIView):
 class CompetencyDeleteAPIView(GenericAPIView):
     """
     Компетенция. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Competency.objects.all()
@@ -131,6 +139,7 @@ class CompetencyDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_mechanics:competency"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

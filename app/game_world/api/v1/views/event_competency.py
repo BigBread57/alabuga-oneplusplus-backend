@@ -23,6 +23,8 @@ from game_world.models import EventCompetency
 class EventCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Прокачка компетенций за событие. Список.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = EventCompetencyListSelector
@@ -35,6 +37,7 @@ class EventCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: EventCompetencyListSerializer(many=True),
         },
+        exclude=True,
         tags=["game_world:event_competency"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -51,6 +54,8 @@ class EventCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
 class EventCompetencyDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Прокачка компетенций за событие. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = EventCompetencyDetailSelector
@@ -60,6 +65,7 @@ class EventCompetencyDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: EventCompetencyDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event_competency"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -78,6 +84,8 @@ class EventCompetencyDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class EventCompetencyCreateAPIView(GenericAPIView):
     """
     Прокачка компетенций за событие. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = EventCompetencyCreateOrUpdateSerializer
@@ -87,6 +95,7 @@ class EventCompetencyCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: EventCompetencyDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event_competency"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -109,6 +118,8 @@ class EventCompetencyCreateAPIView(GenericAPIView):
 class EventCompetencyUpdateAPIView(GenericAPIView):
     """
     Прокачка компетенций за событие. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = EventCompetency.objects.all()
@@ -119,6 +130,7 @@ class EventCompetencyUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: EventCompetencyDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event_competency"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -147,6 +159,8 @@ class EventCompetencyUpdateAPIView(GenericAPIView):
 class EventCompetencyDeleteAPIView(GenericAPIView):
     """
     Прокачка компетенций за событие. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = EventCompetency.objects.all()
@@ -155,6 +169,7 @@ class EventCompetencyDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event_competency"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

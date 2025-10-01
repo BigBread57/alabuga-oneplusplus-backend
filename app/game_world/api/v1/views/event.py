@@ -53,6 +53,8 @@ class EventListAPIView(QuerySelectorMixin, GenericAPIView):
 class EventDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Событие. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = EventDetailSelector
@@ -62,6 +64,7 @@ class EventDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: EventDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -80,6 +83,8 @@ class EventDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class EventCreateAPIView(GenericAPIView):
     """
     Событие. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = EventCreateOrUpdateSerializer
@@ -90,6 +95,7 @@ class EventCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: EventDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -112,6 +118,8 @@ class EventCreateAPIView(GenericAPIView):
 class EventUpdateAPIView(GenericAPIView):
     """
     Событие. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Event.objects.all()
@@ -123,6 +131,7 @@ class EventUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: EventDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -151,6 +160,8 @@ class EventUpdateAPIView(GenericAPIView):
 class EventDeleteAPIView(GenericAPIView):
     """
     Событие. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Event.objects.all()
@@ -160,6 +171,7 @@ class EventDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

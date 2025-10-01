@@ -23,6 +23,8 @@ from game_world.models import EventArtifact
 class EventArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Артефакты за выполнение события. Список.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = EventArtifactListSelector
@@ -35,6 +37,7 @@ class EventArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: EventArtifactListSerializer(many=True),
         },
+        exclude=True,
         tags=["game_world:event_artifact"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -51,6 +54,8 @@ class EventArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
 class EventArtifactDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Артефакты за выполнение события. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = EventArtifactDetailSelector
@@ -60,6 +65,7 @@ class EventArtifactDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: EventArtifactDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event_artifact"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -78,6 +84,8 @@ class EventArtifactDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class EventArtifactCreateAPIView(GenericAPIView):
     """
     Артефакты за выполнение события. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = EventArtifactCreateOrUpdateSerializer
@@ -87,6 +95,7 @@ class EventArtifactCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: EventArtifactDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event_artifact"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -109,6 +118,8 @@ class EventArtifactCreateAPIView(GenericAPIView):
 class EventArtifactUpdateAPIView(GenericAPIView):
     """
     Артефакты за выполнение события. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = EventArtifact.objects.all()
@@ -119,6 +130,7 @@ class EventArtifactUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: EventArtifactDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event_artifact"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -147,6 +159,8 @@ class EventArtifactUpdateAPIView(GenericAPIView):
 class EventArtifactDeleteAPIView(GenericAPIView):
     """
     Артефакты за выполнение события. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = EventArtifact.objects.all()
@@ -155,6 +169,7 @@ class EventArtifactDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:event_artifact"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

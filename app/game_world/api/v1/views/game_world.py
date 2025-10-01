@@ -88,6 +88,8 @@ class GameWorldListWithAllEntitiesAPIView(QuerySelectorMixin, GenericAPIView):
 class GameWorldDetailAPIView(GenericAPIView):
     """
     Игровой мир. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = GameWorld.objects.defer("data_for_graph")
@@ -97,6 +99,7 @@ class GameWorldDetailAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: GameWorldDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:game_world"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -115,6 +118,8 @@ class GameWorldDetailAPIView(GenericAPIView):
 class GameWorldCreateAPIView(GenericAPIView):
     """
     Игровой мир. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = GameWorldCreateOrUpdateSerializer
@@ -125,6 +130,7 @@ class GameWorldCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: GameWorldDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:game_world"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -147,6 +153,8 @@ class GameWorldCreateAPIView(GenericAPIView):
 class GameWorldUpdateAPIView(GenericAPIView):
     """
     Игровой мир. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = GameWorld.objects.defer("data_for_graph")
@@ -158,6 +166,7 @@ class GameWorldUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: GameWorldDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:game_world"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -225,6 +234,8 @@ class GameWorldUpdateOrCreateAllEntitiesAPIView(GenericAPIView):
 class GameWorldDeleteAPIView(GenericAPIView):
     """
     Игровой мир. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = GameWorld.objects.defer("data_for_graph")
@@ -234,6 +245,7 @@ class GameWorldDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:game_world"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

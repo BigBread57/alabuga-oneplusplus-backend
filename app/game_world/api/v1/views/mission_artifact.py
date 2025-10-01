@@ -23,6 +23,8 @@ from game_world.models import MissionArtifact
 class MissionArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Артефакты за выполнение миссии. Список.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = MissionArtifactListSelector
@@ -35,6 +37,7 @@ class MissionArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionArtifactListSerializer(many=True),
         },
+        exclude=True,
         tags=["game_world:mission_artifact"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -51,6 +54,8 @@ class MissionArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
 class MissionArtifactDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Артефакты за выполнение миссии. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = MissionArtifactDetailSelector
@@ -60,6 +65,7 @@ class MissionArtifactDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionArtifactDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_artifact"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -78,6 +84,8 @@ class MissionArtifactDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class MissionArtifactCreateAPIView(GenericAPIView):
     """
     Артефакты за выполнение миссии. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = MissionArtifactCreateOrUpdateSerializer
@@ -87,6 +95,7 @@ class MissionArtifactCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: MissionArtifactDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_artifact"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -109,6 +118,8 @@ class MissionArtifactCreateAPIView(GenericAPIView):
 class MissionArtifactUpdateAPIView(GenericAPIView):
     """
     Артефакты за выполнение миссии. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = MissionArtifact.objects.all()
@@ -119,6 +130,7 @@ class MissionArtifactUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionArtifactDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_artifact"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -147,6 +159,8 @@ class MissionArtifactUpdateAPIView(GenericAPIView):
 class MissionArtifactDeleteAPIView(GenericAPIView):
     """
     Артефакты за выполнение миссии. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = MissionArtifact.objects.all()
@@ -155,6 +169,7 @@ class MissionArtifactDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_artifact"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

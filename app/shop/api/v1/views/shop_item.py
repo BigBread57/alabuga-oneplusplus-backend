@@ -81,6 +81,8 @@ class ShopItemDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class ShopItemCreateAPIView(GenericAPIView):
     """
     Товар в магазине. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = ShopItemCreateOrUpdateSerializer
@@ -91,6 +93,7 @@ class ShopItemCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: ShopItemDetailSerializer,
         },
+        exclude=True,
         tags=["shop:shop_item"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -113,6 +116,8 @@ class ShopItemCreateAPIView(GenericAPIView):
 class ShopItemUpdateAPIView(GenericAPIView):
     """
     Товар в магазине. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = ShopItem.objects.all()
@@ -124,6 +129,7 @@ class ShopItemUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ShopItemDetailSerializer,
         },
+        exclude=True,
         tags=["shop:shop_item"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -152,6 +158,8 @@ class ShopItemUpdateAPIView(GenericAPIView):
 class ShopItemDeleteAPIView(GenericAPIView):
     """
     Товар в магазине. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = ShopItem.objects.all()
@@ -161,6 +169,7 @@ class ShopItemDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["shop:shop_item"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

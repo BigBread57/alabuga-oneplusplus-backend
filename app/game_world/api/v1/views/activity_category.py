@@ -52,6 +52,8 @@ class ActivityCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
 class ActivityCategoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Категория миссии. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = ActivityCategoryDetailSelector
@@ -61,6 +63,7 @@ class ActivityCategoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: ActivityCategoryDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:activity_category"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -79,6 +82,8 @@ class ActivityCategoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class ActivityCategoryCreateAPIView(GenericAPIView):
     """
     Категория миссии. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = ActivityCategoryCreateOrUpdateSerializer
@@ -89,6 +94,7 @@ class ActivityCategoryCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: ActivityCategoryDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:activity_category"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -111,6 +117,8 @@ class ActivityCategoryCreateAPIView(GenericAPIView):
 class ActivityCategoryUpdateAPIView(GenericAPIView):
     """
     Категория миссии. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = ActivityCategory.objects.all()
@@ -122,6 +130,7 @@ class ActivityCategoryUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ActivityCategoryDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:activity_category"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -159,6 +168,7 @@ class ActivityCategoryDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:activity_category"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

@@ -48,6 +48,8 @@ class RankListAPIView(QuerySelectorMixin, GenericAPIView):
 class RankCreateAPIView(GenericAPIView):
     """
     Ранг. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = RankCreateOrUpdateSerializer
@@ -58,6 +60,7 @@ class RankCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: RankDetailSerializer,
         },
+        exclude=True,
         tags=["game_mechanics:rank"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -80,6 +83,8 @@ class RankCreateAPIView(GenericAPIView):
 class RankUpdateAPIView(GenericAPIView):
     """
     Ранг. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Rank.objects.all()
@@ -91,6 +96,7 @@ class RankUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: RankDetailSerializer,
         },
+        exclude=True,
         tags=["game_mechanics:rank"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -119,6 +125,8 @@ class RankUpdateAPIView(GenericAPIView):
 class RankDeleteAPIView(GenericAPIView):
     """
     Ранг. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Rank.objects.all()
@@ -128,6 +136,7 @@ class RankDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_mechanics:rank"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

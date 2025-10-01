@@ -51,6 +51,8 @@ class ShopItemCategoryListAPIView(QuerySelectorMixin, GenericAPIView):
 class ShopItemCategoryCreateAPIView(GenericAPIView):
     """
     Категория товара в магазине. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = ShopItemCategoryCreateOrUpdateSerializer
@@ -61,6 +63,7 @@ class ShopItemCategoryCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: ShopItemCategoryDetailSerializer,
         },
+        exclude=True,
         tags=["shop:shop_item_category"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -83,6 +86,8 @@ class ShopItemCategoryCreateAPIView(GenericAPIView):
 class ShopItemCategoryUpdateAPIView(GenericAPIView):
     """
     Категория товара в магазине. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = ShopItemCategory.objects.all()
@@ -94,6 +99,7 @@ class ShopItemCategoryUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ShopItemCategoryDetailSerializer,
         },
+        exclude=True,
         tags=["shop:shop_item_category"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -122,6 +128,8 @@ class ShopItemCategoryUpdateAPIView(GenericAPIView):
 class ShopItemCategoryDeleteAPIView(GenericAPIView):
     """
     Категория товара в магазине. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = ShopItemCategory.objects.all()
@@ -131,6 +139,7 @@ class ShopItemCategoryDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["shop:shop_item_category"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

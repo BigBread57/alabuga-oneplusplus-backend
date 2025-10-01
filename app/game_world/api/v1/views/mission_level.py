@@ -51,6 +51,8 @@ class MissionLevelListAPIView(QuerySelectorMixin, GenericAPIView):
 class MissionLevelDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Уровень миссии. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = MissionLevelDetailSelector
@@ -60,6 +62,7 @@ class MissionLevelDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionLevelDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_level"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -78,6 +81,8 @@ class MissionLevelDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class MissionLevelCreateAPIView(GenericAPIView):
     """
     Уровень миссии. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = MissionLevelCreateOrUpdateSerializer
@@ -87,6 +92,7 @@ class MissionLevelCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: MissionLevelDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_level"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -109,6 +115,8 @@ class MissionLevelCreateAPIView(GenericAPIView):
 class MissionLevelUpdateAPIView(GenericAPIView):
     """
     Уровень миссии. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = MissionLevel.objects.all()
@@ -119,6 +127,7 @@ class MissionLevelUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionLevelDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_level"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -147,6 +156,8 @@ class MissionLevelUpdateAPIView(GenericAPIView):
 class MissionLevelDeleteAPIView(GenericAPIView):
     """
     Уровень миссии. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = MissionLevel.objects.all()
@@ -155,6 +166,7 @@ class MissionLevelDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_level"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

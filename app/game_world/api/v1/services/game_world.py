@@ -58,6 +58,7 @@ class GameWorldService(BaseService):
             for name_field, value in validated_data.items()
             if name_field.find("_generate_type") >= 0
         }
+        # Получаем количество объектов для создания.
         generate_number_info = {
             name_field.replace("_number", "").replace("_", " ").title().replace(" ", ""): value
             for name_field, value in validated_data.items()
@@ -69,8 +70,29 @@ class GameWorldService(BaseService):
             "Все объекты должны соответствовать этому сеттингу и быть основаны на реальных трудовых "
             "компетенциях и событиях. Общие правила генерации. Все описания реальны, но стилизованы под игровой мир. "
             "Компетенции, события, миссии и артефакты должны быть выполнимыми в реальной профессиональной деятельности."
-            "Задача: Сгенерировать JSON-объекты для следующих сущностей:"
+            "Существующие объекты, которые необходимо использовать при генерации:\n"
         )
+
+        for model_for_default_use in [RequiredRankCompetency, ActivityCategory, MissionLevel]:
+
+            all_fields = [
+                field.name
+                for field in model_for_default_use._meta.get_fields()
+                if isinstance(field, models.Field)
+                and field.name
+                not in [
+                    "color",
+                    "icon",
+                    "image",
+                    "content_object",
+                    "created_at",
+                    "updated_at",
+                ]
+            ]
+            queryset = list(model_for_default_use.objects.all().values(*all_fields))
+            content += f"{json.dumps(queryset, cls=DjangoJSONEncoder, indent=2, ensure_ascii=False)}\n"
+
+        content += "Задача: Сгенерировать JSON-объекты для следующих сущностей:\n"
         # Идем по моделям, дял которых нужно что-то сформировать и создаем content.
         for app_config in {
             apps.get_app_config(app_label="game_mechanics"),
@@ -87,7 +109,7 @@ class GameWorldService(BaseService):
                         f"Для {model.__name__} необходимо {generate_object_type.label}\n"
                         f"Количество: {generate_number_info.get(model.__name__.lower())}\n"
                         f"{model.__doc__}\n\n"
-                        f"content_type_id={content_type_info.get(model.__name__.lower())}"
+                        f"content_type_id={content_type_info.get(model.__name__.lower())}\n"
                     )
                     for field in model._meta.get_fields():
                         if getattr(field, "help_text", ""):
@@ -146,7 +168,7 @@ class GameWorldService(BaseService):
                         queryset = list(model.objects.filter(filters).values(*all_fields))
                         content += (
                             "Существующие объекты:\n"
-                            f"{json.dumps(queryset, cls=DjangoJSONEncoder, indent=2, ensure_ascii=False)}"
+                            f"{json.dumps(queryset, cls=DjangoJSONEncoder, indent=2, ensure_ascii=False)}\n"
                         )
 
         return content
@@ -303,7 +325,7 @@ class GameWorldService(BaseService):
                         len(character_mission_branches) / number_mission_branches[mission_branch_name]
                         if len(character_mission_branches) > 0
                         else 0
-                    )
+                    ),
                 }
                 for mission_branch_name, character_mission_branches in mission_branches.items()
             ],
@@ -332,16 +354,16 @@ class GameWorldService(BaseService):
                 "field_name": FieldNameForGenerate.COMPETENCY_GENERATE_TYPE,
                 "description": _("Генерация компетенций"),
             },
-            {
-                "field_name": FieldNameForGenerate.REQUIRED_RANK_COMPETENCY_GENERATE_TYPE,
-                "description": _(
-                    "Генерация взаимосвязи ранга и компетенций (какие компетенции нужны, чтобы получить новый ранг)"
-                ),
-            },
-            {
-                "field_name": FieldNameForGenerate.ACTIVITY_CATEGORY_GENERATE_TYPE,
-                "description": _("Генерация категорий миссии и событий (квесты, лектории и др.)"),
-            },
+            # {
+            #     "field_name": FieldNameForGenerate.REQUIRED_RANK_COMPETENCY_GENERATE_TYPE,
+            #     "description": _(
+            #         "Генерация взаимосвязи ранга и компетенций (какие компетенции нужны, чтобы получить новый ранг)"
+            #     ),
+            # },
+            # {
+            #     "field_name": FieldNameForGenerate.ACTIVITY_CATEGORY_GENERATE_TYPE,
+            #     "description": _("Генерация категорий миссии и событий (квесты, лектории и др.)"),
+            # },
             {
                 "field_name": FieldNameForGenerate.ARTIFACT_GENERATE_TYPE,
                 "description": _("Генерация артефактов"),
@@ -350,10 +372,10 @@ class GameWorldService(BaseService):
                 "field_name": FieldNameForGenerate.EVENT_GENERATE_TYPE,
                 "description": _("Генерация событий (задание, которое распространяется на всех одновременно)"),
             },
-            {
-                "field_name": FieldNameForGenerate.EVENT_ARTIFACT_GENERATE_TYPE,
-                "description": _("Генерация артефактов, которые можно получить за выполнение события"),
-            },
+            # {
+            #     "field_name": FieldNameForGenerate.EVENT_ARTIFACT_GENERATE_TYPE,
+            #     "description": _("Генерация артефактов, которые можно получить за выполнение события"),
+            # },
             {
                 "field_name": FieldNameForGenerate.EVENT_COMPETENCY_GENERATE_TYPE,
                 "description": _("Генерация компетенций, которые прокачиваются за выполнение события"),
@@ -369,10 +391,10 @@ class GameWorldService(BaseService):
                     "легкая, сложная и др.)"
                 ),
             },
-            {
-                "field_name": FieldNameForGenerate.MISSION_ARTIFACT_GENERATE_TYPE,
-                "description": _("Генерация миссий"),
-            },
+            # {
+            #     "field_name": FieldNameForGenerate.MISSION_ARTIFACT_GENERATE_TYPE,
+            #     "description": _("Генерация миссий"),
+            # },
             {
                 "field_name": FieldNameForGenerate.MISSION_COMPETENCY_GENERATE_TYPE,
                 "description": _("Генерация миссий"),
@@ -381,10 +403,10 @@ class GameWorldService(BaseService):
                 "field_name": FieldNameForGenerate.MISSION_BRANCH_GENERATE_TYPE,
                 "description": _("Генерация артефактов, которые можно получить за выполнение миссии"),
             },
-            {
-                "field_name": FieldNameForGenerate.MISSION_LEVEL_GENERATE_TYPE,
-                "description": _("Генерация компетенций, которые прокачиваются за выполнение миссии"),
-            },
+            # {
+            #     "field_name": FieldNameForGenerate.MISSION_LEVEL_GENERATE_TYPE,
+            #     "description": _("Генерация компетенций, которые прокачиваются за выполнение миссии"),
+            # },
         ]
 
     @staticmethod
@@ -624,11 +646,7 @@ class GameWorldService(BaseService):
             )
             maps.update(mission_competency=mission_competencies_map)
 
-    def get_data_for_graph(
-            self,
-            game_world_data: dict[str, Any],
-            data_for_graph: dict[str, Any] | None = None
-    ):
+    def get_data_for_graph(self, game_world_data: dict[str, Any], data_for_graph: dict[str, Any] | None = None):
         """
         Преобразует объект игрового мира в формат cells для визуализации графа
         """

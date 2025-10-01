@@ -23,6 +23,8 @@ from game_world.models import MissionBranch
 class MissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Ветка миссии. Список.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = MissionBranchListSelector
@@ -35,6 +37,7 @@ class MissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionBranchListSerializer(many=True),
         },
+        exclude=True,
         tags=["game_world:mission_branch"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -51,6 +54,8 @@ class MissionBranchListAPIView(QuerySelectorMixin, GenericAPIView):
 class MissionBranchDetailAPIView(GenericAPIView):
     """
     Ветка миссии. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = MissionBranch.objects.all()
@@ -60,6 +65,7 @@ class MissionBranchDetailAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionBranchDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_branch"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -78,6 +84,8 @@ class MissionBranchDetailAPIView(GenericAPIView):
 class MissionBranchCreateAPIView(GenericAPIView):
     """
     Ветка миссии. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = MissionBranchCreateOrUpdateSerializer
@@ -88,6 +96,7 @@ class MissionBranchCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: MissionBranchDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_branch"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -110,6 +119,8 @@ class MissionBranchCreateAPIView(GenericAPIView):
 class MissionBranchUpdateAPIView(GenericAPIView):
     """
     Ветка миссии. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = MissionBranch.objects.all()
@@ -121,6 +132,7 @@ class MissionBranchUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionBranchDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_branch"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -149,6 +161,8 @@ class MissionBranchUpdateAPIView(GenericAPIView):
 class MissionBranchDeleteAPIView(GenericAPIView):
     """
     Ветка миссии. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = MissionBranch.objects.all()
@@ -158,6 +172,7 @@ class MissionBranchDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_branch"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

@@ -24,6 +24,8 @@ from game_world.models import Mission
 class MissionListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Миссия. Список.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = MissionListSelector
@@ -36,6 +38,7 @@ class MissionListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionListSerializer(many=True),
         },
+        exclude=True,
         tags=["game_world:mission"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -52,6 +55,8 @@ class MissionListAPIView(QuerySelectorMixin, GenericAPIView):
 class MissionDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Миссия. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = MissionDetailSelector
@@ -61,6 +66,7 @@ class MissionDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -79,6 +85,8 @@ class MissionDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class MissionCreateAPIView(GenericAPIView):
     """
     Миссия. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = MissionCreateOrUpdateSerializer
@@ -89,6 +97,7 @@ class MissionCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: MissionDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -111,6 +120,8 @@ class MissionCreateAPIView(GenericAPIView):
 class MissionUpdateAPIView(GenericAPIView):
     """
     Миссия. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Mission.objects.all()
@@ -122,6 +133,7 @@ class MissionUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -150,6 +162,8 @@ class MissionUpdateAPIView(GenericAPIView):
 class MissionDeleteAPIView(GenericAPIView):
     """
     Миссия. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Mission.objects.all()
@@ -159,6 +173,7 @@ class MissionDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

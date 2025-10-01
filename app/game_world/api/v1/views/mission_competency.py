@@ -23,6 +23,8 @@ from game_world.models import MissionCompetency
 class MissionCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Прокачка компетенций за миссию. Список.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = MissionCompetencyListSelector
@@ -35,6 +37,7 @@ class MissionCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionCompetencyListSerializer(many=True),
         },
+        exclude=True,
         tags=["game_world:mission_competency"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -51,6 +54,8 @@ class MissionCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
 class MissionCompetencyDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Прокачка компетенций за миссию. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = MissionCompetencyDetailSelector
@@ -60,6 +65,7 @@ class MissionCompetencyDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionCompetencyDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_competency"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -78,6 +84,8 @@ class MissionCompetencyDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class MissionCompetencyCreateAPIView(GenericAPIView):
     """
     Прокачка компетенций за миссию. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = MissionCompetencyCreateOrUpdateSerializer
@@ -87,6 +95,7 @@ class MissionCompetencyCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: MissionCompetencyDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_competency"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -109,6 +118,8 @@ class MissionCompetencyCreateAPIView(GenericAPIView):
 class MissionCompetencyUpdateAPIView(GenericAPIView):
     """
     Прокачка компетенций за миссию. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = MissionCompetency.objects.all()
@@ -119,6 +130,7 @@ class MissionCompetencyUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: MissionCompetencyDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_competency"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -147,6 +159,8 @@ class MissionCompetencyUpdateAPIView(GenericAPIView):
 class MissionCompetencyDeleteAPIView(GenericAPIView):
     """
     Прокачка компетенций за миссию. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = MissionCompetency.objects.all()
@@ -155,6 +169,7 @@ class MissionCompetencyDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:mission_competency"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

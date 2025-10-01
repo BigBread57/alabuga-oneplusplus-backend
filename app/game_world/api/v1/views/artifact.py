@@ -51,6 +51,8 @@ class ArtifactListAPIView(QuerySelectorMixin, GenericAPIView):
 class ArtifactCreateAPIView(GenericAPIView):
     """
     Артефакт. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = ArtifactCreateOrUpdateSerializer
@@ -61,6 +63,7 @@ class ArtifactCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: ArtifactDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:artifact"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -83,6 +86,8 @@ class ArtifactCreateAPIView(GenericAPIView):
 class ArtifactUpdateAPIView(GenericAPIView):
     """
     Артефакт. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Artifact.objects.all()
@@ -94,6 +99,7 @@ class ArtifactUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ArtifactDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:artifact"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -122,6 +128,8 @@ class ArtifactUpdateAPIView(GenericAPIView):
 class ArtifactDeleteAPIView(GenericAPIView):
     """
     Артефакт. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = Artifact.objects.all()
@@ -131,6 +139,7 @@ class ArtifactDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:artifact"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

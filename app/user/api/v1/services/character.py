@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from django.db import models
-from django.utils.timezone import now
+from django.utils import timezone
 
 from common.services import BaseService
 from game_mechanics.models import Competency, Rank, RequiredRankCompetency
@@ -178,11 +178,12 @@ class CharacterService(BaseService):
         character: Character,
         rank: Rank,
         game_world: GameWorld,
-        now_datetime: datetime = now(),
+        now_datetime: datetime | None = None,
     ) -> None:
         """
         Создать миссии для персонажа.
         """
+        now_datetime = now_datetime or timezone.now()
         character_missions = []
         for mission_branch in MissionBranch.objects.filter(is_active=True, rank=rank, game_world=game_world):
             character_mission_branch = CharacterMissionBranch.objects.create(
@@ -212,11 +213,12 @@ class CharacterService(BaseService):
         character: Character,
         rank: Rank,
         game_world: GameWorld,
-        now_datetime: datetime = now(),
+        now_datetime: datetime | None = None,
     ) -> None:
         """
         Создать события для персонажа.
         """
+        now_datetime = now_datetime or timezone.now()
         character_events = [
             CharacterEvent(
                 character=character,

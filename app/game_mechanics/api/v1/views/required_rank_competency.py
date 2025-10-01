@@ -50,6 +50,8 @@ class RequiredRankCompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
 class RequiredRankCompetencyCreateAPIView(GenericAPIView):
     """
     Требования к компетенциям для получения ранга. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = RequiredRankCompetencyCreateOrUpdateSerializer
@@ -60,6 +62,7 @@ class RequiredRankCompetencyCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: RequiredRankCompetencyDetailSerializer,
         },
+        exclude=True,
         tags=["game_mechanics:required_rank_competency"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -82,6 +85,8 @@ class RequiredRankCompetencyCreateAPIView(GenericAPIView):
 class RequiredRankCompetencyUpdateAPIView(GenericAPIView):
     """
     Требования к компетенциям для получения ранга. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = RequiredRankCompetency.objects.all()
@@ -93,6 +98,7 @@ class RequiredRankCompetencyUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: RequiredRankCompetencyDetailSerializer,
         },
+        exclude=True,
         tags=["game_mechanics:required_rank_competency"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -121,6 +127,8 @@ class RequiredRankCompetencyUpdateAPIView(GenericAPIView):
 class RequiredRankCompetencyDeleteAPIView(GenericAPIView):
     """
     Требования к компетенциям для получения ранга. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = RequiredRankCompetency.objects.all()
@@ -130,6 +138,7 @@ class RequiredRankCompetencyDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_mechanics:required_rank_competency"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:

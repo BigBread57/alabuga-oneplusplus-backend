@@ -23,6 +23,8 @@ from game_world.models import GameWorldStory
 class GameWorldStoryListAPIView(QuerySelectorMixin, GenericAPIView):
     """
     История игрового мира. Список.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = GameWorldStoryListSelector
@@ -35,6 +37,7 @@ class GameWorldStoryListAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: GameWorldStoryListSerializer(many=True),
         },
+        exclude=True,
         tags=["game_world:game_world_story"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -51,6 +54,8 @@ class GameWorldStoryListAPIView(QuerySelectorMixin, GenericAPIView):
 class GameWorldStoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
     """
     История игрового мира. Детальная информация.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     selector = GameWorldStoryDetailSelector
@@ -60,6 +65,7 @@ class GameWorldStoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
         responses={
             status.HTTP_200_OK: GameWorldStoryDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:game_world_story"],
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
@@ -78,6 +84,8 @@ class GameWorldStoryDetailAPIView(QuerySelectorMixin, GenericAPIView):
 class GameWorldStoryCreateAPIView(GenericAPIView):
     """
     История игрового мира. Создание.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     serializer_class = GameWorldStoryCreateOrUpdateSerializer
@@ -87,6 +95,7 @@ class GameWorldStoryCreateAPIView(GenericAPIView):
         responses={
             status.HTTP_201_CREATED: GameWorldStoryDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:game_world_story"],
     )
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -109,6 +118,8 @@ class GameWorldStoryCreateAPIView(GenericAPIView):
 class GameWorldStoryUpdateAPIView(GenericAPIView):
     """
     История игрового мира. Изменение.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = GameWorldStory.objects.all()
@@ -119,6 +130,7 @@ class GameWorldStoryUpdateAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: GameWorldStoryDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:game_world_story"],
     )
     def put(self, request: Request, *args, **kwargs) -> Response:
@@ -147,6 +159,8 @@ class GameWorldStoryUpdateAPIView(GenericAPIView):
 class GameWorldStoryDeleteAPIView(GenericAPIView):
     """
     История игрового мира. Удаление объекта.
+
+    ПОКА НЕ ИСПОЛЬЗУЕТСЯ.
     """
 
     queryset = GameWorldStory.objects.all()
@@ -155,6 +169,7 @@ class GameWorldStoryDeleteAPIView(GenericAPIView):
         responses={
             status.HTTP_200_OK: ResponseDetailSerializer,
         },
+        exclude=True,
         tags=["game_world:game_world_story"],
     )
     def delete(self, request: Request, *args, **kwargs) -> Response:
