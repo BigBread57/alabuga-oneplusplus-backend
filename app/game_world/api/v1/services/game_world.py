@@ -835,22 +835,24 @@ class GameWorldService(BaseService):
                 },
                 "data": {
                     "type": "rank",
-                    "name": rank["name"],
-                    "description": rank["description"],
-                    "required_experience": rank["required_experience"],
-                    "color": rank["color"],
+                    "name": rank.get("name"),
+                    "description": rank.get("description", ""),
+                    "required_experience": rank.get("required_experience"),
+                    "icon": rank.get("icon", ""),
+                    "color": rank.get("color", ""),
+                    "parent": rank.get("parent", None),
+                        "game_world": mission_branch.get("game_world"),
                 },
             }
-            edge = {
-                "id": f"{rank['uuid']}|{rank['uuid']}",
-                "shape": "rank|missionbranch|edge",
-                "source": {"cell": rank['uuid']},
-                "target": {"cell": mission_branch['uuid']}
-            }
-            cells.append(edge)
-
-
             cells.append(rank_node)
+            if rank.get("parent"):
+                edge = {
+                    "id": f"{rank['uuid']}|{rank['parent']['uuid']}",
+                    "shape": "rank|rank|edge",
+                    "source": {"cell": rank['uuid']},
+                    "target": {"cell": rank['parent']['uuid']}
+                }
+                cells.append(edge)
 
             # Переменные для отслеживания максимальной высоты элементов ранга
             max_mission_branch_y = rank_y
@@ -863,7 +865,7 @@ class GameWorldService(BaseService):
                 mission_branch_id = mission_branch['uuid']
                 default_mission_branch_x = 150 + (mission_branch["id"] - 1) * config["horizontal_spacing"]
                 mission_branch_x, mission_branch_y = get_coordinates_from_data(
-                    mission_branch_id, default_mission_branch_x, mission_branch_y
+                    mission_branch_id, default_mission_branch_x, mission_branch_y,
                 )
 
                 mission_branch_node = {
@@ -877,10 +879,17 @@ class GameWorldService(BaseService):
                     },
                     "data": {
                         "type": "missionBranch",
-                        "name": mission_branch["name"],
-                        "description": mission_branch["description"],
-                        "category": mission_branch["category"]["name"],
-                        "time_to_complete": mission_branch["time_to_complete"],
+                        "name": mission_branch.get("name"),
+                        "description": mission_branch.get("description", ""),
+                        "icon": mission_branch.get("icon", ""),
+                        "color": mission_branch.get("color", ""),
+                        "is_active": mission_branch.get("is_active"),
+                        "start_datetime": mission_branch.get("start_datetime", None),
+                        "time_to_complete": mission_branch.get("time_to_complete", None),
+                        "rank": mission_branch.get("rank"),
+                        "category": mission_branch.get("category"),
+                        "mentor": mission_branch.get("mentor"),
+                        "game_world": mission_branch.get("game_world"),
                     },
                 }
                 cells.append(mission_branch_node)
