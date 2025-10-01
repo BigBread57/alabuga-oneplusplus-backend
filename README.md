@@ -11,7 +11,7 @@
 ---
 
 ## ⚡ Быстрый запуск
-### Посмотреть на готовое решение можно на [https://alabuga.star-vim.online/en/profile](https://alabuga.star-vim.online/en/profile)
+### Посмотреть на готовое решение можно на [https://alabuga.star-vim.online/en/profile](https://alabuga.star-vim.online/en/profile) (данные для входа: приложены в пользовательской документации)
 
 ### Один клик для запуска всего проекта:
 
