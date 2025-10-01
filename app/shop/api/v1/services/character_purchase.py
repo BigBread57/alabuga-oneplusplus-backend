@@ -43,16 +43,15 @@ class CharacterPurchaseService(BaseService):
             ):
                 raise ValidationError(_("Время для покупки товара истекло"))
 
-            character = Character.objects.filter(is_active=True, user=buyer).first()
             character_artifacts_shop_discount = list(
                 CharacterArtifact.objects.filter(
-                    character=character,
+                    character=buyer,
                     artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
-                ).values_list("artifact__modifier_value")
+                ).values_list("artifact__modifier_value", flat=True)
             )
             discount = (100 - sum(character_artifacts_shop_discount)) / 100
             total_sum = number * shop_item.price * discount
-            if character.currency < total_sum:
+            if buyer.currency < total_sum:
                 raise ValidationError(_("У вас не достаточно денег для покупки"))
 
             ShopItem.objects.filter(
@@ -72,8 +71,10 @@ class CharacterPurchaseService(BaseService):
                 shop_item=shop_item,
             )
             Character.objects.filter(
-                id=character.id,
-            ).update(currency=models.F("currency") - total_sum)
+                id=buyer.id,
+            ).update(
+                currency=models.F("currency") - total_sum,
+            )
 
         transaction.on_commit(
             lambda: send_mail_about_new_character_purchase.delay(character_purchase_id=character_purchase.id),

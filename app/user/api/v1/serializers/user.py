@@ -268,6 +268,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
             "active_character",
             "active_character_role",
             "active_game_world",
+            "active_game_world_currency",
         )
 
     def get_active_character(self, user: User) -> int | None:
@@ -283,4 +284,9 @@ class UserInfoSerializer(serializers.ModelSerializer):
     def get_active_game_world(self, user: User) -> int | None:
         if getattr(user, "active_character", None):
             return user.active_character.game_world.id
+        return None
+
+    def get_active_game_world_currency(self, user: User) -> int | None:
+        if getattr(user, "active_character", None):
+            return user.active_character.game_world.currency
         return None
