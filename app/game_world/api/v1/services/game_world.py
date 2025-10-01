@@ -513,10 +513,10 @@ class GameWorldService(BaseService):
                         {cell["source"]["cell"]: cell["target"]["cell"]},
                     )
                 elif cell_data["source_type"] == "mission" and cell_data["target_type"] == "artifact":
-                    key = f"{cell_data["source_type"]}|{cell["target_type"]}"
+                    key = f"{cell_data['source_type']}|{cell['target_type']}"
                     relationship_m2m_maps[key][cell["source"]["cell"]].append(cell["target"]["cell"])
                 else:
-                    key = f"{cell_data["source_type"]}|{cell["target_type"]}"
+                    key = f"{cell_data['source_type']}|{cell['target_type']}"
                     relationship_fk_maps[key].update(
                         {cell["source"]["cell"]: cell["target"]["cell"]},
                     )
@@ -750,7 +750,7 @@ class GameWorldService(BaseService):
                     },
                 }
                 cells.append(game_world_story_node)
-                game_world_story_uuid =game_world_story["uuid"]
+                game_world_story_uuid = game_world_story["uuid"]
                 edge = {
                     "id": f"{rank_uuid}|{game_world_story_uuid}",
                     "shape": "edge",
