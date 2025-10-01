@@ -43,6 +43,7 @@ from game_world.api.v1.views.game_world import (
     GameWorldListWithAllEntitiesAPIView,
     GameWorldStatisticsAPIView,
     GameWorldUpdateAPIView,
+    GameWorldUpdateOrCreateAllEntitiesAPIView,
 )
 from game_world.api.v1.views.game_world_story import (
     GameWorldStoryCreateAPIView,
@@ -110,6 +111,7 @@ __all__ = (
     "GameWorldGenerateAPIView",
     "GameWorldInfoForGenerateAPIView",
     "GameWorldListWithAllEntitiesAPIView",
+    "GameWorldUpdateOrCreateAllEntitiesAPIView",
     # Mission
     "MissionListAPIView",
     "MissionDetailAPIView",

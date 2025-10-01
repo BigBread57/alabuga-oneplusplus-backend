@@ -208,7 +208,7 @@ class GameWorldUpdateOrCreateAllEntitiesAPIView(GenericAPIView):
         },
         tags=["game_world:game_world"],
     )
-    def put(self, request: Request, *args, **kwargs) -> Response:
+    def post(self, request: Request, *args, **kwargs) -> Response:
         """
         Изменение объекта.
         """
@@ -219,8 +219,6 @@ class GameWorldUpdateOrCreateAllEntitiesAPIView(GenericAPIView):
             game_world=game_world,
             validated_data=serializer.validated_data,
         )
-        if getattr(game_world, "_prefetched_objects_cache", None):
-            game_world._prefetched_objects_cache = {}
 
         return Response(
             data=GameWorldDetailSerializer(
