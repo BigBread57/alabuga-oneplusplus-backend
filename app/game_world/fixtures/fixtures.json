@@ -1,0 +1,5190 @@
+[
+  {
+    "model": "user.character",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "5f5d0389-6dfc-4bfa-89cb-e3d7f312a4c6",
+      "avatar": "",
+      "currency": 0,
+      "experience": 0,
+      "is_active": true,
+      "role": "CONTENT_MANAGER",
+      "user": 4,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "user.character",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.398Z",
+      "updated_at": "2025-10-02T19:18:56.911Z",
+      "uuid": "0fe0292f-42ef-4d62-b88c-4f706c8af67d",
+      "avatar": "",
+      "currency": 570,
+      "experience": 740,
+      "is_active": true,
+      "role": "ADMIN",
+      "user": 8,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "user.character",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.903Z",
+      "updated_at": "2025-10-02T19:12:33.043Z",
+      "uuid": "7f8acbc5-666b-4afc-9979-597e41108851",
+      "avatar": "",
+      "currency": 0,
+      "experience": 0,
+      "is_active": true,
+      "role": "CANDIDATE",
+      "user": 11,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "user.character",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.125Z",
+      "updated_at": "2025-10-02T19:19:10.751Z",
+      "uuid": "bdb469ee-4fe6-4805-afdb-b840525ffe43",
+      "avatar": "",
+      "currency": 0,
+      "experience": 0,
+      "is_active": true,
+      "role": "HR",
+      "user": 18,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "user.characterartifact",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-30T22:53:35.011Z",
+      "updated_at": "2025-09-30T22:53:35.011Z",
+      "uuid": "03feb74b-1cc7-43d8-8489-6159907ff620",
+      "character": 8,
+      "artifact": 9
+    }
+  },
+  {
+    "model": "user.characterartifact",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-30T22:53:42.016Z",
+      "updated_at": "2025-09-30T22:53:42.016Z",
+      "uuid": "029f75f1-87c2-4337-8947-800314a210e0",
+      "character": 8,
+      "artifact": 8
+    }
+  },
+  {
+    "model": "user.characterartifact",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-10-01T11:19:28.954Z",
+      "updated_at": "2025-10-01T11:19:28.954Z",
+      "uuid": "547b0b8a-997f-436e-9a76-be4254a443a3",
+      "character": 9,
+      "artifact": 8
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.484Z",
+      "updated_at": "2025-09-29T16:09:09.484Z",
+      "uuid": "f665643e-f471-434c-950e-7b9f697faa76",
+      "character": 8,
+      "competency": 17,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.484Z",
+      "updated_at": "2025-09-29T16:09:09.484Z",
+      "uuid": "2a42e747-f69d-4532-84a4-51a213df19b9",
+      "character": 8,
+      "competency": 15,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.484Z",
+      "updated_at": "2025-09-29T16:09:09.484Z",
+      "uuid": "aeb389bd-abb4-42aa-910f-1288eb6ff18c",
+      "character": 8,
+      "competency": 13,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.484Z",
+      "updated_at": "2025-09-29T16:09:09.484Z",
+      "uuid": "7fa0b1ce-2938-4456-a16c-f5fff9c03e22",
+      "character": 8,
+      "competency": 11,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.484Z",
+      "updated_at": "2025-09-29T16:09:09.484Z",
+      "uuid": "13612dd0-1b0d-4889-abe8-f047fa469b34",
+      "character": 8,
+      "competency": 9,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.484Z",
+      "updated_at": "2025-09-30T22:53:42.029Z",
+      "uuid": "023cb8e3-409c-4da5-afff-ccaa081e0ea9",
+      "character": 8,
+      "competency": 7,
+      "experience": 30,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.484Z",
+      "updated_at": "2025-09-30T23:12:47.013Z",
+      "uuid": "b9ed5de0-1584-452a-90ce-b83583171df6",
+      "character": 8,
+      "competency": 5,
+      "experience": 60,
+      "is_received": true,
+      "received_datetime": "2025-09-30T23:12:46.993Z"
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.484Z",
+      "updated_at": "2025-09-29T16:09:09.484Z",
+      "uuid": "296e4fdd-01df-4ab4-b706-2fd1c6193f0f",
+      "character": 8,
+      "competency": 3,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.484Z",
+      "updated_at": "2025-09-30T23:09:01.841Z",
+      "uuid": "b9ef2024-c74b-4dbc-a4d4-5df5b44fd237",
+      "character": 8,
+      "competency": 1,
+      "experience": 12,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.966Z",
+      "updated_at": "2025-09-30T11:50:40.966Z",
+      "uuid": "4aee685f-7558-457d-b3e8-66af52684d84",
+      "character": 9,
+      "competency": 17,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.966Z",
+      "updated_at": "2025-09-30T11:50:40.966Z",
+      "uuid": "79060695-15ee-40eb-8d70-9c328d50cf94",
+      "character": 9,
+      "competency": 15,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.966Z",
+      "updated_at": "2025-09-30T11:50:40.966Z",
+      "uuid": "165b2f5f-8109-469a-a58d-436d9010fd4e",
+      "character": 9,
+      "competency": 13,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 13,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.966Z",
+      "updated_at": "2025-09-30T11:50:40.966Z",
+      "uuid": "15362947-f50b-45d3-bcde-9fa9b3667eba",
+      "character": 9,
+      "competency": 11,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 14,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.966Z",
+      "updated_at": "2025-09-30T11:50:40.966Z",
+      "uuid": "20d2d331-da82-47d7-9292-700fa2daad91",
+      "character": 9,
+      "competency": 9,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 15,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.966Z",
+      "updated_at": "2025-09-30T11:50:40.966Z",
+      "uuid": "be1bb801-f881-4ec2-8029-089599b307f1",
+      "character": 9,
+      "competency": 7,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 16,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.966Z",
+      "updated_at": "2025-09-30T11:50:40.966Z",
+      "uuid": "3816433c-1cb4-40da-bcb6-84cafece311d",
+      "character": 9,
+      "competency": 5,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 17,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.966Z",
+      "updated_at": "2025-09-30T11:50:40.966Z",
+      "uuid": "5dd9ac6f-3c54-43ee-a749-cc43475ea617",
+      "character": 9,
+      "competency": 3,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 18,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.966Z",
+      "updated_at": "2025-09-30T11:50:40.966Z",
+      "uuid": "aefd7f40-b197-4a75-a131-41384e87c370",
+      "character": 9,
+      "competency": 1,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 19,
+    "fields": {
+      "created_at": "2025-09-30T23:12:47.008Z",
+      "updated_at": "2025-09-30T23:12:47.008Z",
+      "uuid": "92ec209a-bfbb-469c-bf9f-6555bc8c18ee",
+      "character": 8,
+      "competency": 6,
+      "experience": 30,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 20,
+    "fields": {
+      "created_at": "2025-09-30T23:12:47.016Z",
+      "updated_at": "2025-09-30T23:12:47.016Z",
+      "uuid": "51822ca9-902e-4cd6-ba82-a9f671a445d8",
+      "character": 8,
+      "competency": 6,
+      "experience": 60,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 21,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.185Z",
+      "updated_at": "2025-10-02T19:16:52.185Z",
+      "uuid": "805b009b-9ffd-4d8e-8729-89f8b0f02b9a",
+      "character": 10,
+      "competency": 17,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 22,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.185Z",
+      "updated_at": "2025-10-02T19:16:52.185Z",
+      "uuid": "f3844094-4758-4e85-b086-4753b5c4b328",
+      "character": 10,
+      "competency": 15,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 23,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.185Z",
+      "updated_at": "2025-10-02T19:16:52.185Z",
+      "uuid": "fa52425b-8caf-432d-8569-8d35ec58c4f0",
+      "character": 10,
+      "competency": 13,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 24,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.185Z",
+      "updated_at": "2025-10-02T19:16:52.185Z",
+      "uuid": "26b550ee-7844-47c0-afe8-9bb04d9f55b7",
+      "character": 10,
+      "competency": 11,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 25,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.185Z",
+      "updated_at": "2025-10-02T19:16:52.185Z",
+      "uuid": "1cf0c191-6d86-4172-b4c9-8cb726ab7772",
+      "character": 10,
+      "competency": 9,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 26,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.185Z",
+      "updated_at": "2025-10-02T19:16:52.185Z",
+      "uuid": "b40a58ba-4ffa-46ed-a946-dd4836661423",
+      "character": 10,
+      "competency": 7,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 27,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.185Z",
+      "updated_at": "2025-10-02T19:16:52.185Z",
+      "uuid": "1549d19e-d63f-46e7-a599-206002754d96",
+      "character": 10,
+      "competency": 5,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 28,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.185Z",
+      "updated_at": "2025-10-02T19:16:52.185Z",
+      "uuid": "2cd408c3-8fd0-4d87-97b8-4774a849a215",
+      "character": 10,
+      "competency": 3,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.charactercompetency",
+    "pk": 29,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.185Z",
+      "updated_at": "2025-10-02T19:16:52.185Z",
+      "uuid": "bf8a9844-4e8a-4583-b6fd-b8d34d75d350",
+      "character": 10,
+      "competency": 1,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.characterevent",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.475Z",
+      "updated_at": "2025-09-29T16:09:09.475Z",
+      "uuid": "5b96dd8e-da7b-4bd8-8a3b-f1533d196be4",
+      "status": "COMPLETED",
+      "start_datetime": "2025-09-29T16:09:09.438Z",
+      "end_datetime": "2025-10-02T16:09:09.438Z",
+      "result": "123123",
+      "inspector_comment": "",
+      "final_status_datetime": "2025-09-30T23:09:11.572Z",
+      "character": 8,
+      "event": 21,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.characterevent",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.475Z",
+      "updated_at": "2025-09-29T16:09:09.475Z",
+      "uuid": "91eb871b-c096-4c1d-b0c8-35ae254380d7",
+      "status": "COMPLETED",
+      "start_datetime": "2025-09-29T16:09:09.438Z",
+      "end_datetime": "2025-10-06T16:09:09.438Z",
+      "result": "123213",
+      "inspector_comment": "1231231232313",
+      "final_status_datetime": "2025-09-30T23:09:01.810Z",
+      "character": 8,
+      "event": 11,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.characterevent",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.955Z",
+      "updated_at": "2025-09-30T11:50:40.955Z",
+      "uuid": "c7df5dcb-5e7d-49c7-8fa7-f0f723f09a11",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-09-30T11:50:40.924Z",
+      "end_datetime": "2025-10-03T11:50:40.924Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 9,
+      "event": 21,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.characterevent",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.956Z",
+      "updated_at": "2025-09-30T11:50:40.956Z",
+      "uuid": "2e78ef5f-ad65-414c-bd61-cda54090a2cd",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-09-30T11:50:40.924Z",
+      "end_datetime": "2025-10-07T11:50:40.924Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 9,
+      "event": 11,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.characterevent",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.173Z",
+      "updated_at": "2025-10-02T19:16:52.173Z",
+      "uuid": "d68d7f0e-5b42-4ecd-9f83-63e80a8f168d",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-10-02T19:16:52.143Z",
+      "end_datetime": "2025-10-05T19:16:52.143Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 10,
+      "event": 21,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.characterevent",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.173Z",
+      "updated_at": "2025-10-02T19:16:52.173Z",
+      "uuid": "de687933-6723-4752-977b-9dbc32f47935",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-10-02T19:16:52.143Z",
+      "end_datetime": "2025-10-09T19:16:52.143Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 10,
+      "event": 11,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.characterevent",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.173Z",
+      "updated_at": "2025-10-02T19:16:52.173Z",
+      "uuid": "2f823c90-74d3-4ca4-9ebe-c62632bb348a",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-10-02T19:16:52.143Z",
+      "end_datetime": "2025-10-07T19:16:52.143Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 10,
+      "event": 3,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.charactermission",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.464Z",
+      "updated_at": "2025-09-29T16:09:09.464Z",
+      "uuid": "12c8ab4f-ce1a-4836-93a5-3738d19b535f",
+      "status": "COMPLETED",
+      "start_datetime": "2025-09-29T16:09:09.438Z",
+      "end_datetime": "2025-10-01T16:09:09.438Z",
+      "result": "еукеукеукеукеуке",
+      "inspector_comment": "",
+      "final_status_datetime": "2025-09-30T22:53:41.990Z",
+      "character": 8,
+      "branch": 2,
+      "mission": 3,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.charactermission",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.464Z",
+      "updated_at": "2025-09-29T16:09:09.464Z",
+      "uuid": "c39b1ff4-695f-47b2-9fbf-14d694e7ebf3",
+      "status": "COMPLETED",
+      "start_datetime": "2025-09-29T16:09:09.438Z",
+      "end_datetime": "2025-10-04T16:09:09.438Z",
+      "result": "еуые",
+      "inspector_comment": "23434234234234",
+      "final_status_datetime": "2025-09-30T22:53:34.979Z",
+      "character": 8,
+      "branch": 2,
+      "mission": 2,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.charactermission",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.464Z",
+      "updated_at": "2025-09-29T16:09:09.464Z",
+      "uuid": "de92471b-4b34-4247-8c5d-7be59193c150",
+      "status": "COMPLETED",
+      "start_datetime": "2025-09-29T16:09:09.438Z",
+      "end_datetime": "2025-10-02T16:09:09.438Z",
+      "result": "Привет, я что то сделал, проверь плиз",
+      "inspector_comment": "все ок",
+      "final_status_datetime": "2025-09-30T22:47:34.078Z",
+      "character": 8,
+      "branch": 2,
+      "mission": 1,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.charactermission",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.943Z",
+      "updated_at": "2025-09-30T11:50:40.943Z",
+      "uuid": "97b44cc9-8f23-4a7f-a9bd-f96bf146c5c3",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-09-30T11:50:40.924Z",
+      "end_datetime": "2025-10-02T11:50:40.924Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 9,
+      "branch": 4,
+      "mission": 3,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.charactermission",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.943Z",
+      "updated_at": "2025-09-30T11:50:40.943Z",
+      "uuid": "ead2c360-e5d5-471d-baba-9fea5910e042",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-09-30T11:50:40.924Z",
+      "end_datetime": "2025-10-05T11:50:40.924Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 9,
+      "branch": 4,
+      "mission": 2,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.charactermission",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.943Z",
+      "updated_at": "2025-09-30T11:50:40.943Z",
+      "uuid": "bdd742ef-22f4-4417-a287-e710ba9cfa5e",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-09-30T11:50:40.924Z",
+      "end_datetime": "2025-10-03T11:50:40.924Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 9,
+      "branch": 4,
+      "mission": 1,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.charactermission",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.159Z",
+      "updated_at": "2025-10-02T19:16:52.159Z",
+      "uuid": "1081d346-c791-4b9d-ad5f-df600f7d4c26",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-10-02T19:16:52.143Z",
+      "end_datetime": "2025-10-04T19:16:52.143Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 10,
+      "branch": 6,
+      "mission": 3,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.charactermission",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.159Z",
+      "updated_at": "2025-10-02T19:16:52.159Z",
+      "uuid": "7ad6984d-22c1-4f3d-948b-42a1a9c70988",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-10-02T19:16:52.143Z",
+      "end_datetime": "2025-10-07T19:16:52.143Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 10,
+      "branch": 6,
+      "mission": 2,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.charactermission",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.159Z",
+      "updated_at": "2025-10-02T19:16:52.159Z",
+      "uuid": "9eac78f0-066d-4fe3-918e-01c56f6ae9c5",
+      "status": "IN_PROGRESS",
+      "start_datetime": "2025-10-02T19:16:52.143Z",
+      "end_datetime": "2025-10-05T19:16:52.143Z",
+      "result": "",
+      "inspector_comment": "",
+      "final_status_datetime": null,
+      "character": 10,
+      "branch": 6,
+      "mission": 1,
+      "mentor": null,
+      "inspector": null
+    }
+  },
+  {
+    "model": "user.charactermissionbranch",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.451Z",
+      "updated_at": "2025-09-29T16:09:09.451Z",
+      "uuid": "7edc585c-dda9-46d8-9ecb-862a4c178346",
+      "start_datetime": "2025-09-29T16:09:09.438Z",
+      "end_datetime": "2025-10-13T16:09:09.438Z",
+      "character": 8,
+      "branch": 9,
+      "mentor": null
+    }
+  },
+  {
+    "model": "user.charactermissionbranch",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.459Z",
+      "updated_at": "2025-09-29T16:09:09.459Z",
+      "uuid": "03c0f29f-3af8-4e15-a5a5-159ea96e9d93",
+      "start_datetime": "2025-09-29T16:09:09.438Z",
+      "end_datetime": "2025-10-29T16:09:09.438Z",
+      "character": 8,
+      "branch": 1,
+      "mentor": null
+    }
+  },
+  {
+    "model": "user.charactermissionbranch",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.929Z",
+      "updated_at": "2025-09-30T11:50:40.929Z",
+      "uuid": "23b3e0a6-973d-457b-bb6d-483c5fcc4ede",
+      "start_datetime": "2025-09-30T11:50:40.924Z",
+      "end_datetime": "2025-10-14T11:50:40.924Z",
+      "character": 9,
+      "branch": 9,
+      "mentor": null
+    }
+  },
+  {
+    "model": "user.charactermissionbranch",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.938Z",
+      "updated_at": "2025-09-30T11:50:40.938Z",
+      "uuid": "9037cf4f-33bd-460b-abfc-c201a7a374f1",
+      "start_datetime": "2025-09-30T11:50:40.924Z",
+      "end_datetime": "2025-10-30T11:50:40.924Z",
+      "character": 9,
+      "branch": 1,
+      "mentor": null
+    }
+  },
+  {
+    "model": "user.charactermissionbranch",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.148Z",
+      "updated_at": "2025-10-02T19:16:52.148Z",
+      "uuid": "47e86b9b-6256-478c-80d2-0671a69634fc",
+      "start_datetime": "2025-10-02T19:16:52.143Z",
+      "end_datetime": "2025-10-16T19:16:52.143Z",
+      "character": 10,
+      "branch": 9,
+      "mentor": null
+    }
+  },
+  {
+    "model": "user.charactermissionbranch",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.155Z",
+      "updated_at": "2025-10-02T19:16:52.155Z",
+      "uuid": "ba0010e4-b267-4c0a-9145-90041b2ba570",
+      "start_datetime": "2025-10-02T19:16:52.143Z",
+      "end_datetime": "2025-11-01T19:16:52.143Z",
+      "character": 10,
+      "branch": 1,
+      "mentor": null
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$fake$hashedpassword",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "content_manager_user",
+      "first_name": "Контент",
+      "last_name": "Контент",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-10-02T19:06:59Z",
+      "uuid": "bfc8234a-e1e2-4ed7-8781-84e6acb1b8fc",
+      "middle_name": "Контент",
+      "email": "content@example.com",
+      "phone": "+79101001010",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$k03X0TsPI21LzB49oQz1AP$E+NuJZs5+dRIl8N1PQ3//SDMtdYmDONPkC2YNgc9+04=",
+      "last_login": "2025-10-02T19:20:02.176Z",
+      "is_superuser": true,
+      "username": "admin@example.com",
+      "first_name": "Админ",
+      "last_name": "Админ",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-09-29T16:07:04Z",
+      "uuid": "f08f66ce-a4af-4567-a326-deb7f94445ef",
+      "middle_name": "Админ",
+      "email": "admin@example.com",
+      "phone": "+79001001010",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$N6MzLJ2S8kNuHi2bBqpal5$vRVrz5ioAdfES/VLAWCQLqC5dn34OXQaFD4noXI7Kx8=",
+      "last_login": "2025-10-02T19:20:18.132Z",
+      "is_superuser": false,
+      "username": "user",
+      "first_name": "Пользователь",
+      "last_name": "Пользователь",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-09-30T11:50:21Z",
+      "uuid": "09128b1c-c60d-4e7d-8dea-1c9099046168",
+      "middle_name": "Пользователь",
+      "email": "user@example.com",
+      "phone": "+79001001010",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 18,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$TtGJrGmLV9V6pBx9uKt7Wj$Duf6SoNUFKE3bjeKsQP7H5W9SgBdButgv2pCMpk+jlI=",
+      "last_login": "2025-10-02T19:17:06Z",
+      "is_superuser": false,
+      "username": "hr",
+      "first_name": "HR",
+      "last_name": "HR",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-10-02T19:16:33Z",
+      "uuid": "1a5df0cc-7ca5-4058-9d41-552c47094e9a",
+      "middle_name": "HR",
+      "email": "hr@example.com",
+      "phone": "+79192653831",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.characterrank",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.402Z",
+      "updated_at": "2025-09-30T22:53:42.039Z",
+      "uuid": "d3f2ad3f-d4f0-4f9c-8700-76534e6976e8",
+      "character": 8,
+      "rank": 1,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.characterrank",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.908Z",
+      "updated_at": "2025-09-30T11:50:40.908Z",
+      "uuid": "351b7448-b290-4899-837a-b5ca189f7470",
+      "character": 9,
+      "rank": 1,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "user.characterrank",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.131Z",
+      "updated_at": "2025-10-02T19:16:52.131Z",
+      "uuid": "c374becb-b5c0-49f1-bc72-f83717903690",
+      "character": 10,
+      "rank": 1,
+      "experience": 0,
+      "is_received": false,
+      "received_datetime": null
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567001",
+      "name": "Вера в дело",
+      "description": "Базовая уверенность в правильности выбранного пути",
+      "required_experience": 50,
+      "level": 1,
+      "icon": "",
+      "color": "#4CAF50",
+      "parent": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567002",
+      "name": "Вера в дело",
+      "description": "Углубленная уверенность и преданность выбранному делу",
+      "required_experience": 100,
+      "level": 2,
+      "icon": "",
+      "color": "#388E3C",
+      "parent": 1,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567003",
+      "name": "Стремление к большему",
+      "description": "Базовое желание развиваться и достигать новых высот",
+      "required_experience": 75,
+      "level": 1,
+      "icon": "",
+      "color": "#2196F3",
+      "parent": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567004",
+      "name": "Стремление к большему",
+      "description": "Сильная мотивация к постоянному совершенствованию",
+      "required_experience": 150,
+      "level": 2,
+      "icon": "",
+      "color": "#1976D2",
+      "parent": 3,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+      "name": "Общение",
+      "description": "Базовые навыки коммуникации с другими людьми",
+      "required_experience": 60,
+      "level": 1,
+      "icon": "",
+      "color": "#FF9800",
+      "parent": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567006",
+      "name": "Общение",
+      "description": "Продвинутые навыки ведения переговоров и публичных выступлений",
+      "required_experience": 120,
+      "level": 2,
+      "icon": "",
+      "color": "#F57C00",
+      "parent": 5,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+      "name": "Аналитика",
+      "description": "Базовые навыки анализа информации и принятия решений",
+      "required_experience": 120,
+      "level": 1,
+      "icon": "",
+      "color": "#9C27B0",
+      "parent": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567008",
+      "name": "Аналитика",
+      "description": "Продвинутый анализ данных и стратегическое мышление",
+      "required_experience": 240,
+      "level": 2,
+      "icon": "",
+      "color": "#7B1FA2",
+      "parent": 7,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567009",
+      "name": "Командование",
+      "description": "Базовые навыки управления командой",
+      "required_experience": 200,
+      "level": 1,
+      "icon": "",
+      "color": "#F44336",
+      "parent": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567010",
+      "name": "Командование",
+      "description": "Продвинутое лидерство и управление крупными проектами",
+      "required_experience": 400,
+      "level": 2,
+      "icon": "",
+      "color": "#D32F2F",
+      "parent": 9,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567011",
+      "name": "Юриспруденция",
+      "description": "Базовые знания правовых норм и законодательства",
+      "required_experience": 100,
+      "level": 1,
+      "icon": "",
+      "color": "#3F51B5",
+      "parent": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567012",
+      "name": "Юриспруденция",
+      "description": "Продвинутые знания юриспруденции и судебной практики",
+      "required_experience": 200,
+      "level": 2,
+      "icon": "",
+      "color": "#303F9F",
+      "parent": 11,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 13,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567013",
+      "name": "Трёхмерное мышление",
+      "description": "Базовые навыки пространственного мышления",
+      "required_experience": 180,
+      "level": 1,
+      "icon": "",
+      "color": "#009688",
+      "parent": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 14,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567014",
+      "name": "Трёхмерное мышление",
+      "description": "Продвинутое проектирование в трёхмерном пространстве",
+      "required_experience": 360,
+      "level": 2,
+      "icon": "",
+      "color": "#00796B",
+      "parent": 13,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 15,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567015",
+      "name": "Базовая экономика",
+      "description": "Основные понятия экономики и финансов",
+      "required_experience": 90,
+      "level": 1,
+      "icon": "",
+      "color": "#795548",
+      "parent": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 16,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567016",
+      "name": "Базовая экономика",
+      "description": "Продвинутые экономические модели и анализ рынков",
+      "required_experience": 180,
+      "level": 2,
+      "icon": "",
+      "color": "#5D4037",
+      "parent": 15,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 17,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567017",
+      "name": "Основы аэронавигации",
+      "description": "Базовые принципы навигации в воздушном пространстве",
+      "required_experience": 250,
+      "level": 1,
+      "icon": "",
+      "color": "#607D8B",
+      "parent": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.competency",
+    "pk": 18,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567018",
+      "name": "Основы аэронавигации",
+      "description": "Продвинутые системы навигации и управления полетами",
+      "required_experience": 500,
+      "level": 2,
+      "icon": "",
+      "color": "#455A64",
+      "parent": 17,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.rank",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "9b27408d-01d2-4d02-bf12-1098c88842e3",
+      "name": "Новичок",
+      "description": "Начальный ранг, первые шаги в игре",
+      "required_experience": 0,
+      "icon": "",
+      "color": "#9E9E9E",
+      "parent": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.rank",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "fa96cf2a-4b30-4d25-befc-7e47434bc0f2",
+      "name": "Ученик",
+      "description": "Освоивший базовые механики игры",
+      "required_experience": 100,
+      "icon": "",
+      "color": "#4CAF50",
+      "parent": 1,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_mechanics.rank",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "4f14c510-e388-42f3-b47a-70e2f281be87",
+      "name": "Опытный",
+      "description": "Уверенно владеет основными навыками",
+      "required_experience": 300,
+      "icon": "",
+      "color": "#2196F3",
+      "parent": 2,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.activitycategory",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440013",
+      "name": "Квест",
+      "description": "Последовательность заданий для новых сотрудников с целью знакомства с компанией, процессами и коллегами. Включает ориентационные мероприятия и вводные задачи.",
+      "repeatability": null,
+      "icon": "",
+      "color": "#4CAF50"
+    }
+  },
+  {
+    "model": "game_world.activitycategory",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440014",
+      "name": "Рекрутинг",
+      "description": "Активности по привлечению и отбору кандидатов: проведение собеседований, оценка навыков, участие в карьерных мероприятиях и работа с кандидатами.",
+      "repeatability": null,
+      "icon": "",
+      "color": "#2196F3"
+    }
+  },
+  {
+    "model": "game_world.activitycategory",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440015",
+      "name": "Лекторий",
+      "description": "Проведение обучающих мероприятий: внутренние воркшопы, мастер-классы, презентации знаний и менторские сессии для развития сотрудников.",
+      "repeatability": null,
+      "icon": "",
+      "color": "#FF9800"
+    }
+  },
+  {
+    "model": "game_world.activitycategory",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440016",
+      "name": "Симулятор",
+      "description": "Практические упражнения и ролевые игры для отработки рабочих ситуаций: имитация собеседований, переговоров и рабочих процессов.",
+      "repeatability": null,
+      "icon": "",
+      "color": "#9C27B0"
+    }
+  },
+  {
+    "model": "game_world.activitycategory",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440017",
+      "name": "Адаптация",
+      "description": "Активности по интеграции новых сотрудников: программа онбординга, знакомство с командой, кураторство и сопровождение в первые месяцы работы.",
+      "repeatability": null,
+      "icon": "",
+      "color": "#00BCD4"
+    }
+  },
+  {
+    "model": "game_world.activitycategory",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440018",
+      "name": "Оценка",
+      "description": "Проведение оценочных мероприятий: ассессмент-центры, оценка компетенций, обратная связь по результатам работы и карьерные консультации.",
+      "repeatability": null,
+      "icon": "",
+      "color": "#F44336"
+    }
+  },
+  {
+    "model": "game_world.activitycategory",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440019",
+      "name": "Развитие",
+      "description": "Активности по профессиональному росту сотрудников: планирование карьеры, коучинг-сессии, участие в конференциях и обучение новым навыкам.",
+      "repeatability": null,
+      "icon": "",
+      "color": "#673AB7"
+    }
+  },
+  {
+    "model": "game_world.activitycategory",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440020",
+      "name": "Тимбилдинг",
+      "description": "Мероприятия по укреплению командного духа: корпоративные события, тим-тренинги, совместные проекты и неформальные встречи команды.",
+      "repeatability": null,
+      "icon": "",
+      "color": "#E91E63"
+    }
+  },
+  {
+    "model": "game_world.activitycategory",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440021",
+      "name": "Бренд работодателя",
+      "description": "Активности по укреплению HR-бренда: участие в днях карьеры, создание контента о компании, работа с соцсетями и отзовиками.",
+      "repeatability": null,
+      "icon": "",
+      "color": "#795548"
+    }
+  },
+  {
+    "model": "game_world.activitycategory",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440022",
+      "name": "Процессы и аналитика",
+      "description": "Работа над улучшением HR-процессов: анализ метрик, оптимизация процедур, автоматизация задач и разработка HR-инструментов.",
+      "repeatability": null,
+      "icon": "",
+      "color": "#607D8B"
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440001",
+      "name": "Ядро нейронного интерфейса \"Прометей\"",
+      "description": "Древний, но превосходно сохранившийся чип, разработанный в первых колониальных экспедициях. Синхронизируется с кортикальной системой пилота, ускоряя обработку сенсорных данных и усвоение навыков в стрессовых ситуациях.",
+      "icon": "",
+      "color": "#4B0082",
+      "modifier": "EXPERIENCE_GAIN",
+      "modifier_value": 15,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440002",
+      "name": "Голографический дневник капитана Элизы Рейн",
+      "description": "Личные записи легендарного капитана-первопроходца, содержащие не только хроники открытий, но и детальный разбор тактических маневров, переговоров и инженерных решений. Позволяет учиться на ошибках и успехах великого исследователя.",
+      "icon": "",
+      "color": "#FFD700",
+      "modifier": "EXPERIENCE_GAIN",
+      "modifier_value": 10,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440003",
+      "name": "Кристалл памяти Кс'арратхов",
+      "description": "Артефакт загадочной инопланетной расы Кс'арратхов, способный хранить и передавать ментальные импринты навыков. При контакте дарует пользователю фрагменты чуждого, но невероятно продвинутого знания.",
+      "icon": "",
+      "color": "#00FF7F",
+      "modifier": "EXPERIENCE_GAIN",
+      "modifier_value": 20,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440004",
+      "name": "Квантовый трейдер \"Удача Звездного Кита\"",
+      "description": "Портативное устройство, использующее квантовую запутанность для анализа межпланетных бирж за доли секунды до обновления котировок. Позволяет находить самые выгодные торговые арбитражные возможности.",
+      "icon": "",
+      "color": "#32CD32",
+      "modifier": "CURRENCY_GAIN",
+      "modifier_value": 15,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440005",
+      "name": "Карта тайных грузов Пояса Астероидов",
+      "description": "Зашифрованная карта, ведущая к заброшенным тайникам контрабандистов и местам крушений кораблей с ценными грузами. Постоянно обновляется с учетом гравитационных сдвигов в Поясе.",
+      "icon": "",
+      "color": "#8B4513",
+      "modifier": "CURRENCY_GAIN",
+      "modifier_value": 25,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440006",
+      "name": "Нано-анализатор рудных жил",
+      "description": "Устройство, которое при сканировании астероида или планеты с высокой точностью определяет не только состав, но и самые богатые концентрации редких минералов, минимизируя затраты на добычу.",
+      "icon": "",
+      "color": "#C0C0C0",
+      "modifier": "CURRENCY_GAIN",
+      "modifier_value": 10,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440007",
+      "name": "Дипломатическая печать Альянса \"Платина\"",
+      "description": "Высшая степень доверия, выдаваемая пилотам, оказавшим неоценимые услуги Альянсу. Предоставляет доступ к закрытым правительственным аукционам и складам с передовым оборудованием по себестоимости.",
+      "icon": "",
+      "color": "#E5E4E2",
+      "modifier": "SHOP_DISCOUNT",
+      "modifier_value": 20,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440008",
+      "name": "Членская карта Гильдии торговцев \"Зеро-Г\"",
+      "description": "Золотая карта элитной гильдии торговцев. Ее владельцы получают эксклюзивные скидки у всех поставщиков, аффилированных с Гильдией, по всей освоенной территории.",
+      "icon": "",
+      "color": "#FFDF00",
+      "modifier": "SHOP_DISCOUNT",
+      "modifier_value": 15,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440009",
+      "name": "Ключ доступа к сети \"Бартер-Сеть\"",
+      "description": "Нелегальный децентрализованный чип, который подключается к теневой сети обмена между пилотами, ремонтниками и торговцами. Позволяет находить уникальные предложения и торговаться без лишних наценок.",
+      "icon": "",
+      "color": "#FF4500",
+      "modifier": "SHOP_DISCOUNT",
+      "modifier_value": 10,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440010",
+      "name": "Сертификат аккредитации пилота-первопроходца",
+      "description": "Официальный документ, дающий право претендовать на первопроходческие миссии по картографированию новых систем и право давать имена открытым объектам. Символ статуса и доверия Альянса.",
+      "icon": "",
+      "color": "#000080",
+      "modifier": "DEFAULT",
+      "modifier_value": 0,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440011",
+      "name": "Медальон перемирия с Конкордиатом Сириуса",
+      "description": "Символ дипломатического соглашения между Альянсом и могущественной инопланетной расой. Ношение медальона гарантирует безопасный проход через их пространство и доступ к их дипломатическим миссиям.",
+      "icon": "",
+      "color": "#9370DB",
+      "modifier": "DEFAULT",
+      "modifier_value": 0,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.artifact",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440012",
+      "name": "Черный ящик корабля \"Скиталец\"",
+      "description": "Разбитый бортовой самописец с корабля, бесследно исчезнувшего десятилетия назад на краю известного пространства. Его расшифровка может привести к величайшей тайне или самой большой опасности.",
+      "icon": "",
+      "color": "#2F4F4F",
+      "modifier": "DEFAULT",
+      "modifier_value": 0,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440028",
+      "name": "День открытых дверей для кандидатов",
+      "description": "Организация и проведение дня открытых дверей для потенциальных кандидатов. Включает презентацию компании, экскурсию по офису и неформальное общение с командой.",
+      "experience": 200,
+      "currency": 150,
+      "icon": "",
+      "color": "#4CAF50",
+      "required_number": 5,
+      "is_active": true,
+      "start_datetime": "2025-10-15T10:00:00Z",
+      "time_to_complete": 7,
+      "qr_code": "",
+      "category": 9,
+      "rank": 2,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440029",
+      "name": "Серия мастер-классов по проведению собеседований",
+      "description": "Цикл обучающих мероприятий для сотрудников, участвующих в процессе рекрутинга. Практические занятия по техникам интервью и оценке кандидатов.",
+      "experience": 350,
+      "currency": 250,
+      "icon": "",
+      "color": "#2196F3",
+      "required_number": 8,
+      "is_active": true,
+      "start_datetime": "2025-10-20T14:00:00Z",
+      "time_to_complete": 14,
+      "qr_code": "",
+      "category": 3,
+      "rank": 3,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440030",
+      "name": "Неделя адаптации новых сотрудников",
+      "description": "Комплекс мероприятий по интеграции новых членов команды: воркшопы, знакомство с процессами, менторские сессии и тимбилдинг.",
+      "experience": 150,
+      "currency": 100,
+      "icon": "",
+      "color": "#00BCD4",
+      "required_number": 10,
+      "is_active": true,
+      "start_datetime": "2025-11-01T09:00:00Z",
+      "time_to_complete": 5,
+      "qr_code": "",
+      "category": 5,
+      "rank": 1,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "b4c8a7d2-3e3f-4a8d-e1a5-8f6d9a0c7e21",
+      "name": "Космический ассессмент-центр",
+      "description": "Комплексная оценка компетенций кандидатов с использованием VR-симуляторов и нейроинтерфейсов.",
+      "experience": 400,
+      "currency": 300,
+      "icon": "",
+      "color": "#E91E63",
+      "required_number": 6,
+      "is_active": true,
+      "start_datetime": "2025-11-15T13:00:00Z",
+      "time_to_complete": 10,
+      "qr_code": "",
+      "category": 6,
+      "rank": 3,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "d6e0c9f4-5a5b-6c0f-a3c7-0b8f1c2e9a23",
+      "name": "Галактический митап рекрутеров",
+      "description": "Нетворкинг-событие для обмена опытом между рекрутерами разных планетарных офисов.",
+      "experience": 250,
+      "currency": 200,
+      "icon": "",
+      "color": "#FF5733",
+      "required_number": 15,
+      "is_active": true,
+      "start_datetime": "2025-11-25T17:00:00Z",
+      "time_to_complete": 1,
+      "qr_code": "",
+      "category": 8,
+      "rank": 2,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "e7f1d0a5-6b6c-7d1a-b4d8-1c9a2d3f0b24",
+      "name": "Симуляция кризисного найма",
+      "description": "Отработка навыков экстренного подбора персонала в условиях космической аварии.",
+      "experience": 350,
+      "currency": 280,
+      "icon": "",
+      "color": "#9C27B0",
+      "required_number": 8,
+      "is_active": true,
+      "start_datetime": "2025-12-01T11:00:00Z",
+      "time_to_complete": 2,
+      "qr_code": "",
+      "category": 4,
+      "rank": 3,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "f8a2e1b6-7c7d-8e2b-c5e9-2d0b3e4a1c25",
+      "name": "Воркшоп по работе с инопланетными культурами",
+      "description": "Изучение особенностей рекрутинга представителей различных планетарных цивилизаций.",
+      "experience": 300,
+      "currency": 220,
+      "icon": "",
+      "color": "#00BCD4",
+      "required_number": 12,
+      "is_active": true,
+      "start_datetime": "2025-12-05T14:00:00Z",
+      "time_to_complete": 4,
+      "qr_code": "",
+      "category": 3,
+      "rank": 3,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27",
+      "name": "Стажировка в секторе Альфа",
+      "description": "Программа обмена опытом с лучшими HR-специалистами сектора Альфа Центавра.",
+      "experience": 120,
+      "currency": 90,
+      "icon": "",
+      "color": "#4CAF50",
+      "required_number": 20,
+      "is_active": true,
+      "start_datetime": "2025-12-15T08:00:00Z",
+      "time_to_complete": 7,
+      "qr_code": "",
+      "category": 1,
+      "rank": 1,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 15,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "f4a8e7c2-3d3e-4e8b-c1f5-8d6b9e0a7c31",
+      "name": "Базовый курс космической психологии",
+      "description": "Основы работы с психологическими особенностями экипажей дальних экспедиций.",
+      "experience": 180,
+      "currency": 140,
+      "icon": "",
+      "color": "#795548",
+      "required_number": 10,
+      "is_active": true,
+      "start_datetime": "2026-01-20T12:00:00Z",
+      "time_to_complete": 5,
+      "qr_code": "",
+      "category": 3,
+      "rank": 2,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 16,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a5b9f8d3-4e4f-5f9c-d2a6-9e7c0f1b8d32",
+      "name": "Онбординг в условиях гипердрайва",
+      "description": "Специальная программа адаптации для сотрудников межзвёздных экспедиций.",
+      "experience": 220,
+      "currency": 180,
+      "icon": "",
+      "color": "#00BCD4",
+      "required_number": 8,
+      "is_active": true,
+      "start_datetime": "2026-01-25T09:00:00Z",
+      "time_to_complete": 3,
+      "qr_code": "",
+      "category": 5,
+      "rank": 2,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 18,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "c7d1b0f5-6a6b-7b1e-f4c8-1b9e2d3a0f34",
+      "name": "Тимбилдинг на орбитальной станции",
+      "description": "Уникальное командообразующее мероприятие в условиях невесомости.",
+      "experience": 280,
+      "currency": 250,
+      "icon": "",
+      "color": "#E91E63",
+      "required_number": 12,
+      "is_active": true,
+      "start_datetime": "2026-02-10T14:00:00Z",
+      "time_to_complete": 2,
+      "qr_code": "",
+      "category": 8,
+      "rank": 3,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 21,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "f0a4e3c8-9d9e-0e4f-c7f1-4e2b5a6d3c37",
+      "name": "Введение в квантовый рекрутинг",
+      "description": "Базовый курс по использованию квантовых вычислений в подборе персонала.",
+      "experience": 100,
+      "currency": 80,
+      "icon": "",
+      "color": "#4CAF50",
+      "required_number": 25,
+      "is_active": true,
+      "start_datetime": "2026-03-01T10:00:00Z",
+      "time_to_complete": 3,
+      "qr_code": "",
+      "category": 1,
+      "rank": 1,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.event",
+    "pk": 23,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "b2c6a5e0-1f1a-2a6b-e9b3-6a4d7c8f5e39",
+      "name": "Менторская программа для новичков",
+      "description": "Становление наставником для молодых HR-специалистов корпорации.",
+      "experience": 320,
+      "currency": 260,
+      "icon": "",
+      "color": "#FF9800",
+      "required_number": 5,
+      "is_active": true,
+      "start_datetime": "2026-03-15T11:00:00Z",
+      "time_to_complete": 30,
+      "qr_code": "",
+      "category": 7,
+      "rank": 3,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.eventartifact",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440032",
+      "event": 1,
+      "artifact": 2
+    }
+  },
+  {
+    "model": "game_world.eventartifact",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440033",
+      "event": 2,
+      "artifact": 1
+    }
+  },
+  {
+    "model": "game_world.eventartifact",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "d4e8c7a2-3b3c-4c8e-a1d5-8a6f0b1e9a41",
+      "event": 5,
+      "artifact": 7
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440035",
+      "event": 1,
+      "competency": 5,
+      "experience": 25
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440036",
+      "event": 1,
+      "competency": 9,
+      "experience": 20
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440037",
+      "event": 2,
+      "competency": 5,
+      "experience": 30
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440038",
+      "event": 2,
+      "competency": 7,
+      "experience": 35
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440039",
+      "event": 3,
+      "competency": 1,
+      "experience": 20
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440040",
+      "event": 3,
+      "competency": 3,
+      "experience": 15
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "c9d3c2f7-8a8b-9b3c-f6c0-3f1e5a6d4f46",
+      "event": 5,
+      "competency": 7,
+      "experience": 40
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "d0e4d3a8-9b9c-0c4d-a7d1-4a2f6b7e5a47",
+      "event": 5,
+      "competency": 5,
+      "experience": 35
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "f2a6f5c0-1d1e-2e6f-c9f3-6c4b8d9a7c49",
+      "event": 8,
+      "competency": 3,
+      "experience": 30
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 13,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a3b7a6d1-2e2f-3f7a-d0a4-7d5c9e0b8d50",
+      "event": 9,
+      "competency": 5,
+      "experience": 25
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 16,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "d6e0d9a4-5b5c-6c0a-a3d7-0a8b2e3f1b53",
+      "event": 15,
+      "competency": 5,
+      "experience": 18
+    }
+  },
+  {
+    "model": "game_world.eventcompetency",
+    "pk": 20,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "b0c4b3e8-9f9a-0a4e-e7c1-4e2f6c7d5f57",
+      "event": 11,
+      "competency": 1,
+      "experience": 12
+    }
+  },
+  {
+    "model": "game_world.gameworld",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "77fb823b-7744-4c94-91b8-ce0a9caabb28",
+      "name": "Аэрокосмический Альянс",
+      "description": "Игровой мир будущего, где человечество освоило межпланетные перелеты и создало масштабную космическую инфраструктуру. Игроки выступают в роли пилотов, инженеров, дипломатов и стратегов, развивающих космическую экспансию человечества. От строительства орбитальных станций до дипломатических миссий с инопланетными цивилизациями - здесь каждый найдет свой путь к звездам. Компетенции отражают ключевые навыки, необходимые для выживания и процветания в условиях космической экспансии.",
+      "color": "#1a237e",
+      "standard_experience": 25,
+      "standard_currency": 50,
+      "currency_name": "звездные кредиты",
+      "data_for_graph": {
+        "cells": [
+          {
+            "id": "9b27408d-01d2-4d02-bf12-1098c88842e3|b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51",
+            "data": {
+              "source_type": "rank",
+              "target_type": "mission_branch"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#283a97",
+                "targetMarker": {
+                  "fill": "#283a97"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "9b27408d-01d2-4d02-bf12-1098c88842e3"
+            },
+            "target": {
+              "cell": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51|f2a6f5f0-1e1f-2f6a-c9a3-6d4c8e9e7d67",
+            "data": {
+              "source_type": "mission_branch",
+              "target_type": "mission"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#005dac",
+                "targetMarker": {
+                  "fill": "#005dac"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51"
+            },
+            "target": {
+              "cell": "f2a6f5f0-1e1f-2f6a-c9a3-6d4c8e9e7d67"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51|e1f5e4e9-0d0e-1e5f-b8f2-5d3b7d8d6c66",
+            "data": {
+              "source_type": "mission_branch",
+              "target_type": "mission"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#005dac",
+                "targetMarker": {
+                  "fill": "#005dac"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51"
+            },
+            "target": {
+              "cell": "e1f5e4e9-0d0e-1e5f-b8f2-5d3b7d8d6c66"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "e1f5e4e9-0d0e-1e5f-b8f2-5d3b7d8d6c66|a1b2c3d4-e5f6-7890-abcd-ef1234567001",
+            "data": {
+              "source_type": "mission",
+              "target_type": "competency"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#00aeef",
+                "targetMarker": {
+                  "fill": "#00aeef"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "e1f5e4e9-0d0e-1e5f-b8f2-5d3b7d8d6c66"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567001"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "9b27408d-01d2-4d02-bf12-1098c88842e3|550e8400-e29b-41d4-a716-446655440043",
+            "data": {
+              "source_type": "rank",
+              "target_type": "mission_branch"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#283a97",
+                "targetMarker": {
+                  "fill": "#283a97"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "9b27408d-01d2-4d02-bf12-1098c88842e3"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440043"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440043|550e8400-e29b-41d4-a716-446655440048",
+            "data": {
+              "source_type": "mission_branch",
+              "target_type": "mission"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#005dac",
+                "targetMarker": {
+                  "fill": "#005dac"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440043"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440048"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440048|550e8400-e29b-41d4-a716-446655440008",
+            "data": {
+              "source_type": "mission",
+              "target_type": "artifact"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#00aeef",
+                "targetMarker": {
+                  "fill": "#00aeef"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440048"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440008"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440048|a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "data": {
+              "source_type": "mission",
+              "target_type": "competency"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#00aeef",
+                "targetMarker": {
+                  "fill": "#00aeef"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440048"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567007"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440043|550e8400-e29b-41d4-a716-446655440047",
+            "data": {
+              "source_type": "mission_branch",
+              "target_type": "mission"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#005dac",
+                "targetMarker": {
+                  "fill": "#005dac"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440043"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440047"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440047|550e8400-e29b-41d4-a716-446655440009",
+            "data": {
+              "source_type": "mission",
+              "target_type": "artifact"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#00aeef",
+                "targetMarker": {
+                  "fill": "#00aeef"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440047"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440009"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440043|550e8400-e29b-41d4-a716-446655440046",
+            "data": {
+              "source_type": "mission_branch",
+              "target_type": "mission"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#005dac",
+                "targetMarker": {
+                  "fill": "#005dac"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440043"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440046"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440046|a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "data": {
+              "source_type": "mission",
+              "target_type": "competency"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#00aeef",
+                "targetMarker": {
+                  "fill": "#00aeef"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "550e8400-e29b-41d4-a716-446655440046"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567007"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "9b27408d-01d2-4d02-bf12-1098c88842e3|f0a4e3c8-9d9e-0e4f-c7f1-4e2b5a6d3c37",
+            "data": {
+              "source_type": "rank",
+              "target_type": "event"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#283a97",
+                "targetMarker": {
+                  "fill": "#283a97"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "9b27408d-01d2-4d02-bf12-1098c88842e3"
+            },
+            "target": {
+              "cell": "f0a4e3c8-9d9e-0e4f-c7f1-4e2b5a6d3c37"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "9b27408d-01d2-4d02-bf12-1098c88842e3|b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27",
+            "data": {
+              "source_type": "rank",
+              "target_type": "event"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#283a97",
+                "targetMarker": {
+                  "fill": "#283a97"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "9b27408d-01d2-4d02-bf12-1098c88842e3"
+            },
+            "target": {
+              "cell": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27|a1b2c3d4-e5f6-7890-abcd-ef1234567001",
+            "data": {
+              "source_type": "event",
+              "target_type": "competency"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#6acff6",
+                "targetMarker": {
+                  "fill": "#6acff6"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27"
+            },
+            "target": {
+              "cell": "a1b2c3d4-e5f6-7890-abcd-ef1234567001"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "9b27408d-01d2-4d02-bf12-1098c88842e3|550e8400-e29b-41d4-a716-446655440030",
+            "data": {
+              "source_type": "rank",
+              "target_type": "event"
+            },
+            "attrs": {
+              "line": {
+                "stroke": "#283a97",
+                "targetMarker": {
+                  "fill": "#283a97"
+                }
+              }
+            },
+            "shape": "edge",
+            "source": {
+              "cell": "9b27408d-01d2-4d02-bf12-1098c88842e3"
+            },
+            "target": {
+              "cell": "550e8400-e29b-41d4-a716-446655440030"
+            },
+            "zIndex": -1,
+            "z_index": -1
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567007",
+            "data": {
+              "icon": null,
+              "name": "Аналитика",
+              "color": "#9C27B0",
+              "level": 1,
+              "description": "Базовые навыки анализа информации и принятия решений",
+              "required_experience": 120
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Аналитика"
+              },
+              "description": {
+                "text": "Базовые навыки анализа информации и принятия решений"
+              }
+            },
+            "shape": "competency",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 850,
+              "y": 970
+            }
+          },
+          {
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567001",
+            "data": {
+              "icon": null,
+              "name": "Вера в дело",
+              "color": "#4CAF50",
+              "level": 1,
+              "description": "Базовая уверенность в правильности выбранного пути",
+              "required_experience": 50
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Вера в дело"
+              },
+              "description": {
+                "text": "Базовая уверенность в правильности выбранного пути"
+              }
+            },
+            "shape": "competency",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": -80,
+              "y": 1210
+            }
+          },
+          {
+            "id": "9b27408d-01d2-4d02-bf12-1098c88842e3",
+            "data": {
+              "icon": null,
+              "name": "Новичок",
+              "color": "#9E9E9E",
+              "description": "Начальный ранг, первые шаги в игре",
+              "required_experience": 0
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Новичок"
+              },
+              "description": {
+                "text": "Начальный ранг, первые шаги в игре"
+              }
+            },
+            "shape": "rank",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 300,
+              "y": 50
+            }
+          },
+          {
+            "id": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51",
+            "data": {
+              "icon": null,
+              "name": "Квестовая линия новичка",
+              "color": "#4CAF50",
+              "is_active": true,
+              "mentor_id": null,
+              "category_id": 1,
+              "description": "Специальная ветка миссий для полного погружения новых сотрудников в культуру компании.",
+              "start_datetime": null,
+              "time_to_complete": 14
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Квестовая линия новичка"
+              },
+              "description": {
+                "text": "Специальная ветка миссий для полного погружения новых сотрудников в культуру компании."
+              }
+            },
+            "shape": "mission_branch",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 1230,
+              "y": 140
+            }
+          },
+          {
+            "id": "f2a6f5f0-1e1f-2f6a-c9a3-6d4c8e9e7d67",
+            "data": {
+              "icon": null,
+              "name": "Знакомство с командой",
+              "color": "",
+              "order": 2,
+              "qr_code": null,
+              "currency": 55,
+              "level_id": 1,
+              "is_active": true,
+              "mentor_id": null,
+              "experience": 70,
+              "category_id": 1,
+              "description": "Участие в серии встреч для знакомства с коллегами и понимания структуры команды.",
+              "is_key_mission": false,
+              "time_to_complete": 2
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Знакомство с командой"
+              },
+              "description": {
+                "text": "Участие в серии встреч для знакомства с коллегами и понимания структуры команды."
+              }
+            },
+            "shape": "mission",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 910,
+              "y": -200
+            }
+          },
+          {
+            "id": "e1f5e4e9-0d0e-1e5f-b8f2-5d3b7d8d6c66",
+            "data": {
+              "icon": null,
+              "name": "Первый день в корпорации",
+              "color": "",
+              "order": 1,
+              "qr_code": null,
+              "currency": 40,
+              "level_id": 1,
+              "is_active": true,
+              "mentor_id": null,
+              "experience": 50,
+              "category_id": 1,
+              "description": "Прохождение всех обязательных процедур первого рабочего дня нового сотрудника.",
+              "is_key_mission": true,
+              "time_to_complete": 1
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Первый день в корпорации"
+              },
+              "description": {
+                "text": "Прохождение всех обязательных процедур первого рабочего дня нового сотрудника."
+              }
+            },
+            "shape": "mission",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 1960,
+              "y": 1170
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440043",
+            "data": {
+              "icon": null,
+              "name": "Основы рекрутинга",
+              "color": "#2196F3",
+              "is_active": true,
+              "mentor_id": null,
+              "category_id": 2,
+              "description": "Ветка миссий для освоения базовых навыков подбора персонала: от поиска кандидатов до проведения первых собеседований.",
+              "start_datetime": null,
+              "time_to_complete": 30
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Основы рекрутинга"
+              },
+              "description": {
+                "text": "Ветка миссий для освоения базовых навыков подбора персонала: от поиска кандидатов до проведения первых собеседований."
+              }
+            },
+            "shape": "mission_branch",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 150,
+              "y": 290
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440048",
+            "data": {
+              "icon": null,
+              "name": "Проведение телефонного интервью",
+              "color": "",
+              "order": 3,
+              "qr_code": null,
+              "currency": 120,
+              "level_id": 2,
+              "is_active": true,
+              "mentor_id": null,
+              "experience": 150,
+              "category_id": 2,
+              "description": "Организация и проведение телефонного собеседования с кандидатом. Оценка базовых компетенций и мотивации.",
+              "is_key_mission": true,
+              "time_to_complete": 2
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Проведение телефонного интервью"
+              },
+              "description": {
+                "text": "Организация и проведение телефонного собеседования с кандидатом. Оценка базовых компетенций и мотивации."
+              }
+            },
+            "shape": "mission",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 620,
+              "y": 440
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440008",
+            "data": {
+              "icon": null,
+              "name": "Членская карта Гильдии торговцев \"Зеро-Г\"",
+              "color": "#FFDF00",
+              "modifier": "SHOP_DISCOUNT",
+              "description": "Золотая карта элитной гильдии торговцев. Ее владельцы получают эксклюзивные скидки у всех поставщиков, аффилированных с Гильдией, по всей освоенной территории.",
+              "modifier_value": 15
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Членская карта Гильдии торговцев \"Зеро-Г\""
+              },
+              "description": {
+                "text": "Золотая карта элитной гильдии торговцев. Ее владельцы получают эксклюзивные скидки у всех поставщиков, аффилированных с Гильдией, по всей освоенной территории."
+              }
+            },
+            "shape": "artifact",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 1450,
+              "y": 600
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440047",
+            "data": {
+              "icon": null,
+              "name": "Поиск кандидатов в профессиональных соцсетях",
+              "color": "",
+              "order": 2,
+              "qr_code": null,
+              "currency": 100,
+              "level_id": 1,
+              "is_active": true,
+              "mentor_id": null,
+              "experience": 120,
+              "category_id": 2,
+              "description": "Активный поиск потенциальных кандидатов в LinkedIn и других профессиональных сетях. Составление первичного списка для контакта.",
+              "is_key_mission": false,
+              "time_to_complete": 5
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Поиск кандидатов в профессиональных соцсетях"
+              },
+              "description": {
+                "text": "Активный поиск потенциальных кандидатов в LinkedIn и других профессиональных сетях. Составление первичного списка для контакта."
+              }
+            },
+            "shape": "mission",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 360,
+              "y": 440
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440009",
+            "data": {
+              "icon": null,
+              "name": "Ключ доступа к сети \"Бартер-Сеть\"",
+              "color": "#FF4500",
+              "modifier": "SHOP_DISCOUNT",
+              "description": "Нелегальный децентрализованный чип, который подключается к теневой сети обмена между пилотами, ремонтниками и торговцами. Позволяет находить уникальные предложения и торговаться без лишних наценок.",
+              "modifier_value": 10
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Ключ доступа к сети \"Бартер-Сеть\""
+              },
+              "description": {
+                "text": "Нелегальный децентрализованный чип, который подключается к теневой сети обмена между пилотами, ремонтниками и торговцами. Позволяет находить уникальные предложения и торговаться без лишних наценок."
+              }
+            },
+            "shape": "artifact",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 1700,
+              "y": 380
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440046",
+            "data": {
+              "icon": null,
+              "name": "Составление профиля идеального кандидата",
+              "color": "",
+              "order": 1,
+              "qr_code": null,
+              "currency": 80,
+              "level_id": 1,
+              "is_active": true,
+              "mentor_id": null,
+              "experience": 100,
+              "category_id": 2,
+              "description": "Разработка детального описания требований к кандидату на конкретную позицию: hard и soft skills, опыт, личные качества.",
+              "is_key_mission": true,
+              "time_to_complete": 3
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Составление профиля идеального кандидата"
+              },
+              "description": {
+                "text": "Разработка детального описания требований к кандидату на конкретную позицию: hard и soft skills, опыт, личные качества."
+              }
+            },
+            "shape": "mission",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 100,
+              "y": 440
+            }
+          },
+          {
+            "id": "f0a4e3c8-9d9e-0e4f-c7f1-4e2b5a6d3c37",
+            "data": {
+              "icon": null,
+              "name": "Введение в квантовый рекрутинг",
+              "type": "event",
+              "color": "#4CAF50",
+              "qr_code": null,
+              "currency": 80,
+              "is_active": true,
+              "mentor_id": null,
+              "experience": 100,
+              "category_id": 1,
+              "description": "Базовый курс по использованию квантовых вычислений в подборе персонала.",
+              "start_datetime": "2026-03-01T10:00:00Z",
+              "required_number": 25,
+              "time_to_complete": 3
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Введение в квантовый рекрутинг"
+              },
+              "description": {
+                "text": "Базовый курс по использованию квантовых вычислений в подборе персонала."
+              }
+            },
+            "shape": "event",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 300,
+              "y": 680
+            }
+          },
+          {
+            "id": "b0c4a3d8-9e9f-0a4d-e7b1-4f2d5a6c3e27",
+            "data": {
+              "icon": null,
+              "name": "Стажировка в секторе Альфа",
+              "type": "event",
+              "color": "#4CAF50",
+              "qr_code": null,
+              "currency": 90,
+              "is_active": true,
+              "mentor_id": null,
+              "experience": 120,
+              "category_id": 1,
+              "description": "Программа обмена опытом с лучшими HR-специалистами сектора Альфа Центавра.",
+              "start_datetime": "2025-12-15T08:00:00Z",
+              "required_number": 20,
+              "time_to_complete": 7
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Стажировка в секторе Альфа"
+              },
+              "description": {
+                "text": "Программа обмена опытом с лучшими HR-специалистами сектора Альфа Центавра."
+              }
+            },
+            "shape": "event",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 300,
+              "y": 780
+            }
+          },
+          {
+            "id": "550e8400-e29b-41d4-a716-446655440030",
+            "data": {
+              "icon": null,
+              "name": "Неделя адаптации новых сотрудников",
+              "type": "event",
+              "color": "#00BCD4",
+              "qr_code": null,
+              "currency": 100,
+              "is_active": true,
+              "mentor_id": null,
+              "experience": 150,
+              "category_id": 5,
+              "description": "Комплекс мероприятий по интеграции новых членов команды: воркшопы, знакомство с процессами, менторские сессии и тимбилдинг.",
+              "start_datetime": "2025-11-01T09:00:00Z",
+              "required_number": 10,
+              "time_to_complete": 5
+            },
+            "size": {
+              "width": 250,
+              "height": 80
+            },
+            "attrs": {
+              "title": {
+                "text": "Неделя адаптации новых сотрудников"
+              },
+              "description": {
+                "text": "Комплекс мероприятий по интеграции новых членов команды: воркшопы, знакомство с процессами, менторские сессии и тимбилдинг."
+              }
+            },
+            "shape": "event",
+            "zIndex": 2,
+            "z_index": 1,
+            "position": {
+              "x": 300,
+              "y": 880
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440064",
+      "image": "",
+      "text": "В далеком будущем человечество освоило межзвездные перелеты и основало Альянс Колониальных Корпораций. Наша компания - одна из первых, кто отправился к звездам в поисках новых талантов и возможностей. Мы - первопроходцы космического рекрутинга, открывающие двери для лучших специалистов со всех уголков галактики.",
+      "game_world": 1,
+      "content_type": 24,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440065",
+      "image": "",
+      "text": "Каждый новый сотрудник - это как новый член экипажа космического корабля. Его интеграция в команду требует тщательной подготовки и поддержки. Система наставничества позволяет плавно ввести новичка в рабочий процесс, подобно тому как опытный пилот обучает штурмана основам космической навигации.",
+      "game_world": 1,
+      "content_type": 24,
+      "object_id": 7
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440066",
+      "image": "",
+      "text": "Процесс рекрутинга сравним с поиском редких артефактов на неизведанных планетах. Каждый кандидат - уникальная находка, требующая особого подхода и экспертной оценки. Наши рекрутеры подобны археологам, раскрывающим скрытый потенциал каждого специалиста.",
+      "game_world": 1,
+      "content_type": 25,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440067",
+      "image": "",
+      "text": "Проведение собеседования - это искусство дипломатии и анализа. Как межзвездные переговоры, успешное интервью требует подготовки, эмпатии и стратегического мышления. Каждое решение влияет на будущее всей команды и компании.",
+      "game_world": 1,
+      "content_type": 25,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440068",
+      "image": "",
+      "text": "Развитие HR-бренда компании подобно созданию репутации межзвездной корпорации. Каждый отзыв, каждая публикация и мероприятие укрепляет наш статус на галактическом рынке труда. Мы строим мосты между талантами и возможностями.",
+      "game_world": 1,
+      "content_type": 28,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440069",
+      "image": "",
+      "text": "Адаптация новых сотрудников - это как стыковка космического корабля с орбитальной станцией. Процесс требует точности, внимания к деталям и постоянной поддержки. Успешная интеграция гарантирует плавный переход в рабочий ритм команды.",
+      "game_world": 1,
+      "content_type": 28,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "c9d3c2d7-8c8d-9d3d-f6e0-3d1f5c6c4c94",
+      "image": "",
+      "text": "HR-аналитика в эпоху квантовых вычислений превратилась в точную науку. Предсказательные модели позволяют не только оценивать текущее состояние команды, но и прогнозировать её развитие на годы вперед, учитывая тысячи переменных.",
+      "game_world": 1,
+      "content_type": 39,
+      "object_id": 16
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "d0e4d3e8-9d9e-0e4e-a7f1-4e2f6d7d5d95",
+      "image": "",
+      "text": "Первый день нового члена экипажа - это начало космической одиссеи. Каждый новичок проходит через ритуал посвящения, получая свой идентификатор пилота и доступ к системам корабля. Это момент, когда мечта становится реальностью.",
+      "game_world": 1,
+      "content_type": 34,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 13,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "e1f5e4f9-0e0f-1f5f-b8a2-5e3c8e8e6e96",
+      "image": "",
+      "text": "Межпланетный рекрутинг открыл новую эру в поиске талантов. Теперь специалисты с Марса работают бок о бок с жителями Европы и астероидного пояса, создавая уникальный сплав культур и подходов к решению задач.",
+      "game_world": 1,
+      "content_type": 39,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 14,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "f2a6f5a0-1f1f-2a6f-c9b3-6f4d9f9f7f97",
+      "image": "",
+      "text": "Образовательные порталы с голографическими преподавателями стали стандартом корпоративного обучения. Теперь каждый сотрудник может учиться у лучших экспертов галактики, не покидая своего рабочего места на орбитальной станции.",
+      "game_world": 1,
+      "content_type": 34,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 15,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a3b7a6b1-2a2b-3b7c-d0c4-7f5e0a0a8a98",
+      "image": "",
+      "text": "Виртуальные HR-амбассадоры стали лицом корпораций в межзвездном пространстве. Эти AI-сущности способны одновременно проводить тысячи интервью на разных языках и в разных временных зонах, не теряя при этом человеческого подхода.",
+      "game_world": 1,
+      "content_type": 39,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "game_world.gameworldstory",
+    "pk": 16,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "b4c8b7c2-3b3c-4c8d-e1d5-8a6f1b1b9b99",
+      "image": "",
+      "text": "Адаптация к невесомости - это не только физический, но и психологический вызов. Специальные программы подготовки учат будущих космических работников мыслить и действовать в трёх измерениях, где понятия 'верх' и 'низ' теряют свой привычный смысл.",
+      "game_world": 1,
+      "content_type": 28,
+      "object_id": 4
+    }
+  },
+  {
+    "model": "game_world.mission",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440046",
+      "name": "Составление профиля идеального кандидата",
+      "description": "Разработка детального описания требований к кандидату на конкретную позицию: hard и soft skills, опыт, личные качества.",
+      "experience": 100,
+      "currency": 80,
+      "icon": "",
+      "color": "",
+      "order": 1,
+      "is_key_mission": true,
+      "is_active": true,
+      "time_to_complete": 3,
+      "qr_code": "",
+      "branch": 1,
+      "level": 1,
+      "category": 2,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.mission",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440047",
+      "name": "Поиск кандидатов в профессиональных соцсетях",
+      "description": "Активный поиск потенциальных кандидатов в LinkedIn и других профессиональных сетях. Составление первичного списка для контакта.",
+      "experience": 120,
+      "currency": 100,
+      "icon": "",
+      "color": "",
+      "order": 2,
+      "is_key_mission": false,
+      "is_active": true,
+      "time_to_complete": 5,
+      "qr_code": "",
+      "branch": 1,
+      "level": 1,
+      "category": 2,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.mission",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440048",
+      "name": "Проведение телефонного интервью",
+      "description": "Организация и проведение телефонного собеседования с кандидатом. Оценка базовых компетенций и мотивации.",
+      "experience": 150,
+      "currency": 120,
+      "icon": "",
+      "color": "",
+      "order": 3,
+      "is_key_mission": true,
+      "is_active": true,
+      "time_to_complete": 2,
+      "qr_code": "",
+      "branch": 1,
+      "level": 2,
+      "category": 2,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.mission",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440049",
+      "name": "Подготовка welcome-пакета для новичка",
+      "description": "Сбор всей необходимой информации и материалов для нового сотрудника: доступы, документация, контакты, сувенирная продукция.",
+      "experience": 80,
+      "currency": 60,
+      "icon": "",
+      "color": "",
+      "order": 1,
+      "is_key_mission": true,
+      "is_active": true,
+      "time_to_complete": 2,
+      "qr_code": "",
+      "branch": 2,
+      "level": 1,
+      "category": 5,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.mission",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440050",
+      "name": "Проведение ознакомительной экскурсии",
+      "description": "Организация экскурсии по офису для нового сотрудника, знакомство с коллегами и рабочими зонами.",
+      "experience": 60,
+      "currency": 50,
+      "icon": "",
+      "color": "",
+      "order": 2,
+      "is_key_mission": false,
+      "is_active": true,
+      "time_to_complete": 1,
+      "qr_code": "",
+      "branch": 2,
+      "level": 1,
+      "category": 5,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.mission",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440051",
+      "name": "Написание отзыва о компании на порталах",
+      "description": "Создание качественного и информативного отзыва о работе в компании на популярных порталах для работодателей.",
+      "experience": 90,
+      "currency": 70,
+      "icon": "",
+      "color": "",
+      "order": 1,
+      "is_key_mission": false,
+      "is_active": true,
+      "time_to_complete": 1,
+      "qr_code": "",
+      "branch": 3,
+      "level": 1,
+      "category": 9,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.mission",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440052",
+      "name": "Подготовка контента для HR-блога",
+      "description": "Написание статьи или создание презентации о карьерных возможностях в компании для публикации в корпоративном блоге.",
+      "experience": 180,
+      "currency": 150,
+      "icon": "",
+      "color": "",
+      "order": 2,
+      "is_key_mission": true,
+      "is_active": true,
+      "time_to_complete": 5,
+      "qr_code": "",
+      "branch": 3,
+      "level": 2,
+      "category": 9,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.mission",
+    "pk": 18,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "e1f5e4e9-0d0e-1e5f-b8f2-5d3b7d8d6c66",
+      "name": "Первый день в корпорации",
+      "description": "Прохождение всех обязательных процедур первого рабочего дня нового сотрудника.",
+      "experience": 50,
+      "currency": 40,
+      "icon": "",
+      "color": "",
+      "order": 1,
+      "is_key_mission": true,
+      "is_active": true,
+      "time_to_complete": 1,
+      "qr_code": "",
+      "branch": 9,
+      "level": 1,
+      "category": 1,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.mission",
+    "pk": 19,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "f2a6f5f0-1e1f-2f6a-c9a3-6d4c8e9e7d67",
+      "name": "Знакомство с командой",
+      "description": "Участие в серии встреч для знакомства с коллегами и понимания структуры команды.",
+      "experience": 70,
+      "currency": 55,
+      "icon": "",
+      "color": "",
+      "order": 2,
+      "is_key_mission": false,
+      "is_active": true,
+      "time_to_complete": 2,
+      "qr_code": "",
+      "branch": 9,
+      "level": 1,
+      "category": 1,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.missionartifact",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440053",
+      "mission": 3,
+      "artifact": 9
+    }
+  },
+  {
+    "model": "game_world.missionartifact",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440054",
+      "mission": 7,
+      "artifact": 8
+    }
+  },
+  {
+    "model": "game_world.missionbranch",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440043",
+      "name": "Основы рекрутинга",
+      "description": "Ветка миссий для освоения базовых навыков подбора персонала: от поиска кандидатов до проведения первых собеседований.",
+      "icon": "",
+      "color": "#2196F3",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_complete": 30,
+      "rank": 1,
+      "category": 2,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.missionbranch",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440044",
+      "name": "Адаптация и онбординг",
+      "description": "Ветка миссий по интеграции новых сотрудников в компанию и созданию комфортной рабочей среды.",
+      "icon": "",
+      "color": "#00BCD4",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_complete": 21,
+      "rank": 2,
+      "category": 5,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.missionbranch",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440045",
+      "name": "HR-бренд и коммуникации",
+      "description": "Ветка миссий по развитию HR-бренда компании и улучшению внутренних коммуникаций.",
+      "icon": "",
+      "color": "#795548",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_complete": 45,
+      "rank": 3,
+      "category": 9,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.missionbranch",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "b6c0b9e4-5f5a-6a0e-e3c7-0e8f2d3d1f51",
+      "name": "Квестовая линия новичка",
+      "description": "Специальная ветка миссий для полного погружения новых сотрудников в культуру компании.",
+      "icon": "",
+      "color": "#4CAF50",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_complete": 14,
+      "rank": 1,
+      "category": 1,
+      "mentor": null,
+      "game_world": 1
+    }
+  },
+  {
+    "model": "game_world.missioncompetency",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440055",
+      "mission": 1,
+      "competency": 7,
+      "experience": 15
+    }
+  },
+  {
+    "model": "game_world.missioncompetency",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440056",
+      "mission": 2,
+      "competency": 5,
+      "experience": 10
+    }
+  },
+  {
+    "model": "game_world.missioncompetency",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440057",
+      "mission": 3,
+      "competency": 5,
+      "experience": 20
+    }
+  },
+  {
+    "model": "game_world.missioncompetency",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440058",
+      "mission": 3,
+      "competency": 7,
+      "experience": 15
+    }
+  },
+  {
+    "model": "game_world.missioncompetency",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440059",
+      "mission": 4,
+      "competency": 1,
+      "experience": 10
+    }
+  },
+  {
+    "model": "game_world.missioncompetency",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440060",
+      "mission": 5,
+      "competency": 5,
+      "experience": 8
+    }
+  },
+  {
+    "model": "game_world.missioncompetency",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440061",
+      "mission": 6,
+      "competency": 5,
+      "experience": 12
+    }
+  },
+  {
+    "model": "game_world.missioncompetency",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440062",
+      "mission": 7,
+      "competency": 5,
+      "experience": 25
+    }
+  },
+  {
+    "model": "game_world.missioncompetency",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440063",
+      "mission": 7,
+      "competency": 9,
+      "experience": 20
+    }
+  },
+  {
+    "model": "game_world.missioncompetency",
+    "pk": 15,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "f0a4f3f8-9e9f-0f4a-c7b1-4e2e6e7e5f85",
+      "mission": 18,
+      "competency": 1,
+      "experience": 8
+    }
+  },
+  {
+    "model": "game_world.missionlevel",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440023",
+      "name": "Простой",
+      "description": "Базовые задачи для новичков. Не требуют специальных навыков и занимают мало времени.",
+      "icon": "",
+      "color": "#4CAF50",
+      "multiplier_experience": 100,
+      "multiplier_currency": 100
+    }
+  },
+  {
+    "model": "game_world.missionlevel",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440024",
+      "name": "Средний",
+      "description": "Задачи средней сложности. Требуют некоторых знаний и опыта, время выполнения умеренное.",
+      "icon": "",
+      "color": "#2196F3",
+      "multiplier_experience": 150,
+      "multiplier_currency": 150
+    }
+  },
+  {
+    "model": "game_world.missionlevel",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440025",
+      "name": "Сложный",
+      "description": "Серьёзные задачи, требующие профессиональных навыков. Занимают значительное время и усилия.",
+      "icon": "",
+      "color": "#FF9800",
+      "multiplier_experience": 250,
+      "multiplier_currency": 250
+    }
+  },
+  {
+    "model": "game_world.missionlevel",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440026",
+      "name": "Экспертный",
+      "description": "Задачи высшего уровня сложности. Требуют экспертных знаний и могут занимать несколько дней.",
+      "icon": "",
+      "color": "#F44336",
+      "multiplier_experience": 400,
+      "multiplier_currency": 400
+    }
+  },
+  {
+    "model": "game_world.missionlevel",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z",
+      "uuid": "550e8400-e29b-41d4-a716-446655440027",
+      "name": "Легендарный",
+      "description": "Исключительно сложные миссии, доступные только лучшим из лучших. Требуют максимальной отдачи и специализированных навыков.",
+      "icon": "",
+      "color": "#9C27B0",
+      "multiplier_experience": 600,
+      "multiplier_currency": 600
+    }
+  },
+  {
+    "model": "shop.characterpurchase",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-30T09:58:17.342Z",
+      "updated_at": "2025-09-30T09:58:17.342Z",
+      "uuid": "31eb09d6-9a03-4007-81ae-00d56a33bebb",
+      "price": 12,
+      "number": 12,
+      "discount": 0,
+      "total_sum": 144,
+      "status": "PENDING",
+      "additional_info": "12",
+      "buyer": 8,
+      "shop_item": 24,
+      "manager": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "8a10047f-036e-40a2-bf06-1d9c33245f4e",
+      "name": "Футболка 'Кодер'",
+      "description": "Стильная хлопковая футболка с принтом кода на спине",
+      "price": 1500,
+      "number": 100,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 1,
+      "parent": null,
+      "rank": null,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "f6ac12cc-7f97-4e05-a1ee-c9298f30dcb0",
+      "name": "Билет на концерт Imagine Dragons",
+      "description": "Билет на концерт в Лужниках, сектор A, ряд 5",
+      "price": 5000,
+      "number": 50,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 2,
+      "parent": null,
+      "rank": null,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "c1dc3570-defc-4570-afdd-4543ded0602c",
+      "name": "Скидка 20% в М.Видео",
+      "description": "Скидка на всю бытовую технику в магазинах М.Видео",
+      "price": 3000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 3,
+      "parent": null,
+      "rank": null,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "0a324a7d-8b3d-43ff-bf34-dcd18ecb1c82",
+      "name": "Курс Python для начинающих",
+      "description": "Базовый курс по программированию на Python",
+      "price": 10000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 4,
+      "parent": null,
+      "rank": null,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "be582bd1-6f1f-4c22-ab5a-7ac54a654592",
+      "name": "Младший разработчик (Уровень 1)",
+      "description": "Начальный уровень разработчика с базовыми навыками",
+      "price": 15000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 4,
+      "parent": null,
+      "rank": 1,
+      "competency": 1
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "b79f2b30-46cc-466b-9ac8-65d1119247fd",
+      "name": "Разработчик (Уровень 2)",
+      "description": "Продвинутый уровень разработчика с углубленными знаниями",
+      "price": 25000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 4,
+      "parent": 5,
+      "rank": 2,
+      "competency": 2
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "a8495f82-6d31-4a65-b6df-fdf70838009e",
+      "name": "Старший разработчик (Уровень 3)",
+      "description": "Экспертный уровень с лидерскими качествами",
+      "price": 40000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 4,
+      "parent": 6,
+      "rank": 3,
+      "competency": 3
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "658e3e70-39a4-42d0-baee-a904874d2cdc",
+      "name": "Тимлид (Уровень 4)",
+      "description": "Уровень управления командой разработки",
+      "price": 60000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 4,
+      "parent": 7,
+      "rank": null,
+      "competency": 4
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "b63b17d5-e4f3-4d4b-95f1-cb5291fe1f98",
+      "name": "Базовые алгоритмы",
+      "description": "Основные алгоритмы и структуры данных",
+      "price": 8000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 4,
+      "parent": null,
+      "rank": 1,
+      "competency": 5
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "1823a9cf-6198-4fce-880a-ea70ddebcb5d",
+      "name": "Продвинутые алгоритмы",
+      "description": "Сложные алгоритмы и оптимизация",
+      "price": 15000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 4,
+      "parent": 9,
+      "rank": 2,
+      "competency": 6
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "b81fc13e-a8ce-498c-afd2-c7dae0384083",
+      "name": "Кепка 'Программист'",
+      "description": "Стильная кепка с логотипом языка программирования",
+      "price": 800,
+      "number": 75,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 1,
+      "parent": null,
+      "rank": null,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "1c50013a-d1bf-4f7f-abd1-10b6e24a915e",
+      "name": "Билет на IT-конференцию",
+      "description": "Билет на годовую IT-конференцию с участием топ-спикеров",
+      "price": 7000,
+      "number": 30,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 2,
+      "parent": null,
+      "rank": null,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 13,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "44a83882-1a1d-4703-b307-3d7f95b550d6",
+      "name": "Скидка 15% на технику Apple",
+      "description": "Скидка на всю технику Apple в М.Видео",
+      "price": 5000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 3,
+      "parent": null,
+      "rank": null,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 14,
+    "fields": {
+      "created_at": "2025-01-27T08:00:00Z",
+      "updated_at": "2025-01-27T08:00:00Z",
+      "uuid": "b5b42d6c-e684-4cae-aef0-be93673224b0",
+      "name": "Архитектор систем (Уровень 5)",
+      "description": "Уровень проектирования сложных систем",
+      "price": 80000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 4,
+      "parent": 8,
+      "rank": null,
+      "competency": 7
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 15,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "d8ac4890-818c-456e-a541-4978725d3bc3",
+      "name": "Панама",
+      "description": "Модная панама с атрибутикой компании",
+      "price": 5000,
+      "number": 20,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 1,
+      "parent": null,
+      "rank": 3,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 16,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "ddd05b8c-6090-4117-acb6-705afbef0c57",
+      "name": "Билет на HR-саммит",
+      "description": "VIP-билет на главное HR-событие года с участием лидеров индустрии",
+      "price": 15000,
+      "number": 10,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 2,
+      "parent": null,
+      "rank": null,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 17,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "5551af85-a28a-4667-8685-0fdef4ec8ea5",
+      "name": "Подписка на фитнес",
+      "description": "Годовая подписка на занятия в зале с антигравитационными тренажерами",
+      "price": 8000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 3,
+      "parent": null,
+      "rank": null,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 18,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "bc6408fb-d8d2-4715-ace4-b94ac7788545",
+      "name": "Курс переговоров",
+      "description": "Интенсивный курс по правильному ведению переговоров",
+      "price": 20000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 4,
+      "parent": null,
+      "rank": null,
+      "competency": 5
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 19,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "dd841adf-0be4-4e18-9295-ffcbbfc4958a",
+      "name": "Теплые носки",
+      "description": "Носки с атрибутикой компании",
+      "price": 2500,
+      "number": 5,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 1,
+      "parent": null,
+      "rank": null,
+      "competency": 7
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 20,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "47464a41-716d-43ea-82db-1616ee72b2b9",
+      "name": "Спортивная сумка",
+      "description": "Спортивная сумка с атрибутикой компании",
+      "price": 18000,
+      "number": 15,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 1,
+      "parent": null,
+      "rank": 3,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 21,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "f769978e-297d-4c97-9907-d6a9e68c8d86",
+      "name": "Сертификат на полёт к астероидам",
+      "description": "Экскурсия в самый современный музей по астрономии",
+      "price": 50000,
+      "number": 3,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 2,
+      "parent": null,
+      "rank": null,
+      "competency": 17
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 22,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "29d6ad55-fb24-4db9-a8bd-1b2787d36ed4",
+      "name": "Скидка 30% на питание",
+      "description": "Месячная скидка на 3-х разовое питание",
+      "price": 4000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 3,
+      "parent": null,
+      "rank": 2,
+      "competency": null
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 23,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "988b7564-698b-45f0-9bee-a64450530fe4",
+      "name": "Мастер-класс по лепке",
+      "description": "Эксклюзивная серия занятий по лепке из пластилина и глины",
+      "price": 35000,
+      "number": 0,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 4,
+      "parent": null,
+      "rank": null,
+      "competency": 9
+    }
+  },
+  {
+    "model": "shop.shopitem",
+    "pk": 24,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "cbc8bd89-a193-4a3a-996b-9d95feabaa91",
+      "name": "Рюкзак",
+      "description": "Рюкзак с атрибутикой компании",
+      "price": 3000,
+      "number": 8,
+      "image": "",
+      "is_active": true,
+      "start_datetime": null,
+      "time_to_buy": null,
+      "purchase_restriction": null,
+      "category": 1,
+      "parent": null,
+      "rank": null,
+      "competency": 13
+    }
+  },
+  {
+    "model": "shop.shopitemcategory",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "uuid": "1e90516a-6a8f-465c-aae1-0c300e465306",
+      "name": "Мерч",
+      "description": "Фирменный мерч",
+      "icon": "",
+      "color": "",
+      "purchase_restriction": null
+    }
+  },
+  {
+    "model": "shop.shopitemcategory",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "uuid": "58fe52c2-9f21-4dc5-9033-3711c54ef51e",
+      "name": "Билет",
+      "description": "Билет на концерт",
+      "icon": "",
+      "color": "",
+      "purchase_restriction": null
+    }
+  },
+  {
+    "model": "shop.shopitemcategory",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "uuid": "36f65f85-c829-445d-b7a6-abe406799446",
+      "name": "Бонус",
+      "description": "Бонус на покупку бытовой техники в М.Видео",
+      "icon": "",
+      "color": "",
+      "purchase_restriction": null
+    }
+  },
+  {
+    "model": "shop.shopitemcategory",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-27T07:56:32.528Z",
+      "updated_at": "2025-01-27T07:56:32.528Z",
+      "uuid": "df2ee589-3ff2-414f-ad7a-4c8f39147206",
+      "name": "Крусы",
+      "description": "Любой курс в ИТ",
+      "icon": "",
+      "color": "",
+      "purchase_restriction": null
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-29T16:09:09.432Z",
+      "updated_at": "2025-09-29T16:09:09.432Z",
+      "uuid": "b7765ff3-efcc-4249-a0c2-ad5f45936c4e",
+      "text": "Добро пожаловать. Вам присвоен ранг: Новичок. Выполняйте миссии для его повышения и получения новых наград",
+      "is_read": false,
+      "character": 8,
+      "content_type": 23,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-30T11:50:40.917Z",
+      "updated_at": "2025-09-30T11:50:40.919Z",
+      "uuid": "e9219661-4fb2-4ddc-b286-48359fb80793",
+      "text": "Добро пожаловать. Вам присвоен ранг: Новичок. Выполняйте миссии для его повышения и получения новых наград",
+      "is_read": false,
+      "character": 9,
+      "content_type": 23,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-09-30T22:37:45.016Z",
+      "updated_at": "2025-09-30T22:37:45.016Z",
+      "uuid": "4acc65e1-c4b9-45a3-a736-9120b4989c2f",
+      "text": "Вы успешно завершили миссию Составление профиля идеального кандидата. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 21,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-09-30T22:37:45.040Z",
+      "updated_at": "2025-09-30T22:37:45.040Z",
+      "uuid": "c666d2fc-5863-4dd4-a489-d9cc499b90b0",
+      "text": "У вас максимальный ранг Новичок. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 25,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-09-30T22:37:50.740Z",
+      "updated_at": "2025-09-30T22:37:50.740Z",
+      "uuid": "4a277684-8eff-4208-ac67-0a2be215ad6f",
+      "text": "Вы успешно завершили миссию Составление профиля идеального кандидата. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 21,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-09-30T22:37:50.767Z",
+      "updated_at": "2025-09-30T22:37:50.767Z",
+      "uuid": "f0837f8d-6f95-436d-b3ed-4d0506221030",
+      "text": "У вас максимальный ранг Новичок. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 25,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-09-30T22:38:03.359Z",
+      "updated_at": "2025-10-01T11:19:56.959Z",
+      "uuid": "915567af-e763-48d1-a7f8-4a073a1765da",
+      "text": "Вы успешно завершили миссию Составление профиля идеального кандидата. Поздравляем!",
+      "is_read": false,
+      "character": 9,
+      "content_type": 21,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 13,
+    "fields": {
+      "created_at": "2025-09-30T22:38:03.383Z",
+      "updated_at": "2025-09-30T22:38:03.383Z",
+      "uuid": "9ed20bc6-4694-41a5-9809-a78e9e8a7721",
+      "text": "У вас максимальный ранг Новичок. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 25,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 14,
+    "fields": {
+      "created_at": "2025-09-30T22:38:29.800Z",
+      "updated_at": "2025-09-30T22:38:29.800Z",
+      "uuid": "a188c1d9-446b-46ff-982f-00463c6c27df",
+      "text": "По миссии Поиск кандидатов в профессиональных соцсетях требуются доработки.",
+      "is_read": false,
+      "character": 8,
+      "content_type": 21,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 15,
+    "fields": {
+      "created_at": "2025-09-30T22:47:34.109Z",
+      "updated_at": "2025-09-30T22:47:34.109Z",
+      "uuid": "9da43e9e-e4bb-47db-8b04-cfe257b3854d",
+      "text": "Вы успешно завершили миссию Составление профиля идеального кандидата. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 21,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 16,
+    "fields": {
+      "created_at": "2025-09-30T22:47:34.140Z",
+      "updated_at": "2025-09-30T22:47:34.140Z",
+      "uuid": "d99f7d79-316e-4a2a-a547-95197aa7090b",
+      "text": "У вас максимальный ранг Новичок. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 25,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 17,
+    "fields": {
+      "created_at": "2025-09-30T22:53:35.007Z",
+      "updated_at": "2025-09-30T22:53:35.007Z",
+      "uuid": "4fc77e8c-0ef7-46f4-9b22-b6eb017cc493",
+      "text": "Вы успешно завершили миссию Поиск кандидатов в профессиональных соцсетях. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 21,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 18,
+    "fields": {
+      "created_at": "2025-09-30T22:53:35.017Z",
+      "updated_at": "2025-09-30T22:53:35.017Z",
+      "uuid": "89184164-e42a-4b71-94c4-c984463ed902",
+      "text": "Вы успешно завершили миссию Ключ доступа к сети \"Бартер-Сеть\". Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 18,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 19,
+    "fields": {
+      "created_at": "2025-09-30T22:53:35.042Z",
+      "updated_at": "2025-09-30T22:53:35.042Z",
+      "uuid": "be440771-5b88-4310-91f6-13c0a7944758",
+      "text": "У вас максимальный ранг Новичок. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 25,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 20,
+    "fields": {
+      "created_at": "2025-09-30T22:53:42.012Z",
+      "updated_at": "2025-09-30T22:53:42.012Z",
+      "uuid": "13b9c78c-bfbe-4a1a-9a27-ff1ae87924dd",
+      "text": "Вы успешно завершили миссию Проведение телефонного интервью. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 21,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 21,
+    "fields": {
+      "created_at": "2025-09-30T22:53:42.019Z",
+      "updated_at": "2025-10-01T11:19:53.776Z",
+      "uuid": "f35eaa2e-0f59-49e9-b0ae-cc0f35977206",
+      "text": "Вы успешно завершили миссию Членская карта Гильдии торговцев \"Зеро-Г\". Поздравляем!",
+      "is_read": false,
+      "character": 9,
+      "content_type": 18,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 22,
+    "fields": {
+      "created_at": "2025-09-30T22:53:42.046Z",
+      "updated_at": "2025-09-30T22:53:42.046Z",
+      "uuid": "93addb23-4914-44c0-bd2f-99621fa5680b",
+      "text": "У вас максимальный ранг Новичок. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 25,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 23,
+    "fields": {
+      "created_at": "2025-09-30T23:08:50.305Z",
+      "updated_at": "2025-09-30T23:08:50.305Z",
+      "uuid": "73906172-c16c-4bef-9dc7-779d275709d5",
+      "text": "По событию Неделя адаптации новых сотрудников требуются доработки.",
+      "is_read": false,
+      "character": 8,
+      "content_type": 20,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 24,
+    "fields": {
+      "created_at": "2025-09-30T23:09:01.832Z",
+      "updated_at": "2025-09-30T23:09:01.832Z",
+      "uuid": "31c46717-bb73-473f-a0d2-17ff4c19b268",
+      "text": "Вы успешно завершили событие Стажировка в секторе Альфа. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 20,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 25,
+    "fields": {
+      "created_at": "2025-09-30T23:09:01.863Z",
+      "updated_at": "2025-09-30T23:09:01.863Z",
+      "uuid": "5600b19c-984b-42fc-9e3f-19dba25f3e5a",
+      "text": "У вас максимальный ранг Новичок. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 25,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 26,
+    "fields": {
+      "created_at": "2025-09-30T23:09:07.522Z",
+      "updated_at": "2025-09-30T23:09:07.522Z",
+      "uuid": "16c17fd0-04c2-48a3-af16-509ef166f8dd",
+      "text": "По событию Неделя адаптации новых сотрудников требуются доработки.",
+      "is_read": false,
+      "character": 8,
+      "content_type": 20,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 27,
+    "fields": {
+      "created_at": "2025-09-30T23:09:11.594Z",
+      "updated_at": "2025-09-30T23:09:11.594Z",
+      "uuid": "3694c9ff-bdcc-41a2-ade4-ad3703da8102",
+      "text": "Вы успешно завершили событие Введение в квантовый рекрутинг. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 20,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 28,
+    "fields": {
+      "created_at": "2025-09-30T23:09:11.615Z",
+      "updated_at": "2025-10-01T11:19:50.809Z",
+      "uuid": "55b198f3-822e-484c-b522-12ef77dbf8df",
+      "text": "У вас максимальный ранг Новичок. Поздравляем!",
+      "is_read": false,
+      "character": 9,
+      "content_type": 25,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 30,
+    "fields": {
+      "created_at": "2025-09-30T23:12:46.996Z",
+      "updated_at": "2025-09-30T23:12:46.996Z",
+      "uuid": "2e9016a0-d505-441e-9275-233eaa69fc77",
+      "text": "Вы успешно завершили событие Неделя адаптации новых сотрудников. Поздравляем!",
+      "is_read": false,
+      "character": 8,
+      "content_type": 20,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 31,
+    "fields": {
+      "created_at": "2025-09-30T23:12:47.012Z",
+      "updated_at": "2025-09-30T23:12:47.012Z",
+      "uuid": "2cb28691-903e-40d9-b9a7-71ba8c842cca",
+      "text": "У вас новая компетенция Общение. Поздравляем!Улучшайте свои навыки для получения новых наград",
+      "is_read": false,
+      "character": 8,
+      "content_type": 19,
+      "object_id": 19
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 32,
+    "fields": {
+      "created_at": "2025-09-30T23:12:47.017Z",
+      "updated_at": "2025-10-01T11:19:48.134Z",
+      "uuid": "f4f89c73-3135-4081-af39-4f34f50cfe74",
+      "text": "У вас новая компетенция Общение. Поздравляем!Улучшайте свои навыки для получения новых наград",
+      "is_read": false,
+      "character": 9,
+      "content_type": 19,
+      "object_id": 20
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 33,
+    "fields": {
+      "created_at": "2025-09-30T23:12:47.034Z",
+      "updated_at": "2025-10-01T11:19:43.977Z",
+      "uuid": "375ed8af-53e9-4716-8b8d-151467e41150",
+      "text": "У вас максимальный ранг Новичок. Поздравляем!",
+      "is_read": false,
+      "character": 9,
+      "content_type": 25,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "communication.activitylog",
+    "pk": 34,
+    "fields": {
+      "created_at": "2025-10-02T19:16:52.137Z",
+      "updated_at": "2025-10-02T19:16:52.137Z",
+      "uuid": "a7663cde-0c40-4547-ac7a-90c2f3ba7f83",
+      "text": "Добро пожаловать. Вам присвоен ранг: Новичок. Выполняйте миссии для его повышения и получения новых наград",
+      "is_read": false,
+      "character": 10,
+      "content_type": 23,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-06T09:00:00Z",
+      "updated_at": "2025-01-06T09:00:00Z",
+      "uuid": "7ad05c95-d3ab-453b-9054-65b13a0c5f1a",
+      "image": "",
+      "name": "Добро пожаловать в новую эру!",
+      "text": "Мы официально открылись и рады видеть всех участников!",
+      "character": 4,
+      "topic": 1
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-07T10:00:00Z",
+      "updated_at": "2025-01-07T10:00:00Z",
+      "uuid": "fc94f991-4e38-4d3e-8591-b67203781c4a",
+      "image": "",
+      "name": "Изменения в структуре отделов",
+      "text": "Утверждена новая иерархия внутри команды.",
+      "character": 4,
+      "topic": 1
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-08T11:00:00Z",
+      "updated_at": "2025-01-08T11:00:00Z",
+      "uuid": "b39e4b2b-6492-4080-b62c-c6fd06075e4f",
+      "image": "",
+      "name": "Расписание собраний",
+      "text": "Собрания теперь будут проходить каждый понедельник в 20:00.",
+      "character": 4,
+      "topic": 2
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-09T12:00:00Z",
+      "updated_at": "2025-01-09T12:00:00Z",
+      "uuid": "d2a978f7-589d-4ab2-8262-99dc9fa8a515",
+      "image": "",
+      "name": "Полезные команды в чате",
+      "text": "Вот список команд, которые помогут вам ориентироваться.",
+      "character": 4,
+      "topic": 3
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-10T13:00:00Z",
+      "updated_at": "2025-01-10T13:00:00Z",
+      "uuid": "81b90bcd-3ef9-44a5-873e-c7b2aa032d6b",
+      "image": "",
+      "name": "Как присоединиться к ивенту",
+      "text": "Инструкция по участию в ближайших мероприятиях.",
+      "character": 4,
+      "topic": 5
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 6,
+    "fields": {
+      "created_at": "2025-01-11T14:00:00Z",
+      "updated_at": "2025-01-11T14:00:00Z",
+      "uuid": "f2d2f5df-f1dc-4327-b5e3-d2d98913a5a7",
+      "image": "",
+      "name": "Обновление сервера",
+      "text": "Сегодня был установлен новый патч с исправлениями.",
+      "character": 4,
+      "topic": 4
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 7,
+    "fields": {
+      "created_at": "2025-01-12T15:00:00Z",
+      "updated_at": "2025-01-12T15:00:00Z",
+      "uuid": "6ecdfabb-1b71-4a56-a694-77d7e21fa842",
+      "image": "",
+      "name": "Список изменений",
+      "text": "Внесены следующие изменения в баланс персонажей...",
+      "character": 4,
+      "topic": 4
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 8,
+    "fields": {
+      "created_at": "2025-01-13T16:00:00Z",
+      "updated_at": "2025-01-13T16:00:00Z",
+      "uuid": "7b33b086-eaf9-4af0-8328-83946df23ef4",
+      "image": "",
+      "name": "Советы по выживанию",
+      "text": "Никогда не забудьте взять еду перед выходом в зону!",
+      "character": 4,
+      "topic": 3
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 9,
+    "fields": {
+      "created_at": "2025-01-14T17:00:00Z",
+      "updated_at": "2025-01-14T17:00:00Z",
+      "uuid": "885e9c64-cc53-4d66-bb2f-70ea7f147b4b",
+      "image": "",
+      "name": "Результаты последнего ивента",
+      "text": "Поздравляем победителей и благодарим всех участников!",
+      "character": 4,
+      "topic": 5
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 10,
+    "fields": {
+      "created_at": "2025-01-15T18:00:00Z",
+      "updated_at": "2025-01-15T18:00:00Z",
+      "uuid": "8c9fc31f-98ef-4f69-937e-1c1e3cd89b57",
+      "image": "",
+      "name": "Новый отдел логистики",
+      "text": "Создан новый отдел, отвечающий за снабжение базы.",
+      "character": 4,
+      "topic": 2
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 11,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "d4c8e7f2-9a3b-4e8c-b1d5-2f9c8e4a7b11",
+      "image": "",
+      "name": "Запуск программы менторства",
+      "text": "С гордостью объявляем о запуске межзвёздной программы менторства для новых пилотов.",
+      "character": 4,
+      "topic": 1
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 12,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "e5f9d8a3-4b4c-5f9d-c2e6-3a0d9f5b8c12",
+      "image": "",
+      "name": "Новый корпоративный шаттл",
+      "text": "Теперь доступен прямой шаттл между орбитальными офисами Марса и Европы.",
+      "character": 4,
+      "topic": 2
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 13,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "f6a0e9b4-5c5d-6a0e-d3f7-4b1e0a6c9d13",
+      "image": "",
+      "name": "Как работать с квантовыми интерфейсами",
+      "text": "Базовое руководство по использованию квантовых терминалов в наших офисах.",
+      "character": 4,
+      "topic": 3
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 14,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a7b1f0c5-6d6e-7b1f-e4a8-5c2f1b7d0e14",
+      "image": "",
+      "name": "Обновление системы голографических собеседований",
+      "text": "Внедрена поддержка многомерных голограмм для межпланетных интервью.",
+      "character": 4,
+      "topic": 4
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 15,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "b8c2a1d6-7e7f-8c2a-f5b9-6d3a2c8e1f15",
+      "image": "",
+      "name": "Галактический день карьеры",
+      "text": "15 ноября пройдёт крупнейшее карьерное событие в секторе Альфа Центавра.",
+      "character": 4,
+      "topic": 5
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 16,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "c9d3b2e7-8f8a-9d3b-a6c0-7e4b3d9f2a16",
+      "image": "",
+      "name": "Итоги квартала по рекрутингу",
+      "text": "Успешно привлечено 127 специалистов с 8 различных планет Альянса.",
+      "character": 4,
+      "topic": 1
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 17,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "d0e4c3f8-9a9b-0e4c-b7d1-8f5c4e0a3b17",
+      "image": "",
+      "name": "Новые правила безопасности на орбите",
+      "text": "Обязательное прохождение симуляции аварийных ситуаций для всех сотрудников.",
+      "character": 4,
+      "topic": 2
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 18,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "e1f5d4a9-0b0c-1f5d-c8e2-9a6d5f1b4c18",
+      "image": "",
+      "name": "Лайфхаки от ветеранов космофлота",
+      "text": "Топ-10 советов по адаптации к работе в условиях невесомости.",
+      "character": 4,
+      "topic": 3
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 19,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "f2a6e5b0-1c1d-2a6e-d9f3-0b7e6a2c5d19",
+      "image": "",
+      "name": "Интеграция с ИИ нового поколения",
+      "text": "Внедрён помощник на базе квантового ИИ для автоматизации рутинных задач.",
+      "character": 4,
+      "topic": 4
+    }
+  },
+  {
+    "model": "communication.post",
+    "pk": 20,
+    "fields": {
+      "created_at": "2025-09-24T14:58:24.186Z",
+      "updated_at": "2025-09-24T14:58:24.186Z",
+      "uuid": "a3b7f6c1-2d2e-3b7f-e0a4-1c8f7b3d6e20",
+      "image": "",
+      "name": "Межгалактический хакатон HR-Tech",
+      "text": "Регистрация открыта! Создайте инновационные решения для рекрутинга будущего.",
+      "character": 4,
+      "topic": 5
+    }
+  },
+  {
+    "model": "communication.topic",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-01-01T10:00:00Z",
+      "updated_at": "2025-01-01T10:00:00Z",
+      "uuid": "9a7f2c98-1c45-4df5-8d9b-3fd6ac2e4f10",
+      "name": "Новости организации",
+      "icon": "",
+      "color": "#FF5733",
+      "game_worlds": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "communication.topic",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-01-02T11:00:00Z",
+      "updated_at": "2025-01-02T11:00:00Z",
+      "uuid": "dd4450d2-238d-4639-81db-81cbf96453a9",
+      "name": "Внутренние объявления",
+      "icon": "",
+      "color": "#33C3FF",
+      "game_worlds": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "communication.topic",
+    "pk": 3,
+    "fields": {
+      "created_at": "2025-01-03T12:00:00Z",
+      "updated_at": "2025-01-03T12:00:00Z",
+      "uuid": "2c676afe-18ef-4cf7-b3ce-13a1f5d58d83",
+      "name": "Советы новичкам",
+      "icon": "",
+      "color": "#8DFF33",
+      "game_worlds": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "communication.topic",
+    "pk": 4,
+    "fields": {
+      "created_at": "2025-01-04T13:00:00Z",
+      "updated_at": "2025-01-04T13:00:00Z",
+      "uuid": "ad203c58-b962-4e9f-b8d7-fb6aeed5789f",
+      "name": "Технические обновления",
+      "icon": "",
+      "color": "#FF33F6",
+      "game_worlds": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "communication.topic",
+    "pk": 5,
+    "fields": {
+      "created_at": "2025-01-05T14:00:00Z",
+      "updated_at": "2025-01-05T14:00:00Z",
+      "uuid": "c835f3f9-6dcf-4e2a-96e1-e6b08669a8e4",
+      "name": "Мероприятия и ивенты",
+      "icon": "",
+      "color": "#33FFBA",
+      "game_worlds": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "multimedia.multimedia",
+    "pk": 1,
+    "fields": {
+      "created_at": "2025-09-30T11:59:11.751Z",
+      "updated_at": "2025-09-30T11:59:11.751Z",
+      "uuid": "f17dbac0-a000-4765-a630-abd3ea6c65d5",
+      "multimedia": "multimedia/IMG_6379.JPG",
+      "character": 8,
+      "content_type": 21,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "multimedia.multimedia",
+    "pk": 2,
+    "fields": {
+      "created_at": "2025-09-30T11:59:11.759Z",
+      "updated_at": "2025-09-30T11:59:11.759Z",
+      "uuid": "8808da2d-1fcc-4033-9646-06c77c192ca8",
+      "multimedia": "multimedia/IMG_6376.JPG",
+      "character": 8,
+      "content_type": 21,
+      "object_id": 3
+    }
+  }
+]

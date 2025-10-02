@@ -19,30 +19,14 @@ if [ "${DJANGO_SUPERUSER_EMAIL:-}" ] && [ "${DJANGO_SUPERUSER_PASSWORD:-}" ]; th
 from django.contrib.auth import get_user_model
 from game_mechanics.models import Rank
 from game_world.models import GameWorld
+from django.core.management import call_command
 from user.models import (
     Character,
     User,
 )
 User = get_user_model()
-email = '${DJANGO_SUPERUSER_EMAIL}'
-password = '${DJANGO_SUPERUSER_PASSWORD}'
-if not User.objects.filter(email=email).exists():
-    user = User.objects.create_superuser(
-        username=email,
-        email=email,
-        password=password
-    )
-    print('Superuser created.')
-    game_world = GameWorld.objects.first()
-    rank = Rank.objects.filter(game_world=game_world, parent__isnull=True).first()
-    character = Character.objects.create(
-        user=user,
-        game_world=game_world,
-    )
-    character_rank = CharacterRank.objects.create(
-        character=character,
-        rank=rank,
-    )
+if not User.objects.filter(is_superuser=True).exists():
+    call_command('loaddata fixtures.json')
 else:
     print('Superuser already exists.')
 "
