@@ -378,36 +378,3 @@ class GameWorldDataForGraphSerializer(serializers.ModelSerializer):
             "currency_name",
             "ranks",
         )
-
-    #
-    # id = serializers.CharField(
-    #     label=_("ID"),
-    #     help_text=_("ID"),
-    # )
-    # shape = serializers.CharField(
-    #     label=_("Shape"),
-    #     help_text=_("Shape"),
-    # )
-    # x = serializers.IntegerField(
-    #     label=_("X"),
-    #     help_text=_("X"),
-    # )
-    # y = serializers.IntegerField(
-    #     label=_("Y"),
-    #     help_text=_("Y"),
-    # )
-    # attrs = serializers.DictField(
-    #     child=serializers.DictField(),
-    #     label=_("attrs"),
-    #     help_text=_("attrs"),
-    # )
-    # data = serializers.DictField(
-    #     child=serializers.DictField(),
-    #     label=_("data"),
-    #     help_text=_("data"),
-    # )
-    # edges = serializers.ListField(
-    #     child=serializers.DictField(),
-    #     label=_("edges"),
-    #     help_text=_("edges"),
-    # )

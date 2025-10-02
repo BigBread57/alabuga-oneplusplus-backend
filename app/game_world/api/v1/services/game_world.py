@@ -2,7 +2,6 @@ import json
 from collections import defaultdict
 from itertools import chain
 from typing import Any
-from uuid import UUID
 
 import httpx
 from django.apps import apps
@@ -19,7 +18,7 @@ from llama_index.llms.openai import OpenAI
 from common.constants import FieldNameForGenerate, GenerateObjectType
 from common.services import BaseService
 from game_mechanics.models import Competency, Rank, RequiredRankCompetency
-from game_world.api.v1.services.sructure_data_for_generate import GameWorldDataModel
+from game_world.api.v1.services.sructure_data_for_generate import TypedCellStructure
 from game_world.models import (
     ActivityCategory,
     Artifact,
@@ -53,150 +52,6 @@ class GameWorldService(BaseService):
     """
     Игровой мир. Сервис.
     """
-
-    @staticmethod
-    def get_filters(model_name: str, game_world: GameWorld) -> models.Q:
-        model_name = model_name.lower()
-        match model_name:
-            case "activitycategory":
-                filters = models.Q()
-            case "missionlevel":
-                filters = models.Q()
-            case "requiredrankcompetency":
-                filters = models.Q(
-                    rank__game_world=game_world,
-                    competency__game_world=game_world,
-                )
-            case "eventartifact":
-                filters = models.Q(
-                    event__game_world=game_world,
-                    artifact__game_world=game_world,
-                )
-            case "eventcompetency":
-                filters = models.Q(
-                    event__game_world=game_world,
-                    competency__game_world=game_world,
-                )
-            case "missionartifact":
-                filters = models.Q(
-                    mission__game_world=game_world,
-                    artifact__game_world=game_world,
-                )
-            case "missioncompetency":
-                filters = models.Q(
-                    mission__game_world=game_world,
-                    competency__game_world=game_world,
-                )
-            case _:
-                filters = models.Q(game_world=game_world)
-
-        return filters
-
-    def get_content_for_model(
-        self,
-        game_world: GameWorld,
-        validated_data: dict[str, Any],
-    ) -> str:
-        """
-        Получить контекст для модели.
-        """
-        content_type_info = {content_type.model: content_type.id for content_type in ContentType.objects.all()}
-        # Из поля в GameWorldGenerateSerializer получаем названия модели.
-        generate_type_info = {
-            name_field.replace("_generate_type", "").replace("_", " ").title().replace(" ", ""): value
-            for name_field, value in validated_data.items()
-            if name_field.find("_generate_type") >= 0
-        }
-        # Получаем количество объектов для создания.
-        generate_number_info = {
-            name_field.replace("_number", "").replace("_", " ").title().replace(" ", ""): value
-            for name_field, value in validated_data.items()
-            if name_field.find("_number") >= 0
-        }
-        content = (
-            f"Необходимо сформировать объекты для игрового мира {game_world.name}\n (uuid={game_world.uuid})"
-            f"{game_world.description}\n\n"
-            "Все объекты должны соответствовать этому сеттингу и быть основаны на реальных трудовых "
-            "компетенциях и событиях. Общие правила генерации. Все описания реальны, но стилизованы под игровой мир. "
-            "Компетенции, события, миссии и артефакты должны быть выполнимыми в реальной профессиональной деятельности. "
-            "Все сущности строго должны быть на русском языке.\n"
-            "Все внешние ключи должны использовать uuid на существующие или полученные в ходе генерации сущности\n"
-            "Существующие объекты, которые необходимо использовать при генерации:\n"
-        )
-
-        # Получаем начальную информацию по объектам из БД.
-        for model_for_default_use in [
-            RequiredRankCompetency,
-            ActivityCategory,
-            MissionLevel,
-        ]:
-            all_fields = [
-                field.name
-                for field in model_for_default_use._meta.get_fields()
-                if isinstance(field, models.Field)
-                and field.name
-                not in [
-                    "color",
-                    "icon",
-                    "image",
-                    "content_object",
-                    "created_at",
-                    "updated_at",
-                ]
-            ]
-            queryset = list(model_for_default_use.objects.all().values(*all_fields))
-            if queryset:
-                content += f"{json.dumps(queryset, cls=DjangoJSONEncoder, indent=2, ensure_ascii=False)}\n"
-
-        content += "Задача: Сгенерировать JSON-объекты для следующих сущностей:\n"
-        # Идем по моделям, для которых нужно что-то сформировать и создаем content.
-        for app_config in {
-            apps.get_app_config(app_label="game_mechanics"),
-            apps.get_app_config(app_label="game_world"),
-        }:
-            for model in app_config.get_models():
-                model_name = model.__name__
-
-                if model_name in generate_type_info.keys():
-                    generate_object_type = getattr(
-                        GenerateObjectType,
-                        generate_type_info.get(model_name).upper(),
-                    )
-                    # Указываем модель, тип генерации из GenerateObjectType и поля.
-                    content += (
-                        f"Для {model_name} необходимо {generate_object_type.label}\n"
-                        f"Количество: {generate_number_info.get(model_name.lower())}\n"
-                        f"{model.__doc__}\n\n"
-                        f"content_type_id={content_type_info.get(model_name.lower())}\n"
-                    )
-                    for field in model._meta.get_fields():
-                        if getattr(field, "help_text", ""):
-                            content += f"{field.name} - {str(getattr(field, 'help_text', ''))}\n"
-
-                    # Обогащаем имеющимися данными, за исключением бесполезных полей (для сокращения контекста).
-                    if generate_object_type == GenerateObjectType.ADVICE:
-                        filters = self.get_filters(model_name=model_name, game_world=game_world)
-                        all_fields = [
-                            field.name
-                            for field in model._meta.get_fields()
-                            if isinstance(field, models.Field)
-                            and field.name
-                            not in [
-                                "color",
-                                "icon",
-                                "image",
-                                "content_object",
-                                "created_at",
-                                "updated_at",
-                            ]
-                        ]
-                        queryset = list(model.objects.filter(filters).values(*all_fields))
-                        content += (
-                            "Существующие объекты:\n"
-                            f"{json.dumps(queryset, cls=DjangoJSONEncoder, indent=2, ensure_ascii=False)}\n"
-                        )
-
-        return content
 
     @staticmethod
     def statistics(
@@ -448,113 +303,6 @@ class GameWorldService(BaseService):
             result[section_name] = transformed_items
         return result
 
-    def create_or_update_entities(
-        self,
-        model: models.Model,
-        game_world: GameWorld,
-        validated_data_for_entities: list[dict[str, Any]],
-        maps: dict[str, Any] | None = None,
-    ) -> dict[str, int]:
-        """
-        Еще более оптимизированная версия с предварительной загрузкой всех данных.
-        """
-        with transaction.atomic():
-            # 1. Получаем все существующие объекты одним запросом
-            filters = self.get_filters(game_world=game_world, model_name=model.__name__)
-            existing_entities = {entity.uuid: entity for entity in model.objects.filter(filters)}
-            existing_uuids = set(existing_entities.keys())
-
-            # 2. Подготавливаем данные
-            entities_for_create = []
-            entities_for_update = []
-            parent_relationships = {}  # uuid -> parent_uuid
-
-            for validated_data in validated_data_for_entities:
-                entity_uuid = validated_data.pop("uuid")
-
-                # Сохраняем parent связь для последующей обработки
-                parent_uuid = validated_data.pop("parent_uuid", None)
-                if parent_uuid:
-                    parent_relationships[entity_uuid] = parent_uuid
-
-                game_world_uuid = validated_data.pop("game_world_uuid", None)
-                if game_world_uuid:
-                    # Заменяем game_world_uuid на объект
-                    validated_data["game_world_id"] = game_world.id
-                    validated_data.pop("game_world_uuid", None)
-
-                # Обрабатываем ForeignKey поля через maps
-                if maps:
-                    for field_name, field_map in maps.items():
-                        field_name = f"{field_name}_uuid"
-                        if field_name in validated_data.keys():
-                            uuid_value = validated_data[field_name]
-                            if uuid_value in field_map:
-                                validated_data[field_name + "_id"] = field_map[uuid_value]
-                                validated_data.pop(field_name)
-                            else:
-                                # Если UUID не найден в маппинге, пропускаем или обрабатываем ошибку
-                                validated_data.pop(field_name)
-                                # Можно добавить логирование или выбросить исключение
-                                # raise ValueError(f"UUID {uuid_value} not found in {field_name} map")
-
-                if entity_uuid not in existing_uuids:
-                    entities_for_create.append(model(**validated_data))
-                else:
-                    # Обновляем существующий объект
-                    entity = existing_entities[entity_uuid]
-                    for key, value in validated_data.items():
-                        if key != "uuid" and getattr(entity, key) != value:
-                            setattr(entity, key, value)
-                    entities_for_update.append(entity)
-
-            # 3. Выполняем bulk операции
-            if entities_for_create:
-                created_entities = model.objects.bulk_create(entities_for_create)
-                # Добавляем созданные объекты в словарь для parent обработки
-                for entity in created_entities:
-                    existing_entities[entity.uuid] = entity
-
-            if entities_for_update:
-                # Определяем поля для обновления
-                update_fields = set()
-                for entity in entities_for_update:
-                    for field in validated_data_for_entities[0].keys():
-                        if field != "uuid":
-                            update_fields.add(field)
-
-                model.objects.bulk_update(entities_for_update, list(update_fields))
-
-            # 4. Обрабатываем parent связи
-            if parent_relationships:
-                self._apply_parent_relationships(existing_entities, parent_relationships)
-
-            # 5. Возвращаем маппинг
-            return {str(uuid): entity.id for uuid, entity in existing_entities.items()}
-
-    def _apply_parent_relationships(
-        self,
-        entities_dict: dict[UUID, models.Model],
-        parent_relationships: dict[UUID, UUID],
-    ) -> None:
-        """
-        Применяет parent связи к объектам.
-        """
-        entities_to_update = []
-
-        for child_uuid, parent_uuid in parent_relationships.items():
-            child_entity = entities_dict.get(child_uuid)
-            parent_entity = entities_dict.get(parent_uuid)
-
-            if child_entity and parent_entity and child_entity.parent_id != parent_entity.id:
-                child_entity.parent = parent_entity
-                entities_to_update.append(child_entity)
-
-        if entities_to_update:
-            # Используем модель из первого объекта (все объекты одной модели)
-            model_type = type(entities_to_update[0])
-            model_type.objects.bulk_update(entities_to_update, ["parent"])
-
     def generate(
         self,
         game_world: GameWorld,
@@ -563,123 +311,32 @@ class GameWorldService(BaseService):
         """
         Игровой мир. Генерация.
         """
-
-        with transaction.atomic():
-            prompt = self.get_content_for_model(
-                game_world=game_world,
-                validated_data=validated_data,
-            )
-            game_world_data_pydantic_model = (
-                llm.as_structured_llm(output_cls=GameWorldDataModel).complete(
-                    prompt="Сформируй мне по 1 объекту для класса, переданного в output_cls"
+        game_world_data_pydantic_model = (
+            llm.as_structured_llm(output_cls=TypedCellStructure).complete(
+                prompt=(
+                    f"Необходимо расширить представленные данные для игрового мира {game_world.name}\n (uuid={game_world.uuid})"
+                    f"{game_world.description}\n\n"
+                    "Все новые объекты должны соответствовать этому сеттингу и быть основаны на реальных трудовых "
+                    "компетенциях и событиях. Общие правила генерации. Все описания реальны, но стилизованы под игровой мир. "
+                    "Компетенции, события, миссии и артефакты должны быть выполнимыми в реальной профессиональной деятельности. "
+                    "Все сущности строго должны быть на русском языке.\n"
+                    "Информацию, которая уже представили ниже, менять нельзя, только дополнять\n"
+                    f"Имеющуюся информация:\n\n{game_world.data_for_graph}"
                 )
-                # .complete(prompt=prompt)
-                .raw
             )
-            game_world_data = game_world_data_pydantic_model.model_dump()
-
-            maps = {
-                "mentor": {
-                    character.uuid: character.uuid for character in Character.objects.filter(game_world=game_world)
-                }
-            }
-            competencies_map = self.create_or_update_entities(
-                model=Competency,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("competencies", []),
-                maps=maps,
-            )
-            maps.update(competency=competencies_map)
-            ranks_map = self.create_or_update_entities(
-                model=Rank,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("ranks", []),
-                maps=maps,
-            )
-            maps.update(rank=ranks_map)
-            required_rank_competency_map = self.create_or_update_entities(
-                model=RequiredRankCompetency,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("required_rank_competencies", []),
-                maps=maps,
-            )
-            maps.update(required_rank_competency=required_rank_competency_map)
-            activity_categories_map = self.create_or_update_entities(
-                model=ActivityCategory,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("activity_categories", []),
-            )
-            maps.update(activity_category=activity_categories_map)
-            artifacts_map = self.create_or_update_entities(
-                model=Artifact,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("artifacts", []),
-                maps=maps,
-            )
-            maps.update(artifact=artifacts_map)
-            events_map = self.create_or_update_entities(
-                model=Event,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("events", []),
-                maps=maps,
-            )
-            maps.update(event=events_map)
-            event_artifacts_map = self.create_or_update_entities(
-                model=EventArtifact,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("event_artifacts", []),
-                maps=maps,
-            )
-            maps.update(event_artifact=event_artifacts_map)
-            event_competencies_map = self.create_or_update_entities(
-                model=EventCompetency,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("event_competencies", []),
-                maps=maps,
-            )
-            maps.update(event_competency=event_competencies_map)
-            game_world_stories_map = self.create_or_update_entities(
-                model=GameWorldStory,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("game_world_stories", []),
-                maps=maps,
-            )
-            maps.update(game_world_story=game_world_stories_map)
-            mission_branches_map = self.create_or_update_entities(
-                model=MissionBranch,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("mission_branches", []),
-                maps=maps,
-            )
-            maps.update(mission_branch=mission_branches_map)
-            mission_levels_map = self.create_or_update_entities(
-                model=MissionLevel,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("mission_levels", []),
-                maps=maps,
-            )
-            maps.update(mission_level=mission_levels_map)
-            missions_map = self.create_or_update_entities(
-                model=Mission,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("missions", []),
-                maps=maps,
-            )
-            maps.update(mission=missions_map)
-            mission_artefacts_map = self.create_or_update_entities(
-                model=MissionArtifact,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("mission_artefacts", []),
-                maps=maps,
-            )
-            maps.update(mission_artefact=mission_artefacts_map)
-            mission_competencies_map = self.create_or_update_entities(
-                model=MissionCompetency,
-                game_world=game_world,
-                validated_data_for_entities=game_world_data.get("mission_competencies", []),
-                maps=maps,
-            )
-            maps.update(mission_competency=mission_competencies_map)
+            .raw
+        )
+        print(
+            f"Необходимо расширить представленные данные для игрового мира {game_world.name}\n (uuid={game_world.uuid})"
+            f"{game_world.description}\n\n"
+            "Все новые объекты должны соответствовать этому сеттингу и быть основаны на реальных трудовых "
+            "компетенциях и событиях. Общие правила генерации. Все описания реальны, но стилизованы под игровой мир. "
+            "Компетенции, события, миссии и артефакты должны быть выполнимыми в реальной профессиональной деятельности. "
+            "Все сущности строго должны быть на русском языке.\n"
+            "Информацию, которая уже представили ниже, менять нельзя, только дополнять\n"
+            f"Имеющуюся информация:\n\n{game_world.data_for_graph}"
+        )
+        game_world_data = game_world_data_pydantic_model.model_dump()
 
         return self.get_data_for_graph(game_world_data=game_world_data, data_for_graph=game_world.data_for_graph)
 

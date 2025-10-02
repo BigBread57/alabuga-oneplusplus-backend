@@ -1,451 +1,224 @@
-from datetime import datetime
-from uuid import UUID
-
-from django.utils.translation import gettext as _
-from pydantic import BaseModel, Field
+from typing import List, Optional, Dict, Any
+from pydantic import BaseModel
 
 
-class CompetencyBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    name: str = Field(
-        ...,
-        description=_("Название компетенции в рамках игрового мира"),
-    )
-    description: str = Field(
-        ...,
-        description=_("Описание компетенции в рамках игрового мира"),
-    )
-    required_experience: int = Field(
-        ...,
-        description=_(
-            "Количество опыта, которое необходимо получить чтобы полностью "
-            "изучить компетенцию и получить новую компетенцию"
-        ),
-    )
-    parent_uuid: UUID | None = Field(
-        None,
-        description=_("UUID родительской компетенции"),
-    )
-    game_world_uuid: UUID = Field(
-        ...,
-        description=_("UUID игрового мира"),
-    )
+class TargetMarker(BaseModel):
+    fill: str
 
 
-class RankBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    name: str = Field(
-        ...,
-        description=_("Название ранга в рамках игрового мира"),
-    )
-    description: str = Field(
-        ...,
-        description=_("Описание ранга в рамках игрового мира"),
-    )
-    required_experience: int = Field(
-        ...,
-        description=_(
-            "Количество опыта, которое необходимо получить чтобы полностью закрыть ранг и получить новый ранг"
-        ),
-    )
-    parent_uuid: UUID | None = Field(
-        None,
-        description=_("UUID родительского ранга"),
-    )
-    game_world_uuid: UUID = Field(
-        ...,
-        description=_("UUID игрового мира"),
-    )
+class Line(BaseModel):
+    stroke: str
+    targetMarker: TargetMarker
 
 
-class RequiredRankCompetencyBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    rank_uuid: UUID = Field(
-        ...,
-        description=_("UUID ранга"),
-    )
-    competency_uuid: UUID = Field(
-        ...,
-        description=_("UUID компетенции"),
-    )
+class AttrsEdge(BaseModel):
+    line: Line
 
 
-class ActivityCategoryBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    name: str = Field(
-        ...,
-        description=_("Название категории активности"),
-    )
-    description: str = Field(
-        ...,
-        description=_("Описание категории активности"),
-    )
-    repeatability: int | None = Field(
-        ...,
-        description=_("Количество дней, через которую данную категории активности стоит повторить"),
-    )
+class AttrsNode(BaseModel):
+    title: Dict[str, str]
+    description: Dict[str, str]
 
 
-class ArtifactBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    name: str = Field(
-        ...,
-        description=_("Название артефакта"),
-    )
-    description: str = Field(
-        ...,
-        description=_("Описание артефакта"),
-    )
-    modifier: str | None = Field(
-        None,
-        description=_("Значение модификатора для артефакта"),
-    )
-    modifier_value: float | None = Field(
-        None,
-        description=_("Значение модификатора в %"),
-    )
-    game_world_uuid: UUID = Field(
-        ...,
-        description=_("UUID игрового мира"),
-    )
+class SourceTarget(BaseModel):
+    cell: str
 
 
-class EventBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    name: str = Field(
-        ...,
-        description=_("Название события"),
-    )
-    description: str = Field(
-        ...,
-        description=_("Описание события"),
-    )
-    experience: int = Field(
-        ...,
-        description=_("Награда в опыте"),
-    )
-    currency: int = Field(
-        ...,
-        description=_("Награда в валюте"),
-    )
-    required_number: int = Field(
-        ...,
-        description=_("Количество персонажей для успеха"),
-    )
-    is_active: bool = Field(
-        ...,
-        description=_("Активно событие или нет"),
-    )
-    start_datetime: datetime | None = Field(
-        None,
-        description=_("Дата и время запуска"),
-    )
-    time_to_complete: int = Field(
-        ...,
-        description=_("Количество дней на выполнение"),
-    )
-    category_uuid: UUID = Field(
-        ...,
-        description=_("UUID категории"),
-    )
-    rank_uuid: UUID = Field(
-        ...,
-        description=_("UUID ранга"),
-    )
-    mentor_uuid: UUID | None = Field(
-        None,
-        description=_("UUID ментора"),
-    )
-    game_world_uuid: UUID = Field(
-        ...,
-        description=_("UUID игрового мира"),
-    )
+class DataEdge(BaseModel):
+    source_type: str
+    target_type: str
 
 
-class EventArtifactBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    event_uuid: UUID = Field(
-        ...,
-        description=_("UUID события"),
-    )
-    artifact_uuid: UUID = Field(
-        ...,
-        description=_("UUID артефакта"),
-    )
+class DataCompetency(BaseModel):
+    icon: Optional[str] = None
+    name: str
+    color: str
+    level: int
+    description: str
+    required_experience: int
 
 
-class EventCompetencyBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    experience: int = Field(
-        ...,
-        description=_("Опыт за компетенцию"),
-    )
-    event_uuid: UUID = Field(
-        ...,
-        description=_("UUID события"),
-    )
-    competency_uuid: UUID = Field(
-        ...,
-        description=_("UUID компетенции"),
-    )
+class DataRank(BaseModel):
+    icon: Optional[str] = None
+    name: str
+    color: str
+    description: str
+    required_experience: int
 
 
-class GameWorldStoryBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    text: str = Field(
-        ...,
-        description=_("Описание истории, лора"),
-    )
-    game_world_uuid: UUID = Field(
-        ...,
-        description=_("UUID игрового мира"),
-    )
-    content_type: str = Field(
-        ...,
-        description=_("Тип содержимого"),
-    )
-    object_uuid: UUID = Field(
-        ...,
-        description=_("UUID объекта"),
-    )
+class DataMissionBranch(BaseModel):
+    icon: Optional[str] = None
+    name: str
+    color: str
+    is_active: bool
+    mentor_id: Optional[str] = None
+    category_id: int
+    description: str
+    start_datetime: Optional[str] = None
+    time_to_complete: int
 
 
-class MissionBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    name: str = Field(
-        ...,
-        description=_("Название миссии"),
-    )
-    description: str = Field(
-        ...,
-        description=_("Описание миссии"),
-    )
-    experience: int = Field(
-        ...,
-        description=_("Награда в опыте"),
-    )
-    currency: int = Field(
-        ...,
-        description=_("Награда в валюте"),
-    )
-    order: int = Field(
-        ...,
-        description=_("Порядок в ветке"),
-    )
-    is_key_mission: bool = Field(
-        ...,
-        description=_("Является ли миссия обязательной"),
-    )
-    is_active: bool = Field(
-        ...,
-        description=_("Активная миссия или нет"),
-    )
-    time_to_complete: int = Field(
-        ...,
-        description=_("Количество дней на выполнение"),
-    )
-    branch_uuid: UUID = Field(
-        ...,
-        description=_("UUID ветки миссии"),
-    )
-    category_uuid: UUID = Field(
-        ...,
-        description=_("UUID категории"),
-    )
-    mentor_uuid: UUID | None = Field(
-        None,
-        description=_("UUID ментора"),
-    )
-    game_world_uuid: UUID = Field(
-        ...,
-        description=_("UUID игрового мира"),
-    )
+class DataMission(BaseModel):
+    icon: Optional[str] = None
+    name: str
+    color: str
+    order: int
+    qr_code: Optional[str] = None
+    currency: int
+    level_id: int
+    is_active: bool
+    mentor_id: Optional[str] = None
+    experience: int
+    category_id: int
+    description: str
+    is_key_mission: bool
+    time_to_complete: int
 
 
-class MissionArtifactBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    mission_uuid: UUID = Field(
-        ...,
-        description=_("UUID миссии"),
-    )
-    artifact_uuid: UUID = Field(
-        ...,
-        description=_("UUID артефакта"),
-    )
+class DataArtifact(BaseModel):
+    icon: Optional[str] = None
+    name: str
+    color: str
+    modifier: str
+    description: str
+    modifier_value: int
 
 
-class MissionBranchBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    name: str = Field(
-        ...,
-        description=_("Название ветки миссий"),
-    )
-    description: str = Field(
-        ...,
-        description=_("Описание ветки миссий"),
-    )
-    is_active: bool = Field(
-        ...,
-        description=_("Активная ветка или нет"),
-    )
-    start_datetime: datetime | None = Field(
-        None,
-        description=_("Дата и время запуска"),
-    )
-    time_to_complete: int = Field(
-        ...,
-        description=_("Количество дней на выполнение"),
-    )
-    rank_uuid: UUID = Field(
-        ...,
-        description=_("UUID ранга"),
-    )
-    category_uuid: UUID = Field(
-        ...,
-        description=_("UUID категории"),
-    )
-    mentor_uuid: UUID | None = Field(
-        None,
-        description=_("UUID ментора"),
-    )
-    game_world_uuid: UUID = Field(
-        ...,
-        description=_("UUID игрового мира"),
-    )
+class DataEvent(BaseModel):
+    icon: Optional[str] = None
+    name: str
+    type: str
+    color: str
+    qr_code: Optional[str] = None
+    currency: int
+    is_active: bool
+    mentor_id: Optional[str] = None
+    experience: int
+    category_id: int
+    description: str
+    start_datetime: str
+    required_number: int
+    time_to_complete: int
 
 
-class MissionCompetencyBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    experience: int = Field(
-        ...,
-        description=_("Опыт за компетенцию"),
-    )
-    mission_uuid: UUID = Field(
-        ...,
-        description=_("UUID миссии"),
-    )
-    competency_uuid: UUID = Field(
-        ...,
-        description=_("UUID компетенции"),
-    )
+class DataGameWorldStory(BaseModel):
+    image: Optional[str] = None
+    text: str
 
 
-class MissionLevelBase(BaseModel):
-    uuid: UUID = Field(
-        ...,
-        description=_("UUID"),
-    )
-    name: str = Field(
-        ...,
-        description=_("Название уровня миссии"),
-    )
-    description: str = Field(
-        ...,
-        description=_("Описание уровня миссии"),
-    )
-    multiplier_experience: float = Field(
-        ...,
-        description=_("Множитель опыта в %"),
-    )
-    multiplier_currency: float = Field(
-        ...,
-        description=_("Множитель валюты в %"),
-    )
+class Size(BaseModel):
+    width: int
+    height: int
 
 
-class GameWorldDataModel(BaseModel):
-    competencies: list[CompetencyBase] = Field(
-        default_factory=list,
-        description=_("Список компетенций"),
-    )
-    ranks: list[RankBase] = Field(
-        default_factory=list,
-        description=_("Список рангов"),
-    )
-    required_rank_competencies: list[RequiredRankCompetencyBase] = Field(
-        default_factory=list,
-        description=_("Требования к компетенциям для рангов"),
-    )
-    activity_categories: list[ActivityCategoryBase] = Field(
-        default_factory=list,
-        description=_("Категории активностей"),
-    )
-    artifacts: list[ArtifactBase] = Field(
-        default_factory=list,
-        description=_("Список артефактов"),
-    )
-    events: list[EventBase] = Field(
-        default_factory=list,
-        description=_("Список событий"),
-    )
-    event_artifacts: list[EventArtifactBase] = Field(
-        default_factory=list,
-        description=_("Артефакты за события"),
-    )
-    event_competencies: list[EventCompetencyBase] = Field(
-        default_factory=list,
-        description=_("Компетенции за события"),
-    )
-    game_world_stories: list[GameWorldStoryBase] = Field(
-        default_factory=list,
-        description=_("Истории игрового мира"),
-    )
-    missions: list[MissionBase] = Field(
-        default_factory=list,
-        description=_("Список миссий"),
-    )
-    mission_artifacts: list[MissionArtifactBase] = Field(
-        default_factory=list,
-        description=_("Артефакты за миссии"),
-    )
-    mission_branches: list[MissionBranchBase] = Field(
-        default_factory=list,
-        description=_("Ветки миссий"),
-    )
-    mission_competencies: list[MissionCompetencyBase] = Field(
-        default_factory=list,
-        description=_("Компетенции за миссии"),
-    )
-    mission_levels: list[MissionLevelBase] = Field(
-        default_factory=list,
-        description=_("Уровни сложности миссий"),
-    )
+class Position(BaseModel):
+    x: int
+    y: int
+
+
+class Cell(BaseModel):
+    id: str
+    data: Dict[str, Any]
+    attrs: Dict[str, Any]
+    shape: str
+    zIndex: int
+    z_index: int
+    source: Optional[SourceTarget] = None
+    target: Optional[SourceTarget] = None
+    size: Optional[Size] = None
+    position: Optional[Position] = None
+
+
+class CellStructure(BaseModel):
+    cells: List[Cell]
+
+
+# Альтернативная версия с более строгой типизацией для разных типов ячеек
+class BaseCellData(BaseModel):
+    icon: Optional[str] = None
+    name: str
+    color: str
+    description: str
+
+
+class CompetencyData(BaseCellData):
+    level: int
+    required_experience: int
+
+
+class RankData(BaseCellData):
+    required_experience: int
+
+
+class MissionBranchData(BaseCellData):
+    is_active: bool
+    mentor_id: Optional[str] = None
+    category_id: int
+    start_datetime: Optional[str] = None
+    time_to_complete: int
+
+
+class MissionData(BaseCellData):
+    order: int
+    qr_code: Optional[str] = None
+    currency: int
+    level_id: int
+    is_active: bool
+    mentor_id: Optional[str] = None
+    experience: int
+    category_id: int
+    is_key_mission: bool
+    time_to_complete: int
+
+
+class ArtifactData(BaseCellData):
+    modifier: str
+    modifier_value: int
+
+
+class EventData(BaseCellData):
+    type: str
+    qr_code: Optional[str] = None
+    currency: int
+    is_active: bool
+    mentor_id: Optional[str] = None
+    experience: int
+    category_id: int
+    start_datetime: str
+    required_number: int
+    time_to_complete: int
+
+
+# Модель для удобной работы с разными типами ячеек
+class TypedCellStructure(BaseModel):
+    cells: List[Cell]
+
+    def get_cells_by_shape(self, shape: str) -> List[Cell]:
+        return [cell for cell in self.cells if cell.shape == shape]
+
+    def get_edges(self) -> List[Cell]:
+        return self.get_cells_by_shape("edge")
+
+    def get_nodes(self) -> List[Cell]:
+        return [cell for cell in self.cells if cell.shape != "edge"]
+
+    def get_competencies(self) -> List[Cell]:
+        return self.get_cells_by_shape("competency")
+
+    def get_ranks(self) -> List[Cell]:
+        return self.get_cells_by_shape("rank")
+
+    def get_mission_branches(self) -> List[Cell]:
+        return self.get_cells_by_shape("mission_branch")
+
+    def get_missions(self) -> List[Cell]:
+        return self.get_cells_by_shape("mission")
+
+    def get_artifacts(self) -> List[Cell]:
+        return self.get_cells_by_shape("artifact")
+
+    def get_events(self) -> List[Cell]:
+        return self.get_cells_by_shape("event")
+
+    def get_game_world_stories(self) -> List[Cell]:
+        return self.get_cells_by_shape("game_world_story")
