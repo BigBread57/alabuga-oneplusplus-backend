@@ -30,7 +30,7 @@ spec:
               value: "1"
             - name: NODE_ENV
               value: production
-          image: ghcr.io/BigBread57/alabuga-oneplusplus-frontend:latest
+          image: ghcr.io/bigbread57/alabuga-oneplusplus-frontend:latest
           name: frontend
           ports:
             - containerPort: 8080

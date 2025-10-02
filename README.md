@@ -22,11 +22,7 @@ https://github.com/BigBread57/alabuga-oneplusplus-frontend
 docker compose -f docker-compose.quickstart.yml up -d
 ```
 
-**Готово!** Проект запущен на:
-- 🌐 **Backend API**: http://localhost:8000
-- 📚 **Swagger UI**: http://localhost:8000/api/swagger/
-- 🔑 **Django Admin**: http://localhost:8000/admin/ (`admin@example.com` / `admin`)
-- 🌸 **Flower (Celery)**: http://localhost:5555
+### Проект доступен на: http://localhost
 
 ### Альтернативные способы:
 

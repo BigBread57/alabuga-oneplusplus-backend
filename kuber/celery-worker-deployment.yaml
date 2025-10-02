@@ -33,6 +33,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: env
-          image: ghcr.io/BigBread57/alabuga-oneplusplus-backend:latest
+          image: ghcr.io/bigbread57/alabuga-oneplusplus-backend:latest
           name: celery-worker
       restartPolicy: Always

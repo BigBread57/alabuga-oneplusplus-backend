@@ -3,7 +3,7 @@ version: "3.8"
 
 # Шаблон для Django сервисов
 x-django-common: &django-common
-  image: ghcr.io/BigBread57/alabuga-oneplusplus-backend:latest
+  image: ghcr.io/bigbread57/alabuga-oneplusplus-backend:latest
   restart: unless-stopped
   depends_on:
     postgres:
@@ -68,7 +68,7 @@ services:
 
   # Next.js Frontend
   frontend:
-    image: ghcr.io/BigBread57/alabuga-oneplusplus-frontend:latest
+    image: ghcr.io/bigbread57/alabuga-oneplusplus-frontend:latest
     restart: unless-stopped
     networks:
       - main
