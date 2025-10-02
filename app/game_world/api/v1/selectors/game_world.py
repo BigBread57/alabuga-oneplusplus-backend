@@ -1,13 +1,10 @@
 import django_filters
-from django.contrib.contenttypes.models import ContentType
-from django.db import models
 from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from common.selectors import BaseSelector, T
-from game_mechanics.api.v1.serializers.nested import RankNestedSerializer
-from game_world.models import GameWorld, GameWorldStory, Mission
+from game_world.models import GameWorld
 
 
 class GameWorldListOrStatisticsOrStatisticsFilterSerializer(serializers.Serializer):

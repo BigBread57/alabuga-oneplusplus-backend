@@ -23,9 +23,9 @@ from game_world.api.v1.selectors.event_competency import (
     EventCompetencyListSelector,
 )
 from game_world.api.v1.selectors.game_world import (
+    GameWorldDataForGraphSelector,
     GameWorldListOrStatisticsOrStatisticsFilterSerializer,
     GameWorldListOrStatisticsOrStatisticsSelector,
-    GameWorldDataForGraphSelector,
 )
 from game_world.api.v1.selectors.game_world_story import (
     GameWorldStoryDetailSelector,

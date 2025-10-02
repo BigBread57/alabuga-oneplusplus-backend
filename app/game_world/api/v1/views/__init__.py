@@ -35,12 +35,12 @@ from game_world.api.v1.views.event_competency import (
 )
 from game_world.api.v1.views.game_world import (
     GameWorldCreateAPIView,
+    GameWorldDataForGraphAPIView,
     GameWorldDeleteAPIView,
     GameWorldDetailAPIView,
     GameWorldGenerateAPIView,
     GameWorldInfoForGenerateAPIView,
     GameWorldListAPIView,
-    GameWorldDataForGraphAPIView,
     GameWorldStatisticsAPIView,
     GameWorldUpdateAPIView,
     GameWorldUpdateOrCreateAllEntitiesAPIView,

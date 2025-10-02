@@ -6,8 +6,6 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from common.permissions import (
-    CharacterHrPermission,
-    UserManagerForObjectPermission,
     UserManagerPermission,
 )
 from common.serializers import ResponseDetailSerializer

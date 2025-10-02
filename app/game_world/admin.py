@@ -48,6 +48,7 @@ class EventAdmin(admin.ModelAdmin):
         "id",
         "name",
         "is_active",
+        "rank",
         "category",
         "game_world",
     )
@@ -149,6 +150,7 @@ class MissionBranchAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "name",
+        "rank",
         "category",
     )
     list_filter = ("category",)

@@ -7,10 +7,10 @@ from game_world.models import (
     Artifact,
     Event,
     GameWorld,
+    GameWorldStory,
     Mission,
     MissionBranch,
     MissionLevel,
-    GameWorldStory,
 )
 from user.api.v1.serializers.nested import CharacterNestedSerializer
 

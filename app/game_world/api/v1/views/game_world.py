@@ -9,17 +9,17 @@ from common.permissions import CharacterHrPermission
 from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from game_world.api.v1.selectors import (
+    GameWorldDataForGraphSelector,
     GameWorldListOrStatisticsOrStatisticsFilterSerializer,
     GameWorldListOrStatisticsOrStatisticsSelector,
-    GameWorldDataForGraphSelector,
 )
 from game_world.api.v1.serializers import (
     GameWorldCreateOrUpdateSerializer,
+    GameWorldDataForGraphSerializer,
     GameWorldDetailSerializer,
     GameWorldGenerateSerializer,
     GameWorldInfoForGenerateSerializer,
     GameWorldListSerializer,
-    GameWorldDataForGraphSerializer,
     GameWorldStatisticsSerializer,
 )
 from game_world.api.v1.services import game_world_service
@@ -337,7 +337,6 @@ class GameWorldGenerateAPIView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         game_world_data_for_graph = game_world_service.generate(
             game_world=game_world,
-            validated_data=serializer.validated_data,
         )
 
         return Response(

@@ -4,10 +4,7 @@ from itertools import chain
 from typing import Any
 
 import httpx
-from django.apps import apps
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
 from django.db.models.functions import DenseRank
 from django.utils.translation import gettext_lazy as _
@@ -15,12 +12,11 @@ from llama_index.core import Settings
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.openai import OpenAI
 
-from common.constants import FieldNameForGenerate, GenerateObjectType
+from common.constants import FieldNameForGenerate
 from common.services import BaseService
-from game_mechanics.models import Competency, Rank, RequiredRankCompetency
+from game_mechanics.models import Competency, Rank
 from game_world.api.v1.services.sructure_data_for_generate import TypedCellStructure
 from game_world.models import (
-    ActivityCategory,
     Artifact,
     Event,
     EventArtifact,
@@ -31,7 +27,6 @@ from game_world.models import (
     MissionArtifact,
     MissionBranch,
     MissionCompetency,
-    MissionLevel,
 )
 from user.models import Character, CharacterMission, CharacterMissionBranch
 
@@ -306,39 +301,41 @@ class GameWorldService(BaseService):
     def generate(
         self,
         game_world: GameWorld,
-        validated_data: dict[str, Any],
     ) -> dict[str, Any]:
         """
         Игровой мир. Генерация.
         """
         game_world_data_pydantic_model = (
-            llm.as_structured_llm(output_cls=TypedCellStructure).complete(
+            llm.as_structured_llm(output_cls=TypedCellStructure)
+            .complete(
                 prompt=(
-                    f"Необходимо расширить представленные данные для игрового мира {game_world.name}\n (uuid={game_world.uuid})"
-                    f"{game_world.description}\n\n"
-                    "Все новые объекты должны соответствовать этому сеттингу и быть основаны на реальных трудовых "
-                    "компетенциях и событиях. Общие правила генерации. Все описания реальны, но стилизованы под игровой мир. "
-                    "Компетенции, события, миссии и артефакты должны быть выполнимыми в реальной профессиональной деятельности. "
-                    "Все сущности строго должны быть на русском языке.\n"
-                    "Информацию, которая уже представили ниже, менять нельзя, только дополнять\n"
-                    f"Имеющуюся информация:\n\n{game_world.data_for_graph}"
+                    f"""
+                    Нам надо сгенерировать набор миссий и связных сущностей для геймефицированной HR-платформы,
+                    тема которой является {game_world.name} (uuid={game_world.uuid})\n
+                    Описание этого мира: {game_world.description}\n\n
+                    Имеющуюся информация:\n\n{json.dumps(game_world.data_for_graph)}\n
+                    # Наша задача\n
+                    
+                    Сгенерировать 5 новых миссий, 5 новых событий, 2 новых артефакта, 2 новых компетенции, 5 новых 
+                    историй игрового мира и связи между ними для мира описанного выше.\n
+                    
+                    # Обязательно необходимо учесть\n"
+                    1) Все новые объекты должны соответствовать этому сеттингу и быть основаны на реальных трудовых
+                    компетенциях и событиях.\n
+                    2) Компетенции, события, миссии и артефакты должны быть выполнимыми в
+                    реальной профессиональной деятельности.\n
+                    3) Все сущности строго должны быть на русском языке.\n
+                    """
                 )
             )
             .raw
         )
-        print(
-            f"Необходимо расширить представленные данные для игрового мира {game_world.name}\n (uuid={game_world.uuid})"
-            f"{game_world.description}\n\n"
-            "Все новые объекты должны соответствовать этому сеттингу и быть основаны на реальных трудовых "
-            "компетенциях и событиях. Общие правила генерации. Все описания реальны, но стилизованы под игровой мир. "
-            "Компетенции, события, миссии и артефакты должны быть выполнимыми в реальной профессиональной деятельности. "
-            "Все сущности строго должны быть на русском языке.\n"
-            "Информацию, которая уже представили ниже, менять нельзя, только дополнять\n"
-            f"Имеющуюся информация:\n\n{game_world.data_for_graph}"
-        )
-        game_world_data = game_world_data_pydantic_model.model_dump()
-
-        return self.get_data_for_graph(game_world_data=game_world_data, data_for_graph=game_world.data_for_graph)
+        return {
+            "cells": [
+                *game_world.data_for_graph.get("cells", []),
+                *game_world_data_pydantic_model.to_cells().get("cells", []),
+            ]
+        }
 
     def update_or_create_all_entities(
         self,
