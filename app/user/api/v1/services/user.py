@@ -88,7 +88,7 @@ class UserService(BaseService):
         temp_key = default_token_generator.make_token(user)
         context = {
             "user": user,
-            "activate_url": f"{settings.DOMAIN_NAME}/confirm-register/?email={user.email}&token={temp_key}",
+            "activate_url": f"https://{settings.DOMAIN_NAME}/confirm-register/?email={user.email}&token={temp_key}",
             "year": now().year,
             "company": "ALABUGA",
         }
@@ -118,7 +118,7 @@ class UserService(BaseService):
         context = {
             "user": user,
             "password_reset_url": (
-                f"{settings.DOMAIN_NAME}/request-reset-password/"
+                f"https://{settings.DOMAIN_NAME}/request-reset-password/"
                 f"{user_pk_to_url_str(user)}-{default_token_generator.make_token(user)}"
             ),
             "year": now().year,

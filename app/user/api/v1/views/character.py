@@ -10,8 +10,35 @@ from user.api.v1.serializers import (
     CharacterActualForUserSerializer,
     CharacterStatisticsSerializer,
     CharacterUpdateSerializer,
+    CharacterListSerializer,
 )
 from user.api.v1.services import character_service
+from user.models import Character
+
+
+class CharacterListAPIView(GenericAPIView):
+    """
+    Персонаж пользователя. Список.
+    """
+
+    queryset = Character.objects.all()
+    serializer_class = CharacterListSerializer
+
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: CharacterListSerializer,
+        },
+        tags=["user:character"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Персонаж пользователя. Актуальный.
+        """
+        queryset = self.filter_queryset(queryset=self.get_queryset())
+        page = self.paginate_queryset(queryset=queryset)
+        serializer = self.get_serializer(page, many=True)
+
+        return self.get_paginated_response(data=serializer.data)
 
 
 class CharacterActualForUserAPIView(QuerySelectorMixin, GenericAPIView):

@@ -2,6 +2,7 @@ from user.api.v1.views.character import (
     CharacterActualForUserAPIView,
     CharacterActualUpdateAPIView,
     CharacterStatisticsAPIView,
+    CharacterListAPIView,
 )
 from user.api.v1.views.character_artifact import (
     CharacterArtifactDetailAPIView,
@@ -38,7 +39,7 @@ from user.api.v1.views.user import (
     UserUpdatePasswordAPIView,
 )
 
-__all__ = (
+__all__ = [
     # User
     "UseResendEmailConfirmationAPIView",
     "UserLoginAPIView",
@@ -53,6 +54,7 @@ __all__ = (
     "CharacterActualForUserAPIView",
     "CharacterActualUpdateAPIView",
     "CharacterStatisticsAPIView",
+    "CharacterListAPIView",
     # CharacterEvent
     "CharacterEventListAPIView",
     "CharacterEventDetailAPIView",
@@ -73,4 +75,4 @@ __all__ = (
     # CharacterArtifact
     "CharacterArtifactListAPIView",
     "CharacterArtifactDetailAPIView",
-)
+]

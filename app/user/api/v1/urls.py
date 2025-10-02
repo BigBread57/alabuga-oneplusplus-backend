@@ -55,6 +55,11 @@ user_urls = [
 
 character_urls = [
     path(
+        route="characters/list/",
+        view=views.CharacterListAPIView.as_view(),
+        name="characters-list",
+    ),
+    path(
         route="characters/actual/",
         view=views.CharacterActualForUserAPIView.as_view(),
         name="characters-actual",

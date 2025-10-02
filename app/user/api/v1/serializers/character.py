@@ -11,6 +11,28 @@ from user.api.v1.serializers.nested import (
 from user.models import Character
 
 
+class CharacterListSerializer(serializers.ModelSerializer):
+    """
+    Персонаж пользователя. Список.
+    """
+
+    user = UserNestedSerializer(
+        label=_("Пользователь"),
+        help_text=_("Пользователь"),
+    )
+
+    class Meta:
+        model = Character
+        fields = (
+            "id",
+            "avatar",
+            "currency",
+            "is_active",
+            "user",
+            "game_world",
+        )
+
+
 class CharacterActualForUserSerializer(serializers.ModelSerializer):
     """
     Персонаж пользователя. Детальная информация.
