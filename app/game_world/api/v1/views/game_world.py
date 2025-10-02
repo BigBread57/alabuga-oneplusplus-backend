@@ -203,7 +203,7 @@ class GameWorldUpdateOrCreateAllEntitiesAPIView(GenericAPIView):
     """
 
     queryset = GameWorld.objects.defer("data_for_graph")
-    # permission_classes = (CharacterHrPermission,)
+    permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

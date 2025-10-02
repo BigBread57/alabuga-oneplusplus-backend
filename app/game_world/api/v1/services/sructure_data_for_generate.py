@@ -54,11 +54,11 @@ class RankBase(BaseModel):
             "Количество опыта, которое необходимо получить чтобы полностью закрыть ранг и получить новый ранг"
         ),
     )
-    parent_uuid: int | None = Field(
+    parent_uuid: UUID | None = Field(
         None,
         description=_("UUID родительского ранга"),
     )
-    game_world_uuid: int = Field(
+    game_world_uuid: UUID = Field(
         ...,
         description=_("UUID игрового мира"),
     )
@@ -69,11 +69,11 @@ class RequiredRankCompetencyBase(BaseModel):
         ...,
         description=_("UUID"),
     )
-    rank_uuid: int = Field(
+    rank_uuid: UUID = Field(
         ...,
         description=_("UUID ранга"),
     )
-    competency_uuid: int = Field(
+    competency_uuid: UUID = Field(
         ...,
         description=_("UUID компетенции"),
     )
@@ -119,7 +119,7 @@ class ArtifactBase(BaseModel):
         None,
         description=_("Значение модификатора в %"),
     )
-    game_world_uuid: int = Field(
+    game_world_uuid: UUID = Field(
         ...,
         description=_("UUID игрового мира"),
     )
@@ -162,19 +162,19 @@ class EventBase(BaseModel):
         ...,
         description=_("Количество дней на выполнение"),
     )
-    category_uuid: int = Field(
+    category_uuid: UUID = Field(
         ...,
         description=_("UUID категории"),
     )
-    rank_uuid: int = Field(
+    rank_uuid: UUID = Field(
         ...,
         description=_("UUID ранга"),
     )
-    mentor_uuid: int | None = Field(
+    mentor_uuid: UUID | None = Field(
         None,
         description=_("UUID ментора"),
     )
-    game_world_uuid: int = Field(
+    game_world_uuid: UUID = Field(
         ...,
         description=_("UUID игрового мира"),
     )
@@ -185,11 +185,11 @@ class EventArtifactBase(BaseModel):
         ...,
         description=_("UUID"),
     )
-    event_uuid: int = Field(
+    event_uuid: UUID = Field(
         ...,
         description=_("UUID события"),
     )
-    artifact_uuid: int = Field(
+    artifact_uuid: UUID = Field(
         ...,
         description=_("UUID артефакта"),
     )
@@ -204,11 +204,11 @@ class EventCompetencyBase(BaseModel):
         ...,
         description=_("Опыт за компетенцию"),
     )
-    event_uuid: int = Field(
+    event_uuid: UUID = Field(
         ...,
         description=_("UUID события"),
     )
-    competency_uuid: int = Field(
+    competency_uuid: UUID = Field(
         ...,
         description=_("UUID компетенции"),
     )
@@ -223,7 +223,7 @@ class GameWorldStoryBase(BaseModel):
         ...,
         description=_("Описание истории, лора"),
     )
-    game_world_uuid: int = Field(
+    game_world_uuid: UUID = Field(
         ...,
         description=_("UUID игрового мира"),
     )
@@ -231,7 +231,7 @@ class GameWorldStoryBase(BaseModel):
         ...,
         description=_("Тип содержимого"),
     )
-    object_uuid: int = Field(
+    object_uuid: UUID = Field(
         ...,
         description=_("UUID объекта"),
     )
@@ -274,19 +274,19 @@ class MissionBase(BaseModel):
         ...,
         description=_("Количество дней на выполнение"),
     )
-    branch_uuid: int = Field(
+    branch_uuid: UUID = Field(
         ...,
         description=_("UUID ветки миссии"),
     )
-    category_uuid: int = Field(
+    category_uuid: UUID = Field(
         ...,
         description=_("UUID категории"),
     )
-    mentor_uuid: int | None = Field(
+    mentor_uuid: UUID | None = Field(
         None,
         description=_("UUID ментора"),
     )
-    game_world_uuid: int = Field(
+    game_world_uuid: UUID = Field(
         ...,
         description=_("UUID игрового мира"),
     )
@@ -297,11 +297,11 @@ class MissionArtifactBase(BaseModel):
         ...,
         description=_("UUID"),
     )
-    mission_uuid: int = Field(
+    mission_uuid: UUID = Field(
         ...,
         description=_("UUID миссии"),
     )
-    artifact_uuid: int = Field(
+    artifact_uuid: UUID = Field(
         ...,
         description=_("UUID артефакта"),
     )
@@ -332,19 +332,19 @@ class MissionBranchBase(BaseModel):
         ...,
         description=_("Количество дней на выполнение"),
     )
-    rank_uuid: int = Field(
+    rank_uuid: UUID = Field(
         ...,
         description=_("UUID ранга"),
     )
-    category_uuid: int = Field(
+    category_uuid: UUID = Field(
         ...,
         description=_("UUID категории"),
     )
-    mentor_uuid: int | None = Field(
+    mentor_uuid: UUID | None = Field(
         None,
         description=_("UUID ментора"),
     )
-    game_world_uuid: int = Field(
+    game_world_uuid: UUID = Field(
         ...,
         description=_("UUID игрового мира"),
     )
@@ -359,11 +359,11 @@ class MissionCompetencyBase(BaseModel):
         ...,
         description=_("Опыт за компетенцию"),
     )
-    mission_uuid: int = Field(
+    mission_uuid: UUID = Field(
         ...,
         description=_("UUID миссии"),
     )
-    competency_uuid: int = Field(
+    competency_uuid: UUID = Field(
         ...,
         description=_("UUID компетенции"),
     )
