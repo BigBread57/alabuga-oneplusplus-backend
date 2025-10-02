@@ -72,22 +72,22 @@ class GameWorldDataForGraphAPIView(QuerySelectorMixin, GenericAPIView):
         """
         Список объектов.
         """
-        # game_world = self.get_object()
-        #
-        # return Response(
-        #     data=game_world.data_for_graph,
-        #     status=status.HTTP_200_OK,
-        # )
         game_world = self.get_object()
-        serializer = self.get_serializer(instance=game_world)
 
         return Response(
-            data=game_world_service.get_data_for_graph(
-                game_world_data=serializer.data,
-                data_for_graph=game_world.data_for_graph,
-            ),
+            data=game_world.data_for_graph,
             status=status.HTTP_200_OK,
         )
+        # game_world = self.get_object()
+        # serializer = self.get_serializer(instance=game_world)
+        #
+        # return Response(
+        #     data=game_world_service.get_data_for_graph(
+        #         game_world_data=serializer.data,
+        #         data_for_graph=game_world.data_for_graph,
+        #     ),
+        #     status=status.HTTP_200_OK,
+        # )
 
 
 class GameWorldDetailAPIView(GenericAPIView):
@@ -203,7 +203,7 @@ class GameWorldUpdateOrCreateAllEntitiesAPIView(GenericAPIView):
     """
 
     queryset = GameWorld.objects.defer("data_for_graph")
-    permission_classes = (CharacterHrPermission,)
+    # permission_classes = (CharacterHrPermission,)
 
     @extend_schema(
         responses={

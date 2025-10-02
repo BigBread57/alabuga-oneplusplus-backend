@@ -4,6 +4,7 @@ from itertools import chain
 from typing import Any
 from uuid import UUID
 
+import httpx
 from django.apps import apps
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -35,7 +36,14 @@ from game_world.models import (
 )
 from user.models import Character, CharacterMission, CharacterMissionBranch
 
-llm = OpenAI(model="gpt-4o", api_key=settings.OPENAI_API_KEY)
+if settings.OPENAI_PROXY_URL:
+    llm = OpenAI(
+        model="gpt-4o",
+        api_key=settings.OPENAI_API_KEY,
+        http_client=httpx.Client(proxy=settings.OPENAI_PROXY_URL),
+    )
+else:
+    llm = OpenAI(model="gpt-4o", api_key=settings.OPENAI_API_KEY)
 embed_model = OpenAIEmbedding(model="text-embedding-3-small")
 Settings.llm = llm
 Settings.embed_model = embed_model
@@ -73,7 +81,11 @@ class GameWorldService(BaseService):
             "Существующие объекты, которые необходимо использовать при генерации:\n"
         )
 
-        for model_for_default_use in [RequiredRankCompetency, ActivityCategory, MissionLevel]:
+        for model_for_default_use in [
+            RequiredRankCompetency,
+            ActivityCategory,
+            MissionLevel,
+        ]:
             all_fields = [
                 field.name
                 for field in model_for_default_use._meta.get_fields()
@@ -468,42 +480,49 @@ class GameWorldService(BaseService):
             # Создание или обновление Rank.
             if cell_shape == "rank":
                 Rank.objects.update_or_create(
-                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
                 )
             # Создание или обновление MissionBranch.
             if cell_shape == "mission_branch":
                 MissionBranch.objects.update_or_create(
-                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
                 )
 
             # Создание или обновление Mission.
             if cell_shape == "mission":
                 Mission.objects.update_or_create(
-                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
                 )
 
             # Создание или обновление Artifact.
             if cell_shape == "artifact":
                 Artifact.objects.update_or_create(
-                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
                 )
 
             # Создание или обновление Competency.
             if cell_shape == "competency":
                 Competency.objects.update_or_create(
-                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
                 )
 
             # Создание или обновление Competency.
             if cell_shape == "event":
                 Event.objects.update_or_create(
-                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
                 )
 
             # Создание или обновление Competency.
             if cell_shape == "game_world_story":
                 GameWorldStory.objects.update_or_create(
-                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
                 )
 
             # Формирование связей.
@@ -527,8 +546,7 @@ class GameWorldService(BaseService):
             if relationship_name == "rank":
                 rank_for_update = []
                 ranks_map = {
-                    str(rank.uuid): rank
-                    for rank in Rank.objects.filter(uuid__in=list(relationships.values()))
+                    str(rank.uuid): rank for rank in Rank.objects.filter(uuid__in=list(relationships.values()))
                 }
                 for rank in Rank.objects.filter(uuid__in=list(relationships.keys())):
                     rank.parent = ranks_map.get(relationships.get(str(rank.uuid)))
@@ -671,7 +689,11 @@ class GameWorldService(BaseService):
                         ignore_conflicts=True,
                     )
 
-    def get_data_for_graph(self, game_world_data: dict[str, Any], data_for_graph: dict[str, Any] | None = None):
+    def get_data_for_graph(
+        self,
+        game_world_data: dict[str, Any],
+        data_for_graph: dict[str, Any] | None = None,
+    ):
         """
         Преобразует объект игрового мира в формат cells для визуализации графа
         """
@@ -704,10 +726,10 @@ class GameWorldService(BaseService):
             return default_x, default_y
 
         # Обрабатываем ранги
-        for rank in game_world_data.get("ranks", []):
+        for rank_index, rank in enumerate(game_world_data.get("ranks", []), start=1):
             # Создаем узел ранга
             rank_uuid = rank["uuid"]
-            default_rank_y = config["initial_y"] + (rank["id"] - 1) * config["rank_height"]
+            default_rank_y = config["initial_y"] + (rank_index - 1) * config["rank_height"]
             rank_x, rank_y = get_coordinates_from_data(rank_uuid, config["initial_x"], default_rank_y)
 
             rank_node = {
@@ -793,9 +815,9 @@ class GameWorldService(BaseService):
 
             # Обрабатываем ветки миссий для этого ранга
             mission_branch_y = rank_y + config["mission_branch_height"]
-            for mission_branch in rank.get("mission_branches", []):
+            for index_mission_branch, mission_branch in enumerate(rank.get("mission_branches", []), start=1):
                 mission_branch_uuid = mission_branch["uuid"]
-                default_mission_branch_x = 150 + (mission_branch["id"] - 1) * config["horizontal_spacing"]
+                default_mission_branch_x = 150 + (index_mission_branch - 1) * config["horizontal_spacing"]
                 mission_branch_x, mission_branch_y = get_coordinates_from_data(
                     mission_branch_uuid,
                     default_mission_branch_x,
@@ -827,7 +849,7 @@ class GameWorldService(BaseService):
                         "start_datetime": mission_branch.get("start_datetime", None),
                         "time_to_complete": mission_branch.get("time_to_complete", None),
                         "category_id": mission_branch["category"]["id"],
-                        "mentor_id": event["mentor"]["id"] if event.get("mentor") else None,
+                        "mentor_id": (event["mentor"]["id"] if event.get("mentor") else None),
                     },
                 }
                 cells.append(mission_branch_node)
@@ -848,9 +870,9 @@ class GameWorldService(BaseService):
 
                 # Обрабатываем миссии в этой ветке
                 mission_y = mission_branch_y + config["mission_height"]
-                for mission in mission_branch.get("missions", []):
+                for index_mission, mission in enumerate(mission_branch.get("missions", []), start=1):
                     mission_uuid = mission["uuid"]
-                    default_mission_x = 100 + (mission["id"] - 1) * config["horizontal_spacing"]
+                    default_mission_x = 100 + (index_mission - 1) * config["horizontal_spacing"]
                     mission_x, mission_y = get_coordinates_from_data(mission_uuid, default_mission_x, mission_y)
 
                     mission_node = {
@@ -883,7 +905,7 @@ class GameWorldService(BaseService):
                             "qr_code": mission.get("qr_code", None),
                             "level_id": mission["level"]["id"],
                             "category_id": mission["category"]["id"],
-                            "mentor_id": event["mentor"]["id"] if event.get("mentor") else None,
+                            "mentor_id": (event["mentor"]["id"] if event.get("mentor") else None),
                         },
                     }
                     cells.append(mission_node)
@@ -942,9 +964,9 @@ class GameWorldService(BaseService):
 
                     # Обрабатываем артефакты для этой миссии
                     artifact_y = mission_y + config["artifact_height"]
-                    for artifact in mission.get("artifacts", []):
+                    for index_artifact, artifact in enumerate(mission.get("artifacts", []), start=1):
                         artifact_uuid = artifact["uuid"]
-                        default_artifact_x = 100 + (artifact["id"] - 1) * config["horizontal_spacing"]
+                        default_artifact_x = 100 + (index_artifact - 1) * config["horizontal_spacing"]
                         artifact_x, artifact_y = get_coordinates_from_data(
                             artifact_uuid, default_artifact_x, artifact_y
                         )
@@ -1034,9 +1056,9 @@ class GameWorldService(BaseService):
 
                     # Обрабатываем компетенции для этой миссии
                     competency_y = mission_y + config["competency_height"]
-                    for competency in mission.get("competencies", []):
+                    for index_competency, competency in enumerate(mission.get("competencies", [])):
                         competency_uuid = competency["uuid"]
-                        default_competency_x = 100 + (competency["id"] - 1) * config["horizontal_spacing"]
+                        default_competency_x = 100 + (index_competency - 1) * config["horizontal_spacing"]
                         competency_x, competency_y = get_coordinates_from_data(
                             competency_uuid, default_competency_x, competency_y
                         )
@@ -1182,7 +1204,7 @@ class GameWorldService(BaseService):
                         "time_to_complete": event.get("time_to_complete", None),
                         "qr_code": event.get("qr_code", None),
                         "category_id": event["category"]["id"],
-                        "mentor_id": event["mentor"]["id"] if event.get("mentor") else None,
+                        "mentor_id": (event["mentor"]["id"] if event.get("mentor") else None),
                     },
                 }
                 cells.append(event_node)
@@ -1240,9 +1262,9 @@ class GameWorldService(BaseService):
 
                 # Обрабатываем артефакты для этой миссии
                 artifact_y = event_y + config["artifact_height"]
-                for artifact in event.get("artifacts", []):
+                for index_artifact, artifact in enumerate(event.get("artifacts", []), start=1):
                     artifact_uuid = artifact["uuid"]
-                    default_artifact_x = 100 + (artifact["id"] - 1) * config["horizontal_spacing"]
+                    default_artifact_x = 100 + (index_artifact - 1) * config["horizontal_spacing"]
                     artifact_x, artifact_y = get_coordinates_from_data(artifact_uuid, default_artifact_x, artifact_y)
 
                     artifact_node = {
@@ -1329,9 +1351,9 @@ class GameWorldService(BaseService):
 
                 # Обрабатываем компетенции для этой миссии
                 competency_y = event_y + config["competency_height"]
-                for competency in event.get("competencies", []):
+                for index_competency, competency in enumerate(event.get("competencies", []), start=1):
                     competency_uuid = competency["uuid"]
-                    default_competency_x = 100 + (competency["id"] - 1) * config["horizontal_spacing"]
+                    default_competency_x = 100 + (index_competency - 1) * config["horizontal_spacing"]
                     competency_x, competency_y = get_coordinates_from_data(
                         competency_uuid, default_competency_x, competency_y
                     )
@@ -1428,11 +1450,11 @@ class GameWorldService(BaseService):
                 event_y += config["event_height"]
 
             # Обновляем расстояние между рангами на основе фактической высоты текущего ранга
-            if rank["id"] < len(game_world_data.get("ranks", [])):
+            if rank_index < len(game_world_data.get("ranks", [])):
                 current_rank_height = event_y - rank_y
                 config["rank_height"] = max(config["rank_height"], current_rank_height + 50)  # добавляем отступ
 
-        return {"cells": cells}
+        return cells
 
 
 game_world_service = GameWorldService()

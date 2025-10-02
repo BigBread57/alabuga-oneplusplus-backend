@@ -14,7 +14,10 @@ class Migration(migrations.Migration):
             model_name="gameworld",
             name="data_for_graph",
             field=models.JSONField(
-                blank=True, help_text="Данные для графа", null=True, verbose_name="Данные для графа"
+                blank=True,
+                help_text="Данные для графа",
+                null=True,
+                verbose_name="Данные для графа",
             ),
         ),
         migrations.DeleteModel(
