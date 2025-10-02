@@ -26,7 +26,7 @@ from user.models import (
 )
 User = get_user_model()
 if not User.objects.filter(is_superuser=True).exists():
-    call_command('loaddata fixtures.json')
+    call_command('loaddata', 'fixtures.json')
 else:
     print('Superuser already exists.')
 "
