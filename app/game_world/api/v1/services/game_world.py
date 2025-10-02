@@ -9,7 +9,7 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import models, transaction
+from django.db import models
 from django.db.models.functions import DenseRank
 from django.utils.translation import gettext_lazy as _
 from llama_index.core import Settings
@@ -78,6 +78,7 @@ class GameWorldService(BaseService):
             "Все объекты должны соответствовать этому сеттингу и быть основаны на реальных трудовых "
             "компетенциях и событиях. Общие правила генерации. Все описания реальны, но стилизованы под игровой мир. "
             "Компетенции, события, миссии и артефакты должны быть выполнимыми в реальной профессиональной деятельности."
+            "Все сущности строго должны быть на русском языке."
             "Существующие объекты, которые необходимо использовать при генерации:\n"
         )
 
@@ -434,6 +435,110 @@ class GameWorldService(BaseService):
             result[section_name] = transformed_items
         return result
 
+    def create_or_update_entities_optimized(
+        self,
+        model: models.Model,
+        game_world: GameWorld,
+        validated_data_for_entities: list[dict[str, Any]],
+        maps: dict[str, Any] | None = None,
+    ) -> dict[str, int]:
+        """
+        Еще более оптимизированная версия с предварительной загрузкой всех данных.
+        """
+        with transaction.atomic():
+            # 1. Получаем все существующие объекты одним запросом
+            existing_entities = {entity.uuid: entity for entity in model.objects.filter(game_world=game_world)}
+            existing_uuids = set(existing_entities.keys())
+
+            # 2. Подготавливаем данные
+            entities_for_create = []
+            entities_for_update = []
+            parent_relationships = {}  # uuid -> parent_uuid
+
+            for validated_data in validated_data_for_entities:
+                uuid = validated_data["uuid"]
+
+                # Сохраняем parent связь для последующей обработки
+                parent_uuid = validated_data.pop("parent_uuid", None)
+                if parent_uuid:
+                    parent_relationships[uuid] = parent_uuid
+
+                # Заменяем game_world_uuid на объект
+                validated_data["game_world"] = game_world
+                validated_data.pop("game_world_uuid", None)
+
+                # Обрабатываем ForeignKey поля через maps
+                if maps:
+                    for field_name, field_map in maps.items():
+                        if field_name in validated_data:
+                            uuid_value = validated_data[field_name]
+                            if uuid_value in field_map:
+                                validated_data[field_name + "_id"] = field_map[uuid_value]
+                                validated_data.pop(field_name)
+                            else:
+                                # Если UUID не найден в маппинге, пропускаем или обрабатываем ошибку
+                                validated_data.pop(field_name)
+                                # Можно добавить логирование или выбросить исключение
+                                # raise ValueError(f"UUID {uuid_value} not found in {field_name} map")
+
+                if uuid not in existing_uuids:
+                    entities_for_create.append(model(**validated_data))
+                else:
+                    # Обновляем существующий объект
+                    entity = existing_entities[uuid]
+                    for key, value in validated_data.items():
+                        if key != "uuid" and getattr(entity, key) != value:
+                            setattr(entity, key, value)
+                    entities_for_update.append(entity)
+
+            # 3. Выполняем bulk операции
+            if entities_for_create:
+                created_entities = model.objects.bulk_create(entities_for_create)
+                # Добавляем созданные объекты в словарь для parent обработки
+                for entity in created_entities:
+                    existing_entities[entity.uuid] = entity
+
+            if entities_for_update:
+                # Определяем поля для обновления
+                update_fields = set()
+                for entity in entities_for_update:
+                    for field in validated_data_for_entities[0].keys():
+                        if field != "uuid":
+                            update_fields.add(field)
+
+                model.objects.bulk_update(entities_for_update, list(update_fields))
+
+            # 4. Обрабатываем parent связи
+            if parent_relationships:
+                self._apply_parent_relationships(existing_entities, parent_relationships)
+
+            # 5. Возвращаем маппинг
+            return {str(uuid): entity.id for uuid, entity in existing_entities.items()}
+
+    def _apply_parent_relationships(
+        self,
+        entities_dict: dict[UUID, models.Model],
+        parent_relationships: dict[UUID, UUID],
+    ) -> None:
+        """
+        Применяет parent связи к объектам.
+        """
+        entities_to_update = []
+
+        for child_uuid, parent_uuid in parent_relationships.items():
+            child_entity = entities_dict.get(child_uuid)
+            parent_entity = entities_dict.get(parent_uuid)
+
+            if child_entity and parent_entity and child_entity.parent_id != parent_entity.id:
+                child_entity.parent = parent_entity
+                entities_to_update.append(child_entity)
+
+        if entities_to_update:
+            # Используем модель из первого объекта (все объекты одной модели)
+            model_type = type(entities_to_update[0])
+            model_type.objects.bulk_update(entities_to_update, ["parent"])
+
+
     def generate(
         self,
         game_world: GameWorld,
@@ -446,13 +551,107 @@ class GameWorldService(BaseService):
         #     game_world=game_world,
         #     validated_data=validated_data,
         # )
-        game_data = (
+        game_world_data_raw = (
             llm.as_structured_llm(output_cls=GameWorldDataModel)
             .complete(prompt="Сформируй мне по 1 объекту для класса, переданного в output_cls")
             .raw
         )
-        transformed_game_data = self.transform_ai_response_to_dict(game_data)
-        game_world_data = GameWorldDataModel(**transformed_game_data).model_dump()
+
+
+
+        with transaction.atomic():
+            maps = {
+                "mentor": {
+                    character.uuid: character.uuid for character in Character.objects.filter(game_world=game_world)
+                }
+            }
+            competencies_map = self.create_or_update_entities(
+                model=Competency,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("competencies", []),
+            )
+            maps.update(competency=competencies_map)
+            ranks_map = self.create_or_update_entities(
+                model=Rank,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("ranks", []),
+            )
+            maps.update(rank=ranks_map)
+            required_rank_competency_map = self.create_or_update_entities(
+                model=RequiredRankCompetency,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("required_rank_competencies", []),
+                maps=maps,
+            )
+            maps.update(required_rank_competency=required_rank_competency_map)
+            activity_categories_map = self.create_or_update_entities(
+                model=ActivityCategory,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("activity_categories", []),
+            )
+            maps.update(activity_category=activity_categories_map)
+            artifacts_map = self.create_or_update_entities(
+                model=Artifact,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("artifacts", []),
+            )
+            maps.update(artifact=artifacts_map)
+            events_map = self.create_or_update_entities(
+                model=Event,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("events", []),
+            )
+            maps.update(event=events_map)
+            event_artifacts_map = self.create_or_update_entities(
+                model=EventArtifact,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("event_artifacts", []),
+            )
+            maps.update(event_artifact=event_artifacts_map)
+            event_competencies_map = self.create_or_update_entities(
+                model=EventCompetency,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("event_competencies", []),
+            )
+            maps.update(event_competency=event_competencies_map)
+            game_world_stories_map = self.create_or_update_entities(
+                model=GameWorldStory,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("game_world_stories", []),
+            )
+            maps.update(game_world_story=game_world_stories_map)
+            mission_branches_map = self.create_or_update_entities(
+                model=MissionBranch,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("mission_branches", []),
+            )
+            maps.update(mission_branch=mission_branches_map)
+            mission_levels_map = self.create_or_update_entities(
+                model=MissionLevel,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("mission_levels", []),
+            )
+            maps.update(mission_level=mission_levels_map)
+            missions_map = self.create_or_update_entities(
+                model=Mission,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("missions", []),
+            )
+            maps.update(mission=missions_map)
+            mission_artefacts_map = self.create_or_update_entities(
+                model=MissionArtifact,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("mission_artefacts", []),
+            )
+            maps.update(mission_artefact=mission_artefacts_map)
+            mission_competencies_map = self.create_or_update_entities(
+                model=MissionCompetency,
+                game_world=game_world,
+                validated_data_for_entities=validated_data.get("mission_competencies", []),
+            )
+            maps.update(mission_competency=mission_competencies_map)
+
+
         return self.get_data_for_graph(game_world_data=game_world_data, data_for_graph=game_world.data_for_graph)
 
     def update_or_create_all_entities(
@@ -698,7 +897,6 @@ class GameWorldService(BaseService):
         Преобразует объект игрового мира в формат cells для визуализации графа
         """
         cells = []
-        all_uuid = []
 
         # Конфигурируемые параметры для позиционирования
         config = {
