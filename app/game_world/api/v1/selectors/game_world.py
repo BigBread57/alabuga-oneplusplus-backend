@@ -41,7 +41,7 @@ class GameWorldListOrStatisticsOrStatisticsSelector(BaseSelector):
     filter_class = GameWorldListOrStatisticsOrStatisticsFilter
 
 
-class GameWorldListWithAllEntitiesSelector(BaseSelector):
+class GameWorldDataForGraphSelector(BaseSelector):
     """
     Игровой мир. Рейтинг. Селектор.
     """

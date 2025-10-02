@@ -11,7 +11,7 @@ from common.views import QuerySelectorMixin
 from game_world.api.v1.selectors import (
     GameWorldListOrStatisticsOrStatisticsFilterSerializer,
     GameWorldListOrStatisticsOrStatisticsSelector,
-    GameWorldListWithAllEntitiesSelector,
+    GameWorldDataForGraphSelector,
 )
 from game_world.api.v1.serializers import (
     GameWorldCreateOrUpdateSerializer,
@@ -19,7 +19,7 @@ from game_world.api.v1.serializers import (
     GameWorldGenerateSerializer,
     GameWorldInfoForGenerateSerializer,
     GameWorldListSerializer,
-    GameWorldListWithAllEntitiesSerializer,
+    GameWorldDataForGraphSerializer,
     GameWorldStatisticsSerializer,
 )
 from game_world.api.v1.services import game_world_service
@@ -54,17 +54,17 @@ class GameWorldListAPIView(QuerySelectorMixin, GenericAPIView):
         return self.get_paginated_response(data=serializer.data)
 
 
-class GameWorldListWithAllEntitiesAPIView(QuerySelectorMixin, GenericAPIView):
+class GameWorldDataForGraphAPIView(QuerySelectorMixin, GenericAPIView):
     """
     Игровой мир. Список со всеми элементами.
     """
 
-    selector = GameWorldListWithAllEntitiesSelector
-    serializer_class = GameWorldListWithAllEntitiesSerializer
+    selector = GameWorldDataForGraphSelector
+    serializer_class = GameWorldDataForGraphSerializer
 
     @extend_schema(
         responses={
-            status.HTTP_200_OK: GameWorldListWithAllEntitiesSerializer,
+            status.HTTP_200_OK: GameWorldDataForGraphSerializer,
         },
         tags=["game_world:game_world"],
     )
@@ -72,13 +72,15 @@ class GameWorldListWithAllEntitiesAPIView(QuerySelectorMixin, GenericAPIView):
         """
         Список объектов.
         """
+        # game_world = self.get_object()
+        #
+        # return Response(
+        #     data=game_world.data_for_graph,
+        #     status=status.HTTP_200_OK,
+        # )
         game_world = self.get_object()
         serializer = self.get_serializer(instance=game_world)
 
-        # return Response(
-        #     data=serializer.data,
-        #     status=status.HTTP_200_OK,
-        # )
         return Response(
             data=game_world_service.get_data_for_graph(
                 game_world_data=serializer.data,
@@ -333,12 +335,12 @@ class GameWorldGenerateAPIView(GenericAPIView):
         game_world = self.get_object()
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        game_world = game_world_service.generate(
+        game_world_data_for_graph = game_world_service.generate(
             game_world=game_world,
             validated_data=serializer.validated_data,
         )
 
         return Response(
-            data=game_world,
+            data=game_world_data_for_graph,
             status=status.HTTP_201_CREATED,
         )

@@ -18,7 +18,7 @@ from llama_index.llms.openai import OpenAI
 from common.constants import FieldNameForGenerate, GenerateObjectType
 from common.services import BaseService
 from game_mechanics.models import Competency, Rank, RequiredRankCompetency
-from game_world.api.v1.services.sructure_data_for_generate import GameDataModel
+from game_world.api.v1.services.sructure_data_for_generate import GameWorldDataModel
 from game_world.models import (
     ActivityCategory,
     Artifact,
@@ -410,7 +410,7 @@ class GameWorldService(BaseService):
 
     @staticmethod
     def transform_ai_response_to_dict(ai_data):
-        """Преобразует данные от ИИ в словарь для GameDataModel"""
+        """Преобразует данные от ИИ в словарь для GameWorldDataModel"""
         result = {}
         for section_name, items in ai_data:
             transformed_items = []
@@ -435,12 +435,13 @@ class GameWorldService(BaseService):
         #     validated_data=validated_data,
         # )
         game_data = (
-            llm.as_structured_llm(output_cls=GameDataModel)
+            llm.as_structured_llm(output_cls=GameWorldDataModel)
             .complete(prompt="Сформируй мне по 1 объекту для класса, переданного в output_cls")
             .raw
         )
         transformed_game_data = self.transform_ai_response_to_dict(game_data)
-        return GameDataModel(**transformed_game_data).model_dump()
+        game_world_data = GameWorldDataModel(**transformed_game_data).model_dump()
+        return self.get_data_for_graph(game_world_data=game_world_data, data_for_graph=game_world.data_for_graph)
 
     def update_or_create_all_entities(
         self,
@@ -467,42 +468,42 @@ class GameWorldService(BaseService):
             # Создание или обновление Rank.
             if cell_shape == "rank":
                 Rank.objects.update_or_create(
-                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
                 )
             # Создание или обновление MissionBranch.
             if cell_shape == "mission_branch":
                 MissionBranch.objects.update_or_create(
-                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
                 )
 
             # Создание или обновление Mission.
             if cell_shape == "mission":
                 Mission.objects.update_or_create(
-                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
                 )
 
             # Создание или обновление Artifact.
             if cell_shape == "artifact":
                 Artifact.objects.update_or_create(
-                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
                 )
 
             # Создание или обновление Competency.
             if cell_shape == "competency":
                 Competency.objects.update_or_create(
-                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
                 )
 
             # Создание или обновление Competency.
             if cell_shape == "event":
                 Event.objects.update_or_create(
-                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
                 )
 
             # Создание или обновление Competency.
             if cell_shape == "game_world_story":
                 GameWorldStory.objects.update_or_create(
-                    uuid=cell.get("uuid"), defaults={"game_world_id": game_world_id, **cell_data}
+                    uuid=cell.get("id"), defaults={"game_world_id": game_world_id, **cell_data}
                 )
 
             # Формирование связей.
@@ -512,10 +513,10 @@ class GameWorldService(BaseService):
                         {cell["source"]["cell"]: cell["target"]["cell"]},
                     )
                 elif cell_data["source_type"] == "mission" and cell_data["target_type"] == "artifact":
-                    key = f"{cell_data['source_type']}|{cell['target_type']}"
+                    key = f"{cell_data['source_type']}|{cell_data['target_type']}"
                     relationship_m2m_maps[key][cell["source"]["cell"]].append(cell["target"]["cell"])
                 else:
-                    key = f"{cell_data['source_type']}|{cell['target_type']}"
+                    key = f"{cell_data['source_type']}|{cell_data['target_type']}"
                     relationship_fk_maps[key].update(
                         {cell["source"]["cell"]: cell["target"]["cell"]},
                     )
@@ -525,19 +526,23 @@ class GameWorldService(BaseService):
             # Ранг.
             if relationship_name == "rank":
                 rank_for_update = []
-                for rank in Rank.objects.filter(uuid__in=relationships.keys()):
-                    rank.parent = relationships.get(rank.uuid)
+                ranks_map = {
+                    str(rank.uuid): rank
+                    for rank in Rank.objects.filter(uuid__in=list(relationships.values()))
+                }
+                for rank in Rank.objects.filter(uuid__in=list(relationships.keys())):
+                    rank.parent = ranks_map.get(relationships.get(str(rank.uuid)))
                 Rank.objects.bulk_update(rank_for_update, fields=("parent",))
 
             # Истории игрового мира и ранг.
             if relationship_name == "rank|game_world_story":
                 game_world_stories_for_update = []
                 game_world_stories_map = {
-                    game_world_story.uuid: game_world_story
-                    for game_world_story in GameWorldStory.objects.filter(uuid__in=relationships.values())
+                    str(game_world_story.uuid): game_world_story
+                    for game_world_story in GameWorldStory.objects.filter(uuid__in=list(relationships.values()))
                 }
-                for rank in Rank.objects.filter(uuid__in=relationships.keys()):
-                    game_world_story = game_world_stories_map.get(relationships.get(rank.uuid))
+                for rank in Rank.objects.filter(uuid__in=list(relationships.keys())):
+                    game_world_story = game_world_stories_map.get(relationships.get(str(rank.uuid)))
                     game_world_story.content_object = rank
                     game_world_stories_for_update.append(game_world_story)
                 GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
@@ -546,11 +551,11 @@ class GameWorldService(BaseService):
             if relationship_name == "artifact|game_world_story":
                 game_world_stories_for_update = []
                 game_world_stories_map = {
-                    game_world_story.uuid: game_world_story
-                    for game_world_story in GameWorldStory.objects.filter(uuid__in=relationships.values())
+                    str(game_world_story.uuid): game_world_story
+                    for game_world_story in GameWorldStory.objects.filter(uuid__in=list(relationships.values()))
                 }
-                for artifact in Artifact.objects.filter(uuid__in=relationships.keys()):
-                    game_world_story = game_world_stories_map.get(relationships.get(artifact.uuid))
+                for artifact in Artifact.objects.filter(uuid__in=list(relationships.keys())):
+                    game_world_story = game_world_stories_map.get(relationships.get(str(artifact.uuid)))
                     game_world_story.content_object = artifact
                     game_world_stories_for_update.append(game_world_story)
                 GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
@@ -559,11 +564,11 @@ class GameWorldService(BaseService):
             if relationship_name == "artifact|game_world_story":
                 game_world_stories_for_update = []
                 game_world_stories_map = {
-                    game_world_story.uuid: game_world_story
-                    for game_world_story in GameWorldStory.objects.filter(uuid__in=relationships.values())
+                    str(game_world_story.uuid): game_world_story
+                    for game_world_story in GameWorldStory.objects.filter(uuid__in=list(relationships.values()))
                 }
-                for competency in Competency.objects.filter(uuid__in=relationships.keys()):
-                    game_world_story = game_world_stories_map.get(relationships.get(competency.uuid))
+                for competency in Competency.objects.filter(uuid__in=list(relationships.keys())):
+                    game_world_story = game_world_stories_map.get(relationships.get(str(competency.uuid)))
                     game_world_story.content_object = competency
                     game_world_stories_for_update.append(game_world_story)
                 GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
@@ -572,11 +577,11 @@ class GameWorldService(BaseService):
             if relationship_name == "rank|mission_branch":
                 mission_branches_for_update = []
                 mission_branches_map = {
-                    mission_branch.uuid: mission_branch
-                    for mission_branch in MissionBranch.objects.filter(uuid__in=relationships.values())
+                    str(mission_branch.uuid): mission_branch
+                    for mission_branch in MissionBranch.objects.filter(uuid__in=list(relationships.values()))
                 }
-                for rank in Rank.objects.filter(uuid__in=relationships.keys()):
-                    mission_branch = mission_branches_map.get(relationships.get(rank.uuid))
+                for rank in Rank.objects.filter(uuid__in=list(relationships.keys())):
+                    mission_branch = mission_branches_map.get(relationships.get(str(rank.uuid)))
                     mission_branch.rank = rank
                     mission_branches_for_update.append(mission_branch)
                 MissionBranch.objects.bulk_update(mission_branches_for_update, fields=("rank",))
@@ -585,12 +590,14 @@ class GameWorldService(BaseService):
             if relationship_name == "mission_branch|mission":
                 missions_for_update = []
                 missions_map = {
-                    mission.uuid: mission for mission in Mission.objects.filter(uuid__in=relationships.values())
+                    str(mission.uuid): mission
+                    for mission in Mission.objects.filter(uuid__in=list(relationships.values()))
                 }
-                for mission_branch in MissionBranch.objects.filter(uuid__in=relationships.keys()):
-                    mission = missions_map.get(relationships.get(rank.uuid))
+                for mission_branch in MissionBranch.objects.filter(uuid__in=list(relationships.keys())):
+                    mission = missions_map.get(relationships.get(str(mission_branch.uuid)))
                     mission.branch = mission_branch
-                Mission.objects.bulk_update(missions_for_update, fields=("mission_branch",))
+                    missions_for_update.append(mission)
+                Mission.objects.bulk_update(missions_for_update, fields=("branch",))
 
         for relationship_name, relationships in relationship_m2m_maps.items():
             # Миссия и артефакт.
@@ -819,8 +826,8 @@ class GameWorldService(BaseService):
                         "is_active": mission_branch["is_active"],
                         "start_datetime": mission_branch.get("start_datetime", None),
                         "time_to_complete": mission_branch.get("time_to_complete", None),
-                        "category": mission_branch["category"],
-                        "mentor": mission_branch.get("mentor", None),
+                        "category_id": mission_branch["category"]["id"],
+                        "mentor_id": event["mentor"]["id"] if event.get("mentor") else None,
                     },
                 }
                 cells.append(mission_branch_node)
@@ -874,9 +881,9 @@ class GameWorldService(BaseService):
                             "is_active": mission["is_active"],
                             "time_to_complete": mission.get("time_to_complete", None),
                             "qr_code": mission.get("qr_code", None),
-                            "level": mission.get("level"),
-                            "category": mission.get("category"),
-                            "mentor": mission.get("mentor", None),
+                            "level_id": mission["level"]["id"],
+                            "category_id": mission["category"]["id"],
+                            "mentor_id": event["mentor"]["id"] if event.get("mentor") else None,
                         },
                     }
                     cells.append(mission_node)
@@ -1174,8 +1181,8 @@ class GameWorldService(BaseService):
                         "start_datetime": event.get("start_datetime", None),
                         "time_to_complete": event.get("time_to_complete", None),
                         "qr_code": event.get("qr_code", None),
-                        "category": event.get("category"),
-                        "mentor": event.get("mentor", None),
+                        "category_id": event["category"]["id"],
+                        "mentor_id": event["mentor"]["id"] if event.get("mentor") else None,
                     },
                 }
                 cells.append(event_node)

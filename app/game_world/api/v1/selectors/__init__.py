@@ -25,7 +25,7 @@ from game_world.api.v1.selectors.event_competency import (
 from game_world.api.v1.selectors.game_world import (
     GameWorldListOrStatisticsOrStatisticsFilterSerializer,
     GameWorldListOrStatisticsOrStatisticsSelector,
-    GameWorldListWithAllEntitiesSelector,
+    GameWorldDataForGraphSelector,
 )
 from game_world.api.v1.selectors.game_world_story import (
     GameWorldStoryDetailSelector,
@@ -69,7 +69,7 @@ __all__ = (
     "GameWorldListOrStatisticsOrStatisticsSelector",
     "GameWorldListOrStatisticsOrStatisticsFilterSerializer",
     "GameWorldListOrStatisticsOrStatisticsSelector",
-    "GameWorldListWithAllEntitiesSelector",
+    "GameWorldDataForGraphSelector",
     # Mission
     "MissionListSelector",
     "MissionDetailSelector",

@@ -328,7 +328,7 @@ class RankAllInfoNestedSerializer(serializers.ModelSerializer):
         )
 
 
-class GameWorldListWithAllEntitiesSerializer(serializers.ModelSerializer):
+class GameWorldDataForGraphSerializer(serializers.ModelSerializer):
     """
     Игровой мир. Список.
     """
@@ -354,7 +354,7 @@ class GameWorldListWithAllEntitiesSerializer(serializers.ModelSerializer):
         )
 
 
-class GameWorldListWithAllEntitiesSerializer(serializers.ModelSerializer):
+class GameWorldDataForGraphSerializer(serializers.ModelSerializer):
     """
     Игровой мир. Список.
     """

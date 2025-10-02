@@ -103,9 +103,9 @@ game_world_urls = [
         name="game-worlds-statistics",
     ),
     path(
-        route="game-worlds/<int:pk>/list-with-all-entities/",
-        view=views.GameWorldListWithAllEntitiesAPIView.as_view(),
-        name="game-worlds-list-with-all-entities",
+        route="game-worlds/<int:pk>/data-for-graph/",
+        view=views.GameWorldDataForGraphAPIView.as_view(),
+        name="game-worlds-data-for-graph",
     ),
     path(
         route="game-worlds/<int:pk>/update-or-create-all-entities/",

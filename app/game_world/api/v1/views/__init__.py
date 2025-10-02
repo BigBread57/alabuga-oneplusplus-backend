@@ -40,7 +40,7 @@ from game_world.api.v1.views.game_world import (
     GameWorldGenerateAPIView,
     GameWorldInfoForGenerateAPIView,
     GameWorldListAPIView,
-    GameWorldListWithAllEntitiesAPIView,
+    GameWorldDataForGraphAPIView,
     GameWorldStatisticsAPIView,
     GameWorldUpdateAPIView,
     GameWorldUpdateOrCreateAllEntitiesAPIView,
@@ -110,7 +110,7 @@ __all__ = (
     "GameWorldStatisticsAPIView",
     "GameWorldGenerateAPIView",
     "GameWorldInfoForGenerateAPIView",
-    "GameWorldListWithAllEntitiesAPIView",
+    "GameWorldDataForGraphAPIView",
     "GameWorldUpdateOrCreateAllEntitiesAPIView",
     # Mission
     "MissionListAPIView",

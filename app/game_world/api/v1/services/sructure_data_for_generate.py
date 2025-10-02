@@ -392,7 +392,7 @@ class MissionLevelBase(BaseModel):
     )
 
 
-class GameDataModel(BaseModel):
+class GameWorldDataModel(BaseModel):
     competencies: list[CompetencyBase] = Field(
         default_factory=list,
         description=_("Список компетенций"),
