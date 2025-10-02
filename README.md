@@ -13,6 +13,9 @@
 ## ⚡ Быстрый запуск
 ### Посмотреть на готовое решение можно на [https://alabuga.star-vim.online/en/profile](https://alabuga.star-vim.online/en/profile) (данные для входа: приложены в пользовательской документации)
 
+### Ссылка на frontend:
+https://github.com/BigBread57/alabuga-oneplusplus-frontend
+
 ### Один клик для запуска всего проекта:
 
 ```bash
@@ -237,4 +240,4 @@ poetry run python manage.py runserver
 - **[DEPLOYMENT.md](DEPLOYMENT.md)** - деплой в production
 
 
-**Разработано для ОЭЗ "Алабуга"** | 2024 | Хакатон
+**Разработано для ОЭЗ "Алабуга"** | 2025 | Хакатон

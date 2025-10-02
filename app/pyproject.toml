@@ -33,6 +33,7 @@ drf-standardized-errors = "^0.15.0"
 pillow = "^11.3.0"
 llama-index = "^0.14.3"
 qrcode = "^8.2"
+httpx = {extras = ["socks"], version = "^0.28.1"}
 
 [tool.poetry.group.dev.dependencies]
 black = "^24"  # https://github.com/psf/black

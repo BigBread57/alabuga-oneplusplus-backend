@@ -190,28 +190,29 @@ class CharacterEventService(BaseService):
         Действия после завершения события.
         """
         now_datetime = timezone.now()
-        ActivityLog.objects.create(
-            character=character,
-            text=_(f"Вы успешно завершили событие {character_event.event}. Поздравляем!"),
-            content_object=character_event,
-        )
-        if event_artifacts := character_event.event.event_artifacts.all():
-            self._create_or_update_character_artifacts(
+        with transaction.atomic():
+            ActivityLog.objects.create(
                 character=character,
-                event_artifacts=list(event_artifacts),
+                text=_(f"Вы успешно завершили событие {character_event.event}. Поздравляем!"),
+                content_object=character_event,
             )
-        if event_competencies := character_event.event.event_competencies.select_related("competency").all():
-            self._create_or_update_character_competency(
-                character=character,
-                event_competencies=list(event_competencies),
-                now_datetime=now_datetime,
-            )
-        if character_event.event.experience > 0:
-            self._create_or_update_character_rank(
-                character=character,
-                character_event=character_event,
-                now_datetime=now_datetime,
-            )
+            if event_artifacts := character_event.event.event_artifacts.all():
+                self._create_or_update_character_artifacts(
+                    character=character,
+                    event_artifacts=list(event_artifacts),
+                )
+            if event_competencies := character_event.event.event_competencies.select_related("competency").all():
+                self._create_or_update_character_competency(
+                    character=character,
+                    event_competencies=list(event_competencies),
+                    now_datetime=now_datetime,
+                )
+            if character_event.event.experience > 0:
+                self._create_or_update_character_rank(
+                    character=character,
+                    character_event=character_event,
+                    now_datetime=now_datetime,
+                )
 
     def update_from_character(
         self,
@@ -221,17 +222,18 @@ class CharacterEventService(BaseService):
         """
         Создание покупки пользователя.
         """
-        CharacterEvent.objects.filter(
-            id=character_event.id,
-        ).update(
-            status=CharacterEvent.Statuses.PENDING_REVIEW,
-            **validated_data,
-        )
-        transaction.on_commit(
-            lambda: send_mail_about_character_event_for_inspector.delay(
-                character_event_id=character_event.id,
-            ),
-        )
+        with transaction.atomic():
+            CharacterEvent.objects.filter(
+                id=character_event.id,
+            ).update(
+                status=CharacterEvent.Statuses.PENDING_REVIEW,
+                **validated_data,
+            )
+            transaction.on_commit(
+                lambda: send_mail_about_character_event_for_inspector.delay(
+                    character_event_id=character_event.id,
+                ),
+            )
         character_event.refresh_from_db()
 
         return character_event
