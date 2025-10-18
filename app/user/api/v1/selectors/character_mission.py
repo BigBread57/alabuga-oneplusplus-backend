@@ -37,8 +37,8 @@ class CharacterMissionListFilterSerializer(serializers.Serializer):
         required=True,
     )
     branch = serializers.PrimaryKeyRelatedField(
-        label=_("Персонаж"),
-        help_text=_("Персонаж"),
+        label=_("Ветка"),
+        help_text=_("Ветка"),
         queryset=MissionBranch.objects.all(),
         required=False,
     )
@@ -62,8 +62,8 @@ class CharacterMissionListForInspectorFilterSerializer(serializers.Serializer):
         required=True,
     )
     branch = serializers.PrimaryKeyRelatedField(
-        label=_("Персонаж"),
-        help_text=_("Персонаж"),
+        label=_("Ветка"),
+        help_text=_("Ветка"),
         queryset=MissionBranch.objects.all(),
         required=False,
     )
@@ -73,6 +73,13 @@ class CharacterMissionListFilter(django_filters.FilterSet):
     """
     Миссия персонажа. Список. Фильтр.
     """
+
+    branch = django_filters.ModelChoiceFilter(
+        queryset=MissionBranch.objects.all(),
+        label=_("Ветка"),
+        help_text=_("Ветка"),
+        field_name="branch__branch",
+    )
 
     class Meta:
         model = CharacterMission
