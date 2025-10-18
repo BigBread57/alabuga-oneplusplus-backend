@@ -345,232 +345,231 @@ class GameWorldService(BaseService):
         """
         Обновляет существующие сущности в БД или создает новые на основе данных графа
         """
-        with transaction.atomic():
-            game_world_id = game_world.id
-            game_world.data_for_graph = cells_data
-            game_world.save()
+        game_world_id = game_world.id
+        game_world.data_for_graph = cells_data
+        game_world.save()
 
-            # Обрабатываем fk связи. Ключ - название связи, значения - словарь, где ключ и значение это uuid.
-            relationship_fk_maps = defaultdict(dict)
+        # Обрабатываем fk связи. Ключ - название связи, значения - словарь, где ключ и значение это uuid.
+        relationship_fk_maps = defaultdict(dict)
 
-            # Обрабатываем m2m связи. Ключ - название связи, значения - словарь, где ключ и значение это uuid.
-            relationship_m2m_maps = defaultdict(lambda: defaultdict(list))
+        # Обрабатываем m2m связи. Ключ - название связи, значения - словарь, где ключ и значение это uuid.
+        relationship_m2m_maps = defaultdict(lambda: defaultdict(list))
 
-            for cell in cells_data.get("cells", []):
-                cell_shape = cell["shape"]
-                cell_data = cell["data"]
+        for cell in cells_data.get("cells", []):
+            cell_shape = cell["shape"]
+            cell_data = cell["data"]
 
-                # Создание или обновление Rank.
-                if cell_shape == "rank":
-                    Rank.objects.update_or_create(
-                        uuid=cell.get("id"),
-                        defaults={"game_world_id": game_world_id, **cell_data},
+            # Создание или обновление Rank.
+            if cell_shape == "rank":
+                Rank.objects.update_or_create(
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
+                )
+            # Создание или обновление MissionBranch.
+            if cell_shape == "mission_branch":
+                MissionBranch.objects.update_or_create(
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
+                )
+
+            # Создание или обновление Mission.
+            if cell_shape == "mission":
+                Mission.objects.update_or_create(
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
+                )
+
+            # Создание или обновление Artifact.
+            if cell_shape == "artifact":
+                Artifact.objects.update_or_create(
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
+                )
+
+            # Создание или обновление Competency.
+            if cell_shape == "competency":
+                Competency.objects.update_or_create(
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
+                )
+
+            # Создание или обновление Competency.
+            if cell_shape == "event":
+                Event.objects.update_or_create(
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
+                )
+
+            # Создание или обновление Competency.
+            if cell_shape == "game_world_story":
+                GameWorldStory.objects.update_or_create(
+                    uuid=cell.get("id"),
+                    defaults={"game_world_id": game_world_id, **cell_data},
+                )
+
+            # Формирование связей.
+            if cell_shape == "edge":
+                if cell_data["source_type"] == cell_data["target_type"]:
+                    relationship_fk_maps[cell_data["source_type"]].update(
+                        {cell["source"]["cell"]: cell["target"]["cell"]},
                     )
-                # Создание или обновление MissionBranch.
-                if cell_shape == "mission_branch":
-                    MissionBranch.objects.update_or_create(
-                        uuid=cell.get("id"),
-                        defaults={"game_world_id": game_world_id, **cell_data},
+                elif cell_data["source_type"] == "mission" and cell_data["target_type"] == "artifact":
+                    key = f"{cell_data['source_type']}|{cell_data['target_type']}"
+                    relationship_m2m_maps[key][cell["source"]["cell"]].append(cell["target"]["cell"])
+                else:
+                    key = f"{cell_data['source_type']}|{cell_data['target_type']}"
+                    relationship_fk_maps[key].update(
+                        {cell["source"]["cell"]: cell["target"]["cell"]},
                     )
 
-                # Создание или обновление Mission.
-                if cell_shape == "mission":
-                    Mission.objects.update_or_create(
-                        uuid=cell.get("id"),
-                        defaults={"game_world_id": game_world_id, **cell_data},
-                    )
+        # Установка связей.
+        for relationship_name, relationships in relationship_fk_maps.items():
+            # Ранг.
+            if relationship_name == "rank":
+                rank_for_update = []
+                ranks_map = {
+                    str(rank.uuid): rank for rank in Rank.objects.filter(uuid__in=list(relationships.values()))
+                }
+                for rank in Rank.objects.filter(uuid__in=list(relationships.keys())):
+                    rank.parent = ranks_map.get(relationships.get(str(rank.uuid)))
+                Rank.objects.bulk_update(rank_for_update, fields=("parent",))
 
-                # Создание или обновление Artifact.
-                if cell_shape == "artifact":
-                    Artifact.objects.update_or_create(
-                        uuid=cell.get("id"),
-                        defaults={"game_world_id": game_world_id, **cell_data},
-                    )
+            # Истории игрового мира и ранг.
+            if relationship_name == "rank|game_world_story":
+                game_world_stories_for_update = []
+                game_world_stories_map = {
+                    str(game_world_story.uuid): game_world_story
+                    for game_world_story in GameWorldStory.objects.filter(uuid__in=list(relationships.values()))
+                }
+                for rank in Rank.objects.filter(uuid__in=list(relationships.keys())):
+                    game_world_story = game_world_stories_map.get(relationships.get(str(rank.uuid)))
+                    game_world_story.content_object = rank
+                    game_world_stories_for_update.append(game_world_story)
+                GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
 
-                # Создание или обновление Competency.
-                if cell_shape == "competency":
-                    Competency.objects.update_or_create(
-                        uuid=cell.get("id"),
-                        defaults={"game_world_id": game_world_id, **cell_data},
-                    )
+            # Истории игрового мира и артефакт.
+            if relationship_name == "artifact|game_world_story":
+                game_world_stories_for_update = []
+                game_world_stories_map = {
+                    str(game_world_story.uuid): game_world_story
+                    for game_world_story in GameWorldStory.objects.filter(uuid__in=list(relationships.values()))
+                }
+                for artifact in Artifact.objects.filter(uuid__in=list(relationships.keys())):
+                    game_world_story = game_world_stories_map.get(relationships.get(str(artifact.uuid)))
+                    game_world_story.content_object = artifact
+                    game_world_stories_for_update.append(game_world_story)
+                GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
 
-                # Создание или обновление Competency.
-                if cell_shape == "event":
-                    Event.objects.update_or_create(
-                        uuid=cell.get("id"),
-                        defaults={"game_world_id": game_world_id, **cell_data},
-                    )
+            # Истории игрового мира и компетенция.
+            if relationship_name == "artifact|game_world_story":
+                game_world_stories_for_update = []
+                game_world_stories_map = {
+                    str(game_world_story.uuid): game_world_story
+                    for game_world_story in GameWorldStory.objects.filter(uuid__in=list(relationships.values()))
+                }
+                for competency in Competency.objects.filter(uuid__in=list(relationships.keys())):
+                    game_world_story = game_world_stories_map.get(relationships.get(str(competency.uuid)))
+                    game_world_story.content_object = competency
+                    game_world_stories_for_update.append(game_world_story)
+                GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
 
-                # Создание или обновление Competency.
-                if cell_shape == "game_world_story":
-                    GameWorldStory.objects.update_or_create(
-                        uuid=cell.get("id"),
-                        defaults={"game_world_id": game_world_id, **cell_data},
-                    )
+            # Ветка миссии и ранг.
+            if relationship_name == "rank|mission_branch":
+                mission_branches_for_update = []
+                mission_branches_map = {
+                    str(mission_branch.uuid): mission_branch
+                    for mission_branch in MissionBranch.objects.filter(uuid__in=list(relationships.values()))
+                }
+                for rank in Rank.objects.filter(uuid__in=list(relationships.keys())):
+                    mission_branch = mission_branches_map.get(relationships.get(str(rank.uuid)))
+                    mission_branch.rank = rank
+                    mission_branches_for_update.append(mission_branch)
+                MissionBranch.objects.bulk_update(mission_branches_for_update, fields=("rank",))
 
-                # Формирование связей.
-                if cell_shape == "edge":
-                    if cell_data["source_type"] == cell_data["target_type"]:
-                        relationship_fk_maps[cell_data["source_type"]].update(
-                            {cell["source"]["cell"]: cell["target"]["cell"]},
+            # Ветка миссии и миссия.
+            if relationship_name == "mission_branch|mission":
+                missions_for_update = []
+                missions_map = {
+                    str(mission.uuid): mission
+                    for mission in Mission.objects.filter(uuid__in=list(relationships.values()))
+                }
+                for mission_branch in MissionBranch.objects.filter(uuid__in=list(relationships.keys())):
+                    mission = missions_map.get(relationships.get(str(mission_branch.uuid)))
+                    mission.branch = mission_branch
+                    missions_for_update.append(mission)
+                Mission.objects.bulk_update(missions_for_update, fields=("branch",))
+
+        for relationship_name, relationships in relationship_m2m_maps.items():
+            # Миссия и артефакт.
+            if relationship_name == "mission|artifact":
+                for mission_uuid, artifacts in relationships.items():
+                    mission = Mission.objects.get(uuid=mission_uuid)
+                    mission_artifact_for_create = [
+                        MissionArtifact(
+                            mission=mission,
+                            artifact=artifact,
                         )
-                    elif cell_data["source_type"] == "mission" and cell_data["target_type"] == "artifact":
-                        key = f"{cell_data['source_type']}|{cell_data['target_type']}"
-                        relationship_m2m_maps[key][cell["source"]["cell"]].append(cell["target"]["cell"])
-                    else:
-                        key = f"{cell_data['source_type']}|{cell_data['target_type']}"
-                        relationship_fk_maps[key].update(
-                            {cell["source"]["cell"]: cell["target"]["cell"]},
+                        for artifact in Artifact.objects.filter(uuid__in=artifacts)
+                    ]
+                    MissionArtifact.objects.bulk_create(
+                        mission_artifact_for_create,
+                        ignore_conflicts=True,
+                    )
+
+        for relationship_name, relationships in relationship_m2m_maps.items():
+            # Миссия и компетенция.
+            if relationship_name == "mission|competency":
+                for mission_uuid, competencies in relationships.items():
+                    mission = Mission.objects.get(uuid=mission_uuid)
+                    mission_artifact_for_create = [
+                        MissionCompetency(
+                            mission=mission,
+                            competency=competency,
+                            # TODO: Временное решение.
+                            experience=50,
                         )
+                        for competency in Competency.objects.filter(uuid__in=competencies)
+                    ]
+                    MissionCompetency.objects.bulk_create(
+                        mission_artifact_for_create,
+                        ignore_conflicts=True,
+                    )
 
-            # Установка связей.
-            for relationship_name, relationships in relationship_fk_maps.items():
-                # Ранг.
-                if relationship_name == "rank":
-                    rank_for_update = []
-                    ranks_map = {
-                        str(rank.uuid): rank for rank in Rank.objects.filter(uuid__in=list(relationships.values()))
-                    }
-                    for rank in Rank.objects.filter(uuid__in=list(relationships.keys())):
-                        rank.parent = ranks_map.get(relationships.get(str(rank.uuid)))
-                    Rank.objects.bulk_update(rank_for_update, fields=("parent",))
-
-                # Истории игрового мира и ранг.
-                if relationship_name == "rank|game_world_story":
-                    game_world_stories_for_update = []
-                    game_world_stories_map = {
-                        str(game_world_story.uuid): game_world_story
-                        for game_world_story in GameWorldStory.objects.filter(uuid__in=list(relationships.values()))
-                    }
-                    for rank in Rank.objects.filter(uuid__in=list(relationships.keys())):
-                        game_world_story = game_world_stories_map.get(relationships.get(str(rank.uuid)))
-                        game_world_story.content_object = rank
-                        game_world_stories_for_update.append(game_world_story)
-                    GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
-
-                # Истории игрового мира и артефакт.
-                if relationship_name == "artifact|game_world_story":
-                    game_world_stories_for_update = []
-                    game_world_stories_map = {
-                        str(game_world_story.uuid): game_world_story
-                        for game_world_story in GameWorldStory.objects.filter(uuid__in=list(relationships.values()))
-                    }
-                    for artifact in Artifact.objects.filter(uuid__in=list(relationships.keys())):
-                        game_world_story = game_world_stories_map.get(relationships.get(str(artifact.uuid)))
-                        game_world_story.content_object = artifact
-                        game_world_stories_for_update.append(game_world_story)
-                    GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
-
-                # Истории игрового мира и компетенция.
-                if relationship_name == "artifact|game_world_story":
-                    game_world_stories_for_update = []
-                    game_world_stories_map = {
-                        str(game_world_story.uuid): game_world_story
-                        for game_world_story in GameWorldStory.objects.filter(uuid__in=list(relationships.values()))
-                    }
-                    for competency in Competency.objects.filter(uuid__in=list(relationships.keys())):
-                        game_world_story = game_world_stories_map.get(relationships.get(str(competency.uuid)))
-                        game_world_story.content_object = competency
-                        game_world_stories_for_update.append(game_world_story)
-                    GameWorldStory.objects.bulk_update(game_world_stories_for_update, fields=("content_object",))
-
-                # Ветка миссии и ранг.
-                if relationship_name == "rank|mission_branch":
-                    mission_branches_for_update = []
-                    mission_branches_map = {
-                        str(mission_branch.uuid): mission_branch
-                        for mission_branch in MissionBranch.objects.filter(uuid__in=list(relationships.values()))
-                    }
-                    for rank in Rank.objects.filter(uuid__in=list(relationships.keys())):
-                        mission_branch = mission_branches_map.get(relationships.get(str(rank.uuid)))
-                        mission_branch.rank = rank
-                        mission_branches_for_update.append(mission_branch)
-                    MissionBranch.objects.bulk_update(mission_branches_for_update, fields=("rank",))
-
-                # Ветка миссии и миссия.
-                if relationship_name == "mission_branch|mission":
-                    missions_for_update = []
-                    missions_map = {
-                        str(mission.uuid): mission
-                        for mission in Mission.objects.filter(uuid__in=list(relationships.values()))
-                    }
-                    for mission_branch in MissionBranch.objects.filter(uuid__in=list(relationships.keys())):
-                        mission = missions_map.get(relationships.get(str(mission_branch.uuid)))
-                        mission.branch = mission_branch
-                        missions_for_update.append(mission)
-                    Mission.objects.bulk_update(missions_for_update, fields=("branch",))
-
-            for relationship_name, relationships in relationship_m2m_maps.items():
-                # Миссия и артефакт.
-                if relationship_name == "mission|artifact":
-                    for mission_uuid, artifacts in relationships.items():
-                        mission = Mission.objects.get(uuid=mission_uuid)
-                        mission_artifact_for_create = [
-                            MissionArtifact(
-                                mission=mission,
-                                artifact=artifact,
-                            )
-                            for artifact in Artifact.objects.filter(uuid__in=artifacts)
-                        ]
-                        MissionArtifact.objects.bulk_create(
-                            mission_artifact_for_create,
-                            ignore_conflicts=True,
+        for relationship_name, relationships in relationship_m2m_maps.items():
+            # Событие и артефакт.
+            if relationship_name == "event|artifact":
+                for event_uuid, artifacts in relationships.items():
+                    event = Mission.objects.get(uuid=event_uuid)
+                    event_artifact_for_create = [
+                        EventArtifact(
+                            event=event,
+                            artifact=artifact,
                         )
+                        for artifact in Artifact.objects.filter(uuid__in=artifacts)
+                    ]
+                    EventArtifact.objects.bulk_create(
+                        event_artifact_for_create,
+                        ignore_conflicts=True,
+                    )
 
-            for relationship_name, relationships in relationship_m2m_maps.items():
-                # Миссия и компетенция.
-                if relationship_name == "mission|competency":
-                    for mission_uuid, competencies in relationships.items():
-                        mission = Mission.objects.get(uuid=mission_uuid)
-                        mission_artifact_for_create = [
-                            MissionCompetency(
-                                mission=mission,
-                                competency=competency,
-                                # TODO: Временное решение.
-                                experience=50,
-                            )
-                            for competency in Competency.objects.filter(uuid__in=competencies)
-                        ]
-                        MissionCompetency.objects.bulk_create(
-                            mission_artifact_for_create,
-                            ignore_conflicts=True,
+        for relationship_name, relationships in relationship_m2m_maps.items():
+            # Событие и компетенция.
+            if relationship_name == "event|competency":
+                for event_uuid, competencies in relationships.items():
+                    event = Event.objects.get(uuid=event_uuid)
+                    event_artifact_for_create = [
+                        EventCompetency(
+                            event=event,
+                            competency=competency,
+                            # TODO: Временное решение.
+                            experience=50,
                         )
-
-            for relationship_name, relationships in relationship_m2m_maps.items():
-                # Событие и артефакт.
-                if relationship_name == "event|artifact":
-                    for event_uuid, artifacts in relationships.items():
-                        event = Mission.objects.get(uuid=event_uuid)
-                        event_artifact_for_create = [
-                            EventArtifact(
-                                event=event,
-                                artifact=artifact,
-                            )
-                            for artifact in Artifact.objects.filter(uuid__in=artifacts)
-                        ]
-                        EventArtifact.objects.bulk_create(
-                            event_artifact_for_create,
-                            ignore_conflicts=True,
-                        )
-
-            for relationship_name, relationships in relationship_m2m_maps.items():
-                # Событие и компетенция.
-                if relationship_name == "event|competency":
-                    for event_uuid, competencies in relationships.items():
-                        event = Event.objects.get(uuid=event_uuid)
-                        event_artifact_for_create = [
-                            EventCompetency(
-                                event=event,
-                                competency=competency,
-                                # TODO: Временное решение.
-                                experience=50,
-                            )
-                            for competency in Competency.objects.filter(uuid__in=competencies)
-                        ]
-                        EventCompetency.objects.bulk_create(
-                            event_artifact_for_create,
-                            ignore_conflicts=True,
-                        )
+                        for competency in Competency.objects.filter(uuid__in=competencies)
+                    ]
+                    EventCompetency.objects.bulk_create(
+                        event_artifact_for_create,
+                        ignore_conflicts=True,
+                    )
 
     def get_data_for_graph(
         self,

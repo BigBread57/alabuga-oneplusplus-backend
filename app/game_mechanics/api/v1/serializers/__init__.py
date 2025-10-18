@@ -1,7 +1,7 @@
 from game_mechanics.api.v1.serializers.competency import (
     CompetencyCreateOrUpdateSerializer,
     CompetencyDetailSerializer,
-    CompetencyListSerializer,
+    CompetencyListSerializer, CompetencyListMaxLevelSerializer,
 )
 from game_mechanics.api.v1.serializers.rank import (
     RankCreateOrUpdateSerializer,
@@ -17,6 +17,7 @@ from game_mechanics.api.v1.serializers.required_rank_competency import (
 __all__ = (
     # Competency
     "CompetencyListSerializer",
+    "CompetencyListMaxLevelSerializer",
     "CompetencyDetailSerializer",
     "CompetencyCreateOrUpdateSerializer",
     # Rank

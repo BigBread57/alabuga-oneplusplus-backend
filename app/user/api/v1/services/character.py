@@ -185,16 +185,16 @@ class CharacterService(BaseService):
         """
         now_datetime = now_datetime or timezone.now()
         character_missions = []
-        with transaction.atomic():
-            for mission_branch in MissionBranch.objects.filter(is_active=True, rank=rank, game_world=game_world):
-                character_mission_branch = CharacterMissionBranch.objects.create(
-                    character=character,
-                    branch=mission_branch,
-                    start_datetime=now_datetime,
-                    end_datetime=now_datetime + timedelta(days=mission_branch.time_to_complete),
-                    mentor=mission_branch.mentor,
-                )
-                character_missions = [
+        for mission_branch in MissionBranch.objects.filter(is_active=True, rank=rank, game_world=game_world):
+            character_mission_branch = CharacterMissionBranch.objects.create(
+                character=character,
+                branch=mission_branch,
+                start_datetime=now_datetime,
+                end_datetime=now_datetime + timedelta(days=mission_branch.time_to_complete),
+                mentor=mission_branch.mentor,
+            )
+            character_missions.extend(
+                [
                     CharacterMission(
                         character=character,
                         mission=mission,
@@ -205,8 +205,9 @@ class CharacterService(BaseService):
                     )
                     for mission in Mission.objects.filter(is_active=True, branch=mission_branch, game_world=game_world)
                 ]
+            )
 
-            CharacterMission.objects.bulk_create(objs=character_missions, ignore_conflicts=True)
+        CharacterMission.objects.bulk_create(objs=character_missions, ignore_conflicts=True)
         return None
 
     @staticmethod
@@ -220,18 +221,17 @@ class CharacterService(BaseService):
         Создать события для персонажа.
         """
         now_datetime = now_datetime or timezone.now()
-        with transaction.atomic():
-            character_events = [
-                CharacterEvent(
-                    character=character,
-                    event=event,
-                    start_datetime=now_datetime,
-                    end_datetime=now_datetime + timedelta(days=event.time_to_complete),
-                    mentor=event.mentor,
-                )
-                for event in Event.objects.filter(is_active=True, rank=rank, game_world=game_world)
-            ]
-            CharacterEvent.objects.bulk_create(objs=character_events, ignore_conflicts=True)
+        character_events = [
+            CharacterEvent(
+                character=character,
+                event=event,
+                start_datetime=now_datetime,
+                end_datetime=now_datetime + timedelta(days=event.time_to_complete),
+                mentor=event.mentor,
+            )
+            for event in Event.objects.filter(is_active=True, rank=rank, game_world=game_world)
+        ]
+        CharacterEvent.objects.bulk_create(objs=character_events, ignore_conflicts=True)
         return None
 
     @staticmethod
@@ -242,19 +242,18 @@ class CharacterService(BaseService):
         """
         Создать компетенции для персонажа.
         """
-        with transaction.atomic():
-            character_competencies = [
-                CharacterCompetency(
-                    character=character,
-                    competency=competency,
-                )
-                for competency in Competency.objects.filter(
-                    game_world=game_world,
-                    parent__isnull=True,
-                )
-            ]
+        character_competencies = [
+            CharacterCompetency(
+                character=character,
+                competency=competency,
+            )
+            for competency in Competency.objects.filter(
+                game_world=game_world,
+                parent__isnull=True,
+            )
+        ]
 
-            CharacterCompetency.objects.bulk_create(objs=character_competencies, ignore_conflicts=True)
+        CharacterCompetency.objects.bulk_create(objs=character_competencies, ignore_conflicts=True)
         return None
 
     @staticmethod

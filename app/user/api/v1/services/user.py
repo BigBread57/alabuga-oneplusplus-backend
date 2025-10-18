@@ -218,7 +218,7 @@ class UserService(BaseService):
         )
 
         # Устанавливаем пароль.
-        user.set_password(validated_data.get("password1"))
+        user.set_password(validated_data.get("password1")),
         user.save()
         user.refresh_from_db()
 

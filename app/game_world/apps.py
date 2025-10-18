@@ -8,4 +8,4 @@ class MissionsConfig(AppConfig):
     """
 
     name = "game_world"
-    verbose_name = _("Знания")
+    verbose_name = _("Игровой мир")

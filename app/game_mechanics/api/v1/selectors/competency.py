@@ -1,4 +1,5 @@
 import django_filters
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
@@ -47,4 +48,16 @@ class CompetencyListSelector(BaseSelector):
         "game_world",
         "parent",
     ).all()
+    filter_class = CompetencyListFilter
+
+
+class CompetencyListMaxLevelSelector(BaseSelector):
+    """
+    Компетенция. Список. Максимальный уровень. Селектор.
+    """
+
+    queryset = Competency.objects.select_related(
+        "game_world",
+        "parent",
+    ).filter(children__isnull=True)
     filter_class = CompetencyListFilter

@@ -27,6 +27,23 @@ class CompetencyListSerializer(serializers.ModelSerializer):
         )
 
 
+class CompetencyListMaxLevelSerializer(serializers.ModelSerializer):
+    """
+    Компетенция. Список. Максимальный уровень.
+    """
+
+    class Meta:
+        model = Competency
+        fields = (
+            "id",
+            "name",
+            "description",
+            "level",
+            "required_experience",
+            "icon",
+            "color",
+        )
+
 class CompetencyDetailSerializer(serializers.ModelSerializer):
     """
     Компетенция. Детальная информация.

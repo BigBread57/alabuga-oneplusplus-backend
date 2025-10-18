@@ -36,25 +36,19 @@ class CharacterEventService(BaseService):
         """
         При наличии артефактов добавляем их персонажу
         """
-        list_character_artifacts = [
-            CharacterArtifact(
+        list_activity_logs = []
+        for event_artifact in event_artifacts:
+            character_artifact, created = CharacterArtifact.objects.get_or_create(
                 character=character,
                 artifact=event_artifact.artifact,
             )
-            for event_artifact in event_artifacts
-        ]
-        character_artifacts = CharacterArtifact.objects.bulk_create(
-            objs=list_character_artifacts, ignore_conflicts=True
-        )
-
-        list_activity_logs = [
-            ActivityLog(
-                character=character,
-                text=_(f"Вы успешно завершили событие {character_artifact.artifact}. Поздравляем!"),
-                content_object=character_artifact,
+            list_activity_logs.append(
+                ActivityLog(
+                    character=character,
+                    text=_(f"Вы успешно завершили событие {character_artifact.artifact}. Поздравляем!"),
+                    content_object=character_artifact,
+                )
             )
-            for character_artifact in character_artifacts
-        ]
         ActivityLog.objects.bulk_create(list_activity_logs)
 
     @staticmethod
@@ -71,7 +65,7 @@ class CharacterEventService(BaseService):
         character_competencies = {
             character_competency.competency.name: character_competency
             for character_competency in CharacterCompetency.objects.select_related("competency").filter(
-                is_received=False
+                is_received=False,
             )
         }
         for event_competency in event_competencies:
@@ -190,29 +184,28 @@ class CharacterEventService(BaseService):
         Действия после завершения события.
         """
         now_datetime = timezone.now()
-        with transaction.atomic():
-            ActivityLog.objects.create(
+        ActivityLog.objects.create(
+            character=character,
+            text=_(f"Вы успешно завершили событие {character_event.event}. Поздравляем!"),
+            content_object=character_event,
+        )
+        if event_artifacts := character_event.event.event_artifacts.all():
+            self._create_or_update_character_artifacts(
                 character=character,
-                text=_(f"Вы успешно завершили событие {character_event.event}. Поздравляем!"),
-                content_object=character_event,
+                event_artifacts=list(event_artifacts),
             )
-            if event_artifacts := character_event.event.event_artifacts.all():
-                self._create_or_update_character_artifacts(
-                    character=character,
-                    event_artifacts=list(event_artifacts),
-                )
-            if event_competencies := character_event.event.event_competencies.select_related("competency").all():
-                self._create_or_update_character_competency(
-                    character=character,
-                    event_competencies=list(event_competencies),
-                    now_datetime=now_datetime,
-                )
-            if character_event.event.experience > 0:
-                self._create_or_update_character_rank(
-                    character=character,
-                    character_event=character_event,
-                    now_datetime=now_datetime,
-                )
+        if event_competencies := character_event.event.event_competencies.select_related("competency").all():
+            self._create_or_update_character_competency(
+                character=character,
+                event_competencies=list(event_competencies),
+                now_datetime=now_datetime,
+            )
+        if character_event.event.experience > 0:
+            self._create_or_update_character_rank(
+                character=character,
+                character_event=character_event,
+                now_datetime=now_datetime,
+            )
 
     def update_from_character(
         self,
@@ -222,18 +215,17 @@ class CharacterEventService(BaseService):
         """
         Создание покупки пользователя.
         """
-        with transaction.atomic():
-            CharacterEvent.objects.filter(
-                id=character_event.id,
-            ).update(
-                status=CharacterEvent.Statuses.PENDING_REVIEW,
-                **validated_data,
-            )
-            transaction.on_commit(
-                lambda: send_mail_about_character_event_for_inspector.delay(
-                    character_event_id=character_event.id,
-                ),
-            )
+        CharacterEvent.objects.filter(
+            id=character_event.id,
+        ).update(
+            status=CharacterEvent.Statuses.PENDING_REVIEW,
+            **validated_data,
+        )
+        transaction.on_commit(
+            lambda: send_mail_about_character_event_for_inspector.delay(
+                character_event_id=character_event.id,
+            ),
+        )
         character_event.refresh_from_db()
 
         return character_event
@@ -246,42 +238,41 @@ class CharacterEventService(BaseService):
         """
         Создание покупки пользователя.
         """
-        with transaction.atomic():
-            CharacterEvent.objects.filter(
-                id=character_event.id,
-            ).update(
-                final_status_datetime=(
-                    timezone.now() if validated_data["status"] == CharacterEvent.Statuses.COMPLETED else None
-                ),
-                **validated_data,
+        CharacterEvent.objects.filter(
+            id=character_event.id,
+        ).update(
+            final_status_datetime=(
+                timezone.now() if validated_data["status"] == CharacterEvent.Statuses.COMPLETED else None
+            ),
+            **validated_data,
+        )
+        character_event = (
+            CharacterEvent.objects.select_related(
+                "inspector",
+                "character__user",
+                "event",
+                "character__game_world",
             )
-            character_event = (
-                CharacterEvent.objects.select_related(
-                    "inspector",
-                    "character__user",
-                    "event",
-                    "character__game_world",
-                )
-                .prefetch_related(
-                    "event__artifacts",
-                    "event__event_artifacts",
-                    "event__competencies",
-                    "event__event_competencies",
-                )
-                .get(id=character_event.id)
+            .prefetch_related(
+                "event__artifacts",
+                "event__event_artifacts",
+                "event__competencies",
+                "event__event_competencies",
             )
-            character = character_event.character
-            if character_event.status == CharacterEvent.Statuses.COMPLETED:
-                self.action_post_event_completed(
-                    character=character,
-                    character_event=character_event,
-                )
-            else:
-                ActivityLog.objects.create(
-                    character=character,
-                    text=_(f"По событию {character_event.event} требуются доработки."),
-                    content_object=character_event,
-                )
+            .get(id=character_event.id)
+        )
+        character = character_event.character
+        if character_event.status == CharacterEvent.Statuses.COMPLETED:
+            self.action_post_event_completed(
+                character=character,
+                character_event=character_event,
+            )
+        else:
+            ActivityLog.objects.create(
+                character=character,
+                text=_(f"По событию {character_event.event} требуются доработки."),
+                content_object=character_event,
+            )
         transaction.on_commit(
             lambda: send_mail_about_character_event_for_character.delay(
                 character_event_id=character_event.id,

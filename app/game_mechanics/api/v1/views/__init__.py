@@ -2,6 +2,7 @@ from game_mechanics.api.v1.views.competency import (
     CompetencyCreateAPIView,
     CompetencyDeleteAPIView,
     CompetencyListAPIView,
+    CompetencyListMaxLevelAPIView,
     CompetencyUpdateAPIView,
 )
 from game_mechanics.api.v1.views.rank import (
@@ -20,6 +21,7 @@ from game_mechanics.api.v1.views.required_rank_competency import (
 __all__ = (
     # Competency
     "CompetencyListAPIView",
+    "CompetencyListMaxLevelAPIView",
     "CompetencyCreateAPIView",
     "CompetencyUpdateAPIView",
     "CompetencyDeleteAPIView",

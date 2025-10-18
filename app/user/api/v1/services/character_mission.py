@@ -37,25 +37,19 @@ class CharacterMissionService(BaseService):
         """
         При наличии артефактов добавляем их персонажу
         """
-        list_character_artifacts = [
-            CharacterArtifact(
+        list_activity_logs = []
+        for mission_artifact in mission_artifacts:
+            character_artifact, created = CharacterArtifact.objects.get_or_create(
                 character=character,
                 artifact=mission_artifact.artifact,
             )
-            for mission_artifact in mission_artifacts
-        ]
-        character_artifacts = CharacterArtifact.objects.bulk_create(
-            objs=list_character_artifacts, ignore_conflicts=True
-        )
-
-        list_activity_logs = [
-            ActivityLog(
-                character=character,
-                text=_(f"Вы успешно завершили миссию {character_artifact.artifact}. Поздравляем!"),
-                content_object=character_artifact,
+            list_activity_logs.append(
+                ActivityLog(
+                    character=character,
+                    text=_(f"Вы успешно завершили миссию {character_artifact.artifact}. Поздравляем!"),
+                    content_object=character_artifact,
+                )
             )
-            for character_artifact in character_artifacts
-        ]
         ActivityLog.objects.bulk_create(list_activity_logs)
 
     @staticmethod
@@ -72,7 +66,7 @@ class CharacterMissionService(BaseService):
         character_competencies = {
             character_competency.competency.name: character_competency
             for character_competency in CharacterCompetency.objects.select_related("competency").filter(
-                is_received=False
+                is_received=False,
             )
         }
         for mission_competency in mission_competencies:
@@ -247,42 +241,41 @@ class CharacterMissionService(BaseService):
         """
         Проверка результата миссии.
         """
-        with transaction.atomic():
-            CharacterMission.objects.filter(
-                id=character_mission.id,
-            ).update(
-                final_status_datetime=(
-                    timezone.now() if validated_data["status"] == CharacterEvent.Statuses.COMPLETED else None
-                ),
-                **validated_data,
+        CharacterMission.objects.filter(
+            id=character_mission.id,
+        ).update(
+            final_status_datetime=(
+                timezone.now() if validated_data["status"] == CharacterEvent.Statuses.COMPLETED else None
+            ),
+            **validated_data,
+        )
+        character_mission = (
+            CharacterMission.objects.select_related(
+                "inspector",
+                "character__user",
+                "mission",
+                "character",
             )
-            character_mission = (
-                CharacterMission.objects.select_related(
-                    "inspector",
-                    "character__user",
-                    "mission",
-                    "character",
-                )
-                .prefetch_related(
-                    "mission__artifacts",
-                    "mission__mission_artifacts",
-                    "mission__competencies",
-                    "mission__mission_competencies",
-                )
-                .get(id=character_mission.id)
+            .prefetch_related(
+                "mission__artifacts",
+                "mission__mission_artifacts",
+                "mission__competencies",
+                "mission__mission_competencies",
             )
-            character = character_mission.character
-            if character_mission.status == CharacterMission.Statuses.COMPLETED:
-                self.action_post_mission_completed(
-                    character=character,
-                    character_mission=character_mission,
-                )
-            else:
-                ActivityLog.objects.create(
-                    character=character,
-                    text=_(f"По миссии {character_mission.mission} требуются доработки."),
-                    content_object=character_mission,
-                )
+            .get(id=character_mission.id)
+        )
+        character = character_mission.character
+        if character_mission.status == CharacterMission.Statuses.COMPLETED:
+            self.action_post_mission_completed(
+                character=character,
+                character_mission=character_mission,
+            )
+        else:
+            ActivityLog.objects.create(
+                character=character,
+                text=_(f"По миссии {character_mission.mission} требуются доработки."),
+                content_object=character_mission,
+            )
 
         transaction.on_commit(
             lambda: send_mail_about_character_mission_for_character.delay(

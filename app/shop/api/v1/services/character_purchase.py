@@ -28,56 +28,55 @@ class CharacterPurchaseService(BaseService):
         """
         shop_item = validated_data["shop_item"]
         number = validated_data["number"]
-        with transaction.atomic():
-            new_number = 0 if shop_item.number == 0 else shop_item.number - number
-            if getattr(shop_item, "purchase_restriction", None) and shop_item.purchase_restriction < number:
-                raise ValidationError(_("На покупку товара стоит ограничение"))
+        new_number = 0 if shop_item.number == 0 else shop_item.number - number
+        if getattr(shop_item, "purchase_restriction", None) and shop_item.purchase_restriction < number:
+            raise ValidationError(_("На покупку товара стоит ограничение"))
 
-            if shop_item.number != 0 and new_number < 0:
-                raise ValidationError(_("Введенное вами количество товара не доступно"))
+        if shop_item.number != 0 and new_number < 0:
+            raise ValidationError(_("Введенное вами количество товара не доступно"))
 
-            if (
-                shop_item.start_datetime
-                and shop_item.time_to_buy
-                and (shop_item.start_datetime + timedelta(hours=shop_item.time_to_buy) < now())
-            ):
-                raise ValidationError(_("Время для покупки товара истекло"))
+        if (
+            shop_item.start_datetime
+            and shop_item.time_to_buy
+            and (shop_item.start_datetime + timedelta(hours=shop_item.time_to_buy) < now())
+        ):
+            raise ValidationError(_("Время для покупки товара истекло"))
 
-            character_artifacts_shop_discount = list(
-                CharacterArtifact.objects.filter(
-                    character=buyer,
-                    artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
-                ).values_list("artifact__modifier_value", flat=True)
-            )
-            discount = sum(character_artifacts_shop_discount)
-            if discount == 0:
-                total_sum = number * shop_item.price
-            else:
-                total_sum = number * shop_item.price - (number * shop_item.price * discount / 100)
-            if buyer.currency < total_sum:
-                raise ValidationError(_("У вас не достаточно денег для покупки"))
+        character_artifacts_shop_discount = list(
+            CharacterArtifact.objects.filter(
+                character=buyer,
+                artifact__modifier=Artifact.Modifiers.SHOP_DISCOUNT,
+            ).values_list("artifact__modifier_value", flat=True)
+        )
+        discount = sum(character_artifacts_shop_discount)
+        if discount == 0:
+            total_sum = number * shop_item.price
+        else:
+            total_sum = number * shop_item.price - (number * shop_item.price * discount / 100)
+        if buyer.currency < total_sum:
+            raise ValidationError(_("У вас не достаточно денег для покупки"))
 
-            ShopItem.objects.filter(
-                id=shop_item.id,
-            ).update(
-                number=new_number,
-                is_active=(False if (new_number == 0 and shop_item.number != 0) else True),
-            )
+        ShopItem.objects.filter(
+            id=shop_item.id,
+        ).update(
+            number=new_number,
+            is_active=(False if (new_number == 0 and shop_item.number != 0) else True),
+        )
 
-            character_purchase = CharacterPurchase.objects.create(
-                price=shop_item.price,
-                number=validated_data["number"],
-                discount=discount,
-                total_sum=total_sum,
-                status=CharacterPurchase.Statuses.PENDING,
-                buyer=buyer,
-                shop_item=shop_item,
-            )
-            Character.objects.filter(
-                id=buyer.id,
-            ).update(
-                currency=models.F("currency") - total_sum,
-            )
+        character_purchase = CharacterPurchase.objects.create(
+            price=shop_item.price,
+            number=validated_data["number"],
+            discount=discount,
+            total_sum=total_sum,
+            status=CharacterPurchase.Statuses.PENDING,
+            buyer=buyer,
+            shop_item=shop_item,
+        )
+        Character.objects.filter(
+            id=buyer.id,
+        ).update(
+            currency=models.F("currency") - total_sum,
+        )
 
         transaction.on_commit(
             lambda: send_mail_about_new_character_purchase.delay(character_purchase_id=character_purchase.id),

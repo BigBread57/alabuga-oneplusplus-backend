@@ -50,5 +50,5 @@ class RankListSelector(BaseSelector):
     Ранг. Список. Селектор.
     """
 
-    queryset = Rank.objects.select_related("rank")
+    queryset = Rank.objects.select_related("game_world", "parent")
     filter_class = RankListFilter

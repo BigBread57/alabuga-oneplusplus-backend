@@ -10,12 +10,12 @@ from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from game_mechanics.api.v1.selectors import (
     CompetencyListFilterSerializer,
-    CompetencyListSelector,
+    CompetencyListSelector, CompetencyListMaxLevelSelector,
 )
 from game_mechanics.api.v1.serializers import (
     CompetencyCreateOrUpdateSerializer,
     CompetencyDetailSerializer,
-    CompetencyListSerializer,
+    CompetencyListSerializer, CompetencyListMaxLevelSerializer,
 )
 from game_mechanics.models import Competency
 
@@ -34,6 +34,34 @@ class CompetencyListAPIView(QuerySelectorMixin, GenericAPIView):
         parameters=[CompetencyListFilterSerializer],
         responses={
             status.HTTP_200_OK: CompetencyListSerializer(many=True),
+        },
+        tags=["game_mechanics:competency"],
+    )
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        """
+        Список объектов.
+        """
+        queryset = self.filter_queryset(queryset=self.get_queryset())
+        page = self.paginate_queryset(queryset=queryset)
+        serializer = self.get_serializer(page, many=True)
+
+        return self.get_paginated_response(data=serializer.data)
+
+
+class CompetencyListMaxLevelAPIView(QuerySelectorMixin, GenericAPIView):
+    """
+    Компетенция. Список. Максимальный уровень.
+    """
+
+    selector = CompetencyListMaxLevelSelector
+    serializer_class = CompetencyListMaxLevelSerializer
+    filter_params_serializer_class = CompetencyListFilterSerializer
+    search_fields = ("name",)
+
+    @extend_schema(
+        parameters=[CompetencyListFilterSerializer],
+        responses={
+            status.HTTP_200_OK: CompetencyListMaxLevelSerializer(many=True),
         },
         tags=["game_mechanics:competency"],
     )

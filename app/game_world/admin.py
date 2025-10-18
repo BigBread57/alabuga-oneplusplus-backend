@@ -135,7 +135,7 @@ class MissionAdmin(admin.ModelAdmin):
     """
 
     list_display = ("id", "name", "branch", "experience", "currency", "is_key_mission")
-    list_filter = ("branch", "is_key_mission", "is_active")
+    list_filter = ("branch", "branch__rank", "is_key_mission", "is_active")
     search_fields = ("name", "description")
     ordering = ("-id",)
     inlines = [MissionCompetencyInline, MissionArtifactInline]

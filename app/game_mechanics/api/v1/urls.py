@@ -12,6 +12,11 @@ competency_urls = [
         name="competencies-list",
     ),
     path(
+        route="competencies/list/max-levels/",
+        view=views.CompetencyListMaxLevelAPIView.as_view(),
+        name="competencies-list-max-levels",
+    ),
+    path(
         route="competencies/create/",
         view=views.CompetencyCreateAPIView.as_view(),
         name="competencies-create",

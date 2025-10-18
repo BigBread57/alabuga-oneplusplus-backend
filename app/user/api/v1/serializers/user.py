@@ -54,6 +54,7 @@ class UserRegisterSerializer(serializers.Serializer):
 
     def validate_email(self, email: str) -> str:
         """Валидация email."""
+        email = email.lower()
         if User.objects.filter(email=email).exists():
             raise ValidationError(
                 {
@@ -110,6 +111,7 @@ class UseResendEmailConfirmationSerializer(serializers.Serializer):
 
     def validate_email(self, email: str) -> str:
         """Валидность email для восстановления пароля."""
+        email = email.lower()
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist as exc:
@@ -144,6 +146,7 @@ class UserLoginSerializer(serializers.Serializer):
 
     def validate_email(self, email: str) -> str:
         """Валидность email для восстановления пароля."""
+        email = email.lower()
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist as exc:
@@ -164,6 +167,7 @@ class UserRequestResetPasswordSerializer(serializers.Serializer):
 
     def validate_email(self, email: str) -> str:
         """Валидность email для восстановления пароля."""
+        email = email.lower()
         try:
             self.user = User.objects.get(email=email)
         except User.DoesNotExist as exc:

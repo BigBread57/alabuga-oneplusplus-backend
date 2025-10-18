@@ -8,4 +8,4 @@ class ShopConfig(AppConfig):
     """
 
     name = "shop"
-    verbose_name = _("Статус помещения")
+    verbose_name = _("Магазин")

@@ -1,6 +1,6 @@
 from game_mechanics.api.v1.selectors.competency import (
     CompetencyListFilterSerializer,
-    CompetencyListSelector,
+    CompetencyListSelector, CompetencyListMaxLevelSelector,
 )
 from game_mechanics.api.v1.selectors.rank import (
     RankListFilterSerializer,
@@ -15,6 +15,7 @@ __all__ = (
     # Competency
     "CompetencyListFilterSerializer",
     "CompetencyListSelector",
+    "CompetencyListMaxLevelSelector",
     # Rank
     "RankListFilterSerializer",
     "RankListSelector",
