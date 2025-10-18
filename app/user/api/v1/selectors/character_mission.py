@@ -36,6 +36,12 @@ class CharacterMissionListFilterSerializer(serializers.Serializer):
         choices=CharacterMission.Statuses.choices,
         required=True,
     )
+    branch = serializers.PrimaryKeyRelatedField(
+        label=_("Персонаж"),
+        help_text=_("Персонаж"),
+        queryset=MissionBranch.objects.all(),
+        required=False,
+    )
 
 
 class CharacterMissionListForInspectorFilterSerializer(serializers.Serializer):
