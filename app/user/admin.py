@@ -7,7 +7,8 @@ from user.models import (
     CharacterArtifact,
     CharacterCompetency,
     CharacterEvent,
-    CharacterMission, CharacterMissionBranch,
+    CharacterMission,
+    CharacterMissionBranch,
 )
 from user.models.character_rank import CharacterRank
 from user.models.user import User
@@ -169,7 +170,6 @@ class CharacterAdmin(admin.ModelAdmin):
     )
 
 
-
 @admin.register(CharacterArtifact)
 class CharacterArtifactAdmin(admin.ModelAdmin):
     """
@@ -181,9 +181,7 @@ class CharacterArtifactAdmin(admin.ModelAdmin):
         "character",
         "artifact",
     )
-    list_filter = (
-        "artifact__name",
-    )
+    list_filter = ("artifact__name",)
     autocomplete_fields = (
         "character",
         "artifact",
@@ -209,9 +207,7 @@ class CharacterCompetencyAdmin(admin.ModelAdmin):
         "is_received",
         "received_datetime",
     )
-    list_filter = (
-        "competency__name",
-    )
+    list_filter = ("competency__name",)
     autocomplete_fields = (
         "character",
         "competency",
@@ -239,9 +235,7 @@ class CharacterEventAdmin(admin.ModelAdmin):
         "event",
         "inspector",
     )
-    list_filter = (
-        "status",
-    )
+    list_filter = ("status",)
     autocomplete_fields = (
         "character",
         "event",
@@ -268,9 +262,7 @@ class CharacterMissionBranchAdmin(admin.ModelAdmin):
         "character",
         "branch",
     )
-    search_fields = (
-        "branch__name",
-    )
+    search_fields = ("branch__name",)
     autocomplete_fields = (
         "character",
         "branch",
@@ -301,9 +293,7 @@ class CharacterMissionAdmin(admin.ModelAdmin):
         "mission",
         "inspector",
     )
-    list_filter = (
-        "status",
-    )
+    list_filter = ("status",)
     autocomplete_fields = (
         "branch",
         "character",

@@ -1,8 +1,8 @@
 from user.api.v1.serializers.character import (
     CharacterActualForUserSerializer,
+    CharacterListSerializer,
     CharacterStatisticsSerializer,
     CharacterUpdateSerializer,
-    CharacterListSerializer,
 )
 from user.api.v1.serializers.character_artifact import (
     CharacterArtifactDetailSerializer,
@@ -14,12 +14,14 @@ from user.api.v1.serializers.character_competency import (
 )
 from user.api.v1.serializers.character_event import (
     CharacterEventDetailSerializer,
+    CharacterEventListForInspectorSerializer,
     CharacterEventListSerializer,
     CharacterEventUpdateForInspectorSerializer,
     CharacterEventUpdateFromCharacterSerializer,
 )
 from user.api.v1.serializers.character_mission import (
     CharacterMissionDetailSerializer,
+    CharacterMissionListForInspectorSerializer,
     CharacterMissionListSerializer,
     CharacterMissionUpdateForInspectorSerializer,
     CharacterMissionUpdateFromCharacterSerializer,
@@ -43,11 +45,13 @@ __all__ = (
     "CharacterEventUpdateForInspectorSerializer",
     "CharacterEventDetailSerializer",
     "CharacterEventListSerializer",
+    "CharacterEventListForInspectorSerializer",
     # CharacterMission
     "CharacterMissionUpdateFromCharacterSerializer",
     "CharacterMissionUpdateForInspectorSerializer",
     "CharacterMissionDetailSerializer",
     "CharacterMissionListSerializer",
+    "CharacterMissionListForInspectorSerializer",
     # CharacterMissionBranch
     "CharacterMissionBranchListSerializer",
     # User

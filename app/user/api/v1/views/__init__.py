@@ -1,8 +1,8 @@
 from user.api.v1.views.character import (
     CharacterActualForUserAPIView,
     CharacterActualUpdateAPIView,
-    CharacterStatisticsAPIView,
     CharacterListAPIView,
+    CharacterStatisticsAPIView,
 )
 from user.api.v1.views.character_artifact import (
     CharacterArtifactDetailAPIView,

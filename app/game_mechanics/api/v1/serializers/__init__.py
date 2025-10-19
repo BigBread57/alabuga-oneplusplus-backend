@@ -1,7 +1,8 @@
 from game_mechanics.api.v1.serializers.competency import (
     CompetencyCreateOrUpdateSerializer,
     CompetencyDetailSerializer,
-    CompetencyListSerializer, CompetencyListMaxLevelSerializer,
+    CompetencyListMaxLevelSerializer,
+    CompetencyListSerializer,
 )
 from game_mechanics.api.v1.serializers.rank import (
     RankCreateOrUpdateSerializer,

@@ -16,6 +16,7 @@ from user.api.v1.selectors.character_event import (
 )
 from user.api.v1.serializers import (
     CharacterEventDetailSerializer,
+    CharacterEventListForInspectorSerializer,
     CharacterEventListSerializer,
     CharacterEventUpdateForInspectorSerializer,
     CharacterEventUpdateFromCharacterSerializer,
@@ -171,7 +172,7 @@ class CharacterEventListForInspectorAPIView(QuerySelectorMixin, GenericAPIView):
     """
 
     selector = CharacterEventListForInspectorSelector
-    serializer_class = CharacterEventListSerializer
+    serializer_class = CharacterEventListForInspectorSerializer
     filter_params_serializer_class = CharacterEventListForInspectorFilterSerializer
     search_fields = ("name",)
     # permission_classes = (UserInspectorForObjectPermission,)
@@ -179,7 +180,7 @@ class CharacterEventListForInspectorAPIView(QuerySelectorMixin, GenericAPIView):
     @extend_schema(
         parameters=[CharacterEventListForInspectorFilterSerializer],
         responses={
-            status.HTTP_200_OK: CharacterEventListSerializer(many=True),
+            status.HTTP_200_OK: CharacterEventListForInspectorSerializer(many=True),
         },
         tags=["user:character_event"],
     )

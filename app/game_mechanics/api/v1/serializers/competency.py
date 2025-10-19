@@ -44,6 +44,7 @@ class CompetencyListMaxLevelSerializer(serializers.ModelSerializer):
             "color",
         )
 
+
 class CompetencyDetailSerializer(serializers.ModelSerializer):
     """
     Компетенция. Детальная информация.

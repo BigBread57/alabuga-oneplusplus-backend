@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from typing import Any
 
-from django.db import models, transaction
+from django.db import models
 from django.utils import timezone
 
 from common.services import BaseService
@@ -199,8 +199,12 @@ class CharacterService(BaseService):
                         character=character,
                         mission=mission,
                         branch=character_mission_branch,
-                        start_datetime=now_datetime,
-                        end_datetime=now_datetime + timedelta(days=mission.time_to_complete),
+                        start_datetime=now_datetime if mission.time_to_complete else None,
+                        end_datetime=(
+                            now_datetime + timedelta(days=mission.time_to_complete)
+                            if mission.time_to_complete
+                            else None
+                        ),
                         mentor=(mission.mentor if mission.mentor else character_mission_branch.mentor),
                     )
                     for mission in Mission.objects.filter(is_active=True, branch=mission_branch, game_world=game_world)
@@ -225,8 +229,12 @@ class CharacterService(BaseService):
             CharacterEvent(
                 character=character,
                 event=event,
-                start_datetime=now_datetime,
-                end_datetime=now_datetime + timedelta(days=event.time_to_complete),
+                start_datetime=now_datetime if event.time_to_complete else None,
+                end_datetime=(
+                    now_datetime + timedelta(days=event.time_to_complete)
+                    if event.time_to_complete
+                    else None
+                ),
                 mentor=event.mentor,
             )
             for event in Event.objects.filter(is_active=True, rank=rank, game_world=game_world)

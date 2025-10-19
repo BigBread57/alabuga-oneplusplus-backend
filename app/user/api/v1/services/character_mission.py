@@ -118,6 +118,7 @@ class CharacterMissionService(BaseService):
         """
         character_rank = character.character_ranks.filter(is_received=False).first()
         rank = character_rank.rank
+        new_rank = Rank.objects.filter(parent=character_rank.rank).first()
         new_experience_for_character_rank = character_rank.experience + character_mission.mission.experience
         Character.objects.filter(
             id=character.id,
@@ -125,24 +126,25 @@ class CharacterMissionService(BaseService):
             experience=models.F("experience") + character_mission.mission.experience,
             currency=models.F("currency") + character_mission.mission.currency,
         )
+        if not new_rank:
+            return None
         # Если опыта за ранг получено меньше, чем нужно для его повышения, то просто сохраняем опыт.
-        if new_experience_for_character_rank < rank.required_experience:
+        if new_experience_for_character_rank < new_rank.required_experience:
             character_rank.experience = new_experience_for_character_rank
             character_rank.save()
         # Если опыта за ранг получено больше или равно, чем нужно для его повышения,
         # то сохраняем максимальный опыт и формируем следующий ранг.
         else:
             # Сохраняем опыт.
-            character_rank.experience = rank.required_experience
+            character_rank.experience = new_rank.required_experience
             character_rank.save()
-            new_rank = Rank.objects.filter(parent=character_rank.rank).first()
-
             if new_rank and character_service.check_condition_for_new_rank(
                 character=character,
                 rank=character_rank.rank,
             ):
                 character_rank.is_received = True
                 character_rank.received_datetime = now_datetime
+                character_rank.save()
                 # TODO. Есть особенность, что опыт который был получен до соблюдения условий сгорает.
                 new_character_rank = CharacterRank.objects.create(
                     character=character,
@@ -176,7 +178,6 @@ class CharacterMissionService(BaseService):
                     text=_(f"У вас максимальный ранг {character_rank.rank}. Поздравляем!"),
                     content_object=character_rank.rank,
                 )
-            character_rank.save()
 
     def action_post_mission_completed(
         self,

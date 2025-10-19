@@ -10,12 +10,14 @@ from common.serializers import ResponseDetailSerializer
 from common.views import QuerySelectorMixin
 from game_mechanics.api.v1.selectors import (
     CompetencyListFilterSerializer,
-    CompetencyListSelector, CompetencyListMaxLevelSelector,
+    CompetencyListMaxLevelSelector,
+    CompetencyListSelector,
 )
 from game_mechanics.api.v1.serializers import (
     CompetencyCreateOrUpdateSerializer,
     CompetencyDetailSerializer,
-    CompetencyListSerializer, CompetencyListMaxLevelSerializer,
+    CompetencyListMaxLevelSerializer,
+    CompetencyListSerializer,
 )
 from game_mechanics.models import Competency
 

@@ -14,6 +14,7 @@ from user.api.v1.selectors import (
 )
 from user.api.v1.serializers import (
     CharacterMissionDetailSerializer,
+    CharacterMissionListForInspectorSerializer,
     CharacterMissionListSerializer,
     CharacterMissionUpdateForInspectorSerializer,
     CharacterMissionUpdateFromCharacterSerializer,
@@ -177,7 +178,7 @@ class CharacterMissionListForInspectorAPIView(QuerySelectorMixin, GenericAPIView
     """
 
     selector = CharacterMissionListForInspectorSelector
-    serializer_class = CharacterMissionListSerializer
+    serializer_class = CharacterMissionListForInspectorSerializer
     filter_params_serializer_class = CharacterMissionListForInspectorFilterSerializer
     search_fields = ("name",)
     # permission_classes = (UserInspectorForObjectPermission,)
@@ -185,7 +186,7 @@ class CharacterMissionListForInspectorAPIView(QuerySelectorMixin, GenericAPIView
     @extend_schema(
         parameters=[CharacterMissionListForInspectorFilterSerializer],
         responses={
-            status.HTTP_200_OK: CharacterMissionListSerializer(many=True),
+            status.HTTP_200_OK: CharacterMissionListForInspectorSerializer(many=True),
         },
         tags=["user:character_mission"],
     )

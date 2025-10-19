@@ -1,6 +1,5 @@
 from datetime import timedelta
 
-from django.db import transaction
 from django.utils.timezone import now
 
 from common.constants import QrCodeTypes

@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 from game_world.api.v1.serializers.nested import EventNestedSerializer
 from multimedia.api.v1.serializers.nested import MultimediaNestedSerializer
+from user.api.v1.serializers.nested import CharacterNestedSerializer
 from user.models import CharacterEvent
 
 
@@ -34,6 +35,48 @@ class CharacterEventListSerializer(serializers.ModelSerializer):
             "end_datetime",
             "content_type_id",
             "event",
+        )
+
+    def get_status_display_name(self, character_event: CharacterEvent) -> str:
+        """
+        Название статуса.
+        """
+        return character_event.get_status_display()
+
+
+class CharacterEventListForInspectorSerializer(serializers.ModelSerializer):
+    """
+    Событие персонажа. Список.
+    """
+
+    event = EventNestedSerializer(
+        label=_("Событие"),
+        help_text=_("Событие"),
+    )
+    status_display_name = serializers.SerializerMethodField(
+        label=_("Название статуса"),
+        help_text=_("Название статуса"),
+    )
+    character = CharacterNestedSerializer(
+        label=_("Персонаж"),
+        help_text=_("Персонаж"),
+    )
+    content_type_id = serializers.IntegerField(
+        label=_("ID тип содержимого"),
+        help_text=_("ID тип содержимого"),
+    )
+
+    class Meta:
+        model = CharacterEvent
+        fields = (
+            "id",
+            "status",
+            "status_display_name",
+            "start_datetime",
+            "end_datetime",
+            "event",
+            "character",
+            "content_type_id",
         )
 
     def get_status_display_name(self, character_event: CharacterEvent) -> str:

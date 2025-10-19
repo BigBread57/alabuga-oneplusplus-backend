@@ -8,9 +8,9 @@ from common.views import QuerySelectorMixin
 from user.api.v1.selectors import CharacterStatisticsSelector
 from user.api.v1.serializers import (
     CharacterActualForUserSerializer,
+    CharacterListSerializer,
     CharacterStatisticsSerializer,
     CharacterUpdateSerializer,
-    CharacterListSerializer,
 )
 from user.api.v1.services import character_service
 from user.models import Character
