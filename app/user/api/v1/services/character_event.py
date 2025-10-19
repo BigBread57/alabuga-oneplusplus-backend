@@ -167,13 +167,13 @@ class CharacterEventService(BaseService):
                     game_world=game_world,
                     now_datetime=now_datetime,
                 )
-                character_rank.save()
             else:
                 ActivityLog.objects.create(
                     character=character,
                     text=_(f"У вас максимальный ранг {character_rank.rank}. Поздравляем!"),
                     content_object=character_rank.rank,
                 )
+            character_rank.save()
 
     def action_post_event_completed(
         self,

@@ -7,7 +7,7 @@ from user.models import (
     CharacterArtifact,
     CharacterCompetency,
     CharacterEvent,
-    CharacterMission,
+    CharacterMission, CharacterMissionBranch,
 )
 from user.models.character_rank import CharacterRank
 from user.models.user import User
@@ -169,115 +169,148 @@ class CharacterAdmin(admin.ModelAdmin):
     )
 
 
-#
-# @admin.register(CharacterArtifact)
-# class CharacterArtifactAdmin(admin.ModelAdmin):
-#     """
-#     Артефакты персонажа.
-#     """
-#
-#     list_display = (
-#         "id",
-#         "character",
-#         "artifact",
-#     )
-#     list_filter = (
-#         "artifact__name",
-#     )
-#     autocomplete_fields = (
-#         "character",
-#         "artifact",
-#     )
-#     list_select_related = (
-#         "character",
-#         "artifact",
-#     )
-#     ordering = ("-id",)
-#
-#
-# @admin.register(CharacterCompetency)
-# class CharacterCompetencyAdmin(admin.ModelAdmin):
-#     """
-#     Уровень компетенции персонажа.
-#     """
-#
-#     list_display = (
-#         "id",
-#         "character",
-#         "competency",
-#         "level",
-#     )
-#     list_filter = (
-#         "competency__name",
-#     )
-#     autocomplete_fields = (
-#         "character",
-#         "competency",
-#     )
-#     list_select_related = (
-#         "character",
-#         "competency",
-#     )
-#     ordering = ("-id",)
-#
-#
-# @admin.register(CharacterEvent)
-# class CharacterEventAdmin(admin.ModelAdmin):
-#     """
-#     Прогресс персонажа по событиям.
-#     """
-#
-#     list_display = (
-#         "id",
-#         "status",
-#         "start_datetime",
-#         "end_datetime",
-#         "character",
-#         "event",
-#         "inspector",
-#     )
-#     list_filter = (
-#         "status",
-#     )
-#     autocomplete_fields = (
-#         "character",
-#         "event",
-#         "inspector",
-#     )
-#     list_select_related = (
-#         "character",
-#         "event",
-#         "inspector",
-#     )
-#     ordering = ("-id",)
-#
-#
-# @admin.register(CharacterMission)
-# class CharacterMissionAdmin(admin.ModelAdmin):
-#     """
-#     Прогресс персонажа по миссиям.
-#     """
-#
-#     list_display = (
-#         "id",
-#         "status",
-#         "start_datetime",
-#         "end_datetime",
-#         "character",
-#         "mission",
-#         "inspector",
-#     )
-#     list_filter = (
-#         "status",
-#     )
-#     autocomplete_fields = (
-#         "character",
-#         "mission",
-#         "inspector",
-#     )
-#     list_select_related = (
-#         "character",
-#         "mission",
-#         "inspector",
-#     )
-#     ordering = ("-id",)
+
+@admin.register(CharacterArtifact)
+class CharacterArtifactAdmin(admin.ModelAdmin):
+    """
+    Артефакты персонажа.
+    """
+
+    list_display = (
+        "id",
+        "character",
+        "artifact",
+    )
+    list_filter = (
+        "artifact__name",
+    )
+    autocomplete_fields = (
+        "character",
+        "artifact",
+    )
+    list_select_related = (
+        "character",
+        "artifact",
+    )
+    ordering = ("-id",)
+
+
+@admin.register(CharacterCompetency)
+class CharacterCompetencyAdmin(admin.ModelAdmin):
+    """
+    Уровень компетенции персонажа.
+    """
+
+    list_display = (
+        "id",
+        "character",
+        "competency",
+        "experience",
+        "is_received",
+        "received_datetime",
+    )
+    list_filter = (
+        "competency__name",
+    )
+    autocomplete_fields = (
+        "character",
+        "competency",
+    )
+    list_select_related = (
+        "character",
+        "competency",
+    )
+    ordering = ("-id",)
+
+
+@admin.register(CharacterEvent)
+class CharacterEventAdmin(admin.ModelAdmin):
+    """
+    Прогресс персонажа по событиям.
+    """
+
+    list_display = (
+        "id",
+        "status",
+        "start_datetime",
+        "end_datetime",
+        "final_status_datetime",
+        "character",
+        "event",
+        "inspector",
+    )
+    list_filter = (
+        "status",
+    )
+    autocomplete_fields = (
+        "character",
+        "event",
+        "inspector",
+    )
+    list_select_related = (
+        "character",
+        "event",
+        "inspector",
+    )
+    ordering = ("-id",)
+
+
+@admin.register(CharacterMissionBranch)
+class CharacterMissionBranchAdmin(admin.ModelAdmin):
+    """
+    Прогресс персонажа по веткам миссии.
+    """
+
+    list_display = (
+        "id",
+        "start_datetime",
+        "end_datetime",
+        "character",
+        "branch",
+    )
+    autocomplete_fields = (
+        "character",
+        "branch",
+        "mentor",
+    )
+    list_select_related = (
+        "character",
+        "branch",
+        "mentor",
+    )
+    ordering = ("-id",)
+
+
+@admin.register(CharacterMission)
+class CharacterMissionAdmin(admin.ModelAdmin):
+    """
+    Прогресс персонажа по миссиям.
+    """
+
+    list_display = (
+        "id",
+        "status",
+        "start_datetime",
+        "end_datetime",
+        "final_status_datetime",
+        "character",
+        "branch",
+        "mission",
+        "inspector",
+    )
+    list_filter = (
+        "status",
+    )
+    autocomplete_fields = (
+        "branch",
+        "character",
+        "mission",
+        "inspector",
+    )
+    list_select_related = (
+        "branch",
+        "character",
+        "mission",
+        "inspector",
+    )
+    ordering = ("-id",)

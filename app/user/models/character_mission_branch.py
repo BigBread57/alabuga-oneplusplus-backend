@@ -53,8 +53,8 @@ class CharacterMissionBranch(AbstractBaseModel):
     )
 
     class Meta(AbstractBaseModel.Meta):
-        verbose_name = _("Миссия персонажа")
-        verbose_name_plural = _("Миссии персонажей")
+        verbose_name = _("Ветки миссий персонажа")
+        verbose_name_plural = _("Ветки миссий персонажей")
 
     def __str__(self):
         return f"{self.character} - {self.branch.name}"
