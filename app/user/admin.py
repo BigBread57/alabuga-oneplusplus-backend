@@ -268,6 +268,9 @@ class CharacterMissionBranchAdmin(admin.ModelAdmin):
         "character",
         "branch",
     )
+    search_fields = (
+        "branch__name",
+    )
     autocomplete_fields = (
         "character",
         "branch",
